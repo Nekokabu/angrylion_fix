@@ -1,0 +1,725 @@
+From 7b7604749e3568f06c797db1c2211f2b1af87d12 Mon Sep 17 00:00:00 2001
+From: Nekokabu <nekokabu@gmail.com>
+Date: Sun, 25 Oct 2026 16:19:05 +0900
+Subject: [PATCH] Emulate the RDP load hazard (pending TMEM writes after a
+ load)
+
+On real hardware the last TMEM writes of Load_Tile, Load_Block and
+Load_TLUT are still pending when the next command arrives. A Set_Tile or
+Set_Texture_Image sent soon after the load, with no sync in between,
+changes where those writes go or which RDRAM rows they read.
+
+Measured on NTSC and PAL consoles (identical, deterministic) with the
+rdp_load_hazard test ROMs:
+
+- The last 15 slots of a load stay queued. One slot is one iteration of
+  the loading pipeline (8 source bytes, or one Load_TLUT entry). Each
+  row takes max(words + 1, 9) slots; the slots before its words write
+  nothing.
+- Every command that only sets state retires one slot, after its own
+  state change, so the write uses the tile descriptor of that moment.
+- Syncs, drawing commands and loads complete the whole queue first. So
+  does an idle RDP, about 30 us after it runs out of commands; this is
+  approximated by completing the queue whenever the command list ends.
+- Set_Texture_Image moves a row to the new address if it arrives before
+  the row's source address is fixed. That slot depends on the RDRAM
+  alignment of the previous row.
+
+The queue is kept per worker, so parallel mode behaves the same.
+---
+ src/core/n64video.c         |  41 +++-
+ src/core/n64video/rdp.c     |  43 ++++
+ src/core/n64video/rdp/tex.c | 473 +++++++++++++++++++++++-------------
+ 3 files changed, 381 insertions(+), 176 deletions(-)
+
+diff --git a/src/core/n64video.c b/src/core/n64video.c
+index b5f8e3b..376a56c 100644
+--- a/src/core/n64video.c
++++ b/src/core/n64video.c
+@@ -126,11 +126,18 @@ static uint32_t rdp_cmd_len;
+ // multithreaded mode
+ static bool rdp_cmd_sync[64];
+ 
++// buffer entries that mark the end of the available commands (RDP idle)
++static bool rdp_cmd_idle[CMD_BUFFER_SIZE];
++
+ static void cmd_run_buffered(uint32_t worker_id)
+ {
+     uint32_t pos;
+     for (pos = 0; pos < rdp_cmd_buf_pos; pos++) {
+-        rdp_cmd(&state[worker_id], rdp_cmd_buf[pos]);
++        if (rdp_cmd_idle[pos]) {
++            rdp_idle(&state[worker_id]);
++        } else {
++            rdp_cmd(&state[worker_id], rdp_cmd_buf[pos]);
++        }
+     }
+ }
+ 
+@@ -145,6 +152,30 @@ static void cmd_flush(void)
+     }
+ }
+ 
++// tell the workers that the RDP has run out of commands
++static void cmd_idle(void)
++{
++    if (!config.parallel) {
++        rdp_idle(&state[0]);
++        return;
++    }
++
++    // a partially received command still occupies the current entry
++    if (rdp_cmd_pos != 0) {
++        return;
++    }
++
++    // one marker is enough
++    if (rdp_cmd_buf_pos > 0 && rdp_cmd_idle[rdp_cmd_buf_pos - 1]) {
++        return;
++    }
++
++    rdp_cmd_idle[rdp_cmd_buf_pos++] = true;
++    if (rdp_cmd_buf_pos >= CMD_BUFFER_SIZE) {
++        cmd_flush();
++    }
++}
++
+ static void cmd_init(void)
+ {
+     rdp_cmd_pos = 0;
+@@ -281,13 +312,16 @@ void n64video_process_list(void)
+             if (config.parallel) {
+                 // special case: sync_full always needs to be run in main thread
+                 if (rdp_cmd_id == CMD_ID_SYNC_FULL) {
+-                    // first, run all pending commands
++                    // first, run all pending commands, including the queued
++                    // TMEM writes that the sync completes
++                    cmd_idle();
+                     cmd_flush();
+ 
+                     // parameters are unused, so NULL is fine
+                     rdp_sync_full(NULL, NULL);
+                 } else {
+                     // increment buffer position
++                    rdp_cmd_idle[rdp_cmd_buf_pos] = false;
+                     rdp_cmd_buf_pos++;
+ 
+                     // flush buffer when it is full or when the current command requires a sync
+@@ -310,6 +344,9 @@ void n64video_process_list(void)
+         }
+     }
+ 
++    // the RDP is now idle until more commands arrive
++    cmd_idle();
++
+     // update DP registers to indicate that all bytes have been read
+     *dp_reg[DP_START] = *dp_reg[DP_CURRENT] = *dp_reg[DP_END];
+ }
+diff --git a/src/core/n64video/rdp.c b/src/core/n64video/rdp.c
+index abd3ff1..d1d1d6d 100644
+--- a/src/core/n64video/rdp.c
++++ b/src/core/n64video/rdp.c
+@@ -187,6 +187,9 @@ struct combiner_inputs
+     int add_a1;
+ };
+ 
++// TMEM writes of a load that are still pending when the next command arrives
++#define LOAD_QUEUE_DEPTH 15
++
+ struct rdp_state
+ {
+     uint32_t stride;
+@@ -336,6 +339,22 @@ struct rdp_state
+     // tmem
+     uint8_t tmem[0x1000];
+ 
++    // load queue: the last TMEM writes of a load that real hardware has not
++    // done yet when the next command arrives (see rdp/tex.c)
++    struct {
++        int32_t s, t;           // texture coordinates of the write
++        uint32_t offset;        // source byte offset from the load's ti_address
++        int8_t row;             // index into lq_row_*, or -1 for an idle slot
++    } lq_slot[LOAD_QUEUE_DEPTH];
++    int lq_count;               // slots queued
++    int lq_head;                // next slot to retire = slots retired so far
++    int lq_rows;
++    uint32_t lq_row_base[LOAD_QUEUE_DEPTH];   // source address the row is read from
++    int lq_row_latch[LOAD_QUEUE_DEPTH];       // last retired-slot count at which STI still changes the row
++    int lq_tilenum;
++    int lq_coord_quad;
++    int lq_ltlut;
++
+     // zbuffer
+     uint32_t zb_address;
+     int32_t pastrawdzmem;
+@@ -391,6 +410,7 @@ void rdp_set_texture_image(struct rdp_state* wstate, const uint32_t* args);
+ void rdp_set_mask_image(struct rdp_state* wstate, const uint32_t* args);
+ void rdp_set_color_image(struct rdp_state* wstate, const uint32_t* args);
+ void rdp_cmd(struct rdp_state* wstate, const uint32_t* args);
++void rdp_idle(struct rdp_state* wstate);
+ 
+ static const struct
+ {
+@@ -674,7 +694,30 @@ void rdp_set_other_modes(struct rdp_state* wstate, const uint32_t* args)
+ void rdp_cmd(struct rdp_state* wstate, const uint32_t* args)
+ {
+     uint32_t cmd_id = CMD_ID(args);
++
++    if (wstate->lq_count) {
++        if (load_queue_cmd_flushes(cmd_id)) {
++            // syncs, drawing and loads complete all queued TMEM writes first
++            load_queue_flush(wstate);
++        } else {
++            // any other command retires one queued slot, after its own state change
++            rdp_commands[cmd_id].handler(wstate, args);
++            if (cmd_id == CMD_ID_SET_TEXTURE_IMAGE) {
++                load_queue_set_texture_image(wstate);
++            }
++            load_queue_retire(wstate);
++            return;
++        }
++    }
++
+     rdp_commands[cmd_id].handler(wstate, args);
+ }
+ 
++// the RDP ran out of commands: real hardware completes the queued TMEM writes
++// about 30 us later
++void rdp_idle(struct rdp_state* wstate)
++{
++    load_queue_flush(wstate);
++}
++
+ #endif // N64VIDEO_C
+diff --git a/src/core/n64video/rdp/tex.c b/src/core/n64video/rdp/tex.c
+index 6edacc6..3755bcd 100644
+--- a/src/core/n64video/rdp/tex.c
++++ b/src/core/n64video/rdp/tex.c
+@@ -484,23 +484,27 @@ static STRICTINLINE void texture_pipeline_cycle(struct rdp_state* wstate, struct
+ 
+ }
+ 
+-static void loading_pipeline(struct rdp_state* wstate, int start, int end, int tilenum, int coord_quad, int ltlut)
++/*
++ * Load queue (measured on NTSC and PAL consoles with rdp_load_hazard v1-v5):
++ *  - One slot is one iteration of the loading pipeline (8 source bytes; one
++ *    entry for Load_TLUT). Each row of a load takes max(words + 1, 9) slots;
++ *    the slots before its words write nothing.
++ *  - The last LOAD_QUEUE_DEPTH slots of a load are still pending when the next
++ *    command arrives. Every command that only sets state retires one slot,
++ *    after its own state change, so the write uses the tile descriptor of
++ *    that moment. Syncs, drawing commands and loads complete the whole queue
++ *    first. So does an idle RDP (about 30 us after it runs out of commands).
++ *  - Set_Texture_Image moves row r to the new address if it arrives while at
++ *    most lq_row_latch[r] slots have been retired. The latch slot depends on
++ *    the RDRAM alignment of the previous row (load_queue_latch_adj).
++ */
++#define LOAD_ROW_MIN_SLOTS 9
++
++static void load_qword(struct rdp_state* wstate, int tilenum, int coord_quad, int ltlut,
++                       int32_t s, int32_t t, int tiptr)
+ {
+-
+-
+-    //int localdebugmode = 0, cnt = 0;
+-    int i, j;
+-
+-    int dsinc, dtinc;
+-    dsinc = wstate->spans_ds;
+-    dtinc = wstate->spans_dt;
+-
+-    int s, t;
+     int ss, st;
+-    int xstart, xend, xendsc;
+     int sss = 0, sst = 0;
+-    int ti_index, length;
+-
+     uint32_t tmemidx0 = 0, tmemidx1 = 0, tmemidx2 = 0, tmemidx3 = 0;
+     int dswap = 0;
+     uint32_t readval0, readval1, readval2, readval3;
+@@ -510,12 +514,6 @@ static void loading_pipeline(struct rdp_state* wstate, int start, int end, int t
+     int tmem_formatting = 0;
+     uint32_t bit3fl = 0, hibit = 0;
+ 
+-    if (end > start && ltlut)
+-    {
+-        rdp_pipeline_crashed = 1;
+-        return;
+-    }
+-
+     if (wstate->tile[tilenum].format == FORMAT_YUV)
+         tmem_formatting = 0;
+     else if (wstate->tile[tilenum].format == FORMAT_RGBA && wstate->tile[tilenum].size == PIXEL_SIZE_32BIT)
+@@ -523,6 +521,236 @@ static void loading_pipeline(struct rdp_state* wstate, int start, int end, int t
+     else
+         tmem_formatting = 2;
+ 
++    ss = s >> 16;
++    st = t >> 16;
++
++    sss = ss & 0xffff;
++    sst = st & 0xffff;
++
++    tc_pipeline_load(&wstate->tile[tilenum], &sss, &sst, coord_quad);
++
++    dswap = sst & 1;
++
++
++    get_tmem_idx(wstate, sss, sst, tilenum, &tmemidx0, &tmemidx1, &tmemidx2, &tmemidx3, &bit3fl, &hibit);
++
++    readidx32 = (tiptr >> 2) & ~1;
++    RREADIDX32(readval0, readidx32);
++    readidx32++;
++    RREADIDX32(readval1, readidx32);
++    readidx32++;
++    RREADIDX32(readval2, readidx32);
++    readidx32++;
++    RREADIDX32(readval3, readidx32);
++
++
++    switch(tiptr & 7)
++    {
++    case 0:
++        if (!ltlut)
++            loadqword = ((uint64_t)readval0 << 32) | readval1;
++        else
++        {
++            tempshort = readval0 >> 16;
++            loadqword = ((uint64_t)tempshort << 48) | ((uint64_t) tempshort << 32) | ((uint64_t) tempshort << 16) | tempshort;
++        }
++        break;
++    case 1:
++        loadqword = ((uint64_t)readval0 << 40) | ((uint64_t)readval1 << 8) | (readval2 >> 24);
++        break;
++    case 2:
++        if (!ltlut)
++            loadqword = ((uint64_t)readval0 << 48) | ((uint64_t)readval1 << 16) | (readval2 >> 16);
++        else
++        {
++            tempshort = readval0 & 0xffff;
++            loadqword = ((uint64_t)tempshort << 48) | ((uint64_t) tempshort << 32) | ((uint64_t) tempshort << 16) | tempshort;
++        }
++        break;
++    case 3:
++        loadqword = ((uint64_t)readval0 << 56) | ((uint64_t)readval1 << 24) | (readval2 >> 8);
++        break;
++    case 4:
++        if (!ltlut)
++            loadqword = ((uint64_t)readval1 << 32) | readval2;
++        else
++        {
++            tempshort = readval1 >> 16;
++            loadqword = ((uint64_t)tempshort << 48) | ((uint64_t) tempshort << 32) | ((uint64_t) tempshort << 16) | tempshort;
++        }
++        break;
++    case 5:
++        loadqword = ((uint64_t)readval1 << 40) | ((uint64_t)readval2 << 8) | (readval3 >> 24);
++        break;
++    case 6:
++        if (!ltlut)
++            loadqword = ((uint64_t)readval1 << 48) | ((uint64_t)readval2 << 16) | (readval3 >> 16);
++        else
++        {
++            tempshort = readval1 & 0xffff;
++            loadqword = ((uint64_t)tempshort << 48) | ((uint64_t) tempshort << 32) | ((uint64_t) tempshort << 16) | tempshort;
++        }
++        break;
++    case 7:
++        loadqword = ((uint64_t)readval1 << 56) | ((uint64_t)readval2 << 24) | (readval3 >> 8);
++        break;
++    }
++
++
++    switch(tmem_formatting)
++    {
++    case 0:
++        readval0 = (uint32_t)((((loadqword >> 56) & 0xff) << 24) | (((loadqword >> 40) & 0xff) << 16) | (((loadqword >> 24) & 0xff) << 8) | (((loadqword >> 8) & 0xff) << 0));
++        readval1 = (uint32_t)((((loadqword >> 48) & 0xff) << 24) | (((loadqword >> 32) & 0xff) << 16) | (((loadqword >> 16) & 0xff) << 8) | (((loadqword >> 0) & 0xff) << 0));
++        if (bit3fl)
++        {
++            tmem16[tmemidx2 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 >> 16);
++            tmem16[tmemidx3 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 & 0xffff);
++            tmem16[(tmemidx2 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 >> 16);
++            tmem16[(tmemidx3 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 & 0xffff);
++        }
++        else
++        {
++            tmem16[tmemidx0 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 >> 16);
++            tmem16[tmemidx1 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 & 0xffff);
++            tmem16[(tmemidx0 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 >> 16);
++            tmem16[(tmemidx1 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 & 0xffff);
++        }
++        break;
++    case 1:
++        readval0 = (uint32_t)(((loadqword >> 48) << 16) | ((loadqword >> 16) & 0xffff));
++        readval1 = (uint32_t)((((loadqword >> 32) & 0xffff) << 16) | (loadqword & 0xffff));
++
++        if (bit3fl)
++        {
++            tmem16[tmemidx2 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 >> 16);
++            tmem16[tmemidx3 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 & 0xffff);
++            tmem16[(tmemidx2 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 >> 16);
++            tmem16[(tmemidx3 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 & 0xffff);
++        }
++        else
++        {
++            tmem16[tmemidx0 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 >> 16);
++            tmem16[tmemidx1 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 & 0xffff);
++            tmem16[(tmemidx0 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 >> 16);
++            tmem16[(tmemidx1 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 & 0xffff);
++        }
++        break;
++    case 2:
++        if (!dswap)
++        {
++            if (!hibit)
++            {
++                tmem16[tmemidx0 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 48);
++                tmem16[tmemidx1 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 32);
++                tmem16[tmemidx2 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 16);
++                tmem16[tmemidx3 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword & 0xffff);
++            }
++            else
++            {
++                tmem16[(tmemidx0 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 48);
++                tmem16[(tmemidx1 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 32);
++                tmem16[(tmemidx2 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 16);
++                tmem16[(tmemidx3 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword & 0xffff);
++            }
++        }
++        else
++        {
++            if (!hibit)
++            {
++                tmem16[tmemidx0 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 16);
++                tmem16[tmemidx1 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword & 0xffff);
++                tmem16[tmemidx2 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 48);
++                tmem16[tmemidx3 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 32);
++            }
++            else
++            {
++                tmem16[(tmemidx0 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 16);
++                tmem16[(tmemidx1 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword & 0xffff);
++                tmem16[(tmemidx2 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 48);
++                tmem16[(tmemidx3 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 32);
++            }
++        }
++    break;
++    }
++}
++
++// slot at which the source address of a row is fixed, relative to 4 slots
++// before its first TMEM write; w = words per row, j = 8-byte word index of
++// the previous row's start within its 64-byte RDRAM block
++static int load_queue_latch_adj(int w, int j)
++{
++    if (w <= 8) {
++        if (j + w > 8)
++            return (8 - j < 4) ? 8 - j : 4;
++        return ((j & 1) && w >= 2) ? -1 : 0;
++    } else {
++        int t = (j + w) & 7;
++        if (!t)
++            return 0;
++        return (8 - t < 4) ? 8 - t : 4;
++    }
++}
++
++static void load_queue_retire(struct rdp_state* wstate)
++{
++    if (!wstate->lq_count)
++        return;
++
++    int k = wstate->lq_head++;
++    int row = wstate->lq_slot[k].row;
++    if (row >= 0) {
++        load_qword(wstate, wstate->lq_tilenum, wstate->lq_coord_quad, wstate->lq_ltlut,
++                   wstate->lq_slot[k].s, wstate->lq_slot[k].t,
++                   (int)(wstate->lq_row_base[row] + wstate->lq_slot[k].offset));
++    }
++
++    if (wstate->lq_head >= wstate->lq_count)
++        wstate->lq_count = wstate->lq_head = wstate->lq_rows = 0;
++}
++
++static void load_queue_flush(struct rdp_state* wstate)
++{
++    while (wstate->lq_count)
++        load_queue_retire(wstate);
++}
++
++static void load_queue_set_texture_image(struct rdp_state* wstate)
++{
++    for (int r = 0; r < wstate->lq_rows; r++)
++        if (wstate->lq_row_latch[r] >= wstate->lq_head)
++            wstate->lq_row_base[r] = wstate->ti_address;
++}
++
++static int load_queue_cmd_flushes(uint32_t cmd_id)
++{
++    return (cmd_id >= CMD_ID_FILL_TRIANGLE && cmd_id <= CMD_ID_SHADE_TEXTURE_Z_BUFFER_TRIANGLE)
++        || (cmd_id >= CMD_ID_TEXTURE_RECTANGLE && cmd_id <= CMD_ID_SYNC_FULL)
++        || cmd_id == CMD_ID_LOAD_TLUT || cmd_id == CMD_ID_LOAD_BLOCK || cmd_id == CMD_ID_LOAD_TILE
++        || cmd_id == CMD_ID_FILL_RECTANGLE;
++}
++
++static void loading_pipeline(struct rdp_state* wstate, int start, int end, int tilenum, int coord_quad, int ltlut)
++{
++    int i, j, b;
++
++    int dsinc, dtinc;
++    dsinc = wstate->spans_ds;
++    dtinc = wstate->spans_dt;
++
++    int s, t;
++    int xstart, xend;
++    int ti_index, length;
++
++    // a new load always starts with an empty queue
++    load_queue_flush(wstate);
++
++    if (end > start && ltlut)
++    {
++        rdp_pipeline_crashed = 1;
++        return;
++    }
++
+     int tiadvance = 0, spanadvance = 0;
+     int tiptr = 0;
+     switch (wstate->ti_size)
+@@ -553,11 +781,29 @@ static void loading_pipeline(struct rdp_state* wstate, int start, int end, int t
+         break;
+     }
+ 
++    // slot layout: find where the queued tail starts
++    int total_slots = 0;
++    for (i = start; i <= end; i++)
++    {
++        length = (wstate->span[i].lx - wstate->span[i].unscrx + 1) & 0xfff;
++        int words = (length + spanadvance - 1) / spanadvance;
++        if (words)
++            total_slots += (words + 1 > LOAD_ROW_MIN_SLOTS) ? words + 1 : LOAD_ROW_MIN_SLOTS;
++    }
++    int first_queued = total_slots > LOAD_QUEUE_DEPTH ? total_slots - LOAD_QUEUE_DEPTH : 0;
++
++    wstate->lq_tilenum = tilenum;
++    wstate->lq_coord_quad = coord_quad;
++    wstate->lq_ltlut = ltlut;
++
++    int slot = 0;
++    int have_prev = 0;
++    uint32_t prev_row_addr = 0;
++
+     for (i = start; i <= end; i++)
+     {
+         xstart = wstate->span[i].lx;
+         xend = wstate->span[i].unscrx;
+-        xendsc = wstate->span[i].rx;
+         s = wstate->span[i].s;
+         t = wstate->span[i].t;
+ 
+@@ -565,169 +811,48 @@ static void loading_pipeline(struct rdp_state* wstate, int start, int end, int t
+         tiptr = wstate->ti_address + PIXELS_TO_BYTES(ti_index, wstate->ti_size);
+ 
+         length = (xstart - xend + 1) & 0xfff;
++        int words = (length + spanadvance - 1) / spanadvance;
++        if (!words)
++            continue;
+ 
+-        for (j = 0; j < length; j+= spanadvance)
++        int row_slots = (words + 1 > LOAD_ROW_MIN_SLOTS) ? words + 1 : LOAD_ROW_MIN_SLOTS;
++        for (b = 0; b < row_slots - words; b++, slot++)
+         {
+-            ss = s >> 16;
+-            st = t >> 16;
+-
+-
+-
+-
+-
+-
+-
+-            sss = ss & 0xffff;
+-            sst = st & 0xffff;
+-
+-            tc_pipeline_load(&wstate->tile[tilenum], &sss, &sst, coord_quad);
+-
+-            dswap = sst & 1;
+-
+-
+-            get_tmem_idx(wstate, sss, sst, tilenum, &tmemidx0, &tmemidx1, &tmemidx2, &tmemidx3, &bit3fl, &hibit);
++            if (slot >= first_queued)
++            {
++                wstate->lq_slot[wstate->lq_count].row = -1;
++                wstate->lq_count++;
++            }
++        }
+ 
+-            readidx32 = (tiptr >> 2) & ~1;
+-            RREADIDX32(readval0, readidx32);
+-            readidx32++;
+-            RREADIDX32(readval1, readidx32);
+-            readidx32++;
+-            RREADIDX32(readval2, readidx32);
+-            readidx32++;
+-            RREADIDX32(readval3, readidx32);
++        int qrow = -1;
++        if (slot + words > first_queued)
++        {
++            qrow = wstate->lq_rows++;
++            wstate->lq_row_base[qrow] = wstate->ti_address;
++            wstate->lq_row_latch[qrow] = have_prev
++                ? slot - first_queued - 4 + load_queue_latch_adj(words, (prev_row_addr >> 3) & 7)
++                : -1;
++        }
+ 
++        prev_row_addr = (uint32_t)tiptr;
++        have_prev = 1;
+ 
+-            switch(tiptr & 7)
++        for (j = 0; j < length; j += spanadvance, slot++)
++        {
++            if (slot < first_queued)
+             {
+-            case 0:
+-                if (!ltlut)
+-                    loadqword = ((uint64_t)readval0 << 32) | readval1;
+-                else
+-                {
+-                    tempshort = readval0 >> 16;
+-                    loadqword = ((uint64_t)tempshort << 48) | ((uint64_t) tempshort << 32) | ((uint64_t) tempshort << 16) | tempshort;
+-                }
+-                break;
+-            case 1:
+-                loadqword = ((uint64_t)readval0 << 40) | ((uint64_t)readval1 << 8) | (readval2 >> 24);
+-                break;
+-            case 2:
+-                if (!ltlut)
+-                    loadqword = ((uint64_t)readval0 << 48) | ((uint64_t)readval1 << 16) | (readval2 >> 16);
+-                else
+-                {
+-                    tempshort = readval0 & 0xffff;
+-                    loadqword = ((uint64_t)tempshort << 48) | ((uint64_t) tempshort << 32) | ((uint64_t) tempshort << 16) | tempshort;
+-                }
+-                break;
+-            case 3:
+-                loadqword = ((uint64_t)readval0 << 56) | ((uint64_t)readval1 << 24) | (readval2 >> 8);
+-                break;
+-            case 4:
+-                if (!ltlut)
+-                    loadqword = ((uint64_t)readval1 << 32) | readval2;
+-                else
+-                {
+-                    tempshort = readval1 >> 16;
+-                    loadqword = ((uint64_t)tempshort << 48) | ((uint64_t) tempshort << 32) | ((uint64_t) tempshort << 16) | tempshort;
+-                }
+-                break;
+-            case 5:
+-                loadqword = ((uint64_t)readval1 << 40) | ((uint64_t)readval2 << 8) | (readval3 >> 24);
+-                break;
+-            case 6:
+-                if (!ltlut)
+-                    loadqword = ((uint64_t)readval1 << 48) | ((uint64_t)readval2 << 16) | (readval3 >> 16);
+-                else
+-                {
+-                    tempshort = readval1 & 0xffff;
+-                    loadqword = ((uint64_t)tempshort << 48) | ((uint64_t) tempshort << 32) | ((uint64_t) tempshort << 16) | tempshort;
+-                }
+-                break;
+-            case 7:
+-                loadqword = ((uint64_t)readval1 << 56) | ((uint64_t)readval2 << 24) | (readval3 >> 8);
+-                break;
++                load_qword(wstate, tilenum, coord_quad, ltlut, s, t, tiptr);
+             }
+-
+-
+-            switch(tmem_formatting)
++            else
+             {
+-            case 0:
+-                readval0 = (uint32_t)((((loadqword >> 56) & 0xff) << 24) | (((loadqword >> 40) & 0xff) << 16) | (((loadqword >> 24) & 0xff) << 8) | (((loadqword >> 8) & 0xff) << 0));
+-                readval1 = (uint32_t)((((loadqword >> 48) & 0xff) << 24) | (((loadqword >> 32) & 0xff) << 16) | (((loadqword >> 16) & 0xff) << 8) | (((loadqword >> 0) & 0xff) << 0));
+-                if (bit3fl)
+-                {
+-                    tmem16[tmemidx2 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 >> 16);
+-                    tmem16[tmemidx3 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 & 0xffff);
+-                    tmem16[(tmemidx2 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 >> 16);
+-                    tmem16[(tmemidx3 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 & 0xffff);
+-                }
+-                else
+-                {
+-                    tmem16[tmemidx0 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 >> 16);
+-                    tmem16[tmemidx1 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 & 0xffff);
+-                    tmem16[(tmemidx0 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 >> 16);
+-                    tmem16[(tmemidx1 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 & 0xffff);
+-                }
+-                break;
+-            case 1:
+-                readval0 = (uint32_t)(((loadqword >> 48) << 16) | ((loadqword >> 16) & 0xffff));
+-                readval1 = (uint32_t)((((loadqword >> 32) & 0xffff) << 16) | (loadqword & 0xffff));
+-
+-                if (bit3fl)
+-                {
+-                    tmem16[tmemidx2 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 >> 16);
+-                    tmem16[tmemidx3 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 & 0xffff);
+-                    tmem16[(tmemidx2 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 >> 16);
+-                    tmem16[(tmemidx3 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 & 0xffff);
+-                }
+-                else
+-                {
+-                    tmem16[tmemidx0 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 >> 16);
+-                    tmem16[tmemidx1 ^ WORD_ADDR_XOR] = (uint16_t)(readval0 & 0xffff);
+-                    tmem16[(tmemidx0 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 >> 16);
+-                    tmem16[(tmemidx1 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(readval1 & 0xffff);
+-                }
+-                break;
+-            case 2:
+-                if (!dswap)
+-                {
+-                    if (!hibit)
+-                    {
+-                        tmem16[tmemidx0 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 48);
+-                        tmem16[tmemidx1 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 32);
+-                        tmem16[tmemidx2 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 16);
+-                        tmem16[tmemidx3 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword & 0xffff);
+-                    }
+-                    else
+-                    {
+-                        tmem16[(tmemidx0 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 48);
+-                        tmem16[(tmemidx1 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 32);
+-                        tmem16[(tmemidx2 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 16);
+-                        tmem16[(tmemidx3 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword & 0xffff);
+-                    }
+-                }
+-                else
+-                {
+-                    if (!hibit)
+-                    {
+-                        tmem16[tmemidx0 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 16);
+-                        tmem16[tmemidx1 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword & 0xffff);
+-                        tmem16[tmemidx2 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 48);
+-                        tmem16[tmemidx3 ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 32);
+-                    }
+-                    else
+-                    {
+-                        tmem16[(tmemidx0 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 16);
+-                        tmem16[(tmemidx1 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword & 0xffff);
+-                        tmem16[(tmemidx2 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 48);
+-                        tmem16[(tmemidx3 | 0x400) ^ WORD_ADDR_XOR] = (uint16_t)(loadqword >> 32);
+-                    }
+-                }
+-            break;
++                int k = wstate->lq_count++;
++                wstate->lq_slot[k].s = s;
++                wstate->lq_slot[k].t = t;
++                wstate->lq_slot[k].offset = (uint32_t)tiptr - wstate->ti_address;
++                wstate->lq_slot[k].row = (int8_t)qrow;
+             }
+ 
+-
+             s = (s + dsinc) & ~0x1f;
+             t = (t + dtinc) & ~0x1f;
+             tiptr += tiadvance;
+-- 
+2.43.0
+
