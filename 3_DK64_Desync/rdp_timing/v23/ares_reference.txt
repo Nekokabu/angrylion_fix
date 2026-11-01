@@ -1,0 +1,1525 @@
+region: NTSC id: NED cic: CIC-NUS-7101
+[status] Vulkan Disabled: No RDP rendering support
+RDP TIMING v23  NTSC  8 MiB
+SERIES init DONE (590 bytes), NEXT: X (in-game lists with patched modes / triangles)
+NO SD CARD - NOT SAVED
+RDP TIMING v23
+
+X  bar_i2274.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_zcmp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_zcmp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_zupd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_zupd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_persp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_persp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_lod
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_lod  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  om_1cyc
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_1cyc  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_dither
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_dither  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_point
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_point  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_tlut
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_tlut  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_cvg
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_cvg  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_imrd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_no_imrd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_wlike
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  om_wlike  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_flat
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_flat  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_noshade
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_noshade  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_notex
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_notex  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_edgez
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2274.bin  tri_edgez  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+X  bar_i2314.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_zcmp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_zcmp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_zupd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_zupd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_persp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_persp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_lod
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_lod  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_1cyc
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_1cyc  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_dither
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_dither  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  om_point
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_point  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_tlut
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_tlut  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_cvg
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_cvg  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_imrd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_no_imrd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  om_wlike
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  om_wlike  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_flat
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_flat  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_noshade
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_noshade  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_notex
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_notex  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_edgez
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2314.bin  tri_edgez  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+X  bar_i2404.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_zcmp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_zcmp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_zupd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_zupd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_persp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_persp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_lod
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_lod  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_1cyc
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_1cyc  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_dither
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_dither  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_point
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_point  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_tlut
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_tlut  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_cvg
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_cvg  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_imrd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_no_imrd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  om_wlike
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  om_wlike  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_flat
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_flat  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_noshade
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_noshade  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_notex
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_notex  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_edgez
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_i2404.bin  tri_edgez  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+X  bar_2316.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_zcmp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_zcmp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_zupd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_zupd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_persp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_persp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_lod
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_lod  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_1cyc
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_1cyc  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_dither
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_dither  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  om_point
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_point  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_tlut
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_tlut  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_cvg
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_cvg  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_imrd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_no_imrd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_wlike
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  om_wlike  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  tri_flat
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  tri_flat  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  tri_noshade
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  tri_noshade  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  tri_notex
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  tri_notex  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  bar_2316.bin  tri_edgez
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  bar_2316.bin  tri_edgez  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+X  dk64_797.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_zcmp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_zcmp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_zupd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_zupd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_persp
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_persp  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_lod
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_lod  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  om_1cyc
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_1cyc  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_dither
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_dither  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  om_point
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_point  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_tlut
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_tlut  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_cvg
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_cvg  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_imrd
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_no_imrd  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  om_wlike
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  om_wlike  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  tri_flat
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  tri_flat  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  tri_noshade
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  tri_noshade  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  tri_notex
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  tri_notex  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+X  dk64_797.bin  tri_edgez
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+X  dk64_797.bin  tri_edgez  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+SERIES X DONE (9453 bytes), NEXT: Y (synthetic triangles, one property at a time)
+RDP TIMING v23
+
+Y  base  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  base  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  base  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  frac  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  frac  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  frac  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  shear_half  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  shear_half  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  shear_half  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  shear_two  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  shear_two  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  shear_two  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+Y  apex  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  apex  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  apex  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  aa  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  aa  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  aa  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  aa_apex  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  aa_apex  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  aa_apex  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  persp  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  persp  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  persp  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+Y  lod  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  lod  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  lod  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  dither  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  dither  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  dither  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  point  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  point  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  point  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  cvg  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  cvg  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  cvg  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+Y  bar_om  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  bar_om  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  bar_om  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  bar_om_apex  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  bar_om_apex  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  bar_om_apex  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  bar_om_lod  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  bar_om_lod  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  bar_om_lod  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  slopes  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  slopes  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  slopes  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+Y  strip  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  strip  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  strip  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  same_place  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  same_place  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  same_place  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  state_every1  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  state_every1  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  state_every1  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  state_every8  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  state_every8  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  state_every8  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+Y  syncpipe_every1  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  syncpipe_every1  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  syncpipe_every1  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  tile_every1  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  tile_every1  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  tile_every1  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  load_every8  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  load_every8  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  load_every8  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  ci4_tlut  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  ci4_tlut  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  ci4_tlut  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+Y  rgba32_tex  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  rgba32_tex  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  rgba32_tex  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  i8_tex  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  i8_tex  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  i8_tex  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  op_0b_texz  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  op_0b_texz  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  op_0b_texz  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  op_0d_shadez  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  op_0d_shadez  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  op_0d_shadez  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+Y  op_09_z  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  op_09_z  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  op_09_z  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  op_08_plain  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  op_08_plain  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  op_08_plain  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  1cyc_base  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  1cyc_base  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  1cyc_base  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  1cyc_apex  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  1cyc_apex  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  1cyc_apex  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v23
+
+Y  1cyc_aa  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  1cyc_aa  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  1cyc_aa  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  dk_om  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  dk_om  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v23
+
+Y  dk_om  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  dk_om_apex  w4
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  dk_om_apex  w12
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v23
+
+Y  dk_om_apex  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+SERIES Y DONE (16893 bytes), NEXT: end
+VI WARNING: __vblank_interrupt outside of vblank period: 208
+MEASURED, 16893 BYTES OF RESULTS
+NO SD CARD - NOT SAVED
+---- RESULTS ----
+# rdp_timing v23 - in-game lists with mode bits / triangle commands patched (X), synthetic triangles one property at a time (Y)
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	8388608
+# runs_per_case	3
+# texture at 0x0E3280; dma buffer at 0x7D0000; heap top 0x0E5000; display buffer at 0x04CB00; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+# console VI: ctrl 0x3302 width 640 v_sync 0x20D x_scale 0x400
+B0	167
+# X lines: list, variant, vi mode (vi_off, game = the game's VI_CTRL with VI_WIDTH 320), clock (smallest of 3), ticks, model (ares tables of the unpatched full list), VI_CTRL read back, VI_WIDTH, VI probe
+# XI lines: list, info (placement in RDRAM)
+# variants: no_tri / tri_only as v22 (NOPs replace the class); om_* patch every Set_Other_Modes (no_zcmp: Z_COMPARE off = all pass; no_zupd: Z_UPDATE off; no_aa: AA_EN off; no_persp: TEX_PERSP off; no_lod: TEX_LOD/SHARPEN/DETAIL off; 1cyc: 2-cycle lists as 1-cycle; no_dither: dither off; point: point sampling; no_tlut: EN_TLUT off; no_cvg: ALPHA_CVG_SEL/CVG_X_ALPHA/CVG_DST/COLOR_ON_CVG/ALPHA_COMPARE off; no_imrd: IMAGE_READ off; wlike: v22 W's mode bits with the list's cycle type, blender mux, Z and IMAGE_READ)
+# z_near: the depth-clearing fill removed and the depth buffer preset to 0 (every depth test fails); tri_flat: all shade/texture/depth slopes of the 0F triangles zeroed; tri_noshade/notex/edgez: 0F -> 0B / 0D / 09 (dropped words become NOPs)
+XI	bar_i2274.bin	list 64512 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_i2274.bin	full	vi_off	509320	388667	571596	0	640	92315
+X	bar_i2274.bin	full	game	563084	429696	571596	3012	320	104616
+X	bar_i2274.bin	no_tri	vi_off	222952	170123	571596	0	640	92315
+X	bar_i2274.bin	tri_only	vi_off	343469	262096	571596	0	640	92315
+X	bar_i2274.bin	tri_only	game	377795	288292	571596	3012	320	104616
+X	bar_i2274.bin	om_no_zcmp	vi_off	366820	279917	571596	0	640	92315
+X	bar_i2274.bin	om_no_zupd	vi_off	382705	292038	571596	0	640	92315
+X	bar_i2274.bin	z_near	vi_off	509320	388666	571596	0	640	92314
+X	bar_i2274.bin	om_no_aa	vi_off	509320	388666	571596	0	640	92314
+X	bar_i2274.bin	om_no_persp	vi_off	509320	388666	571596	0	640	92314
+X	bar_i2274.bin	om_no_lod	vi_off	509320	388666	571596	0	640	92314
+X	bar_i2274.bin	om_1cyc	vi_off	511600	390406	571596	0	640	92314
+X	bar_i2274.bin	om_no_dither	vi_off	509320	388667	571596	0	640	92315
+X	bar_i2274.bin	om_point	vi_off	509320	388667	571596	0	640	92315
+X	bar_i2274.bin	om_no_tlut	vi_off	509320	388666	571596	0	640	92314
+X	bar_i2274.bin	om_no_cvg	vi_off	509320	388667	571596	0	640	92315
+X	bar_i2274.bin	om_no_imrd	vi_off	462960	353286	571596	0	640	92314
+X	bar_i2274.bin	om_wlike	vi_off	509320	388666	571596	0	640	92314
+X	bar_i2274.bin	tri_flat	vi_off	509320	388667	571596	0	640	92315
+X	bar_i2274.bin	tri_noshade	vi_off	515134	393103	571596	0	640	92314
+X	bar_i2274.bin	tri_notex	vi_off	515134	393104	571596	0	640	92315
+X	bar_i2274.bin	tri_edgez	vi_off	520112	396903	571596	0	640	92315
+XI	bar_i2314.bin	list 170608 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_i2314.bin	full	vi_off	1410205	1076184	1564545	0	640	92315
+X	bar_i2314.bin	full	game	1552622	1184870	1564545	3012	320	104615
+X	bar_i2314.bin	no_tri	vi_off	280085	213724	1564545	0	640	92315
+X	bar_i2314.bin	tri_only	vi_off	1221934	932503	1564545	0	640	92314
+X	bar_i2314.bin	tri_only	game	1342273	1024341	1564545	3012	320	104615
+X	bar_i2314.bin	om_no_zcmp	vi_off	851301	649652	1564545	0	640	92315
+X	bar_i2314.bin	om_no_zupd	vi_off	950083	725038	1564545	0	640	92315
+X	bar_i2314.bin	z_near	vi_off	1410205	1076184	1564545	0	640	92315
+X	bar_i2314.bin	om_no_aa	vi_off	1410205	1076184	1564545	0	640	92314
+X	bar_i2314.bin	om_no_persp	vi_off	1410205	1076184	1564545	0	640	92315
+X	bar_i2314.bin	om_no_lod	vi_off	1410205	1076184	1564545	0	640	92314
+X	bar_i2314.bin	om_1cyc	vi_off	1395347	1064845	1564545	0	640	92315
+X	bar_i2314.bin	om_no_dither	vi_off	1410205	1076184	1564545	0	640	92315
+X	bar_i2314.bin	om_point	vi_off	1410205	1076184	1564545	0	640	92314
+X	bar_i2314.bin	om_no_tlut	vi_off	1410205	1076184	1564545	0	640	92314
+X	bar_i2314.bin	om_no_cvg	vi_off	1410205	1076184	1564545	0	640	92314
+X	bar_i2314.bin	om_no_imrd	vi_off	1202250	917481	1564545	0	640	92314
+X	bar_i2314.bin	om_wlike	vi_off	1410205	1076184	1564545	0	640	92315
+X	bar_i2314.bin	tri_flat	vi_off	1410205	1076184	1564545	0	640	92314
+X	bar_i2314.bin	tri_noshade	vi_off	1428237	1089944	1564545	0	640	92314
+X	bar_i2314.bin	tri_notex	vi_off	1428237	1089945	1564545	0	640	92315
+X	bar_i2314.bin	tri_edgez	vi_off	1443721	1101762	1564545	0	640	92315
+XI	bar_i2404.bin	list 231488 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_i2404.bin	full	vi_off	1255944	958459	1400517	0	640	92315
+X	bar_i2404.bin	full	game	1383465	1055777	1400517	3012	320	104616
+X	bar_i2404.bin	no_tri	vi_off	362127	276335	1400517	0	640	92314
+X	bar_i2404.bin	tri_only	vi_off	1013827	773685	1400517	0	640	92314
+X	bar_i2404.bin	tri_only	game	1112943	849326	1400517	3012	320	104616
+X	bar_i2404.bin	om_no_zcmp	vi_off	775169	591550	1400517	0	640	92314
+X	bar_i2404.bin	om_no_zupd	vi_off	864544	659759	1400517	0	640	92315
+X	bar_i2404.bin	z_near	vi_off	1255944	958459	1400517	0	640	92315
+X	bar_i2404.bin	om_no_aa	vi_off	1255944	958459	1400517	0	640	92315
+X	bar_i2404.bin	om_no_persp	vi_off	1255944	958459	1400517	0	640	92315
+X	bar_i2404.bin	om_no_lod	vi_off	1255944	958459	1400517	0	640	92315
+X	bar_i2404.bin	om_1cyc	vi_off	1245456	950455	1400517	0	640	92315
+X	bar_i2404.bin	om_no_dither	vi_off	1255944	958459	1400517	0	640	92315
+X	bar_i2404.bin	om_point	vi_off	1255944	958459	1400517	0	640	92315
+X	bar_i2404.bin	om_no_tlut	vi_off	1255944	958458	1400517	0	640	92314
+X	bar_i2404.bin	om_no_cvg	vi_off	1255944	958459	1400517	0	640	92315
+X	bar_i2404.bin	om_no_imrd	vi_off	1106244	844213	1400517	0	640	92314
+X	bar_i2404.bin	om_wlike	vi_off	1255944	958458	1400517	0	640	92314
+X	bar_i2404.bin	tri_flat	vi_off	1255944	958459	1400517	0	640	92315
+X	bar_i2404.bin	tri_noshade	vi_off	1279637	976540	1400517	0	640	92315
+X	bar_i2404.bin	tri_notex	vi_off	1279637	976540	1400517	0	640	92315
+X	bar_i2404.bin	tri_edgez	vi_off	1300195	992229	1400517	0	640	92314
+XI	bar_2316.bin	list 174952 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_2316.bin	full	vi_off	1399167	1067759	1237577	0	640	92314
+X	bar_2316.bin	full	game	1540481	1175605	1237577	3012	320	104615
+X	bar_2316.bin	no_tri	vi_off	283220	216116	1237577	0	640	92314
+X	bar_2316.bin	tri_only	vi_off	1209204	922789	1237577	0	640	92315
+X	bar_2316.bin	tri_only	game	1328251	1013640	1237577	3012	320	104616
+X	bar_2316.bin	om_no_zcmp	vi_off	855139	652581	1237577	0	640	92314
+X	bar_2316.bin	om_no_zupd	vi_off	949152	724327	1237577	0	640	92314
+X	bar_2316.bin	z_near	vi_off	1399167	1067760	1237577	0	640	92315
+X	bar_2316.bin	om_no_aa	vi_off	1399167	1067760	1237577	0	640	92315
+X	bar_2316.bin	om_no_persp	vi_off	1399167	1067759	1237577	0	640	92314
+X	bar_2316.bin	om_no_lod	vi_off	1399167	1067760	1237577	0	640	92315
+X	bar_2316.bin	om_1cyc	vi_off	1384669	1056696	1237577	0	640	92315
+X	bar_2316.bin	om_no_dither	vi_off	1399166	1067759	1237577	0	640	92314
+X	bar_2316.bin	om_point	vi_off	1399167	1067759	1237577	0	640	92314
+X	bar_2316.bin	om_no_tlut	vi_off	1399167	1067759	1237577	0	640	92314
+X	bar_2316.bin	om_no_cvg	vi_off	1399167	1067760	1237577	0	640	92315
+X	bar_2316.bin	om_no_imrd	vi_off	1197481	913842	1237577	0	640	92315
+X	bar_2316.bin	om_wlike	vi_off	1399167	1067759	1237577	0	640	92314
+X	bar_2316.bin	tri_flat	vi_off	1399167	1067760	1237577	0	640	92315
+X	bar_2316.bin	tri_noshade	vi_off	1417692	1081897	1237577	0	640	92314
+X	bar_2316.bin	tri_notex	vi_off	1417692	1081897	1237577	0	640	92314
+X	bar_2316.bin	tri_edgez	vi_off	1433613	1094048	1237577	0	640	92314
+XI	dk64_797.bin	list 350424 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+X	dk64_797.bin	full	vi_off	1128797	861424	1012163	0	640	92314
+X	dk64_797.bin	full	game	1242523	948216	1012163	3016	320	104616
+X	dk64_797.bin	no_tri	vi_off	401077	306060	1012163	0	640	92315
+X	dk64_797.bin	tri_only	vi_off	919397	701620	1012163	0	640	92314
+X	dk64_797.bin	tri_only	game	1008557	769663	1012163	3016	320	104615
+X	dk64_797.bin	om_no_zcmp	vi_off	647412	494053	1012163	0	640	92315
+X	dk64_797.bin	om_no_zupd	vi_off	792078	604456	1012163	0	640	92315
+X	dk64_797.bin	z_near	vi_off	1128797	861425	1012163	0	640	92315
+X	dk64_797.bin	om_no_aa	vi_off	1128797	861424	1012163	0	640	92314
+X	dk64_797.bin	om_no_persp	vi_off	1128797	861424	1012163	0	640	92314
+X	dk64_797.bin	om_no_lod	vi_off	1128797	861424	1012163	0	640	92314
+X	dk64_797.bin	om_1cyc	vi_off	1128036	860844	1012163	0	640	92314
+X	dk64_797.bin	om_no_dither	vi_off	1128797	861424	1012163	0	640	92314
+X	dk64_797.bin	om_point	vi_off	1128797	861424	1012163	0	640	92314
+X	dk64_797.bin	om_no_tlut	vi_off	1128797	861425	1012163	0	640	92315
+X	dk64_797.bin	om_no_cvg	vi_off	1128797	861424	1012163	0	640	92314
+X	dk64_797.bin	om_no_imrd	vi_off	984928	751630	1012163	0	640	92314
+X	dk64_797.bin	om_wlike	vi_off	1128797	861424	1012163	0	640	92314
+X	dk64_797.bin	tri_flat	vi_off	1128797	861424	1012163	0	640	92314
+X	dk64_797.bin	tri_noshade	vi_off	1167024	890598	1012163	0	640	92314
+X	dk64_797.bin	tri_notex	vi_off	1167024	890599	1012163	0	640	92315
+X	dk64_797.bin	tri_edgez	vi_off	1199875	915669	1012163	0	640	92314
+# Y lines: case, w, H, triangles, spans, clock (smallest of 3), ticks, clocks/span, clocks/triangle, VI probe. VI off, depth cleared far (all pass), 2cyc_tex_blend_z unless the case says otherwise
+# Y cases: base = v22's W triangle (vertical edges at integer x, random position, 1/32 texel per pixel, constant shade/z); frac = edges at x+0.5; shear_half/two = all edges slanted 0.5/2 px per row (spans stay w wide); apex = real triangle, apex on top, base 2w (spans average w)
+#   aa = AA_EN; persp = TEX_PERSP; lod = TEX_LOD (tile 1 = tile 0); dither = rgb/alpha dither on; point = point sampling; cvg = ALPHA_CVG_SEL + CVG_DST full; bar_om = BAR's other modes 0x182c0f/0x0c182078; dk_om = DK64's 0x882c0f/0x00552078 (1-cycle)
+#   slopes = shade/texture (1 texel per pixel)/depth slopes nonzero; strip = triangles side by side along rows; same_place = every triangle at the same spot; state_every1/8 = Set_Other_Modes + Set_Combine before every / every 8th triangle; syncpipe_every1 = Sync_Pipe before every triangle; tile_every1 = Set_Tile + Set_Tile_Size + Sync_Tile before every triangle; load_every8 = Sync_Load + Load_Block (64 B) + Sync_Tile before every 8th
+#   ci4_tlut / rgba32_tex / i8_tex = texture format; op_0b/0d/09/08 = triangle command type (texture+z 14 words / shade+z 14 / z 6 / plain 4; the combiner reads the missing attribute from the previous one)
+Y	base	4	8	512	4096	391947	299094	95.69	765.5	92315
+Y	base	12	8	512	4096	523979	399854	127.92	1023.4	92314
+Y	base	32	8	512	4096	786159	599940	191.93	1535.5	92315
+Y	frac	4	8	512	4096	391947	299094	95.69	765.5	92314
+Y	frac	12	8	512	4096	523979	399854	127.92	1023.4	92314
+Y	frac	32	8	512	4096	786159	599940	191.93	1535.5	92314
+Y	shear_half	4	8	512	4096	388109	296165	94.75	758.0	92314
+Y	shear_half	12	8	512	4096	529070	403741	129.17	1033.3	92315
+Y	shear_half	32	8	512	4096	786900	600505	192.11	1536.9	92314
+Y	shear_two	4	8	512	4096	394132	300762	96.22	769.8	92315
+Y	shear_two	12	8	512	4096	532814	406597	130.08	1040.7	92314
+Y	shear_two	32	8	512	4096	785608	599520	191.80	1534.4	92315
+Y	apex	4	8	512	4096	404620	308766	98.78	790.3	92315
+Y	apex	12	8	512	4096	522591	398796	127.59	1020.7	92314
+Y	apex	32	8	512	4096	762561	581931	186.17	1489.4	92315
+Y	aa	4	8	512	4096	391948	299094	95.69	765.5	92314
+Y	aa	12	8	512	4096	523978	399854	127.92	1023.4	92314
+Y	aa	32	8	512	4096	786159	599940	191.93	1535.5	92315
+Y	aa_apex	4	8	512	4096	404621	308766	98.78	790.3	92315
+Y	aa_apex	12	8	512	4096	522591	398796	127.59	1020.7	92315
+Y	aa_apex	32	8	512	4096	762562	581931	186.17	1489.4	92314
+Y	persp	4	8	512	4096	391947	299094	95.69	765.5	92314
+Y	persp	12	8	512	4096	523979	399855	127.92	1023.4	92315
+Y	persp	32	8	512	4096	786159	599940	191.93	1535.5	92314
+Y	lod	4	8	512	4096	391947	299094	95.69	765.5	92314
+Y	lod	12	8	512	4096	523978	399855	127.92	1023.4	92314
+Y	lod	32	8	512	4096	786159	599940	191.93	1535.5	92315
+Y	dither	4	8	512	4096	391947	299094	95.69	765.5	92315
+Y	dither	12	8	512	4096	523979	399854	127.92	1023.4	92314
+Y	dither	32	8	512	4096	786159	599940	191.93	1535.5	92315
+Y	point	4	8	512	4096	391947	299094	95.69	765.5	92314
+Y	point	12	8	512	4096	523979	399854	127.92	1023.4	92314
+Y	point	32	8	512	4096	786159	599940	191.93	1535.5	92314
+Y	cvg	4	8	512	4096	391947	299094	95.69	765.5	92314
+Y	cvg	12	8	512	4096	523979	399855	127.92	1023.4	92315
+Y	cvg	32	8	512	4096	786159	599940	191.93	1535.5	92315
+Y	bar_om	4	8	512	4096	391947	299094	95.69	765.5	92314
+Y	bar_om	12	8	512	4096	523979	399854	127.92	1023.4	92314
+Y	bar_om	32	8	512	4096	786159	599940	191.93	1535.5	92314
+Y	bar_om_apex	4	8	512	4096	404621	308766	98.78	790.3	92315
+Y	bar_om_apex	12	8	512	4096	522573	398781	127.58	1020.7	92315
+Y	bar_om_apex	32	8	512	4096	762562	581931	186.17	1489.4	92315
+Y	bar_om_lod	4	8	512	4096	391947	299094	95.69	765.5	92315
+Y	bar_om_lod	12	8	512	4096	523979	399855	127.92	1023.4	92314
+Y	bar_om_lod	32	8	512	4096	786159	599940	191.93	1535.5	92314
+Y	slopes	4	8	512	4096	391947	299094	95.69	765.5	92314
+Y	slopes	12	8	512	4096	523979	399855	127.92	1023.4	92315
+Y	slopes	32	8	512	4096	786159	599940	191.93	1535.5	92314
+Y	strip	4	8	512	4096	381744	291308	93.20	745.6	92315
+Y	strip	12	8	512	4096	514820	392865	125.69	1005.5	92314
+Y	strip	32	8	512	4096	796552	607872	194.47	1555.8	92315
+Y	same_place	4	8	512	4096	368442	281155	89.95	719.6	92315
+Y	same_place	12	8	512	4096	450827	344028	110.07	880.5	92314
+Y	same_place	32	8	512	4096	739208	564108	180.47	1443.8	92315
+Y	state_every1	4	8	512	4096	394587	301108	96.33	770.7	92315
+Y	state_every1	12	8	512	4096	526617	401868	128.57	1028.5	92314
+Y	state_every1	32	8	512	4096	788798	601954	192.58	1540.6	92315
+Y	state_every8	4	8	512	4096	392270	299341	95.77	766.2	92315
+Y	state_every8	12	8	512	4096	524301	400101	128.00	1024.0	92314
+Y	state_every8	32	8	512	4096	786483	600187	192.01	1536.1	92315
+Y	syncpipe_every1	4	8	512	4096	417103	318292	101.83	814.7	92315
+Y	syncpipe_every1	12	8	512	4096	549134	419053	134.07	1072.5	92315
+Y	syncpipe_every1	32	8	512	4096	811316	619138	198.08	1584.6	92315
+Y	tile_every1	4	8	512	4096	411176	313768	100.38	803.1	92315
+Y	tile_every1	12	8	512	4096	543206	414528	132.62	1060.9	92315
+Y	tile_every1	32	8	512	4096	805406	614628	196.63	1573.1	92315
+Y	load_every8	4	8	512	4096	398274	303923	97.23	777.9	92315
+Y	load_every8	12	8	512	4096	530305	404683	129.47	1035.8	92315
+Y	load_every8	32	8	512	4096	792487	604768	193.48	1547.8	92314
+Y	ci4_tlut	4	8	512	4096	391947	299094	95.69	765.5	92315
+Y	ci4_tlut	12	8	512	4096	523979	399855	127.92	1023.4	92314
+Y	ci4_tlut	32	8	512	4096	786159	599940	191.93	1535.5	92314
+Y	rgba32_tex	4	8	512	4096	391948	299094	95.69	765.5	92315
+Y	rgba32_tex	12	8	512	4096	523978	399854	127.92	1023.4	92314
+Y	rgba32_tex	32	8	512	4096	786159	599940	191.93	1535.5	92315
+Y	i8_tex	4	8	512	4096	391947	299094	95.69	765.5	92314
+Y	i8_tex	12	8	512	4096	523979	399855	127.92	1023.4	92314
+Y	i8_tex	32	8	512	4096	786159	599940	191.93	1535.5	92315
+Y	op_0b_texz	4	8	512	4096	391947	299094	95.69	765.5	92315
+Y	op_0b_texz	12	8	512	4096	523978	399854	127.92	1023.4	92314
+Y	op_0b_texz	32	8	512	4096	786159	599940	191.93	1535.5	92314
+Y	op_0d_shadez	4	8	512	4096	391948	299094	95.69	765.5	92315
+Y	op_0d_shadez	12	8	512	4096	523978	399855	127.92	1023.4	92315
+Y	op_0d_shadez	32	8	512	4096	786159	599940	191.93	1535.5	92315
+Y	op_09_z	4	8	512	4096	390427	297934	95.32	762.6	92314
+Y	op_09_z	12	8	512	4096	522458	398695	127.55	1020.4	92315
+Y	op_09_z	32	8	512	4096	784640	598780	191.56	1532.5	92314
+Y	op_08_plain	4	8	512	4096	254273	194027	62.08	496.6	92315
+Y	op_08_plain	12	8	512	4096	310076	236614	75.70	605.6	92315
+Y	op_08_plain	32	8	512	4096	489911	373856	119.61	956.9	92314
+Y	1cyc_base	4	8	512	4096	390579	298050	95.36	762.8	92314
+Y	1cyc_base	12	8	512	4096	495497	378119	120.97	967.8	92315
+Y	1cyc_base	32	8	512	4096	745367	568808	181.97	1455.8	92314
+Y	1cyc_apex	4	8	512	4096	399224	304647	97.47	779.7	92314
+Y	1cyc_apex	12	8	512	4096	508854	388313	124.23	993.9	92315
+Y	1cyc_apex	32	8	512	4096	767616	585788	187.41	1499.2	92314
+Y	1cyc_aa	4	8	512	4096	390579	298050	95.36	762.8	92314
+Y	1cyc_aa	12	8	512	4096	495497	378119	120.97	967.8	92315
+Y	1cyc_aa	32	8	512	4096	745366	568808	181.97	1455.8	92314
+Y	dk_om	4	8	512	4096	390579	298050	95.36	762.8	92314
+Y	dk_om	12	8	512	4096	495497	378119	120.97	967.8	92315
+Y	dk_om	32	8	512	4096	745366	568808	181.97	1455.8	92314
+Y	dk_om_apex	4	8	512	4096	399224	304648	97.47	779.7	92315
+Y	dk_om_apex	12	8	512	4096	508855	388313	124.23	993.9	92315
+Y	dk_om_apex	32	8	512	4096	767615	585788	187.41	1499.2	92315
+---- END ----
+DONE

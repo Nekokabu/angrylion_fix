@@ -1,0 +1,614 @@
+region: NTSC id: NED cic: CIC-NUS-7101
+[status] Vulkan Disabled: No RDP rendering support
+RDP TIMING v25  NTSC  8 MiB
+SERIES init DONE (530 bytes), NEXT: X (in-game lists with patched modes / triangles)
+NO SD CARD - NOT SAVED
+RDP TIMING v25
+
+X  dk64_d6052.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6052.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6052.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6052.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6052.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6052.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  om_no_atomic
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6052.bin  om_no_atomic  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6052.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6052.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6052.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v25
+
+X  dk64_d6110.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6110.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6110.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6110.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6110.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6110.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6110.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6110.bin  om_no_atomic
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  om_no_atomic  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6110.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6110.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6110.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v25
+
+X  dk64_d6253.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  om_no_atomic
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  om_no_atomic  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6253.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6253.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v25
+
+X  dk64_d6373.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6373.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6373.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6373.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6373.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6373.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6373.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6373.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  om_no_atomic
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  om_no_atomic  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6373.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6373.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v25
+
+X  dk64_d6513.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 214
+RDP TIMING v25
+
+X  dk64_d6513.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6513.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6513.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6513.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6513.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6513.bin  om_no_atomic
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  om_no_atomic  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  dk64_d6513.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6513.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  dk64_d6513.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v25
+
+X  bar_2316.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  bar_2316.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  bar_2316.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  bar_2316.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  bar_2316.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  bar_2316.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  bar_2316.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  om_no_atomic
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  om_no_atomic  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  om_no_aa
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  bar_2316.bin  om_no_aa  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v25
+
+X  bar_2316.bin  z_near
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v25
+
+X  bar_2316.bin  z_near  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+SERIES X DONE (7303 bytes), NEXT: end
+VI WARNING: __vblank_interrupt outside of vblank period: 208
+MEASURED, 7303 BYTES OF RESULTS
+NO SD CARD - NOT SAVED
+---- RESULTS ----
+# rdp_timing v25 - replay of Donkey Kong 64 attract-demo frames (X)
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	8388608
+# runs_per_case	3
+# texture at 0x0E1640; dma buffer at 0x7D0000; heap top 0x0E3000; display buffer at 0x04AEC0; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+# console VI: ctrl 0x3302 width 640 v_sync 0x20D x_scale 0x400
+B0	167
+# X lines: list, variant, vi mode (vi_off), clock (smallest of 3), ticks, model (ares tables of the unpatched full list), VI_CTRL read back, VI_WIDTH, VI probe
+# v24 variants: z_far / z_near = the depth-clearing fill removed and the depth buffer preset farthest / nearest (every first draw passes / every test fails); om_no_atomic = ATOMIC_PRIM off; color_low = the drawn colour buffer moved to 0x0F5000; z_up1m = the depth buffer 1 MiB higher (BAR only); tri_only_zfar / znear = the same on tri_only
+# XI lines: list, info (placement in RDRAM)
+# variants: no_tri / tri_only as v22 (NOPs replace the class); om_* patch every Set_Other_Modes (no_zcmp: Z_COMPARE off = all pass; no_zupd: Z_UPDATE off; no_aa: AA_EN off; no_persp: TEX_PERSP off; no_lod: TEX_LOD/SHARPEN/DETAIL off; 1cyc: 2-cycle lists as 1-cycle; no_dither: dither off; point: point sampling; no_tlut: EN_TLUT off; no_cvg: ALPHA_CVG_SEL/CVG_X_ALPHA/CVG_DST/COLOR_ON_CVG/ALPHA_COMPARE off; no_imrd: IMAGE_READ off; wlike: v22 W's mode bits with the list's cycle type, blender mux, Z and IMAGE_READ)
+# z_near: the depth-clearing fill removed and the depth buffer preset to 0 (every depth test fails); tri_flat: all shade/texture/depth slopes of the 0F triangles zeroed; tri_noshade/notex/edgez: 0F -> 0B / 0D / 09 (dropped words become NOPs)
+XI	dk64_d6052.bin	list 188360 B, prefix 22, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+X	dk64_d6052.bin	full	vi_off	1799704	1373434	1980651	0	640	92314
+X	dk64_d6052.bin	full	game	1980901	1511715	1980651	3016	320	104615
+X	dk64_d6052.bin	no_tri	vi_off	399690	305002	1980651	0	640	92315
+X	dk64_d6052.bin	no_tri	game	434092	331255	1980651	3016	320	104616
+X	dk64_d6052.bin	tri_only	vi_off	1549113	1182193	1980651	0	640	92314
+X	dk64_d6052.bin	tri_only	game	1700935	1298058	1980651	3016	320	104615
+X	dk64_d6052.bin	no_load	vi_off	1559601	1190198	1980651	0	640	92315
+X	dk64_d6052.bin	no_rect	vi_off	1789216	1365430	1980651	0	640	92315
+X	dk64_d6052.bin	state_only	vi_off	149080	113747	1980651	0	640	92315
+X	dk64_d6052.bin	om_no_atomic	vi_off	1799704	1373434	1980651	0	640	92315
+X	dk64_d6052.bin	om_no_aa	vi_off	1799704	1373434	1980651	0	640	92314
+X	dk64_d6052.bin	z_near	vi_off	1756726	1340635	1980651	0	640	92315
+XI	dk64_d6110.bin	list 201760 B, prefix 22, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+X	dk64_d6110.bin	full	vi_off	1955238	1492131	2117194	0	640	92314
+X	dk64_d6110.bin	full	game	2152793	1642896	2117194	3016	320	104616
+X	dk64_d6110.bin	no_tri	vi_off	493455	376559	2117194	0	640	92315
+X	dk64_d6110.bin	no_tri	game	537052	409831	2117194	3016	320	104616
+X	dk64_d6110.bin	tri_only	vi_off	1626253	1241063	2117194	0	640	92314
+X	dk64_d6110.bin	tri_only	game	1785257	1362409	2117194	3016	320	104615
+X	dk64_d6110.bin	no_load	vi_off	1636741	1249068	2117194	0	640	92315
+X	dk64_d6110.bin	no_rect	vi_off	1944750	1484127	2117194	0	640	92314
+X	dk64_d6110.bin	state_only	vi_off	164470	125491	2117194	0	640	92314
+X	dk64_d6110.bin	om_no_atomic	vi_off	1955238	1492131	2117194	0	640	92314
+X	dk64_d6110.bin	om_no_aa	vi_off	1955238	1492131	2117194	0	640	92315
+X	dk64_d6110.bin	z_near	vi_off	1912242	1459317	2117194	0	640	92314
+XI	dk64_d6253.bin	list 155168 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+X	dk64_d6253.bin	full	vi_off	2028388	1547956	2166671	0	640	92315
+X	dk64_d6253.bin	full	game	2232289	1703564	2166671	3016	320	104616
+X	dk64_d6253.bin	no_tri	vi_off	504056	384650	2166671	0	640	92315
+X	dk64_d6253.bin	no_tri	game	550466	420068	2166671	3016	320	104615
+X	dk64_d6253.bin	tri_only	vi_off	1675330	1278517	2166671	0	640	92314
+X	dk64_d6253.bin	tri_only	game	1837849	1402544	2166671	3016	320	104616
+X	dk64_d6253.bin	no_load	vi_off	1685818	1286521	2166671	0	640	92315
+X	dk64_d6253.bin	no_rect	vi_off	2017900	1539952	2166671	0	640	92314
+X	dk64_d6253.bin	state_only	vi_off	150998	115211	2166671	0	640	92315
+X	dk64_d6253.bin	om_no_atomic	vi_off	2028388	1547956	2166671	0	640	92315
+X	dk64_d6253.bin	om_no_aa	vi_off	2028388	1547956	2166671	0	640	92315
+X	dk64_d6253.bin	z_near	vi_off	1985410	1515157	2166671	0	640	92314
+XI	dk64_d6373.bin	list 246984 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+X	dk64_d6373.bin	full	vi_off	2201991	1680443	2362529	0	640	92315
+X	dk64_d6373.bin	full	game	2420238	1846998	2362529	3016	320	104616
+X	dk64_d6373.bin	no_tri	vi_off	575991	439547	2362529	0	640	92315
+X	dk64_d6373.bin	no_tri	game	626143	477821	2362529	3016	320	104616
+X	dk64_d6373.bin	tri_only	vi_off	1817184	1386774	2362529	0	640	92314
+X	dk64_d6373.bin	tri_only	game	1990324	1518907	2362529	3016	320	104615
+X	dk64_d6373.bin	no_load	vi_off	1827672	1394778	2362529	0	640	92314
+X	dk64_d6373.bin	no_rect	vi_off	2191503	1672438	2362529	0	640	92314
+X	dk64_d6373.bin	state_only	vi_off	191202	145893	2362529	0	640	92315
+X	dk64_d6373.bin	om_no_atomic	vi_off	2201991	1680443	2362529	0	640	92315
+X	dk64_d6373.bin	om_no_aa	vi_off	2201991	1680442	2362529	0	640	92314
+X	dk64_d6373.bin	z_near	vi_off	2159013	1647643	2362529	0	640	92314
+XI	dk64_d6513.bin	list 181960 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+X	dk64_d6513.bin	full	vi_off	1509916	1152280	1655005	0	640	92314
+X	dk64_d6513.bin	full	game	1660389	1267114	1655005	3016	320	104616
+X	dk64_d6513.bin	no_tri	vi_off	489217	373326	1655005	0	640	92315
+X	dk64_d6513.bin	no_tri	game	533005	406742	1655005	3016	320	104616
+X	dk64_d6513.bin	tri_only	vi_off	1179297	899965	1655005	0	640	92314
+X	dk64_d6513.bin	tri_only	game	1291011	985220	1655005	3016	320	104615
+X	dk64_d6513.bin	no_load	vi_off	1200444	916104	1655005	0	640	92315
+X	dk64_d6513.bin	no_rect	vi_off	1488769	1136141	1655005	0	640	92314
+X	dk64_d6513.bin	state_only	vi_off	158598	121011	1655005	0	640	92314
+X	dk64_d6513.bin	om_no_atomic	vi_off	1509916	1152280	1655005	0	640	92314
+X	dk64_d6513.bin	om_no_aa	vi_off	1509916	1152280	1655005	0	640	92314
+X	dk64_d6513.bin	z_near	vi_off	1466939	1119481	1655005	0	640	92315
+XI	bar_2316.bin	list 174952 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_2316.bin	full	vi_off	1399166	1067759	1237577	0	640	92314
+X	bar_2316.bin	full	game	1540480	1175605	1237577	3012	320	104615
+X	bar_2316.bin	no_tri	vi_off	283219	216116	1237577	0	640	92314
+X	bar_2316.bin	no_tri	game	308388	235323	1237577	3012	320	104615
+X	bar_2316.bin	tri_only	vi_off	1209203	922789	1237577	0	640	92315
+X	bar_2316.bin	tri_only	game	1328250	1013640	1237577	3012	320	104616
+X	bar_2316.bin	no_load	vi_off	1275057	973045	1237577	0	640	92314
+X	bar_2316.bin	no_rect	vi_off	1333330	1017517	1237577	0	640	92315
+X	bar_2316.bin	state_only	vi_off	93257	71146	1237577	0	640	92315
+X	bar_2316.bin	om_no_atomic	vi_off	1399166	1067759	1237577	0	640	92314
+X	bar_2316.bin	om_no_aa	vi_off	1399166	1067759	1237577	0	640	92314
+X	bar_2316.bin	z_near	vi_off	1374370	1048837	1237577	0	640	92314
+---- END ----
+DONE

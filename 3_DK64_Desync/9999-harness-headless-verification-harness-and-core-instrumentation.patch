@@ -1,0 +1,2836 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nekokabu <nekokabu@gmail.com>
+Date: Sun, 1 Nov 2026 23:55:00 +0900
+Subject: [PATCH 9999] harness: headless verification harness and core instrumentation
+
+Not for upstream: the headless/ runner (frame-limited runs with RAM watches, input
+scripts, RAM dumps, RDP list dumps), the T_* environment knobs for every timing
+constant, the ARES_*_LOG traces, and the experimental models (RDP edge walker,
+per-triangle costs, Z coverage estimator) used to verify series v8 against the
+console measurements. Apply after 0012 with `git apply`.
+
+---
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0cb69e93..f04a01a2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -12,8 +12,6 @@ add_subdirectory(thirdparty)
+ 
+ add_subdirectory(nall/nall)
+ add_subdirectory(libco)
+-add_subdirectory(ruby)
+-add_subdirectory(hiro)
+ 
+ # gersemi: off
+ set(
+@@ -25,7 +23,7 @@ set(
+ 
+ add_subdirectory(ares)
+ add_subdirectory(mia)
+-add_subdirectory(desktop-ui)
++add_subdirectory(headless)
+ 
+ option(ARES_BUILD_OPTIONAL_TARGETS "Include supplemental tools and tests" OFF)
+ 
+@@ -54,6 +52,5 @@ add_subdirectory(tools/sourcery)
+ 
+ message_configuration()
+ 
+-add_subdirectory(.github)
+ add_subdirectory(cmake)
+ return()
+diff --git a/ares/n64/cartridge/cartridge.hpp b/ares/n64/cartridge/cartridge.hpp
+index cc24e6ed..82c28cc1 100644
+--- a/ares/n64/cartridge/cartridge.hpp
++++ b/ares/n64/cartridge/cartridge.hpp
+@@ -7,36 +7,12 @@ struct Cartridge {
+   struct RomDevice : PIDeviceMemory {
+     Cartridge& self;
+     RomDevice(Cartridge& self) : self(self) {}
+-
+-    //The mask ROMs used in cartridges cannot keep up with arbitrarily fast PI bus timings.
+-    //Period 16-bit mask ROMs (eg Macronix MX23C/MX23L) specify an address access time (tAA)
+-    //of ~100ns and an output enable time (tOE) of ~50ns. If the PI samples the bus before
+-    //the ROM has had time to drive it, real hardware reads back garbage (open bus), and
+-    //the ROM must not answer. Reference points, in (LAT, PWD) form:
+-    //  retail cartridges (header 80 37 12 40):   (0x40, 0x12) => 1040ns + 304ns
+-    //  64DD IPL ROM (header 80 27 07 40):        (0x40, 0x07) => 1040ns + 128ns
+-    //  flashcarts (libcart: EverDrive, 64drive): (0x04, 0x0c) => 80ns + 208ns
+-    //  MGC 2011 Demo (Retroactive) emulator test: (0x02, 0x02) => 48ns + 48ns
+-    //The last one deliberately reads the ROM header with timings no cartridge can satisfy
+-    //and refuses to run ("FAIL.") if the correct data comes back, as it only can on an
+-    //emulator that ignores the timing registers.
+-    static constexpr u32 minAccessCycles = 7;  //(LAT+1)+(PWD+1) >= 112ns  (tAA ~ 100ns)
+-    static constexpr u32 minPulseCycles  = 4;  //(PWD+1)         >=  64ns  (tOE ~  50ns)
+-
+-    auto piTimingSatisfied(const PIDeviceTiming& timing) const -> bool {
+-      if(!timing.fasterThan(min)) return false;
+-      if(timing.accessCycles() < minAccessCycles) return false;
+-      if(timing.pulseCycles()  < minPulseCycles ) return false;
+-      return true;
+-    }
+-
+     auto piAddress(u32 address, PIDeviceTiming timing) -> bool override {
++      if(!timing.fasterThan(min)) return false;
++      //a mask ROM needs ~100ns of address access time and ~50ns of /RD pulse: PI timings faster than
++      //(LAT+1)+(PWD+1) < 7 cycles or (PWD+1) < 4 cycles read back garbage (MGC 2011 demo's emulator check)
++      if((u32)timing.latency + 1 + (u32)timing.pulseWidth + 1 < 7 || (u32)timing.pulseWidth + 1 < 4) return false;
+       if(address < 0x1000'0000 || address >= 0x1000'0000 + self.rom.size) return false;
+-      if(!piTimingSatisfied(timing)) {
+-        debug(unusual, "[Cartridge::RomDevice::piAddress] PI timings too fast for mask ROM (LAT=",
+-          hex(timing.latency, 2L), " PWD=", hex(timing.pulseWidth, 2L), "); reading open bus");
+-        return false;
+-      }
+       piView = {self.rom.data, self.rom.size};
+       piViewOffset = address - 0x1000'0000;
+       piViewWritable = false;
+diff --git a/ares/n64/cpu/cpu.cpp b/ares/n64/cpu/cpu.cpp
+index cdec3a4c..98f6064f 100644
+--- a/ares/n64/cpu/cpu.cpp
++++ b/ares/n64/cpu/cpu.cpp
+@@ -81,9 +81,11 @@ auto CPU::flushCount() -> void {
+ }
+ 
+ auto CPU::synchronize() -> void {
++  if(pcSample && pcHist && ++pcSampleCount >= pcSample) { pcSampleCount = 0; if(clockEpoch >= pcSampleFrom) (*pcHist)[(u32)ipu.pc & ~0x3fu]++; }  //HARNESS
++  if(cpuSlowdown) { s64 v = Thread::clock * cpuSlowdown + slowAccum; Thread::clock += (v / 100) & ~1; slowAccum = v % 100; }  //HARNESS: sensitivity knob, percent slower
+   auto clocks = Thread::clock;
+   auto counted = countClock;
+-  clockEpoch += clocks;
++  clockEpoch += clocks;  //HARNESS
+   Thread::clock = 0;
+   countClock = 0;
+   jitClockTarget = 0;
+@@ -190,48 +192,47 @@ auto CPU::instructionPrologue(u64 address, u32 instruction) -> void {
+ }
+ 
+ auto CPU::icacheFillLine(u64 vaddr, u32 paddr) -> void {
++  profile.icacheMisses++;  //HARNESS
+   icache.line(vaddr).fill(paddr, *this);
+ }
+ 
+ auto CPU::rdpBusyStall(u32 cycles, f64 rdpClocks) -> u32 {
+   u32 total = 0;
+-  if(rdp.timing.enable && vi.active() && vi.io.antialias < 2) total += viStallCycles;  //the VI's three-line fetch
+-  if(rdp.timing.enable && rsp.dma.busy.any()) {  //an SP DMA in flight: the two transfers delay each other (rsp_timing v19)
+-    rsp.dma.clock -= RSP::DmaCpuPenaltyClocks;
+-    total += RSP::DmaCpuStallCycles;
+-  }
++  if(rdp.timing.enable && vi.active() && vi.io.antialias < 2) total += viStallCycles;  //the VI's three-line fetch (v12)
++  if(rdp.timing.enable && rsp.dma.busy.any()) { rsp.dma.clock -= rsp.dmaCpuPenalty; total += rsp.dmaCpuStall; }  //HARNESS: v19: SP DMA and CPU line transfers delay each other
+   if(rdp.timing.enable && rdp.timing.pending && !rdp.command.freeze) {
++    stallCycles += cycles;  //HARNESS counter
+     rdp.timingDelay(rdpClocks * rdp.contendScale());  //and the RDP loses the bus for the transfer
+     total += cycles;
+   }
+   return total;
+ }
+ 
+-//result latency of a COP1 arithmetic instruction in cycles (cpu_timing v11/v14); 0 = not one
++//HARNESS: result latency of a COP1 arithmetic instruction (cycles, v11); 0 = not one
+ auto CPU::fpuLatency(u32 instruction) const -> u32 {
+   if((instruction >> 26) != 0x11 || !(instruction >> 25 & 1)) return 0;
+   u32 fmt = instruction >> 21 & 31, fn = instruction & 0x3f;
+   bool dbl = fmt == 17 || fmt == 21;
+   switch(fn) {
+-  case 0x00: case 0x01: return 4;                     //add, sub: issue 3, a dependent instruction waits 1 more (v18)
+-  case 0x02: return dbl ? 9 : 6;                      //mul.s 5 / mul.d 8, +1 dependent (v18; 2 with a 0.0 / 1.0 / power-of-two operand)
+-  case 0x03: return dbl ? 59 : 30;                    //div.s 29 / div.d 58, +1 dependent (v18; 2 with a 0.0 dividend)
+-  case 0x04: return dbl ? 59 : 30;                    //sqrt.s 29 / sqrt.d 58 (v18; 2 for sqrt(0.0))
++  case 0x00: case 0x01: return 4;                     //add, sub (v18: issue 3, dependent chain 3.75)
++  case 0x02: return dbl ? 9 : 6;                      //mul (v18: mul.s 5 / mul.d 8, dependent +1; 2 only with a 0 / 1.0 / power-of-two operand)
++  case 0x03: return dbl ? 59 : 30;                    //div (v18: div.s 29, div.d 58, +1 dependent; 2 with a 0.0 dividend)
++  case 0x04: return dbl ? 59 : 30;                    //sqrt (v18: 29 / 58; 2 for sqrt(0))
+   case 0x05: case 0x06: case 0x07: return 1;          //abs, mov, neg
+-  case 0x08: case 0x09: case 0x0a: case 0x0b: case 0x0c: case 0x0d: case 0x0e: case 0x0f: return 5;  //round/trunc/ceil/floor
+-  case 0x20: case 0x21: case 0x24: case 0x25: return 5;  //cvt
++  case 0x08: case 0x09: case 0x0a: case 0x0b: case 0x0c: case 0x0d: case 0x0e: case 0x0f: return 5;  //round/trunc/ceil/floor (v14: 5 cycles, no extra latency)
++  case 0x20: case 0x21: case 0x24: case 0x25: return 5;  //cvt (v14: 5 cycles, dependent chain 4.5)
+   default: return fn >= 0x30 ? 1 : 0;                 //compares
+   }
+ }
+ 
+-//pipeline hazards (cycles) between an instruction and the one that follows it in memory
++//HARNESS: pipeline hazards measured by cpu_timing_v11 on hardware (cycles, not clocks)
+ auto CPU::hazardCycles(u32 instruction, u32 next) -> u32 {
+   auto op = instruction >> 26;
+   auto isLoad = [](u32 o) { return (o >= 0x20 && o <= 0x27) || o == 0x37 || o == 0x1a || o == 0x1b || o == 0x30 || o == 0x34 || o == 0x31 || o == 0x35; };
+   auto isStore = [](u32 o) { return (o >= 0x28 && o <= 0x2f) || o == 0x38 || o == 0x3c || o == 0x39 || o == 0x3d; };
+   u32 cycles = 0;
+-  if(op == 0x10 && (instruction >> 21 & 31) <= 1 && (instruction >> 11 & 31) == 9) cycles += 1;  //MFC0 Count costs 2 (Status: 1)
+-  if(op == 0x10 && ((instruction >> 21 & 31) == 4 || (instruction >> 21 & 31) == 5)) cycles += 1;  //MTC0/DMTC0 cost 2
++  if(op == 0x10 && (instruction >> 21 & 31) <= 1 && (instruction >> 11 & 31) == 9) cycles += 1;  //MFC0 Count (v14: Status costs 1)
++  if(op == 0x10 && ((instruction >> 21 & 31) == 4 || (instruction >> 21 & 31) == 5)) cycles += 1;  //MTC0/DMTC0 cost 2 (v14)
+   if(!next) return cycles;
+   auto nop = next >> 26;
+   if(isStore(op) && (isLoad(nop) || isStore(nop) || nop == 0x2f)) return cycles + 1;  //the store occupies the data cache for one more cycle
+@@ -252,29 +253,13 @@ auto CPU::hazardCycles(u32 instruction, u32 next) -> u32 {
+   return cycles;
+ }
+ 
+-auto CPU::icacheBusyStall() -> u32 {
+-  viStallCycles = ViStallIFill;
+-  u32 r = rdpBusyStall(ICacheFillStall, rdp.timing.contendCpuI);
+-  viStallCycles = ViStallFill;
+-  return r;
+-}
+-
+-//a dirty line leaves the write buffer: the bus is busy for the 16-byte write (the CPU itself paid
+-//WriteBufferCycles when the line was evicted)
+-auto CPU::postWriteBack() -> void {
+-  wbPending = false;
+-  viStallCycles = ViStallWriteBack;
+-  s64 now = busNow();
+-  busFreeAt = (busFreeAt > now ? busFreeAt : now) + (DCacheWriteBackCycles + rdpBusyStall(DCacheWriteBackStall, rdp.timing.contendCpuW)) * 2;
+-  viStallCycles = ViStallFill;
+-}
+-
+-//an uncached RDRAM or RCP register store enters the write buffer (cpu_timing v18)
++//HARNESS: an uncached or RCP-register store enters the write buffer (v18)
+ auto CPU::postWrite(u32 paddr) -> void {
++  if(wbSync < 0) return;
+   s64 now = busNow();
+-  if(wbPending) { busWait(); postWriteBack(); busWait(); now = busNow(); }   //the pending write-back drains first
++  if(wbPending) { busWait(); wbPending = false; now = busNow(); }    //d_dirty_then_ucsw: the write-back drains first
+   while(wbCount && wbDone[wbHead] <= now) { wbHead = wbHead + 1 & 3; wbCount--; }
+-  if(wbCount >= WriteBufferEntries) {                                        //full: wait for the oldest entry
++  if(wbCount >= 4) {                                                  //full: wait for the oldest entry
+     step((u32)(wbDone[wbHead] - now)); now = busNow();
+     wbHead = wbHead + 1 & 3; wbCount--;
+   }
+@@ -288,9 +273,12 @@ auto CPU::postWrite(u32 paddr) -> void {
+   busFreeAt = done;
+ }
+ 
++auto CPU::icacheBusyStall() -> u32 { u32 save = viStallCycles; viStallCycles = viStallI; u32 r = rdpBusyStall(ICacheFillStall, rdp.timing.contendCpuI); viStallCycles = save; return r; }
++
+ //the recompiler's inline instruction cache fill: the stall part of the fill time
+ auto CPU::icacheStall() -> void {
+-  busWaitFill();
++  profile.icacheMisses++;  //HARNESS: the recompiler's inline fill
++  if(wbSync >= 0) busWaitFill();
+   if(u32 cycles = rdpBusyStall(ICacheFillStall, rdp.timing.contendCpuI)) step(cycles * 2);
+ }
+ 
+diff --git a/ares/n64/cpu/cpu.hpp b/ares/n64/cpu/cpu.hpp
+index 22d7a0e4..2b79d590 100644
+--- a/ares/n64/cpu/cpu.hpp
++++ b/ares/n64/cpu/cpu.hpp
+@@ -1,3 +1,4 @@
++#include <unordered_map>
+ //NEC VR4300
+ 
+ struct CPU : Thread {
+@@ -54,60 +55,46 @@ struct CPU : Thread {
+   auto raiseCoprocessor1Exception() -> void;
+   auto icacheFillLine(u64 vaddr, u32 paddr) -> void;
+ 
+-  //cache line transfers wait for RDRAM behind the RDP while it is drawing, and behind the VI's
+-  //framebuffer fetch in the anti-aliased (divot/dedither) VI modes; measured on hardware with the
+-  //rdp_timing test ROMs (v8/v10/v12): under a drawing RDP an instruction cache fill takes 6 CPU
+-  //cycles longer, a data cache fill 5, a data cache write-back 11; in the games' VI mode another
+-  //6/6/2. Each transfer in turn costs the RDP some clocks (rdp.timing.contendCpu*).
++  //cache line transfers wait for RDRAM behind the RDP while it is drawing (measured on
++  //hardware with rdp_timing v8: an instruction cache fill takes 10 CPU cycles longer, a
++  //data cache fill 4, a data cache write-back 12; otherwise the CPU is not slowed down)
+   auto rdpBusyStall(u32 cycles, f64 rdpClocks) -> u32;
+   auto icacheStall() -> void;
+   auto icacheBusyStall() -> u32;
+-  enum : u32 { ICacheFillStall = 6, DCacheFillStall = 5, DCacheWriteBackStall = 11 };
+-  enum : u32 { ICacheFillCycles = 48, DCacheFillCycles = 40, DCacheWriteBackCycles = 25 };  //cpu_timing v14: fill 41 incl. the load, write-back 25
+-  enum : u32 { ViStallFill = 6, ViStallIFill = 6, ViStallWriteBack = 2 };
+-  u32 viStallCycles = ViStallFill;  //the VI part of the stall for the transfer in progress
+-  //The write buffer (cpu_timing v14/v18). Stores that leave the CPU (uncached RDRAM, RCP registers,
+-  //dirty cache lines) are posted to a 4-entry buffer and drained in order: an uncached RDRAM word
+-  //occupies the bus for 16 cycles (a 16-byte line 17), an SP/DP register write 10, an MI register 2.
+-  //The CPU only waits when the buffer is full (the 5th store of a burst), when a line fill or an
+-  //uncached read needs the bus (they wait for everything posted before them; a fill that follows a
+-  //write also pays the 9-cycle turnaround of the RDRAM bus), and when a store follows a dirty-line
+-  //write-back that has not left yet. A dirty line is filled first and written back afterwards; the
+-  //CPU pays 'WriteBufferCycles' for that (v14: a dirty miss costs 66 cycles against 41 for a clean
+-  //one when the next fill follows at once, 6 more than a clean one when it comes 32 cycles later).
+-  enum : u32 { WriteBufferCycles = 6, WriteBufferEntries = 4 };
+-  enum : u32 { UncachedWriteCycles = 16, RcpWriteCycles = 10, MiWriteCycles = 2, BusTurnaroundCycles = 9 };
+-  enum : u32 { UncachedWriteStall = 15 };  //while the RDP draws (rdp_timing v17: 33 cycles per uncached write)
+-  s64 clockEpoch = 0;          //Thread::clock is reset at every synchronize(); epoch + clock is monotonic
+-  s64 busFreeAt = 0;           //when the last posted write leaves the bus
+-  s64 wbDone[WriteBufferEntries] = {}; u32 wbHead = 0, wbCount = 0;
+-  bool wbPending = false;      //a dirty line waits to be written back after the fill that evicted it
+-  auto busNow() const -> s64 { return clockEpoch + Thread::clock; }
+-  auto busWait() -> void { s64 now = busNow(); if(busFreeAt > now) step((u32)(busFreeAt - now)); wbCount = 0; }
+-  auto busWaitFill() -> void {
+-    s64 now = busNow(), until = busFreeAt + BusTurnaroundCycles * 2;
+-    if(busFreeAt > now - BusTurnaroundCycles * 2 && until > now) step((u32)(until - now));
+-    wbCount = 0;
++  u32 ICacheFillStall = 10, DCacheFillStall = 4, DCacheWriteBackStall = 12;  //HARNESS: tunable
++  u32 cpuFillI = 48, cpuFillD = 40, cpuFillW = 40;  //HARNESS: base costs
++  bool fpuHardware = false; u32 dcacheHitCost = 1;  //HARNESS: v11-measured FPU latencies; D-cache hit extra cycles (hardware: 0)
++  auto fpuCycles(u32 ares, u32 hardware, u32 issue = 0) const -> u32 {
++    if(hazardModel) return ((issue ? issue : hardware <= 6 ? 2 : hardware) - 1) * 2;  //pipelined (v11/v14): the issue cost only; result latency is scheduled per block
++    return ((fpuHardware ? hardware : ares) - 1) * 2;
+   }
+-  auto postWrite(u32 paddr) -> void;
+-  auto postWriteBack() -> void;
+-  //an uncached RDRAM read stalls the pipeline for 32 cycles in all (cpu_timing v14; nemu64-test agrees)
+-  enum : u32 { UncachedReadCycles = 31 };
+-  //FPU costs measured with cpu_timing v11/v14/v18. With ordinary operands add/sub (single and
+-  //double) issue in 3 cycles, mul.s in 5, mul.d in 8, div.s and sqrt.s in 29, div.d and sqrt.d in
+-  //58, conversions in 5, compares in 1; a dependent instruction waits one more cycle (v18). The
+-  //hardware has fast paths for trivial operands (adding 0.0, multiplying by 0.0, 1.0 or a power of
+-  //two, dividing 0.0, sqrt(0.0): 2 cycles) that are not modelled. 'issue' is what the instruction
+-  //itself costs, the dependency stalls are scheduled per block by the recompiler (fpuLatency) and
+-  //are not charged by the interpreter.
+-  auto fpuCycles(u32 issue) const -> u32 { return (issue - 1) * 2; }
+   auto fpuLatency(u32 instruction) const -> u32;
+-  //pipeline hazards measured with cpu_timing v11/v14: a load followed by an instruction that uses
+-  //its result costs 1 more cycle, a store followed by another memory instruction 1 more, mfc0 of
+-  //Count and mtc0 1 more; a likely branch that is not taken still spends the cycle of the
+-  //nullified delay slot
++  u32 uncachedReadCycles = 0;  //HARNESS: extra cycles of an uncached RDRAM read (hardware: 32 in total)
++  u32 cpuSlowdown = 0; s64 slowAccum = 0;
++  u32 pcSample = 0, pcSampleCount = 0; u64 pcSampleFrom = 0; std::unordered_map<u32, u64>* pcHist = nullptr;  //HARNESS: PC sampling profile  //HARNESS: percent slower, applied to all CPU time
++  bool hazardModel = false;  //HARNESS: v11-measured pipeline hazards (load-use +1, store then memory op +1, mfc0 +1, nullified likely slot 1)
+   auto hazardCycles(u32 instruction, u32 next) -> u32;
++  u32 viStallCycles = 6, viStallI = 6, viStallW = 2;  //HARNESS: extra cycles per transfer while the VI is in an AA mode (v12)
++  //HARNESS: write buffer model: a write-back only costs the CPU 'wbSync' cycles; the transfer itself
++  //occupies the bus for cpuFillW (+ stall) cycles and the next line transfer waits for it
++  s32 wbSync = -1;             //-1: write-backs are synchronous (ares default)
++  s64 clockEpoch = 0;          //Thread::clock reset at every synchronize(); epoch + clock is monotonic
++  s64 busFreeAt = 0;
++  bool wbPending = false;
++  //HARNESS: v18 write buffer: 4 entries of posted uncached / RCP-register writes; each occupies the bus for its drain
++  //time (RDRAM 17 cycles, SP/DP registers 10, MI 2) and the 5th store waits for the oldest; fills and uncached reads wait
++  //for the whole buffer; a dirty-line write-back has to drain before a store can enter
++  s64 wbDone[4] = {}; u32 wbHead = 0, wbCount = 0;
++  u32 UncachedWriteCycles = 17, RcpWriteCycles = 10, MiWriteCycles = 2, UncachedWriteStall = 15;
++  auto postWrite(u32 paddr) -> void;
++  auto busNow() const -> s64 { return clockEpoch + Thread::clock; }
++  auto busWait() -> void { s64 now = busNow(); if(busFreeAt > now) step((u32)(busFreeAt - now)); wbCount = 0; }
++  u32 BusTurnaround = 9;  //HARNESS: v18: a line fill that follows a write on the bus waits this much longer (write 16 + 9 = +25)
++  auto busWaitFill() -> void { s64 now = busNow(), until = busFreeAt + BusTurnaround * 2; if(busFreeAt > now - BusTurnaround * 2 && until > now) step((u32)(until - now)); wbCount = 0; }
+ 
++  u64 stallCycles = 0;  //HARNESS
++  u64 exceptionCount[32] = {}; u32 exceptionCost = 0;  //HARNESS
++  u64 uncachedReads = 0, uncachedWrites = 0, mmioReads = 0, mmioWrites = 0;  //HARNESS
+   auto power(bool reset) -> void;
+ 
+   struct Pipeline {
+@@ -127,7 +114,7 @@ struct CPU : Thread {
+     auto branch(u64 address) -> void { nextpc = address; nstate |= DelaySlot | EndBlock; }
+     auto noBranch() -> void { nstate |= DelaySlot; }
+     auto exception() -> void { state |= EndBlock; }
+-    auto skip() -> void { pc += 4; nextpc = pc + 4; state |= EndBlock; self.step(1 * 2); }  //the nullified delay slot still spends its cycle
++    auto skip() -> void { pc += 4; nextpc = pc + 4; state |= EndBlock; }
+     auto begin() -> void {
+       nstate = 0;
+       pc = nextpc;
+@@ -260,8 +247,8 @@ struct CPU : Thread {
+       }
+ 
+       auto fill(u32 paddr, CPU& cpu) -> void {
+-        cpu.busWaitFill();
+-        cpu.step((ICacheFillCycles + cpu.icacheBusyStall()) * 2);
++        if(cpu.wbSync >= 0) cpu.busWaitFill();
++        cpu.step((cpu.cpuFillI + cpu.icacheBusyStall()) * 2);
+         const u32 tag = paddr & ~0x0000'0fffu;
+         tagKey = tag;
+         setValid(true);
+diff --git a/ares/n64/cpu/dcache.cpp b/ares/n64/cpu/dcache.cpp
+index bd552f9d..90ae0383 100644
+--- a/ares/n64/cpu/dcache.cpp
++++ b/ares/n64/cpu/dcache.cpp
+@@ -4,10 +4,13 @@ auto CPU::DataCache::Line::hit(u32 paddr) const -> bool {
+ }
+ 
+ auto CPU::DataCache::Line::fill(u32 paddr) -> void {
+-  cpu.busWaitFill();
+-  cpu.step((CPU::DCacheFillCycles + cpu.rdpBusyStall(CPU::DCacheFillStall, rdp.timing.contendCpu)) * 2);
+-  //the line evicted by this fill is written from the write buffer after the fill; the bus stays busy
+-  if(cpu.wbPending) cpu.postWriteBack();
++  if(cpu.wbSync >= 0) cpu.busWaitFill();
++  cpu.step((cpu.cpuFillD + cpu.rdpBusyStall(cpu.DCacheFillStall, rdp.timing.contendCpu)) * 2);
++  if(cpu.wbSync >= 0 && cpu.wbPending) {
++    //the line evicted by this fill is written from the write buffer after the fill; the bus stays busy
++    cpu.wbPending = false;
++    { u32 save = cpu.viStallCycles; cpu.viStallCycles = cpu.viStallW; { s64 now = cpu.busNow(); cpu.busFreeAt = (cpu.busFreeAt > now ? cpu.busFreeAt : now) + (cpu.cpuFillW + cpu.rdpBusyStall(cpu.DCacheWriteBackStall, rdp.timing.contendCpuW)) * 2; } cpu.viStallCycles = save; }
++  }
+   const u32 tag = paddr & ~0x0000'0fffu;
+   dirty  = 0;
+   tagKey = tag;
+@@ -16,9 +19,12 @@ auto CPU::DataCache::Line::fill(u32 paddr) -> void {
+ }
+ 
+ auto CPU::DataCache::Line::writeBack() -> void {
+-  if(cpu.wbPending) cpu.busWait();  //two evictions without a fill between them: the buffer holds one line
+-  cpu.step(CPU::WriteBufferCycles * 2);
+-  cpu.wbPending = true;
++  if(cpu.wbSync >= 0) {
++    if(cpu.wbPending) cpu.busWait();  //two evictions without a fill between them: the buffer holds one line
++    cpu.step(cpu.wbSync * 2);
++    cpu.wbPending = true;
++  } else
++  { u32 save = cpu.viStallCycles; cpu.viStallCycles = cpu.viStallW; cpu.step((cpu.cpuFillW + cpu.rdpBusyStall(cpu.DCacheWriteBackStall, rdp.timing.contendCpuW)) * 2); cpu.viStallCycles = save; }
+   const u32 tag = tagKey & ~0x0000'0fffu;
+   cpu.busWriteBurst<DCache>(tag | index, words);
+ }
+@@ -63,6 +69,7 @@ auto CPU::DataCache::read(u64 vaddr, u32 paddr) -> u64 {
+     line.fill(paddr);
+     self.profile.dcacheMisses++;
+   } else {
++    if(cpu.dcacheHitCost) cpu.step(cpu.dcacheHitCost * 2);
+     self.profile.dcacheHits++;
+   }
+   return line.read<Size>(paddr);
+@@ -91,6 +98,7 @@ auto CPU::DataCache::write(u64 vaddr, u32 paddr, u64 data) -> void {
+     line.fill(paddr);
+     self.profile.dcacheMisses++;
+   } else {
++    if(cpu.dcacheHitCost) cpu.step(cpu.dcacheHitCost * 2);
+     self.profile.dcacheHits++;
+   }
+   line.write<Size>(paddr, data);
+diff --git a/ares/n64/cpu/exceptions.cpp b/ares/n64/cpu/exceptions.cpp
+index 870e7d42..7b012002 100644
+--- a/ares/n64/cpu/exceptions.cpp
++++ b/ares/n64/cpu/exceptions.cpp
+@@ -1,4 +1,6 @@
+ auto CPU::Exception::trigger(u32 code, u32 coprocessor, bool tlbMiss) -> void {
++  self.exceptionCount[code & 31]++;  //HARNESS
++  if(self.exceptionCost) self.step(self.exceptionCost * 2);  //HARNESS: entry cost
+   self.debugger.exception(code);
+   if (code != 0) {  //ignore interrupt exceptions
+     reportGDBException(code, self.ipu.pc); 
+diff --git a/ares/n64/cpu/interpreter-fpu.cpp b/ares/n64/cpu/interpreter-fpu.cpp
+index c5d31956..0fdaa8d3 100644
+--- a/ares/n64/cpu/interpreter-fpu.cpp
++++ b/ares/n64/cpu/interpreter-fpu.cpp
+@@ -467,7 +467,7 @@ auto CPU::FADD_S(u8 fd, u8 fs, u8 ft) -> void {
+   CHECK_FPE(f32, ffd, FS(f32) + FT(f32));
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f32) = ffd;
+-  step(fpuCycles(2));
++  step((3 - 1) * 2);
+ }
+ 
+ auto CPU::FADD_D(u8 fd, u8 fs, u8 ft) -> void {
+@@ -477,7 +477,7 @@ auto CPU::FADD_D(u8 fd, u8 fs, u8 ft) -> void {
+   CHECK_FPE(f64, ffd, ffs + fft);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f64) = ffd;
+-  step(fpuCycles(2));
++  step((3 - 1) * 2);
+ }
+ 
+ auto CPU::FCEIL_L_S(u8 fd, u8 fs) -> void {
+@@ -486,7 +486,7 @@ auto CPU::FCEIL_L_S(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s64>(ffs)) return;
+   CHECK_FPE(s64, ffd, roundCeil<s64>(ffs));
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCEIL_L_D(u8 fd, u8 fs) -> void {
+@@ -495,7 +495,7 @@ auto CPU::FCEIL_L_D(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s64>(ffs)) return;
+   CHECK_FPE(s64, ffd, roundCeil<s64>(ffs));
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCEIL_W_S(u8 fd, u8 fs) -> void {
+@@ -504,7 +504,7 @@ auto CPU::FCEIL_W_S(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s32>(ffs)) return;
+   CHECK_FPE_CONV(s32, ffd, roundCeil<s32>(ffs));
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCEIL_W_D(u8 fd, u8 fs) -> void {
+@@ -513,7 +513,7 @@ auto CPU::FCEIL_W_D(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s32>(ffs)) return;
+   CHECK_FPE_CONV(s32, ffd, roundCeil<s32>(ffs));
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ #define  XORDERED(type, value, quiet) \
+@@ -712,7 +712,7 @@ auto CPU::FCVT_S_W(u8 fd, u8 fs) -> void {
+   CHECK_FPE(f32, ffd, ffs);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCVT_S_L(u8 fd, u8 fs) -> void {
+@@ -725,7 +725,7 @@ auto CPU::FCVT_S_L(u8 fd, u8 fs) -> void {
+   CHECK_FPE(f32, ffd, (f32)ffs);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCVT_D_S(u8 fd, u8 fs) -> void {
+@@ -748,7 +748,7 @@ auto CPU::FCVT_D_W(u8 fd, u8 fs) -> void {
+   CHECK_FPE(f64, ffd, (f64)ffs);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCVT_D_L(u8 fd, u8 fs) -> void {
+@@ -761,7 +761,7 @@ auto CPU::FCVT_D_L(u8 fd, u8 fs) -> void {
+   CHECK_FPE(f64, ffd, (f64)ffs);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCVT_L_S(u8 fd, u8 fs) -> void {
+@@ -770,7 +770,7 @@ auto CPU::FCVT_L_S(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s64>(ffs)) return;
+   CHECK_FPE(s64, ffd, roundCurrent<s64>(ffs));
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCVT_L_D(u8 fd, u8 fs) -> void {
+@@ -779,7 +779,7 @@ auto CPU::FCVT_L_D(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s64>(ffs)) return;
+   CHECK_FPE(s64, ffd, roundCurrent<s64>(ffs));
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCVT_W_S(u8 fd, u8 fs) -> void {
+@@ -788,7 +788,7 @@ auto CPU::FCVT_W_S(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s32>(ffs)) return;
+   CHECK_FPE_CONV(s32, ffd, roundCurrent<s32>(ffs));
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FCVT_W_D(u8 fd, u8 fs) -> void {
+@@ -797,7 +797,7 @@ auto CPU::FCVT_W_D(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s32>(ffs)) return;
+   CHECK_FPE_CONV(s32, ffd, roundCurrent<s32>(ffs));
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FDIV_S(u8 fd, u8 fs, u8 ft) -> void {
+@@ -807,7 +807,7 @@ auto CPU::FDIV_S(u8 fd, u8 fs, u8 ft) -> void {
+   CHECK_FPE(f32, ffd, ffs / fft);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f32) = ffd;
+-  step(fpuCycles(29));
++  step(((fpuHardware ? 29 : 29) - 1) * 2);
+ }
+ 
+ auto CPU::FDIV_D(u8 fd, u8 fs, u8 ft) -> void {
+@@ -817,7 +817,7 @@ auto CPU::FDIV_D(u8 fd, u8 fs, u8 ft) -> void {
+   CHECK_FPE(f64, ffd, ffs / fft);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f64) = ffd;
+-  step(fpuCycles(30));
++  step(((fpuHardware ? 30 : 58) - 1) * 2);
+ }
+ 
+ auto CPU::FFLOOR_L_S(u8 fd, u8 fs) -> void {
+@@ -826,7 +826,7 @@ auto CPU::FFLOOR_L_S(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s64>(ffs)) return;
+   CHECK_FPE(s64, ffd, roundFloor<s64>(ffs));
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FFLOOR_L_D(u8 fd, u8 fs) -> void {
+@@ -835,7 +835,7 @@ auto CPU::FFLOOR_L_D(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s64>(ffs)) return;
+   CHECK_FPE(s64, ffd, roundFloor<s64>(ffs));
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FFLOOR_W_S(u8 fd, u8 fs) -> void {
+@@ -844,7 +844,7 @@ auto CPU::FFLOOR_W_S(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s32>(ffs)) return;
+   CHECK_FPE_CONV(s32, ffd, roundFloor<s32>(ffs));
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FFLOOR_W_D(u8 fd, u8 fs) -> void {
+@@ -853,7 +853,7 @@ auto CPU::FFLOOR_W_D(u8 fd, u8 fs) -> void {
+   if(!fpuCheckInputConv<s32>(ffs)) return;
+   CHECK_FPE_CONV(s32, ffd, roundFloor<s32>(ffs));
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FMOV_S(u8 fd, u8 fs) -> void {
+@@ -872,7 +872,7 @@ auto CPU::FMUL_S(u8 fd, u8 fs, u8 ft) -> void {
+   CHECK_FPE(f32, ffd, ffs * fft);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f32) = ffd;
+-  step(fpuCycles(2));
++  step(((fpuHardware ? 3 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FMUL_D(u8 fd, u8 fs, u8 ft) -> void {
+@@ -882,7 +882,7 @@ auto CPU::FMUL_D(u8 fd, u8 fs, u8 ft) -> void {
+   CHECK_FPE(f64, ffd, ffs * fft);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f64) = ffd;
+-  step(fpuCycles(2));
++  step(((fpuHardware ? 3 : 8) - 1) * 2);
+ }
+ 
+ auto CPU::FNEG_S(u8 fd, u8 fs) -> void {
+@@ -910,7 +910,7 @@ auto CPU::FROUND_L_S(u8 fd, u8 fs) -> void {
+   CHECK_FPE(s64, ffd, roundNearest<s64>(ffs));
+   if(ffd != ffs && fpeInexact()) return exception.floatingPoint();
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FROUND_L_D(u8 fd, u8 fs) -> void {
+@@ -920,7 +920,7 @@ auto CPU::FROUND_L_D(u8 fd, u8 fs) -> void {
+   CHECK_FPE(s64, ffd, roundNearest<s64>(ffs));
+   if(ffd != ffs && fpeInexact()) return exception.floatingPoint();
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FROUND_W_S(u8 fd, u8 fs) -> void {
+@@ -930,7 +930,7 @@ auto CPU::FROUND_W_S(u8 fd, u8 fs) -> void {
+   CHECK_FPE_CONV(s32, ffd, roundNearest<s32>(ffs));
+   if(ffd != ffs && fpeInexact()) return exception.floatingPoint();
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FROUND_W_D(u8 fd, u8 fs) -> void {
+@@ -940,7 +940,7 @@ auto CPU::FROUND_W_D(u8 fd, u8 fs) -> void {
+   CHECK_FPE_CONV(s32, ffd, roundNearest<s32>(ffs));
+   if(ffd != ffs && fpeInexact()) return exception.floatingPoint();
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FSQRT_S(u8 fd, u8 fs) -> void {
+@@ -950,7 +950,7 @@ auto CPU::FSQRT_S(u8 fd, u8 fs) -> void {
+   CHECK_FPE(f32, ffd, squareRoot(ffs));
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f32) = ffd;
+-  step(fpuCycles(29));
++  step(((fpuHardware ? 29 : 29) - 1) * 2);
+ }
+ 
+ auto CPU::FSQRT_D(u8 fd, u8 fs) -> void {
+@@ -960,7 +960,7 @@ auto CPU::FSQRT_D(u8 fd, u8 fs) -> void {
+   CHECK_FPE(f64, ffd, squareRoot(ffs));
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f64) = ffd;
+-  step(fpuCycles(30));
++  step(((fpuHardware ? 30 : 58) - 1) * 2);
+ }
+ 
+ auto CPU::FSUB_S(u8 fd, u8 fs, u8 ft) -> void {
+@@ -970,7 +970,7 @@ auto CPU::FSUB_S(u8 fd, u8 fs, u8 ft) -> void {
+   CHECK_FPE(f32, ffd, ffs - fft);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f32) = ffd;
+-  step(fpuCycles(2));
++  step((3 - 1) * 2);
+ }
+ 
+ auto CPU::FSUB_D(u8 fd, u8 fs, u8 ft) -> void {
+@@ -980,7 +980,7 @@ auto CPU::FSUB_D(u8 fd, u8 fs, u8 ft) -> void {
+   CHECK_FPE(f64, ffd, ffs - fft);
+   if(!fpuCheckOutput(ffd)) return;
+   FD(f64) = ffd;
+-  step(fpuCycles(2));
++  step((3 - 1) * 2);
+ }
+ 
+ auto CPU::FTRUNC_L_S(u8 fd, u8 fs) -> void {
+@@ -990,7 +990,7 @@ auto CPU::FTRUNC_L_S(u8 fd, u8 fs) -> void {
+   CHECK_FPE(s64, ffd, roundTrunc<s64>(ffs));
+   if((f32)ffd != ffs && fpeInexact()) return exception.floatingPoint();
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FTRUNC_L_D(u8 fd, u8 fs) -> void {
+@@ -1000,7 +1000,7 @@ auto CPU::FTRUNC_L_D(u8 fd, u8 fs) -> void {
+   CHECK_FPE(s64, ffd, roundTrunc<s64>(ffs));
+   if((f64)ffd != ffs && fpeInexact()) return exception.floatingPoint();
+   FD(s64) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FTRUNC_W_S(u8 fd, u8 fs) -> void {
+@@ -1010,7 +1010,7 @@ auto CPU::FTRUNC_W_S(u8 fd, u8 fs) -> void {
+   CHECK_FPE_CONV(s32, ffd, roundTrunc<s32>(ffs));
+   if((f32)ffd != ffs && fpeInexact()) return exception.floatingPoint();
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::FTRUNC_W_D(u8 fd, u8 fs) -> void {
+@@ -1020,7 +1020,7 @@ auto CPU::FTRUNC_W_D(u8 fd, u8 fs) -> void {
+   CHECK_FPE_CONV(s32, ffd, roundTrunc<s32>(ffs));
+   if((f64)ffd != ffs && fpeInexact()) return exception.floatingPoint();
+   FD(s32) = ffd;
+-  step(fpuCycles(5));
++  step(((fpuHardware ? 5 : 5) - 1) * 2);
+ }
+ 
+ auto CPU::LDC1(u8 ft, cr64& rs, s16 imm) -> void {
+diff --git a/ares/n64/cpu/interpreter-ipu.cpp b/ares/n64/cpu/interpreter-ipu.cpp
+index 4702eaa4..9a5b560e 100644
+--- a/ares/n64/cpu/interpreter-ipu.cpp
++++ b/ares/n64/cpu/interpreter-ipu.cpp
+@@ -242,10 +242,16 @@ auto CPU::CACHE(u8 operation, cr64& rs, s16 imm) -> void {
+   }
+ 
+   }
+-  //a cache operation costs 5 cycles (cpu_timing v18); a dirty line it wrote back leaves through the
+-  //write buffer once the bus is free
+-  step(3 * 2);
+-  if(wbPending) { busWait(); postWriteBack(); }
++  //HARNESS: v18: a cache operation costs 5 cycles; a write-back it caused is posted to the bus (16 B, asynchronous)
++  if(wbSync >= 0) {
++    step(3 * 2);
++    if(wbPending) {
++      wbPending = false;
++      busWait();  //the line leaves when the bus is free
++      s64 now = busNow();
++      busFreeAt = (busFreeAt > now ? busFreeAt : now) + (cpuFillW + rdpBusyStall(DCacheWriteBackStall, rdp.timing.contendCpuW)) * 2;
++    }
++  }
+ }
+ 
+ auto CPU::DADD(r64& rd, cr64& rs, cr64& rt) -> void {
+diff --git a/ares/n64/cpu/memory.cpp b/ares/n64/cpu/memory.cpp
+index 12635f7b..f02167e0 100644
+--- a/ares/n64/cpu/memory.cpp
++++ b/ares/n64/cpu/memory.cpp
+@@ -170,8 +170,8 @@ auto CPU::read(PhysAccess access) -> maybe<u64> {
+   u32 paddr = access.paddr;
+   if(context.littleEndian()) paddr = reverseEndianPaddr<Size>(paddr);
+   if(access.cache) return dcache.read<Size>(access.vaddr, paddr);
+-  busWait();  //a read waits for the writes posted before it (v14/v18)
+-  if(paddr < 0x03f0'0000) step(UncachedReadCycles * 2);  //RDRAM: the RCP devices charge their own cost
++  if(wbSync >= 0) busWait();  //HARNESS: a read waits for the posted writes (v14/v18)
++  if(paddr < 0x03f0'0000) { uncachedReads++; if(uncachedReadCycles) step(uncachedReadCycles * 2); } else mmioReads++;  //HARNESS
+   return busRead<Size>(paddr);
+ }
+ 
+@@ -192,7 +192,8 @@ auto CPU::write(PhysAccess access, u64 data) -> bool {
+   u32 paddr = access.paddr;
+   if(context.littleEndian()) paddr = reverseEndianPaddr<Size>(paddr);
+   if(access.cache) return dcache.write<Size>(access.vaddr, paddr, data), true;
+-  postWrite(paddr);  //the write buffer (v18)
++  if(paddr < 0x03f0'0000) { uncachedWrites++; } else mmioWrites++;  //HARNESS
++  postWrite(paddr);  //HARNESS: v18 write buffer
+   return busWrite<Size>(paddr, data), true;
+ }
+ 
+diff --git a/ares/n64/cpu/recompiler-fpu.cpp b/ares/n64/cpu/recompiler-fpu.cpp
+index 76a1f634..9eca8e8f 100644
+--- a/ares/n64/cpu/recompiler-fpu.cpp
++++ b/ares/n64/cpu/recompiler-fpu.cpp
+@@ -1072,7 +1072,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FADD_S, imm(Fdn), imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn, Ftn}, FpuWidth32, self.fpuCycles(3),
++      Fdn, {Fsn, Ftn}, FpuWidth32, self.fpuCycles(5, 3, 3),
+       FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+@@ -1089,7 +1089,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FSUB_S, imm(Fdn), imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn, Ftn}, FpuWidth32, self.fpuCycles(3),
++      Fdn, {Fsn, Ftn}, FpuWidth32, self.fpuCycles(5, 3, 3),
+       FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+@@ -1106,7 +1106,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FMUL_S, imm(Fdn), imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn, Ftn}, FpuWidth32, self.fpuCycles(5),
++      Fdn, {Fsn, Ftn}, FpuWidth32, self.fpuCycles(5, 5, 5),
+       FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+@@ -1123,7 +1123,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FDIV_S, imm(Fdn), imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn, Ftn}, FpuWidth32, self.fpuCycles(29),
++      Fdn, {Fsn, Ftn}, FpuWidth32, self.fpuCycles(29, 29),
+       FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+@@ -1140,7 +1140,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FSQRT_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn}, FpuWidth32, self.fpuCycles(29), FpuCheckSnan,
++      Fdn, {Fsn}, FpuWidth32, self.fpuCycles(29, 29), FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+         fsqrt32_f0();
+@@ -1203,7 +1203,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FROUND_L_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF32S64(0u);
+       }
+@@ -1218,7 +1218,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FTRUNC_L_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF32S64(1u);
+       }
+@@ -1233,7 +1233,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCEIL_L_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF32S64(2u);
+       }
+@@ -1248,7 +1248,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FFLOOR_L_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::Linear;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF32S64(3u);
+       }
+@@ -1263,7 +1263,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FROUND_W_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF32S32(0u);
+       }
+@@ -1278,7 +1278,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FTRUNC_W_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF32S32(1u);
+       }
+@@ -1293,7 +1293,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCEIL_W_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF32S32(2u);
+       }
+@@ -1308,7 +1308,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FFLOOR_W_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF32S32(3u);
+       }
+@@ -1345,7 +1345,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCVT_W_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+ #if defined(ARCHITECTURE_ARM64)
+         arm64FcvtS32FromF32(reg(1), freg(0), (u32)emitStateKey.fpuRoundMode() & 3u);
+@@ -1364,7 +1364,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCVT_L_S, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF32, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+ #if defined(ARCHITECTURE_ARM64)
+         arm64FcvtS64FromF32(reg(1), freg(0), (u32)emitStateKey.fpuRoundMode() & 3u);
+@@ -1383,7 +1383,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_F_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareUnordered, FpuCompareFalse
+     );
+   }
+@@ -1396,7 +1396,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_UN_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareUnordered, FpuCompareFalse
+     );
+   }
+@@ -1409,7 +1409,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_EQ_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareUnordered, FpuCompareEq
+     );
+   }
+@@ -1422,7 +1422,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_UEQ_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareUnordered, FpuCompareEq
+     );
+   }
+@@ -1435,7 +1435,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_OLT_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareUnordered, FpuCompareLt
+     );
+   }
+@@ -1448,7 +1448,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_ULT_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareUnordered, FpuCompareLt
+     );
+   }
+@@ -1461,7 +1461,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_OLE_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareUnordered, FpuCompareLe
+     );
+   }
+@@ -1474,7 +1474,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_ULE_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareUnordered, FpuCompareLe
+     );
+   }
+@@ -1487,7 +1487,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_SF_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareOrdered, FpuCompareFalse
+     );
+   }
+@@ -1500,7 +1500,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_NGLE_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareOrdered, FpuCompareFalse
+     );
+   }
+@@ -1513,7 +1513,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_SEQ_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareOrdered, FpuCompareEq
+     );
+   }
+@@ -1526,7 +1526,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_NGL_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareOrdered, FpuCompareEq
+     );
+   }
+@@ -1539,7 +1539,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_LT_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::Linear;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareOrdered, FpuCompareLt
+     );
+   }
+@@ -1552,7 +1552,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_NGE_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareOrdered, FpuCompareLt
+     );
+   }
+@@ -1565,7 +1565,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_LE_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareOrdered, FpuCompareLe
+     );
+   }
+@@ -1578,7 +1578,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_NGT_S, imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::Linear;
+       },
+-      Fsn, Ftn, FpuWidth32, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth32, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareOrdered, FpuCompareLe
+     );
+   }
+@@ -1595,7 +1595,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FADD_D, imm(Fdn), imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn, Ftn}, FpuWidth64, self.fpuCycles(3),
++      Fdn, {Fsn, Ftn}, FpuWidth64, self.fpuCycles(3, 3, 3),
+       FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+@@ -1612,7 +1612,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FSUB_D, imm(Fdn), imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn, Ftn}, FpuWidth64, self.fpuCycles(3),
++      Fdn, {Fsn, Ftn}, FpuWidth64, self.fpuCycles(3, 3, 3),
+       FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+@@ -1629,7 +1629,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FMUL_D, imm(Fdn), imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn, Ftn}, FpuWidth64, self.fpuCycles(8),
++      Fdn, {Fsn, Ftn}, FpuWidth64, self.fpuCycles(8, 8, 8),
+       FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+@@ -1646,7 +1646,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FDIV_D, imm(Fdn), imm(Fsn), imm(Ftn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn, Ftn}, FpuWidth64, self.fpuCycles(58),
++      Fdn, {Fsn, Ftn}, FpuWidth64, self.fpuCycles(58, 58, 58),
+       FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+@@ -1663,7 +1663,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FSQRT_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, {Fsn}, FpuWidth64, self.fpuCycles(58), FpuCheckSnan,
++      Fdn, {Fsn}, FpuWidth64, self.fpuCycles(58, 58, 58), FpuCheckSnan,
+       fpuDiv0Mask | fpuOverflowMask | fpuUnderflowMask | fpuInexactMask,
+       [&]() -> void {
+         fsqrt64_f0();
+@@ -1726,7 +1726,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FROUND_L_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF64S64(0u);
+       }
+@@ -1741,7 +1741,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FTRUNC_L_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF64S64(1u);
+       }
+@@ -1756,7 +1756,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCEIL_L_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF64S64(2u);
+       }
+@@ -1771,7 +1771,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FFLOOR_L_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF64S64(3u);
+       }
+@@ -1786,7 +1786,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FROUND_W_D, imm(Fdn), imm(Fsn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF64S32(0u);
+       }
+@@ -1801,7 +1801,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FTRUNC_W_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF64S32(1u);
+       }
+@@ -1816,7 +1816,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCEIL_W_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF64S32(2u);
+       }
+@@ -1831,7 +1831,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FFLOOR_W_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         emitFpuFixedRmToIntF64S32(3u);
+       }
+@@ -1868,7 +1868,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCVT_W_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+ #if defined(ARCHITECTURE_ARM64)
+         arm64FcvtS32FromF64(reg(1), freg(0), (u32)emitStateKey.fpuRoundMode() & 3u);
+@@ -1887,7 +1887,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCVT_L_D, imm(Fdn), imm(Fsn));
+         return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertF64, FpuConvertS64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+ #if defined(ARCHITECTURE_ARM64)
+         arm64FcvtS64FromF64(reg(1), freg(0), (u32)emitStateKey.fpuRoundMode() & 3u);
+@@ -1906,7 +1906,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_F_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareUnordered, FpuCompareFalse
+     );
+   }
+@@ -1919,7 +1919,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_UN_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareUnordered, FpuCompareFalse
+     );
+   }
+@@ -1932,7 +1932,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_EQ_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareUnordered, FpuCompareEq
+     );
+   }
+@@ -1945,7 +1945,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_UEQ_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareUnordered, FpuCompareEq
+     );
+   }
+@@ -1958,7 +1958,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_OLT_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareUnordered, FpuCompareLt
+     );
+   }
+@@ -1971,7 +1971,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_ULT_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareUnordered, FpuCompareLt
+     );
+   }
+@@ -1984,7 +1984,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_OLE_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareUnordered, FpuCompareLe
+     );
+   }
+@@ -1997,7 +1997,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_ULE_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareUnordered, FpuCompareLe
+     );
+   }
+@@ -2010,7 +2010,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_SF_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareOrdered, FpuCompareFalse
+     );
+   }
+@@ -2023,7 +2023,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_NGLE_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareOrdered, FpuCompareFalse
+     );
+   }
+@@ -2036,7 +2036,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_SEQ_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareOrdered, FpuCompareEq
+     );
+   }
+@@ -2049,7 +2049,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_NGL_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareOrdered, FpuCompareEq
+     );
+   }
+@@ -2062,7 +2062,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_LT_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareOrdered, FpuCompareLt
+     );
+   }
+@@ -2075,7 +2075,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_NGE_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareOrdered, FpuCompareLt
+     );
+   }
+@@ -2088,7 +2088,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_LE_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 0,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 0,
+       FpuCompareOrdered, FpuCompareLe
+     );
+   }
+@@ -2101,7 +2101,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FC_NGT_D, imm(Fsn), imm(Ftn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fsn, Ftn, FpuWidth64, self.fpuCycles(1), FpuCheckSnan | FpuCheckQnan, 1,
++      Fsn, Ftn, FpuWidth64, self.fpuCycles(3, 1, 1), FpuCheckSnan | FpuCheckQnan, 1,
+       FpuCompareOrdered, FpuCompareLe
+     );
+   }
+@@ -2130,7 +2130,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCVT_S_W, imm(Fdn), imm(Fsn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertS32, FpuConvertF32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertS32, FpuConvertF32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         conv_f32_from_s32(freg(0), reg(0));
+       }
+@@ -2145,7 +2145,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCVT_D_W, imm(Fdn), imm(Fsn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertS32, FpuConvertF64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertS32, FpuConvertF64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         conv_f64_from_s32(freg(0), reg(0));
+       }
+@@ -2175,7 +2175,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCVT_S_L, imm(Fdn), imm(Fsn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertS64, FpuConvertF32, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertS64, FpuConvertF32, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         conv_f32_from_sw(freg(0), reg(0));
+       }
+@@ -2190,7 +2190,7 @@ auto CPU::Recompiler::emitFPU(u32 instruction, EmitPcMode pcMode) -> EmitExecute
+         callf(&CPU::FCVT_D_L, imm(Fdn), imm(Fsn));
+       return EmitExecuteResult::MayFault;
+       },
+-      Fdn, Fsn, FpuConvertS64, FpuConvertF64, self.fpuCycles(5),
++      Fdn, Fsn, FpuConvertS64, FpuConvertF64, self.fpuCycles(5, 5, 5),
+       [&]() -> void {
+         conv_f64_from_sw(freg(0), reg(0));
+       }
+diff --git a/ares/n64/cpu/recompiler-ipu.cpp b/ares/n64/cpu/recompiler-ipu.cpp
+index 47719890..d7fd06c1 100644
+--- a/ares/n64/cpu/recompiler-ipu.cpp
++++ b/ares/n64/cpu/recompiler-ipu.cpp
+@@ -163,7 +163,8 @@ auto CPU::Recompiler::jitMemoryOpcode(u32 instruction, u32 size, u32 mode,
+   cmp32(mem(reg(2), DcacheLineTagKeyOff), reg(3), set_z);
+   auto cacheMiss = jump(flag_nz);
+ 
+-  // Cache hit: a hit costs no extra cycle (cpu_timing v11); the load-use hazard is charged per block.
++  // Cache hit: account for the hit latency, then read/write the cached value.
++  if(self.dcacheHitCost) emitCpuStep(self.dcacheHitCost * 2);
+   if(system.homebrewMode) {
+     add64(ProfileDcacheHitsMem, ProfileDcacheHitsMem, imm(1));
+   }
+diff --git a/ares/n64/cpu/recompiler.cpp b/ares/n64/cpu/recompiler.cpp
+index 632e64e7..395786cf 100644
+--- a/ares/n64/cpu/recompiler.cpp
++++ b/ares/n64/cpu/recompiler.cpp
+@@ -680,10 +680,10 @@ auto CPU::Recompiler::emit(u64 vaddr, u32 address, u64 stateKey) -> Block* {
+ 
+   // Phase 4: emit the planned instruction sequence.
+   bool prevBranched = false;
+-  // Static FPU scoreboard for this block: the FPU is pipelined (cpu_timing v11/v14), an instruction
+-  // that reads a result before it is ready waits. The schedule starts afresh at every block entry.
+-  std::vector<u32> fpuStall(plan.instructions.size(), 0);
+-  {
++  //HARNESS: static FPU scoreboard for this block (hardware FPU is pipelined: issue 2, result after the latency)
++  std::vector<u32> fpuStall;
++  if(self.hazardModel) {
++    fpuStall.assign(plan.instructions.size(), 0);
+     s64 ready[32] = {}; s64 t = 0;
+     for(size_t i = 0; i < plan.instructions.size(); i++) {
+       u32 ins = plan.instructions[i].instruction;
+@@ -694,7 +694,7 @@ auto CPU::Recompiler::emit(u64 vaddr, u32 address, u64 stateKey) -> Block* {
+         if(fn <= 0x03 || fn >= 0x30) need = max(need, ready[ft]);
+         s64 stall = max<s64>(0, need - t);
+         fpuStall[i] = (u32)stall; t += stall;
+-        u32 issue = lat == 4 ? 3 : lat >= 6 ? lat - 1 : lat;   //add/sub 3, mul 5/8, div and sqrt 29/58, conversions 5, moves 1 (fpuLatency is one more where a dependent instruction waits)
++        u32 issue = lat == 4 ? 3 : lat >= 6 ? lat - 1 : lat;   //v18: add/sub 3 (+1 dependent), mul.s 5 / mul.d 8 (+1), div/sqrt 29 / 58 (+1), cvt 5, mov 1
+         if(fn < 0x30) ready[fd] = t + lat;
+         t += issue;
+       } else if(op == 0x31 || op == 0x35) {  //LWC1/LDC1
+@@ -780,8 +780,7 @@ auto CPU::Recompiler::emit(u64 vaddr, u32 address, u64 stateKey) -> Block* {
+       instructionCycles = 64 * 2;
+     }
+     emitDeferredCycles += instructionCycles;
+-    {
+-      // Pipeline hazards against the next instruction and the FPU dependency stalls.
++    if(self.hazardModel) {  //HARNESS
+       u32 nextInstruction = idx + 1 < plan.instructions.size() ? plan.instructions[idx + 1].instruction : 0;
+       emitDeferredCycles += self.hazardCycles(instruction, nextInstruction) * 2;
+       emitDeferredCycles += fpuStall[idx] * 2;
+diff --git a/ares/n64/memory/io.hpp b/ares/n64/memory/io.hpp
+index 8d8a89ba..c1c88177 100644
+--- a/ares/n64/memory/io.hpp
++++ b/ares/n64/memory/io.hpp
+@@ -1,6 +1,8 @@
++inline u32 RcpReadCycles = 22;  //HARNESS: tunable (T_MMIO); v14: an RCP register read costs 23 cycles in all (MI registers 11)
++
+ template<typename T>
+ struct RCP {  //A device which is part of RCP
+-  const u32 DefaultReadCycles = 22;  //an RCP register read stalls the CPU for 23 cycles in all (cpu_timing v14; MI: 11)
++  const u32& DefaultReadCycles = RcpReadCycles;
+   const u32 DefaultWriteCycles = 0;  //not implemented until we implement the CPU write queue
+ 
+   template<u32 Size>
+diff --git a/ares/n64/mi/mi.cpp b/ares/n64/mi/mi.cpp
+index 5c2421cc..9ce50149 100644
+--- a/ares/n64/mi/mi.cpp
++++ b/ares/n64/mi/mi.cpp
+@@ -20,6 +20,8 @@ auto MI::unload() -> void {
+ 
+ auto MI::raise(IRQ source) -> void {
+   debugger.interrupt((u32)source);
++  static bool irqLog = getenv("ARES_IRQ_LOG") != nullptr;  //HARNESS
++  if(irqLog) fprintf(stderr, "IRQ %u sf=%llu vc=%u cpu=%lld\n", (u32)source, (unsigned long long)rdp.timing.syncFullCount, (u32)vi.io.vcounter, (long long)cpu.clock);
+   switch(source) {
+   case IRQ::SP: irq.sp.line = 1; break;
+   case IRQ::SI: irq.si.line = 1; break;
+diff --git a/ares/n64/pi/device.hpp b/ares/n64/pi/device.hpp
+index c2b8c9e2..e2acc9e3 100644
+--- a/ares/n64/pi/device.hpp
++++ b/ares/n64/pi/device.hpp
+@@ -8,20 +8,6 @@ struct PIDeviceTiming {
+         && pulseWidth      >= other.pulseWidth
+         && releaseDuration >= other.releaseDuration;
+   }
+-
+-  //Each PI bus cycle is one RCP clock (~16ns @ 62.5MHz).
+-  //The PI latches the address on /ALE_L, waits (LAT+1) cycles, then holds /RD (or /WR)
+-  //low for (PWD+1) cycles and samples the data bus on its rising edge.
+-
+-  //time the device has from the address being latched until the first word is sampled
+-  auto accessCycles() const -> u32 {
+-    return (latency + 1) + (pulseWidth + 1);
+-  }
+-
+-  //time the device has to drive the bus while /RD is asserted
+-  auto pulseCycles() const -> u32 {
+-    return pulseWidth + 1;
+-  }
+ };
+ 
+ struct PIDevice {
+diff --git a/ares/n64/pi/dma.cpp b/ares/n64/pi/dma.cpp
+index f2bd4154..bed301f3 100644
+--- a/ares/n64/pi/dma.cpp
++++ b/ares/n64/pi/dma.cpp
+@@ -16,6 +16,7 @@ auto PI::dmaRead() -> void {
+ auto PI::dmaWrite() -> void {
+   u8 mem[128];
+   i32 length = io.writeLength+1;
++  dmaCount++; dmaBytes += length; dmaClocks += dmaDuration(false);  //HARNESS
+   i32 maxBlockSize = 128;
+   bool firstBlock = true;
+ 
+diff --git a/ares/n64/pi/io.cpp b/ares/n64/pi/io.cpp
+index 2a41a824..424e813d 100644
+--- a/ares/n64/pi/io.cpp
++++ b/ares/n64/pi/io.cpp
+@@ -116,6 +116,8 @@ auto PI::ioWrite(u32 address, u32 data_) -> void {
+     io.writeLength = n24(data);
+     io.dmaBusy = 1;
+     io.originPc = cpu.ipu.pc;
++    static bool piLog = getenv("ARES_PI_LOG") != nullptr;  //HARNESS
++    if(piLog) fprintf(stderr, "PIDMA t=%lld len %u dur %u cart %08x dram %06x\n", (long long)cpu.busNow(), (u32)io.writeLength + 1, dmaDuration(false), (u32)io.pbusAddress, (u32)io.dramAddress);
+     cpu.queueInsert(Queue::PI_DMA_Write, dmaDuration(false));
+     dmaWrite();
+   }
+diff --git a/ares/n64/pi/pi.hpp b/ares/n64/pi/pi.hpp
+index de726b67..8254ed9e 100644
+--- a/ares/n64/pi/pi.hpp
++++ b/ares/n64/pi/pi.hpp
+@@ -2,6 +2,7 @@
+ 
+ struct PI : Memory::RCP<PI> {
+   Node::Object node;
++  u32 dmaCount = 0; u64 dmaBytes = 0; u64 dmaClocks = 0;  //HARNESS
+ 
+   struct Debugger {
+     //debugger.cpp
+diff --git a/ares/n64/rdp/io.cpp b/ares/n64/rdp/io.cpp
+index be0f086f..2c5e9ed4 100644
+--- a/ares/n64/rdp/io.cpp
++++ b/ares/n64/rdp/io.cpp
+@@ -15,18 +15,18 @@ auto RDP::readWord(u32 address, Thread& thread) -> u32 {
+   }
+ 
+   if(address == 2) {
+-    //DPC_CURRENT: where the RDP has got to in the ranges it was given (see Timing::ranges)
++    //DPC_CURRENT
+     data.bit(0,23) = command.current;
+-    if(timing.enable && timing.pending) {
+-      auto& t = timing;
+-      while(t.rangeCount > 1 && t.ranges[t.rangeHead].after <= t.completed) { t.rangeHead = (t.rangeHead + 1) & 2047; t.rangeCount--; }
+-      if(t.rangeCount) {
+-        auto& r = t.ranges[t.rangeHead];
+-        u64 done = t.completed > r.before ? t.completed - r.before : 0;
+-        u64 span = r.after > r.before ? r.after - r.before : 1;
++    if(fifoModel && timing.enable && timing.pending) {
++      //HARNESS: the fetch pointer sits in the chunk whose work the RDP is completing now
++      while(fifoCount > 1 && fifoChunks[fifoHead].after <= timing.completed) { fifoHead = (fifoHead + 1) & 4095; fifoCount--; }
++      if(fifoCount) {
++        auto& c = fifoChunks[fifoHead];
++        u64 done = timing.completed > c.before ? timing.completed - c.before : 0;
++        u64 span = c.after > c.before ? c.after - c.before : 1;
+         if(done > span) done = span;
+-        u32 bytes = r.end >= r.start ? r.end - r.start : 0;
+-        data.bit(0,23) = (r.start + (u32)((u64)bytes * done / span)) & ~7;
++        u32 bytes = c.end >= c.start ? c.end - c.start : 0;
++        data.bit(0,23) = (c.start + (u32)((u64)bytes * done / span)) & ~(curQuantum - 1);  //HARNESS: T_CURQ
+       }
+     }
+     if(&thread == &cpu) cpu.forceSynchronize();
+@@ -45,6 +45,7 @@ auto RDP::readWord(u32 address, Thread& thread) -> u32 {
+     data.bit( 8) = 0;  //DMA busy
+     data.bit( 9) = command.endValid;
+     data.bit(10) = command.startValid;
++    if(fifoModel == 1 && timing.enable && timing.completed < fifo.before) data.bit(9) = data.bit(10) = 1;  //HARNESS: END not yet accepted
+     if(&thread == &cpu) cpu.forceSynchronize();
+   }
+ 
+@@ -74,12 +75,18 @@ auto RDP::readWord(u32 address, Thread& thread) -> u32 {
+   }
+ 
+   debugger.ioDPC(Read, address, data);
++  static bool dpcLog = getenv("ARES_DPC_LOG") != nullptr;  //HARNESS
++  if(dpcLog && &thread == &cpu) fprintf(stderr, "DPC rd %u -> %08x sf=%llu pc=%08x\n", address, (u32)data, (unsigned long long)timing.syncFullCount, (u32)cpu.ipu.pc);
++  if(&thread == &rsp) dpcRspReads[address & 7]++;  //HARNESS
+   return data;
+ }
+ 
+ auto RDP::writeWord(u32 address, u32 data_, Thread& thread) -> void {
+   address = (address & 0x1f) >> 2;
+   n32 data = data_;
++  static bool dpcLog = getenv("ARES_DPC_LOG") != nullptr;  //HARNESS
++  if(dpcLog && &thread == &cpu) fprintf(stderr, "DPC wr %u <- %08x sf=%llu pc=%08x\n", address, (u32)data, (unsigned long long)timing.syncFullCount, (u32)cpu.ipu.pc);
++  if(&thread == &rsp) dpcRspWrites[address & 7]++;  //HARNESS
+ 
+   if(address == 0) {
+     //DPC_START
+@@ -94,13 +101,14 @@ auto RDP::writeWord(u32 address, u32 data_, Thread& thread) -> void {
+       command.current = command.start;
+       command.startValid = 0;
+     }
+-    Timing::Range range{command.current, command.end, timing.submitted, 0};
++    static bool aheadLog = getenv("ARES_AHEAD_LOG") != nullptr;  //HARNESS
++    if(aheadLog && &thread == &rsp) fprintf(stderr, "AHEAD %llu %llu\n", (unsigned long long)timing.syncFullCount, (unsigned long long)timing.pending);
++    fifo.start = command.current; fifo.end = command.end; fifo.before = timing.submitted;  //HARNESS
+     flushCommands();
+-    range.after = timing.submitted;
+-    if(timing.enable && range.after > range.before) {
+-      auto& t = timing;
+-      if(t.rangeCount == 2048) { t.rangeHead = (t.rangeHead + 1) & 2047; t.rangeCount--; }
+-      t.ranges[(t.rangeHead + t.rangeCount) & 2047] = range; t.rangeCount++;
++    fifo.after = timing.submitted;
++    if(fifoModel && fifo.after > fifo.before) {
++      if(fifoCount == 4096) { fifoHead = (fifoHead + 1) & 4095; fifoCount--; }
++      fifoChunks[(fifoHead + fifoCount) & 4095] = fifo; fifoCount++;
+     }
+     if(&thread == &cpu) cpu.forceSynchronize();
+   }
+diff --git a/ares/n64/rdp/rdp.cpp b/ares/n64/rdp/rdp.cpp
+index 7f38701e..a29765e5 100644
+--- a/ares/n64/rdp/rdp.cpp
++++ b/ares/n64/rdp/rdp.cpp
+@@ -28,7 +28,6 @@ auto RDP::crash(const char *reason) -> void {
+   command.bufferBusy = 1;
+   timing.pending = 0;
+   timing.syncQueued = 0;
+-  timing.rangeCount = 0;
+ }
+ 
+ auto RDP::main() -> void {
+@@ -37,7 +36,9 @@ auto RDP::main() -> void {
+     u32 clocks = (u32)min<s64>(-Thread::clock, 1 << 24);
+     if(timing.pending && !command.freeze && !command.crashed) {
+       clocks = timingStep(clocks);
++      timing.busyUnits += clocks;  //HARNESS
+     }
++    timing.elapsedUnits += clocks;  //HARNESS
+     step(clocks);
+     command.clock += clocks / 3;
+   }
+diff --git a/ares/n64/rdp/rdp.hpp b/ares/n64/rdp/rdp.hpp
+index 6c8588d5..4bea7344 100644
+--- a/ares/n64/rdp/rdp.hpp
++++ b/ares/n64/rdp/rdp.hpp
+@@ -84,6 +84,13 @@ struct RDP : Thread, Memory::RCP<RDP> {
+   auto timingSpan(s32 x, s32 y, u32 pixels) -> f64;
+   auto timingAdd(f64 cycles) -> void;
+   auto timingDelay(f64 cycles) -> void;
++  u64 dpcRspReads[8] = {}, dpcRspWrites[8] = {};  //HARNESS
++  u32 rasterModel = 0; u32 zNarrow = 16;  //HARNESS T_RASTER, T_ZNARROW (default = 0012: depth-test savings only for spans up to 16 px)
++  f64 atomicCost = 20.0; f64 aa1Span = 3.5;  //HARNESS T_ATOMIC / T_AA1 (defaults = 0012)
++  f64 triOverhead = -1.0; f64 triSpanPenalty = 15.0; f64 spanWide = 0.0;  //HARNESS: T_TRIOV / T_TRISP / T_SPWIDE (rdp_timing v22 W)
++  u32 viWhole = 0;  //HARNESS: 1 = VI factor applied to the whole list instead of spans/loads only
++  u32 curQuantum = 8; u32 fifoModel = 0;  //HARNESS: 1 = END accepted only when the previous range is drained (+CURRENT progress), 2 = CURRENT progress only
++  struct FifoChunk { u32 start, end; u64 before, after; }; FifoChunk fifo; FifoChunk fifoChunks[4096]; u32 fifoHead = 0, fifoCount = 0;  //HARNESS
+ 
+   //serialization.cpp
+   auto serialize(serializer&) -> void;
+@@ -94,40 +101,26 @@ struct RDP : Thread, Memory::RCP<RDP> {
+   struct Timing {
+     //tunables
+     bool   enable = true;
+-    //the other bus masters are charged as they happen (timingDelay) instead of a fixed factor
+-    f64    contentionZ = 1.0;      //scale on read-modify-write spans (image read / depth) beyond the per-transfer charges below
+-    f64    contentionPlain = 1.0;  //the same for write-only spans (plain 1/2-cycle, fill, copy) and TMEM loads
+-    //the VI's framebuffer fetch slows every RDRAM transfer; measured by replaying game display lists under
+-    //every VI mode on an NTSC console (rdp_timing v12/v15): AA mode 3 (replicate, one line fetched per
+-    //output line) +0.4%, mode 2 (resample) +3%, modes 0/1 (anti-aliased with divot: three lines per output
+-    //line) +11.7% at 320x16-bit, +32% at 640x16-bit; mode 2 does not grow with the line (1280 pixels: +3%)
+-    f64    viFactorAA3 = 1.004, viFactorAA2 = 1.03, viFactorAA0 = 1.117;
+-    f64    viWidthScale = 1.77;    //AA 0/1: the factor over 1 grows by this per 640 bytes of line above 640: (1.324-1)/(1.117-1) = 1 + 1.77*(1280/640-1)
+-    f64    viContendScale = 2.4;   //the per-transfer losses below grow with the VI factor: 1 + 0.117*2.4 at 320x16 AA0 (task_timing v20b: a
+-                                   //CPU line fill costs the RDP 10.4 clocks with the VI off and 13.3 in the game's VI mode; v12 x1.25, v17 x1.42)
+-    //RDP clocks lost to each transfer of another bus master while it has work in flight (rdp_timing v10, RDP drawing a game list):
+-    f64    contendCpu = 10.0;      //a CPU data cache line fill (16 bytes): 10.4 with the VI off under a real task (task_timing v20b), 9.7 (v17), 11.7 (v10)
+-    f64    contendCpuI = 8.5;      //a CPU instruction cache line fill (32 bytes)
+-    f64    contendCpuW = 1.0;      //a CPU data cache write-back (16 bytes; rdp_timing v17: a random load+store loop costs the RDP about two fills' worth, not two fills and two write-backs)
+-    f64    contendCpuU = 4.0;      //an uncached CPU write (rdp_timing v17: 2.7 with the VI off, 5 in the games' VI mode)
+-    f64    contendDma = 1.2;       //per 8 bytes of SP DMA, plus contendDmaBase per transfer: the RDP only gets about 36 clocks of
+-                                   //bus between two back-to-back DMAs whatever their size (rsp_timing v19b: 8 B 6, 64 B 10, 512 B 76, 3.5 KiB 549)
+-    f64    contendDmaBase = 9.0;   //an isolated transfer costs a few clocks more than a back-to-back one: F3DEX2's 1164 DMAs per frame
+-                                   //(168 B list fetches, 344 B output flushes, vertex and matrix loads) cost the RDP 51 clocks each with the VI
+-                                   //off (task_timing v20b: 0.057 VI per frame; the v19b rule gives 45, this 48) and 47-71 in the game's VI mode
+-                                   //depending on the console (PAL/NTSC); the contendScale factor (x1.28) sits between the two
+-    f64    spanPenalty = 15.0;     //extra clocks per read-modify-write span of a primitive placed anywhere but right after the previous one (rdp_timing v9: the game lists need 15 on top of the stacked-primitive tables)
++    f64    contentionZ = 1.13;     //measured slowdown of read-modify-write spans (image read / depth) by the RDRAM traffic of a running game
++    f64    contentionPlain = 1.19; //the same for write-only spans (plain 1/2-cycle, fill, copy) and TMEM loads
++    f64    viFactor = 0.0;         //old fixed factor (0 = use the VI mode model below)
++    f64    viFactorAA3 = 1.004, viFactorAA2 = 1.03, viFactorAA0 = 1.117;  //measured on the game lists (v15, NTSC console, 320-wide 16-bit)
++    f64    viWidthScale = 1.77;    //a 1280-byte line with divot/dedither: (1.324-1)/(1.117-1) = 2.77 = 1 + 1.77*(2-1) (v15)
++    f64    viNtscScale = 1.0;      //NTSC line rate vs PAL (knob)
++    f64    viContendScale = 1.6;   //per-transfer RDP loss grows with the VI factor: 1 + 0.155*1.6 = 1.25        //measured slowdown of read-modify-write spans with the VI scanning out a frame (write-only spans: none)
++    f64    contendCpu = 12.0;      //RDP clocks lost to each CPU cache line transfer while drawing (rdp_timing v9 R)
++    f64    contendCpuI = 12.0, contendCpuW = 12.0, contendCpuU = 4.0;  //HARNESS: instruction fills, write-backs, uncached writes (v17: 2.7 VI off / 5 VI on)
++    f64    contendDma = 1.22;      //RDP clocks lost per 8 bytes of SP DMA while drawing (rdp_timing v7 D)
++    u64    frameDelay;             //HARNESS: contention clocks this list
++    f64    spanPenalty = 40.0;     //measured extra clocks per read-modify-write span of a primitive placed anywhere but right after the previous one (scattered primitives: 35-50, triangle strips: 13-26)
+     f64    zPassFraction = 0.75;   //share of depth-tested pixels that pass (estimated from overdraw when zPassAuto)
+     bool   zPassAuto = true;
+-    u32    zFailWidth = 16;        //spans up to this many pixels can fail the depth test as a whole; wider spans always pay the passing cost (rdp_timing v24/v28)
+-    f64    atomicCost = 20.0;      //clocks per primitive with ATOMIC_PRIM set (rdp_timing v24/v25)
+-    f64    aaSpanCost = 3.5;       //clocks per span of an anti-aliased 1-cycle primitive (rdp_timing v24)
+-    n1     atomicPrim;             //Set_Other_Modes bits the model needs beyond the cycle type and depth/image read
+-    n1     antialias;
++    u64    frameCommandBytes = 0; //HARNESS
+     u64    frameZPixels;           //depth-tested pixels drawn since the last Sync_Full
+ 
+     //state decoded from the command stream (only what the model needs)
+     n2     cycleType;
++    n1     atomicPrim; n1 aaEnable;  //HARNESS
+     n1     imageRead;
+     n1     zCompare;
+     n1     zUpdate;
+@@ -154,19 +147,13 @@ struct RDP : Thread, Memory::RCP<RDP> {
+     u64    framePixels;
+     u64    frameCycles;
+     u64    syncFullCount;         //total Sync_Full commands seen (statistics)
+-
+-    //The command fetch pointer. The renderer consumes a DPC_START..DPC_END range the moment DPC_END is
+-    //written, but the real RDP only gets through it as fast as it draws, and the microcode reads
+-    //DPC_CURRENT to know how far: F3DEX2 writes its commands into a small RDRAM FIFO (8 KiB in Beetle
+-    //Adventure Racing) and waits whenever the next flush would overwrite what the RDP has not fetched
+-    //yet, and at the end of the FIFO waits for DPC_CURRENT == DPC_END before wrapping. With the pointer
+-    //at the end the RSP finished a frame's task in 0.5 VI while the RDP drew for 1.5 VI; on the console
+-    //the task ends 0.05-0.3 VI before the RDP does (task_timing v20). So each DPC_END write records the
+-    //range and the work it queued, and DPC_CURRENT is read as the point of the oldest unfinished range
+-    //that the completed work has reached.
+-    struct Range { u32 start, end; u64 before, after; };
+-    Range  ranges[2048];
+-    u32    rangeHead, rangeCount;
++    u64    frameSpans, framePrims, frameLoadBytes, frameRects, frameFillPixels, framePipe, frameMem; //HARNESS stats
++    u64    cycSpans[4] = {}, cycPixels[4] = {}, cycPipeBound[4] = {}, cycCost[4] = {}, cycPipeOnly[4] = {}, cycMemOnly[4] = {};  //HARNESS: per cycle type, cumulative
++    u64    lastDelay; u64 frameDelayCalls, frameDelaySkipped, busyUnits, elapsedUnits; f64 frameModeCycles[65]; u64 frameModePixels[32]; u64 frameModeSpans[32]; u64 frameZCover; u8 zMask[480*80]; u64    lastPixels, lastCycles, lastSpans, lastPrims, lastLoadBytes, lastRects, lastFillPixels, lastPipe, lastMem;
++    //HARNESS: silhouette debug framebuffer (320x240 RGB), painted from the span walk
++    u8*    debugFrame = nullptr;   //allocated by the harness
++    u32    debugColor = 0x808080;  //color for the primitive being walked
++    u32    fillColor = 0;
+   } timing;
+ 
+   struct Command {
+diff --git a/ares/n64/rdp/serialization.cpp b/ares/n64/rdp/serialization.cpp
+index 88678057..bf258ec1 100644
+--- a/ares/n64/rdp/serialization.cpp
++++ b/ares/n64/rdp/serialization.cpp
+@@ -37,8 +37,6 @@ auto RDP::serialize(serializer& s) -> void {
+   s(timing.accumulated);
+   s(timing.zPassFraction);
+   s(timing.frameZPixels);
+-  s(timing.atomicPrim);
+-  s(timing.antialias);
+   s(timing.submitted);
+   s(timing.completed);
+   s(timing.pending);
+@@ -46,7 +44,6 @@ auto RDP::serialize(serializer& s) -> void {
+   s(timing.syncTargets);
+   s(timing.framePixels);
+   s(timing.frameCycles);
+-  if(s.reading()) timing.rangeHead = timing.rangeCount = 0;  //the fetch-pointer ranges are not saved: DPC_CURRENT reads as DPC_END until the next DPC_END write
+ 
+   s(edge.lmajor);
+   s(edge.level);
+diff --git a/ares/n64/rdp/timing.cpp b/ares/n64/rdp/timing.cpp
+index 00a16169..bb94a342 100644
+--- a/ares/n64/rdp/timing.cpp
++++ b/ares/n64/rdp/timing.cpp
+@@ -53,14 +53,14 @@ auto RDP::timingReset() -> void {
+   timing.enable = t.enable;
+   timing.contentionZ = t.contentionZ;
+   timing.contentionPlain = t.contentionPlain;
++  timing.viFactor = t.viFactor;
+   timing.spanPenalty = t.spanPenalty;
+   timing.contendCpu = t.contendCpu; timing.contendCpuI = t.contendCpuI; timing.contendCpuW = t.contendCpuW; timing.contendCpuU = t.contendCpuU;
+   timing.viFactorAA3 = t.viFactorAA3; timing.viFactorAA2 = t.viFactorAA2; timing.viFactorAA0 = t.viFactorAA0;
+-  timing.viWidthScale = t.viWidthScale; timing.viContendScale = t.viContendScale;
+-  timing.contendDma = t.contendDma; timing.contendDmaBase = t.contendDmaBase;
++  timing.viWidthScale = t.viWidthScale; timing.viNtscScale = t.viNtscScale; timing.viContendScale = t.viContendScale;
++  timing.contendDma = t.contendDma;
+   timing.zPassFraction = t.zPassFraction;
+-  timing.zPassAuto = t.zPassAuto; timing.zFailWidth = t.zFailWidth;
+-  timing.atomicCost = t.atomicCost; timing.aaSpanCost = t.aaSpanCost;
++  timing.zPassAuto = t.zPassAuto;
+   timing.colorSize = 2;
+   timing.colorWidth = 319;
+   timing.textureSize = 2;
+@@ -71,6 +71,7 @@ auto RDP::timingReset() -> void {
+ //queue 'cycles' RDP clocks of work (3 system clocks per RDP clock)
+ auto RDP::timingAdd(f64 cycles) -> void {
+   if(!timing.enable || cycles <= 0.0) return;
++  if(viWhole) cycles *= viModeFactor();  //HARNESS: T_VIWHOLE=1: the VI factor on the whole list (v15 measured it that way)
+   timing.frameCycles += (u64)cycles;
+   timing.accumulated += cycles * 3.0;
+   u64 work = (u64)timing.accumulated;
+@@ -82,7 +83,10 @@ auto RDP::timingAdd(f64 cycles) -> void {
+ //another bus master held RDRAM for 'cycles' RDP clocks while the RDP had work in flight:
+ //everything queued, including the Sync_Full interrupts already waiting, completes that much later
+ auto RDP::timingDelay(f64 cycles) -> void {
+-  if(!timing.enable || cycles <= 0.0 || timing.pending == 0 || command.freeze) return;
++  if(!timing.enable || cycles <= 0.0 || command.freeze) return;
++  timing.frameDelayCalls++;
++  if(timing.pending == 0) { timing.frameDelaySkipped += (u64)cycles; return; }
++  timing.frameDelay += (u64)cycles;
+   timing.accumulated += cycles * 3.0;
+   u64 work = (u64)timing.accumulated;
+   timing.accumulated -= work;
+@@ -131,29 +135,41 @@ auto RDP::timingMode() -> u32 {
+   return timing.mode = mode;
+ }
+ 
+-//how much the VI's framebuffer fetch slows the RDP in the current VI mode (see rdp.hpp)
++//what a span or load costs in a running game relative to the idle-console tables
++//the VI's framebuffer fetch slows every RDRAM transfer; measured with the game lists (rdp_timing v12):
++//AA mode 3 (replicate, one line per output line) +2%, mode 2 (resample) +3%, modes 0/1 (anti-aliased:
++//three lines per output line) +15-16%, and a 640-pixel-wide 16-bit image +47% (the game modes are
++//measured on a PAL console; the knob 'viNtscScale' covers the NTSC line rate)
+ auto RDP::viModeFactor() -> f64 {
+   if(!vi.active()) return 1.0;
+   f64 f = vi.io.antialias == 3 ? timing.viFactorAA3 : vi.io.antialias == 2 ? timing.viFactorAA2 : timing.viFactorAA0;
+   u32 bytes = ((u32)vi.io.width ? (u32)vi.io.width : 320u) * (vi.io.colorDepth == 3 ? 4u : 2u);
+-  if(bytes > 640 && vi.io.antialias < 2) f = 1.0 + (f - 1.0) * (1.0 + timing.viWidthScale * ((f64)bytes / 640.0 - 1.0));
+-  return f;
++  if(bytes > 640 && vi.io.antialias < 2) f = 1.0 + (f - 1.0) * (1.0 + timing.viWidthScale * ((f64)bytes / 640.0 - 1.0));  //only the divot/dedither modes grow with the line (v15: aa2 at 2560 B/line is still x1.03)
++  return 1.0 + (f - 1.0) * timing.viNtscScale;
+ }
+ 
+-//what a span or load costs in a running game relative to the idle-console tables
+ auto RDP::timingScale(bool memoryBound) -> f64 {
+   f64 f = memoryBound ? timing.contentionZ : timing.contentionPlain;
+-  return f * viModeFactor();
++  if(timing.viFactor > 1.0 && memoryBound && vi.active()) f *= timing.viFactor;  //old: fixed factor
++  else if(!viWhole) f *= viModeFactor();
++  return f;
+ }
+ 
+-//what a bus transfer of another master costs the RDP, scaled by the VI's own traffic (v12: x1.25 in the AA modes)
++//what a bus transfer of another master costs the RDP, scaled by the VI's own traffic (v12: +25% in the AA modes)
+ auto RDP::contendScale() -> f64 {
+   return 1.0 + (viModeFactor() - 1.0) * timing.viContendScale;
+ }
+ 
++static bool zCoverage = getenv("T_ZCOVER") != nullptr;  //HARNESS
+ //cost of one span of 'pixels' pixels whose first pixel is at (x, y) of the color image
+ auto RDP::timingSpan(s32 x, s32 y, u32 pixels) -> f64 {
+   if(pixels == 0) return 0.0;
++  if(timing.debugFrame && y >= 0 && y < 240) {
++    u32 c = timing.cycleType >= 2 ? (timing.cycleType == 3 ? timing.fillColor : 0x606060) : timing.debugColor;
++    for(s32 px = x; px < x + (s32)pixels && px < 320; px++) if(px >= 0) {
++      u8* p = timing.debugFrame + (y * 320 + px) * 3; p[0] = c >> 16; p[1] = c >> 8; p[2] = c;
++    }
++  }
+   u32 bytes = timing.colorSize == 3 ? 4 : timing.colorSize == 2 ? 2 : 1;
+   u32 stride = (timing.colorWidth + 1) * bytes;
+   u32 address = timing.colorAddress + y * stride + x * bytes;
+@@ -181,14 +197,13 @@ auto RDP::timingSpan(s32 x, s32 y, u32 pixels) -> f64 {
+     f64 pass = rdp_tm_span(zpass, address, w);
+     f64 fail = rdp_tm_span(zfail, address, w);
+     timing.frameZPixels += pixels;
++    if(zCoverage && y >= 0 && y < 480 && x >= 0) {  //HARNESS: distinct pixels covered by depth-tested spans
++      u32 xe = x + pixels; if(xe > 640) xe = 640;
++      u8* row = timing.zMask + y * 80;
++      for(u32 px = x; px < xe; px++) { u8 bit = 1 << (px & 7); if(!(row[px >> 3] & bit)) { row[px >> 3] |= bit; timing.frameZCover++; } }
++    }
+     if(both) {
+-      //a span whose pixels all fail the depth test is 15-40 clocks cheaper (no writes), but a span
+-      //with even one passing pixel costs the full read-modify-write: the games' frames replayed with
+-      //the depth buffer preset so that only their own overdraw fails cost exactly what the real frames
+-      //cost (rdp_timing v24), so partial occlusion saves nothing. Only short spans are hidden as a
+-      //whole (Donkey Kong 64's small triangles: -17% on the console, v28), so the estimated pass rate
+-      //is applied to spans up to zFailWidth pixels and wider spans always pay the passing cost.
+-      if(w <= (s32)timing.zFailWidth) cost += (fail - pass) * (1.0 - timing.zPassFraction);
++      cost += (fail - pass) * (1.0 - timing.zPassFraction);
+     } else {
+       auto partial = timing.zCompare ? RDP_TM_1CYC16_ZCMP : RDP_TM_1CYC16_ZUPD;
+       f64 ref = rdp_tm_span(RDP_TM_1CYC16_ZPASS, address, w);
+@@ -203,7 +218,9 @@ auto RDP::timingSpan(s32 x, s32 y, u32 pixels) -> f64 {
+   cost *= timingScale(timing.memoryBound);
+   if(timing.memoryBound) cost += timing.spanPenalty;
+ 
+-  timing.framePixels += pixels;
++  timing.framePixels += pixels; timing.frameModePixels[timing.mode & 31] += pixels; timing.frameModeSpans[timing.mode & 31]++; timing.frameSpans++; timing.framePipe += (u64)pipe; timing.frameMem += (u64)(cost - pipe);
++  { u32 ct = timing.cycleType & 3; timing.cycSpans[ct]++; timing.cycPixels[ct] += pixels; if(pipe >= cost / timingScale(timing.memoryBound) - (timing.memoryBound ? timing.spanPenalty : 0) - 0.5) timing.cycPipeBound[ct]++; timing.cycCost[ct] += (u64)cost; timing.cycPipeOnly[ct] += (u64)pipe; timing.cycMemOnly[ct] += (u64)rdp_tm_span(mode, address, w); }
++  if(timing.cycleType >= 2) timing.frameFillPixels += pixels;
+   return cost;
+ }
+ 
+@@ -229,7 +246,41 @@ auto RDP::timingTriangle(const u64* ops, bool shade, bool texture, bool zbuffer)
+   if(rowEnd - rowStart > 1024) rowEnd = rowStart + 1024;  //guard against garbage
+ 
+   f64 cycles = 0.0;
+-  u32 widest = 0, spans = 0;
++  u32 widest = 0, spans = 0, spanPixels = 0; f64 spanWideTotal = 0.0;
++  timing.framePrims++;
++  if(shade) {
++    u64 c = ops[4];  //red.i, green.i, blue.i, alpha.i
++    timing.debugColor = (u32)((c >> 48 & 0xff) << 16 | (c >> 32 & 0xff) << 8 | (c >> 16 & 0xff));
++  } else timing.debugColor = texture ? 0x9090c0 : 0xc09090;
++  if(rasterModel) {
++    //HARNESS T_RASTER=1: the RDP's edge walker (as in angrylion): four sub-scanlines per row, XH/XM are the
++    //edge positions at the top of the row holding YH, XL at YM; a row is drawn when any of its sub-scanlines
++    //lies in [YH, YL), and its span runs from floor(leftmost edge) to floor(rightmost edge) inclusive
++    s32 ycur = yh & ~3;
++    s32 kEnd = yl; if(kEnd - ycur > 4096) kEnd = ycur + 4096;
++    for(s32 k0 = ycur; k0 < kEnd; k0 += 4) {
++      s32 row = k0 >> 2;
++      if(row < timing.scissorY0 || row >= timing.scissorY1) continue;
++      s64 lx = 0, rx = 0; bool any = false;
++      for(s32 k = k0; k < k0 + 4; k++) {
++        if(k < yh || k >= yl) continue;
++        s64 xr = (s64)xh + ((s64)(dxhdy >> 2) * (k - ycur));
++        s64 xm_ = k < ym ? (s64)xm + ((s64)(dxmdy >> 2) * (k - ycur)) : (s64)xl + ((s64)(dxldy >> 2) * (k - ym));
++        s64 a = xr < xm_ ? xr : xm_, b = xr < xm_ ? xm_ : xr;
++        a >>= 16; b >>= 16;  //floor to pixels (16.16)
++        if(!any) { lx = a; rx = b; any = true; } else { if(a < lx) lx = a; if(b > rx) rx = b; }
++      }
++      if(!any) continue;
++      if(lx < timing.scissorX0) lx = timing.scissorX0;
++      if(rx > timing.scissorX1 - 1) rx = timing.scissorX1 - 1;
++      if(rx < lx) continue;
++      u32 pixels = (u32)(rx - lx + 1);
++      if(pixels > widest) widest = pixels;
++      spans++; spanPixels += pixels;
++      if(pixels > 16) spanWideTotal += spanWide * (f64)(pixels - 16);
++      cycles += timingSpan((s32)lx, row, pixels);
++    }
++  } else
+   for(s32 row = rowStart; row < rowEnd; row++) {
+     f64 yc = row + 0.5;
+     if(yc < fyh || yc >= fyl) continue;
+@@ -243,17 +294,26 @@ auto RDP::timingTriangle(const u64* ops, bool shade, bool texture, bool zbuffer)
+     u32 pixels = (u32)(x1 - x0 + 0.5);
+     if(pixels == 0) pixels = 1;
+     if(pixels > widest) widest = pixels;
+-    spans++;
++    spans++; spanPixels += pixels;
++    if(pixels > 16) spanWideTotal += spanWide * (f64)(pixels - 16);  //HARNESS T_SPWIDE
+     cycles += timingSpan((s32)floor(x0), row, pixels);
+   }
+   //per-primitive overhead (can be slightly negative: setup overlaps the previous primitive)
++  if(timing.atomicPrim) cycles += atomicCost;                                     //HARNESS T_ATOMIC: v24 DK64 om_no_atomic -3.2% = 20 clk per triangle
++  if(timing.aaEnable && timing.cycleType == 0) cycles += aa1Span * (f64)spans;    //HARNESS T_AA1: v24 DK64 om_no_aa -3.2% (1-cycle only; 2-cycle BAR: 0)
++  if(triOverhead >= 0.0) {
++    //HARNESS T_TRIOV: measured fixed cost per shade/texture/z triangle (rdp_timing v22 W: ~45 clocks),
++    //T_TRISP: span penalty for triangle spans instead of spanPenalty, T_SPWIDE: per pixel beyond 16 of a span
++    cycles += triOverhead;
++    if(timing.memoryBound) cycles += (f64)spans * (triSpanPenalty - timing.spanPenalty) - spanWideTotal;
++  } else {
+   cycles += rdp_tm_prim_overhead((enum rdp_tm_mode)timing.mode, widest ? widest : 1);
+   if(shade || texture) cycles += 3.0;
+-  //ATOMIC_PRIM serialises the primitives: 20 clocks each (Donkey Kong 64 sets it; rdp_timing v24/v25:
+-  //-3.3% / -1.5..1.9% of its frames with the bit cleared). Anti-aliasing costs about 3.5 clocks per
+-  //span in 1-cycle mode (DK64 -3.2%) and nothing in 2-cycle mode (Beetle Adventure Racing: 0).
+-  if(timing.atomicPrim) cycles += timing.atomicCost;
+-  if(timing.antialias && timing.cycleType == 0) cycles += timing.aaSpanCost * (f64)spans;
++  }
++  //a primitive that reads the color/depth buffers somewhere other than where the previous
++  //one left off (every primitive of a real scene) pays for the row changes and the
++  //read-after-write hazards against the previous primitive's writes
++  timing.frameModeCycles[timing.mode & 31] += cycles;  //HARNESS
+   timingAdd(cycles);
+ }
+ 
+@@ -267,10 +327,16 @@ auto RDP::timingRectangle(s32 x0, s32 y0, s32 x1, s32 y1, bool fill) -> void {
+   if(py1 > timing.scissorY1) py1 = timing.scissorY1;
+   f64 cycles = 0.0;
+   u32 width = px1 > px0 ? px1 - px0 : 0;
++  timing.frameRects++;
++  u8* saved = timing.debugFrame;
++  static bool paintAll = getenv("ARES_SIL_ALL") != nullptr;
++  if(!fill && width >= 200 && !paintAll) timing.debugFrame = nullptr;  //don't paint full-screen overlays
+   if(width && py1 > py0) {
+     for(s32 row = py0; row < py1; row++) cycles += timingSpan(px0, row, width);
+   }
++  timing.debugFrame = saved;
+   cycles += rdp_tm_prim_overhead((enum rdp_tm_mode)timing.mode, width ? width : 1);
++  timing.frameModeCycles[32 + (timing.mode & 31)] += cycles;  //HARNESS
+   timingAdd(cycles);
+ }
+ 
+@@ -303,6 +369,9 @@ auto RDP::timingStep(u32 clocks) -> u32 {
+ 
+ //a Sync_Full has finished executing: signal the CPU
+ auto RDP::timingComplete() -> void {
++  static bool syncLog = getenv("ARES_SYNC_LOG") != nullptr;  //HARNESS
++  if(syncLog) fprintf(stderr, "SYNC %llu t=%lld sub=%llu done=%llu pend=%llu cyc=%llu delay=%llu delayCalls=%llu delaySkipped=%llu busy=%llu elapsed=%llu rdpclk=%lld px=%llu spans=%llu prims=%llu rects=%llu fill=%llu pipe=%llu mem=%llu load=%llu\n", (unsigned long long)timing.syncFullCount, (long long)(cpu.clockEpoch + cpu.Thread::clock), (unsigned long long)timing.submitted, (unsigned long long)timing.completed, (unsigned long long)timing.pending, (unsigned long long)timing.frameCycles, (unsigned long long)timing.frameDelay, (unsigned long long)timing.frameDelayCalls, (unsigned long long)timing.frameDelaySkipped, (unsigned long long)timing.busyUnits, (unsigned long long)timing.elapsedUnits, (long long)Thread::clock, (unsigned long long)timing.framePixels, (unsigned long long)timing.frameSpans, (unsigned long long)timing.framePrims, (unsigned long long)timing.frameRects, (unsigned long long)timing.frameFillPixels, (unsigned long long)timing.framePipe, (unsigned long long)timing.frameMem, (unsigned long long)timing.frameLoadBytes);
++  if(syncLog) { fprintf(stderr, "MODEPX"); for(u32 m : range(32)) if(timing.frameModePixels[m] > 0) fprintf(stderr, " %u:%llu", m, (unsigned long long)timing.frameModePixels[m]); fprintf(stderr, "\n"); fprintf(stderr, "MODESP"); for(u32 m : range(32)) if(timing.frameModeSpans[m] > 0) fprintf(stderr, " %u:%llu", m, (unsigned long long)timing.frameModeSpans[m]); fprintf(stderr, "\n"); fprintf(stderr, "MODES"); for(u32 m : range(65)) if(timing.frameModeCycles[m] > 0) fprintf(stderr, " %u:%.0f", m, timing.frameModeCycles[m]); fprintf(stderr, "\n"); }
+   if(!command.crashed) {
+     mi.raise(MI::IRQ::DP);
+     if(timing.pending == 0) {
+@@ -311,11 +380,16 @@ auto RDP::timingComplete() -> void {
+       command.startGclk = 0;
+     }
+   }
++  timing.lastPixels = timing.framePixels; timing.lastCycles = timing.frameCycles; timing.lastSpans = timing.frameSpans; timing.lastPrims = timing.framePrims;
++  timing.lastLoadBytes = timing.frameLoadBytes; timing.lastRects = timing.frameRects; timing.lastFillPixels = timing.frameFillPixels; timing.lastPipe = timing.framePipe; timing.lastMem = timing.frameMem; timing.lastDelay = timing.frameDelay;
++  static bool zLog = getenv("ARES_SYNC_LOG") != nullptr;  //HARNESS
++  if(zLog) fprintf(stderr, "ZPASS zpix=%llu cover=%llu area=%.0f f=%.3f scissor=%d,%d-%d,%d\n", (unsigned long long)timing.frameZPixels, (unsigned long long)timing.frameZCover, (f64)(timing.scissorX1 - timing.scissorX0) * (timing.scissorY1 - timing.scissorY0), timing.zPassFraction, timing.scissorX0, timing.scissorY0, timing.scissorX1, timing.scissorY1);
+   if(timing.zPassAuto) {
+     //estimate the share of depth-tested pixels that pass from the overdraw of the frame just
+     //finished: drawing n layers in random order, the k-th layer passes with probability 1/k,
+     //so the fraction is H(n)/n (1.0 for a single layer, 0.75 for two, ~0.6 for three)
+     f64 area = (f64)(timing.scissorX1 - timing.scissorX0) * (timing.scissorY1 - timing.scissorY0);
++    if(zCoverage && timing.frameZCover > 0) area = (f64)timing.frameZCover;  //HARNESS: overdraw relative to the covered area
+     if(area > 0 && timing.frameZPixels > 0) {
+       f64 n = timing.frameZPixels / area;
+       if(n < 1.0) n = 1.0;
+@@ -326,9 +400,10 @@ auto RDP::timingComplete() -> void {
+       timing.zPassFraction = f;
+     }
+   }
+-  timing.frameZPixels = 0;
++  timing.frameZPixels = 0; timing.frameZCover = 0; if(zCoverage) memset(timing.zMask, 0, sizeof(timing.zMask));
+   timing.framePixels = 0;
+   timing.frameCycles = 0;
++  timing.frameSpans = timing.framePrims = timing.frameLoadBytes = timing.frameRects = timing.frameFillPixels = timing.framePipe = timing.frameMem = timing.frameDelay = timing.frameDelayCalls = timing.frameDelaySkipped = 0; for(auto& c : timing.frameModeCycles) c = 0; for(auto& c : timing.frameModePixels) c = 0; for(auto& c : timing.frameModeSpans) c = 0;
+ }
+ 
+ //account for one complete RDP command (ops[0] holds the first 64-bit word)
+@@ -337,6 +412,117 @@ auto RDP::timingCommand(const u64* ops, u32 length) -> void {
+   u64 op = ops[0];
+   u32 code = op >> 56 & 0x3f;
+   const f64 state = rdp_tm_state_cmd(command.source);
++  timing.frameCommandBytes += length * 8;  //HARNESS
++  static bool opLog = getenv("ARES_OP_LOG") != nullptr;  //HARNESS: per-frame opcode histogram
++  static u32 opCount[64]; static u64 opCycles[64];
++  static bool imgLog = getenv("ARES_IMG_LOG") != nullptr;  //HARNESS: color/depth image addresses
++  if(imgLog && (code == 0x3e || code == 0x3f)) fprintf(stderr, "IMG %02x %06x w=%u sz=%u\n", code, (u32)(op & 0x3ffffff), (u32)(op >> 32 & 0x3ff) + 1, (u32)(op >> 51 & 3));
++  //HARNESS: dump command lists (with the depth buffer they start from) for replay on hardware
++  //ARES_DUMP_LISTS=first:last:dir dumps the lists whose Sync_Full index is in [first, last]
++  static const char* dumpSpec = getenv("ARES_DUMP_LISTS");
++  static u64 dumpFirst = 0, dumpLast = 0; static string dumpDir;
++  static std::vector<u8> dumpList, dumpRam; static std::vector<u32> dumpRegions;  //addr, bytes, kind
++  static u32 dumpZAddress = 0, dumpZBytes = 0, dumpColorAddress = 0, dumpColorBytes = 0;
++  static bool dumpInit = false;
++  if(dumpSpec && !dumpInit) {
++    dumpInit = true;
++    unsigned a = 0, b = 0; char dir[512] = {};
++    if(sscanf(dumpSpec, "%u:%u:%511s", &a, &b, dir) == 3) { dumpFirst = a; dumpLast = b; dumpDir = dir; }
++  }
++  //state carried over from previous lists, replayed as a prefix before the dumped list
++  static u64 lastOp[64], lastTile[8], lastTileSize[8]; static std::vector<u64> dumpPrefix;
++  if(dumpSpec) {
++    if(code == 0x35) lastTile[op >> 24 & 7] = op;
++    else if(code == 0x32) lastTileSize[op >> 24 & 7] = op;
++    else if(length == 1) lastOp[code] = op;
++  }
++  bool dumping = dumpSpec && timing.syncFullCount + 1 >= dumpFirst && timing.syncFullCount + 1 <= dumpLast;
++  if(dumping) {
++    if(dumpList.size() == 0) {
++      dumpPrefix.clear();
++      for(u32 c : {0x2f, 0x2d, 0x3c, 0x37, 0x3f, 0x3e, 0x3d}) if(lastOp[c]) dumpPrefix.push_back(lastOp[c]);
++      for(u32 t : range(8)) if(lastTile[t]) dumpPrefix.push_back(lastTile[t]);
++      for(u32 t : range(8)) if(lastTileSize[t]) dumpPrefix.push_back(lastTileSize[t]);
++      dumpRam.resize(rdram.ram.size);
++      for(u32 n = 0; n < rdram.ram.size; n += 8) {
++        u64 v = rdram.ram.read<Dual>(n, RBusDevice::VR4300_UNCACHED);
++        for(u32 b : range(8)) dumpRam[n + b] = v >> (56 - b * 8);
++      }
++      dumpRegions.clear(); dumpZAddress = dumpZBytes = dumpColorAddress = dumpColorBytes = 0;
++    }
++    for(u32 n : range(length)) for(u32 b : range(8)) dumpList.push_back(ops[n] >> (56 - b * 8));
++    auto texelBytes2d = [&](u32 texels) -> u32 {
++      return timing.textureSize == 3 ? texels * 8 : timing.textureSize == 2 ? texels * 4 : timing.textureSize == 1 ? texels * 2 : texels;
++    };
++    auto region = [&](u32 addr, u32 bytes, u32 kind) { dumpRegions.push_back(addr); dumpRegions.push_back(bytes); dumpRegions.push_back(kind); };
++    if(code == 0x3f) {
++      u32 size = n2(op >> 51), width = n10(op >> 32) + 1, addr = n26(op);
++      u32 stride = width * (size == 3 ? 4 : size == 2 ? 2 : 1);
++      u32 rows = timing.scissorY1 > 0 && timing.scissorY1 <= 1024 ? timing.scissorY1 : 240;
++      dumpColorAddress = addr; dumpColorBytes = stride * rows;
++      region(addr, stride * rows, 0);
++    }
++    if(code == 0x3e) {
++      u32 addr = n26(op);
++      u32 stride = (timing.colorWidth + 1) * 2;
++      u32 rows = timing.scissorY1 > 0 && timing.scissorY1 <= 1024 ? timing.scissorY1 : 240;
++      dumpZAddress = addr; dumpZBytes = stride * rows;
++      region(addr, stride * rows, 1);
++    }
++    if(code == 0x3d) {
++      //a generous bound on what loads from this image can touch: 1024 rows of the image stride
++      u32 size = n2(op >> 51), width = n10(op >> 32) + 1, addr = n26(op);
++      u32 stride = (size == 3 ? width * 4 : size == 2 ? width * 2 : size == 1 ? width : (width + 1) / 2);
++      region(addr, stride * 1024, 2);
++    }
++    if(code == 0x33) {
++      s32 s0 = n12(op >> 44), t0 = n12(op >> 32), s1 = n12(op >> 12);
++      u32 texels = s1 >= s0 ? s1 - s0 + 1 : 0;
++      u32 stride = texelBytes2d(timing.textureWidth + 1) >> 1;
++      u32 address = timing.textureAddress + t0 * stride + (texelBytes2d(s0) >> 1);
++      region(address, texelBytes2d(texels) >> 1, 3);
++    }
++    if(code == 0x34) {
++      s32 s0 = n12(op >> 44) >> 2, t0 = n12(op >> 32) >> 2, s1 = n12(op >> 12) >> 2, t1 = n12(op) >> 2;
++      u32 w = s1 >= s0 ? s1 - s0 + 1 : 0, h = t1 >= t0 ? t1 - t0 + 1 : 0;
++      u32 stride = texelBytes2d(timing.textureWidth + 1) >> 1;
++      u32 address = timing.textureAddress + t0 * stride + (texelBytes2d(s0) >> 1);
++      region(address, (h ? (h - 1) * stride : 0) + (texelBytes2d(w) >> 1), 3);
++    }
++    if(code == 0x29) {
++      //write: header (big-endian u32), list, depth buffer, regions
++      auto be = [&](std::vector<u8>& v, u32 x) { v.push_back(x >> 24); v.push_back(x >> 16); v.push_back(x >> 8); v.push_back(x); };
++      std::vector<u8> out;
++      out.push_back('R'); out.push_back('D'); out.push_back('P'); out.push_back('L');
++      be(out, 2);
++      be(out, dumpList.size());
++      be(out, dumpColorAddress); be(out, dumpColorBytes);
++      be(out, dumpZAddress); be(out, dumpZBytes);
++      be(out, dumpRegions.size() / 3);
++      be(out, (u32)timing.frameCycles);  //model: this list so far (without RDP_TM_LIST_BASE)
++      be(out, (u32)timing.framePixels); be(out, (u32)timing.frameSpans); be(out, (u32)timing.framePrims); be(out, (u32)timing.frameLoadBytes);
++      be(out, rdram.ram.size);
++      be(out, dumpPrefix.size());
++      while(out.size() < 64) out.push_back(0);
++      for(u64 v : dumpPrefix) for(u32 b : range(8)) out.push_back(v >> (56 - b * 8));
++      for(u8 b : dumpList) out.push_back(b);
++      for(u32 n : range(dumpZBytes)) out.push_back(dumpZAddress + n < rdram.ram.size ? dumpRam[dumpZAddress + n] : 0);
++      for(u32 v : dumpRegions) be(out, v);
++      { string path = {dumpDir, "/list_", pad(timing.syncFullCount + 1, 6, '0'), ".bin"}; FILE* fp = fopen(path.data(), "wb"); if(fp) { fwrite(out.data(), 1, out.size(), fp); fclose(fp); } }
++      fprintf(stderr, "DUMP list %llu: %u bytes, color %06x z %06x, model %llu clk, %u regions, prefix %u\n", (unsigned long long)timing.syncFullCount + 1, (u32)dumpList.size(), dumpColorAddress, dumpZAddress, (unsigned long long)timing.frameCycles, (u32)dumpRegions.size() / 3, (u32)dumpPrefix.size());
++      dumpList.clear();
++    }
++  }
++
++  if(opLog) {
++    opCount[code]++;
++    if(code == 0x29) {
++      string line = {"OPS ", timing.syncFullCount, " "};
++      for(u32 n : range(64)) if(opCount[n]) line.append(hex(n, 2L), "=", opCount[n], " ");
++      fprintf(stderr, "%s\n", line.data());
++      for(auto& c : opCount) c = 0;
++    }
++  }
+ 
+   //bytes per texel of the texture image, times two (so that 4bpp is 1)
+   auto texelBytes2 = [&](u32 texels) -> u32 {
+@@ -357,6 +543,7 @@ auto RDP::timingCommand(const u64* ops, u32 length) -> void {
+   case 0x25: { //Texture_Rectangle_Flip
+     s32 x1 = n12(op >> 44), y1 = n12(op >> 32);
+     s32 x0 = n12(op >> 12), y0 = n12(op >>  0);
++    timing.debugColor = 0xd0d0d0;
+     timingRectangle(x0, y0, x1, y1, false);
+   } break;
+ 
+@@ -380,8 +567,7 @@ auto RDP::timingCommand(const u64* ops, u32 length) -> void {
+     timing.imageRead = n1(op >>  6);
+     timing.zUpdate   = n1(op >>  5);
+     timing.zCompare  = n1(op >>  4);
+-    timing.atomicPrim = n1(op >> 55);
+-    timing.antialias  = n1(op >>  3);
++    timing.atomicPrim = n1(op >> 55); timing.aaEnable = n1(op >> 3);  //HARNESS: T_ATOMIC / T_AA1
+     timingMode();
+     timingAdd(state);
+   } break;
+@@ -389,14 +575,14 @@ auto RDP::timingCommand(const u64* ops, u32 length) -> void {
+   case 0x30: { //Load_TLUT
+     s32 s0 = n12(op >> 44) >> 2, s1 = n12(op >> 12) >> 2;
+     u32 count = s1 >= s0 ? s1 - s0 + 1 : 0;
+-    timingAdd(rdp_tm_load_tlut(count) * timingScale(false));
++    { f64 c_ = rdp_tm_load_tlut(count) * timingScale(false); timing.frameModeCycles[64] += c_; timingAdd(c_); }
+   } break;
+ 
+   case 0x33: { //Load_Block
+     s32 s0 = n12(op >> 44), s1 = n12(op >> 12);
+     u32 texels = s1 >= s0 ? s1 - s0 + 1 : 0;
+     u32 bytes = texelBytes2(texels) >> 1;
+-    timingAdd(rdp_tm_load_block((bytes + 1) >> 1) * timingScale(false));
++    { f64 c_ = rdp_tm_load_block((bytes + 1) >> 1) * timingScale(false); timing.frameModeCycles[64] += c_; timingAdd(c_); }
+   } break;
+ 
+   case 0x34: { //Load_Tile
+@@ -408,7 +594,7 @@ auto RDP::timingCommand(const u64* ops, u32 length) -> void {
+     u32 rowBytes = texelBytes2(w) >> 1;
+     u32 address  = timing.textureAddress + t0 * stride + (texelBytes2(s0) >> 1);
+     if(h > 1024) h = 1024;  //guard against garbage
+-    timingAdd(rdp_tm_load_tile(address, stride, rowBytes, h) * timingScale(false));
++    { f64 c_ = rdp_tm_load_tile(address, stride, rowBytes, h) * timingScale(false); timing.frameModeCycles[64] += c_; timingAdd(c_); }
+   } break;
+ 
+   case 0x36: { //Fill_Rectangle
+diff --git a/ares/n64/rdram/rdram.hpp b/ares/n64/rdram/rdram.hpp
+index c718ec2e..d9d9c7dc 100644
+--- a/ares/n64/rdram/rdram.hpp
++++ b/ares/n64/rdram/rdram.hpp
+@@ -52,8 +52,8 @@ struct RDRAM : Memory::RCP<RDRAM> {
+       if(address >= size) return 0;
+       if(unlikely(system.homebrewMode)) {
+         self.debugger.readWord(address, Size, device);
+-        self.profile.metrics[(u32)device].reads += Size;
+       }
++      self.profile.metrics[(u32)device].reads += Size;  //HARNESS: always count
+       return Memory::Writable::read<Size>(address);
+     }
+ 
+@@ -94,8 +94,8 @@ struct RDRAM : Memory::RCP<RDRAM> {
+       }
+       if(unlikely(system.homebrewMode)) {
+         self.debugger.writeWord(address, Size, value, device);
+-        self.profile.metrics[(u32)device].writes += Size;
+       }
++      self.profile.metrics[(u32)device].writes += Size;  //HARNESS: always count
+       Memory::Writable::write<Size>(address, value);
+       self.hidden.update<Size>(address, value);
+     }
+@@ -114,8 +114,8 @@ struct RDRAM : Memory::RCP<RDRAM> {
+       }
+       if(unlikely(system.homebrewMode)) {
+         self.debugger.writeWord(address, Size, value, RBusDevice::VR4300_UNCACHED);
+-        self.profile.metrics[(u32)RBusDevice::VR4300_UNCACHED].writes += Size;
+       }
++      self.profile.metrics[(u32)RBusDevice::VR4300_UNCACHED].writes += Size;  //HARNESS: always count
+       Memory::Writable::write<Size>(address, value);
+       self.hidden.ebusScatter<Size>(address, value);
+     }
+@@ -132,9 +132,7 @@ struct RDRAM : Memory::RCP<RDRAM> {
+       } else {
+         if(address >= size) return;
+       }
+-      if(unlikely(system.homebrewMode)) {
+-        self.profile.metrics[(u32)device].writes += Size;
+-      }
++      self.profile.metrics[(u32)device].writes += Size;  //HARNESS: always count
+       Memory::Writable::write<Word>(address | 0x00, value[0]);
+       Memory::Writable::write<Word>(address | 0x04, value[1]);
+       Memory::Writable::write<Word>(address | 0x08, value[2]);
+@@ -177,9 +175,7 @@ struct RDRAM : Memory::RCP<RDRAM> {
+         if(Size == ICache) value[4] = value[5] = value[6] = value[7] = 0;
+         return;
+       }
+-      if(unlikely(system.homebrewMode)) {
+-        self.profile.metrics[(u32)device].reads += Size;
+-      }
++      self.profile.metrics[(u32)device].reads += Size;  //HARNESS: always count
+       value[0] = Memory::Writable::read<Word>(address | 0x00);
+       value[1] = Memory::Writable::read<Word>(address | 0x04);
+       value[2] = Memory::Writable::read<Word>(address | 0x08);
+diff --git a/ares/n64/rsp/dma.cpp b/ares/n64/rsp/dma.cpp
+index 94135115..d826a005 100644
+--- a/ares/n64/rsp/dma.cpp
++++ b/ares/n64/rsp/dma.cpp
+@@ -1,5 +1,5 @@
+ auto RSP::dmaQueue(u32 clocks, Thread& thread) -> void {
+-  if(rdp.timing.enable && vi.active()) clocks = (u32)(clocks * (vi.io.antialias < 2 ? DmaViFactor : DmaViFactorAA3));
++  if(rdp.timing.enable && vi.active()) clocks = (u32)(clocks * (vi.io.antialias < 2 ? dmaViFactor : dmaViFactorAA3));  //HARNESS: v19
+   dma.clock = (Thread::clock - thread.clock) - clocks;
+ }
+ 
+@@ -18,8 +18,11 @@ auto RSP::dmaTransferStart(Thread& thread) -> void {
+     dma.current = dma.pending;
+     dma.busy    = dma.full;
+     dma.full    = {0,0};
+-    dmaQueue(dmaClocks(dma.current.length) + DmaClocksPerTransfer, thread);
+-    rdp.timingDelay((rdp.timing.contendDmaBase + (dma.current.length+8) / 8 * rdp.timing.contendDma) * rdp.contendScale());  //the RDP loses the bus meanwhile
++    dmaCount++; dmaBytes += (dma.current.length + 8) * (dma.current.count + 1);  //HARNESS
++    static bool dmaLog = getenv("ARES_DMA_LOG") != nullptr;  //HARNESS
++    if(dmaLog) fprintf(stderr, "DMA %s len %u count %u dram %06x pend %llu\n", dma.busy.read ? "rd" : "wr", (u32)dma.current.length + 8, (u32)dma.current.count + 1, (u32)dma.current.dramAddress, (unsigned long long)rdp.timing.pending);
++    dmaQueue((u32)((dma.current.length+8) / 8 * dmaRate) + dmaLatency, thread);
++    rdp.timingDelay((dmaContendBase + (dma.current.length+8) / 8 * rdp.timing.contendDma) * (dmaContendVi ? rdp.contendScale() : 1.0));
+   }
+ }
+ 
+@@ -66,8 +69,8 @@ auto RSP::dmaTransferStep() -> void {
+   if(dma.current.count) {
+     dma.current.count -= 1;
+     dma.current.dramAddress += dma.current.skip;
+-    dmaQueue(dmaClocks(dma.current.length), *this);
+-    rdp.timingDelay((rdp.timing.contendDmaBase + (dma.current.length+8) / 8 * rdp.timing.contendDma) * rdp.contendScale());
++    dmaQueue((u32)((dma.current.length+8) / 8 * dmaRate), *this);
++    rdp.timingDelay((dmaContendBase + (dma.current.length+8) / 8 * rdp.timing.contendDma) * (dmaContendVi ? rdp.contendScale() : 1.0));
+   } else {
+     dma.busy = {0,0};
+     dma.current.length = 0xFF8;
+diff --git a/ares/n64/rsp/interpreter-ipu.cpp b/ares/n64/rsp/interpreter-ipu.cpp
+index 9a3d93cb..a56b3689 100644
+--- a/ares/n64/rsp/interpreter-ipu.cpp
++++ b/ares/n64/rsp/interpreter-ipu.cpp
+@@ -52,6 +52,7 @@ auto RSP::BNE(cr32& rs, cr32& rt, s16 imm) -> void {
+ }
+ 
+ auto RSP::BREAK() -> void {
++  harnessTaskEnd();  //HARNESS
+   status.halted = 1;
+   status.broken = 1;
+   if(status.interruptOnBreak) mi.raise(MI::IRQ::SP);
+diff --git a/ares/n64/rsp/io.cpp b/ares/n64/rsp/io.cpp
+index 19bf5473..982dde32 100644
+--- a/ares/n64/rsp/io.cpp
++++ b/ares/n64/rsp/io.cpp
+@@ -119,6 +119,7 @@ auto RSP::ioWrite(u32 address, u32 data_, Thread& thread) -> void {
+ 
+   if(address == 4) {
+     //SP_STATUS
++    if(data.bit( 0) && !data.bit( 1) && status.halted && &thread == &cpu) harnessTaskStart();  //HARNESS
+     if(data.bit( 0) && !data.bit( 1)) status.halted = 0;
+     if(data.bit( 1) && !data.bit( 0)) status.halted = 1;
+     if(data.bit( 2)) status.broken = 0;
+@@ -201,3 +202,46 @@ auto RSP::Status::writeWord(u32 address, u32 data_, Thread& thread) -> void {
+ 
+   self.debugger.ioStatus(Write, address, data);
+ }
++
++//HARNESS: ARES_TASK_LOG=1 logs every RSP task start/end; ARES_DUMP_TASK=N:dir dumps RDRAM, DMEM, IMEM and the
++//VI/DPC registers at the start of the N-th graphics task (OSTask type 1 at DMEM 0xFC0) for replay on a console
++auto RSP::harnessTaskStart() -> void {
++  static const char* logEnv = getenv("ARES_TASK_LOG");
++  static const char* dumpEnv = getenv("ARES_DUMP_TASK");
++  u32 type = dmem.read<Word>(0xfc0);
++  harnessTaskCount++;
++  if(type == 1) harnessGfxTaskCount++;
++  harnessTaskClock = cpu.busNow();
++  if(logEnv) fprintf(stderr, "TASK start #%u type %u gfx#%u clock %lld vi %llu sync %llu dpc %06x-%06x cur %06x pending %llu\n", harnessTaskCount, type, harnessGfxTaskCount,
++    (long long)harnessTaskClock, (unsigned long long)vi.harnessFrames, (unsigned long long)rdp.timing.syncFullCount, rdp.command.start, rdp.command.end, rdp.command.current, (unsigned long long)rdp.timing.pending);
++  if(dumpEnv && type == 1) {
++    u32 n = atoi(dumpEnv); const char* colon = strchr(dumpEnv, ':');
++    if(colon && harnessGfxTaskCount == n) {
++      string dir = colon + 1;
++      auto dump = [&](string name, auto&& reader, u32 size) {
++        std::vector<u8> buf(size);
++        for(u32 a = 0; a < size; a += 4) { u32 w = reader(a); buf[a] = w >> 24; buf[a+1] = w >> 16; buf[a+2] = w >> 8; buf[a+3] = w; }
++        FILE* f = fopen(string{dir, "/", name}, "wb"); if(f) { fwrite(buf.data(), 1, size, f); fclose(f); }
++      };
++      dump("rdram.bin", [&](u32 a) { return (u32)rdram.ram.readUnaligned<Word>(a); }, rdram.ram.size);
++      dump("dmem.bin", [&](u32 a) { return dmem.read<Word>(a); }, 4096);
++      dump("imem.bin", [&](u32 a) { return imem.read<Word>(a); }, 4096);
++      FILE* f = fopen(string{dir, "/meta.txt"}, "w");
++      if(f) {
++        Thread dummy{};
++        fprintf(f, "gfx_task %u\ntask %u\nrdram_size %u\nsp_pc %08x\n", harnessGfxTaskCount, harnessTaskCount, rdram.ram.size, ipu.pc);
++        for(u32 r = 0; r < 14; r++) fprintf(f, "vi%u %08x\n", r, vi.readWord(0x04400000 + r * 4, dummy));
++        fprintf(f, "dpc_start %08x\ndpc_end %08x\ndpc_current %08x\ndpc_status %08x\n", rdp.command.start, rdp.command.end, rdp.command.current, rdp.readWord(0x0410000c, dummy));
++        for(u32 w = 0; w < 16; w++) fprintf(f, "task%u %08x\n", w, dmem.read<Word>(0xfc0 + w * 4));
++        fclose(f);
++      }
++      fprintf(stderr, "DUMP task gfx#%u -> %s\n", harnessGfxTaskCount, (const char*)dir);
++    }
++  }
++}
++
++auto RSP::harnessTaskEnd() -> void {
++  static const char* logEnv = getenv("ARES_TASK_LOG");
++  if(logEnv) fprintf(stderr, "TASK end #%u clock %lld (+%lld) vi %llu sync %llu pending %llu\n", harnessTaskCount, (long long)cpu.busNow(), (long long)(cpu.busNow() - harnessTaskClock),
++    (unsigned long long)vi.harnessFrames, (unsigned long long)rdp.timing.syncFullCount, (unsigned long long)rdp.timing.pending);
++}
+diff --git a/ares/n64/rsp/rsp.cpp b/ares/n64/rsp/rsp.cpp
+index b7436888..7647d3ef 100644
+--- a/ares/n64/rsp/rsp.cpp
++++ b/ares/n64/rsp/rsp.cpp
+@@ -40,6 +40,8 @@ auto RSP::main() -> void {
+       profile.haltedCycles += 128;
+     } else {
+       instruction();
++      if(rspSlowdown) { s64 d = Thread::clock - clock; rspAccum += d * rspSlowdown; u32 extra = rspAccum / 100; rspAccum -= (s64)extra * 100; if(extra) step(extra); }  //HARNESS: percent slower
++      busyClocks += Thread::clock - clock;  //HARNESS
+     }
+ 
+     dmaStep(Thread::clock - clock);
+diff --git a/ares/n64/rsp/rsp.hpp b/ares/n64/rsp/rsp.hpp
+index c7655458..4bcbae01 100644
+--- a/ares/n64/rsp/rsp.hpp
++++ b/ares/n64/rsp/rsp.hpp
+@@ -261,17 +261,14 @@ struct RSP : Thread, Memory::RCP<RSP> {
+   } pipeline;
+ 
+   //dma.cpp
+-  //an SP DMA takes 38 RSP cycles plus 0.15 per byte on hardware (rsp_timing v16/v19b: 8 B 38, 64 B 44,
+-  //256 B 70, 512 B 108, 1 KiB 186, 3.5 KiB 581; writes to RDRAM 32 + 0.145/B), in system clocks (3 per
+-  //RSP cycle): 114 + 3.6 per 8 bytes
+-  enum : u32 { DmaClocksPerTransfer = 114 };
+-  static constexpr auto dmaClocks(u32 length) -> u32 { return (length + 8) * 9 / 20; }  //3.6 per 8 bytes
+-  //the DMA shares RDRAM with the VI and the CPU (rsp_timing v19): in the games' 320x240 AA modes it takes
+-  //18% longer (4% in the ROM's replicate mode), and every CPU cache line transfer that overlaps it delays
+-  //it by about 18 RCP clocks while that transfer itself waits about 19 CPU cycles (a 3.5 KiB DMA beside a
+-  //CPU chasing pointers takes 1.94x as long, and the CPU's fills 65 cycles instead of 46)
+-  static constexpr f64 DmaViFactor = 1.12, DmaViFactorAA3 = 1.04;
+-  enum : u32 { DmaCpuPenaltyClocks = 54, DmaCpuStallCycles = 19 };  //54 system clocks = 18 RCP clocks
++  u64 busyClocks = 0, dmaCount = 0, dmaBytes = 0; u32 rspSlowdown = 0; s64 rspAccum = 0;  //HARNESS: system clocks spent executing (not halted)
++  f64 dmaRate = 3, dmaContendBase = 0; u32 dmaLatency = 0; bool dmaContendVi = false;  //HARNESS: system clocks per 8 bytes, per transfer; RDP clocks lost per transfer on top of contendDma per 8 B (v19b: 6)
++  //HARNESS: v19: the DMA is slowed by the VI (320x240 AA modes: +4..18% -> 1.12) and by each CPU line transfer it
++  //overlaps (about 18 RCP clocks each); a CPU line transfer that overlaps a DMA waits about 19 cycles
++  f64 dmaViFactor = 1.12, dmaViFactorAA3 = 1.04; u32 dmaCpuPenalty = 54, dmaCpuStall = 19;
++  auto harnessTaskStart() -> void;  //HARNESS
++  auto harnessTaskEnd() -> void;    //HARNESS
++  u32 harnessTaskCount = 0, harnessGfxTaskCount = 0; s64 harnessTaskClock = 0;  //HARNESS
+   auto dmaQueue(u32 clocks, Thread& thread) -> void;
+   auto dmaStep(u32 clocks) -> void;
+   auto dmaTransferStart(Thread& thread) -> void;
+diff --git a/ares/n64/vi/io.cpp b/ares/n64/vi/io.cpp
+index d541f286..cae5a21e 100644
+--- a/ares/n64/vi/io.cpp
++++ b/ares/n64/vi/io.cpp
+@@ -115,6 +115,7 @@ auto VI::writeWord(u32 address, u32 data_, Thread& thread) -> void {
+     io.reserved.bit(7)     = data.bit( 7);
+     io.antialias           = data.bit( 8, 9);
+     io.reserved.bit(10,15) = data.bit(10,15);
++    lastControl = data_;  //HARNESS: raw value incl. dedither bit 16
+   }
+ 
+   if(address == 1) {
+diff --git a/ares/n64/vi/vi.hpp b/ares/n64/vi/vi.hpp
+index 043e9f2c..fc21658c 100644
+--- a/ares/n64/vi/vi.hpp
++++ b/ares/n64/vi/vi.hpp
+@@ -24,6 +24,8 @@ struct VI : Thread, Memory::RCP<VI> {
+   auto power(bool reset) -> void;
+   auto active() -> bool { return io.colorDepth != 0; }
+ 
++  u32 lastControl = 0;  //HARNESS
++  u64 harnessFrames = 0;  //HARNESS: VI frames so far (set by the harness)
+   //io.cpp
+   auto readWord(u32 address, Thread& thread) -> u32;
+   auto writeWord(u32 address, u32 data, Thread& thread) -> void;
+diff --git a/ares/n64/vulkan/vulkan.cpp b/ares/n64/vulkan/vulkan.cpp
+index 0f53c46f..6290e690 100644
+--- a/ares/n64/vulkan/vulkan.cpp
++++ b/ares/n64/vulkan/vulkan.cpp
+@@ -67,7 +67,10 @@ auto Vulkan::load(Node::Object) -> bool {
+     }
+   } else {
+     platform->status("Vulkan Disabled: No RDP rendering support");
+-    rdram.hidden.data = nullptr;
++    //HARNESS: keep hidden RDRAM bits functional without parallel-rdp
++    static std::vector<u8> hiddenStub;
++    hiddenStub.assign(rdram.ram.size / 2 + 16, 0);
++    rdram.hidden.data = hiddenStub.data();
+   }
+ 
+   return true;
+diff --git a/headless/CMakeLists.txt b/headless/CMakeLists.txt
+new file mode 100644
+index 00000000..5fffce7e
+--- /dev/null
++++ b/headless/CMakeLists.txt
+@@ -0,0 +1,7 @@
++add_executable(headless main.cpp)
++target_compile_definitions(headless PRIVATE MIA_LIBRARY)
++target_include_directories(headless PRIVATE ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/thirdparty)
++target_link_libraries(headless PRIVATE ares::ares ares::mia ares::nall libco sljit)
++set(CONSOLE TRUE)
++ares_configure_executable(headless)
++set_target_properties(headless PROPERTIES PREFIX "")
+diff --git a/headless/main.cpp b/headless/main.cpp
+new file mode 100644
+index 00000000..14aae4b7
+--- /dev/null
++++ b/headless/main.cpp
+@@ -0,0 +1,406 @@
++#include <algorithm>
++#include <unordered_map>
++// Minimal headless harness for the ares N64 core (debugging aid, not part of ares proper).
++// Usage: headless <rom> <vi-frames> [options]
++//   --watch ADDR[:fmt]   print the RAM value at physical address ADDR (hex) every VI frame (fmt: u8,u16,u32,f32)
++//   --input FILE         input script: lines "frame button[,button...]" (buttons: A,B,Z,Start,Up,Down,Left,Right,
++//                        L,R,CU,CD,CL,CR, X=<-128..127>, Y=<-128..127>); the state persists until the next line
++//   --dump-every N       dump the VI framebuffer as PPM every N VI frames (software scanout only)
++//   --quiet              suppress per-frame output
++#include <ares/ares.hpp>
++#include <mia/mia.hpp>
++#include <n64/n64.hpp>
++#include <nall/file.hpp>
++#include <cstdio>
++#include <map>
++#include <vector>
++#include <string>
++
++using namespace nall;
++
++namespace {
++
++struct Watch { u32 address; string fmt; bool deref = false; u32 offset = 0; };
++
++struct InputState {
++  s8 x = 0, y = 0;
++  bool a=0,b=0,z=0,start=0,up=0,down=0,left=0,right=0,l=0,r=0,cu=0,cd=0,cl=0,cr=0;
++};
++
++struct Harness : ares::Platform {
++  std::shared_ptr<mia::Pak> game, systemPak;
++  ares::Node::System root;
++  u64 viFrames = 0;
++  std::vector<Watch> watches;
++  std::map<u64, InputState> script;
++  InputState current;
++  u32 dumpEvery = 0;
++  bool quiet = false;
++  const u32* lastVideo = nullptr;
++  u32 lastPitch = 0, lastWidth = 0, lastHeight = 0;
++
++  auto pak(ares::Node::Object node) -> std::shared_ptr<vfs::directory> override {
++    if(node->name() == "Nintendo 64") return systemPak->pak;
++    if(node->name() == "Nintendo 64 Cartridge") return game->pak;
++    return {};
++  }
++
++  auto status(string_view message) -> void override { print("[status] ", message, "\n"); }
++
++  auto log(ares::Node::Debugger::Tracer::Tracer node, string_view message) -> void override {
++    if(node->terminal()) print(message);
++  }
++
++  auto video(ares::Node::Video::Screen, const u32* data, u32 pitch, u32 width, u32 height) -> void override {
++    if(dumpEvery && viFrames % dumpEvery == 0) {
++      string name = {"frame-", viFrames, ".ppm"};
++      FILE* fp = fopen(name.data(), "wb");
++      fprintf(fp, "P6\n%u %u\n255\n", width, height);
++      for(u32 y = 0; y < height; y++) {
++        const u32* line = (const u32*)((const u8*)data + y * pitch);
++        for(u32 x = 0; x < width; x++) {
++          u32 p = line[x];
++          u8 rgb[3] = {u8(p >> 16), u8(p >> 8), u8(p)};
++          fwrite(rgb, 1, 3, fp);
++        }
++      }
++      fclose(fp);
++    }
++  }
++
++  auto input(ares::Node::Input::Input node) -> void override {
++    auto name = node->name();
++    if(auto button = node->cast<ares::Node::Input::Button>()) {
++      bool v = false;
++      if(name == "A") v = current.a;
++      else if(name == "B") v = current.b;
++      else if(name == "Z") v = current.z;
++      else if(name == "Start") v = current.start;
++      else if(name == "Up") v = current.up;
++      else if(name == "Down") v = current.down;
++      else if(name == "Left") v = current.left;
++      else if(name == "Right") v = current.right;
++      else if(name == "L") v = current.l;
++      else if(name == "R") v = current.r;
++      else if(name == "C-Up") v = current.cu;
++      else if(name == "C-Down") v = current.cd;
++      else if(name == "C-Left") v = current.cl;
++      else if(name == "C-Right") v = current.cr;
++      button->setValue(v);
++    } else if(auto axis = node->cast<ares::Node::Input::Axis>()) {
++      if(name == "X-Axis") axis->setValue((s16)current.x * 256);
++      if(name == "Y-Axis") axis->setValue((s16)current.y * 256);
++    }
++  }
++
++  auto readRam(u32 address, const string& fmt, bool deref = false, u32 offset = 0) -> string {
++    using namespace ares::Nintendo64;
++    if(fmt == "dp") return {rdp.timing.syncFullCount};
++    if(fmt == "pc") return {hex((u32)cpu.ipu.pc, 8L)};
++    if(fmt == "vi") return {hex((u32)vi.io.dramAddress, 8L)};
++    if(fmt == "piprof") return {pi.dmaCount, "/", pi.dmaBytes, "/", pi.dmaClocks};
++    if(fmt == "rdpstat") { auto& t = rdp.timing; return {t.syncFullCount, "/", t.lastPixels, "/", t.lastSpans, "/", t.lastPrims, "/", t.lastRects, "/", t.lastLoadBytes, "/", t.lastFillPixels, "/", t.lastPipe, "/", t.lastMem, "/", t.lastDelay, "/", t.lastCycles, "/", (u32)(t.zPassFraction * 100)}; }
++    if(fmt == "dpsrc") return {rdp.command.source, "/", rdp.timing.frameCommandBytes};
++    if(fmt == "ucprof") return {cpu.uncachedReads, "/", cpu.uncachedWrites, "/", cpu.mmioReads, "/", cpu.mmioWrites};
++    if(fmt == "victrl") return {"ctrl ", hex(vi.lastControl, 8L), " depth", vi.io.colorDepth, " divot", vi.io.divot, " serrate", vi.io.serrate, " aa", vi.io.antialias, " width", vi.io.width, " xscale", vi.io.xscale, " yscale", vi.io.yscale, " v", vi.io.vstart, "-", vi.io.vend, " h", vi.io.hstart, "-", vi.io.hend};
++    if(fmt == "rdram") { string r; for(u32 n = 1; n < (u32)RBusDevice::NUM_RBUS_HW_DEVICES; n++) r.append(rdram.profile.metrics[n].reads + rdram.profile.metrics[n].writes, "/"); return r; }
++    if(fmt == "cpuprof") return {cpu.profile.cpuCycles, "/", cpu.profile.icacheMisses, "/", cpu.profile.dcacheMisses, "/", cpu.profile.dcacheWritebacks, "/", cpu.profile.dcacheHits, "/", cpu.stallCycles};
++    if(fmt == "dpcrsp") { string r; for(u32 n : range(8)) r.append(rdp.dpcRspReads[n], "/"); r.append(" w:"); for(u32 n : range(8)) r.append(rdp.dpcRspWrites[n], "/"); return r; }
++    if(fmt == "exc") { string r; for(u32 n : range(32)) if(cpu.exceptionCount[n]) r.append(n, "=", cpu.exceptionCount[n], " "); return r; }
++    if(fmt == "rspclk") return {rsp.busyClocks, "/", rsp.dmaCount, "/", rsp.dmaBytes};
++    if(fmt == "rspbusy") return {rsp.profile.cycles - rsp.profile.haltedCycles};
++    if(fmt == "rsphalt") return {rsp.profile.haltedCycles};
++    address &= 0x7fffff;
++    if(deref) {
++      u32 ptr = rdram.ram.read<Word>(address, RBusDevice::VR4300_UNCACHED);
++      if(!ptr) return "null";
++      address = (ptr + offset) & 0x7fffff;
++    }
++    if(fmt == "u8")  return {hex(rdram.ram.read<Byte>(address, RBusDevice::VR4300_UNCACHED), 2L)};
++    if(fmt == "u16") return {hex(rdram.ram.read<Half>(address, RBusDevice::VR4300_UNCACHED), 4L)};
++    if(fmt == "f32") { u32 v = rdram.ram.read<Word>(address, RBusDevice::VR4300_UNCACHED); float f; memcpy(&f, &v, 4); return {f}; }
++    return {hex(rdram.ram.read<Word>(address, RBusDevice::VR4300_UNCACHED), 8L)};
++  }
++
++  auto applyScript() -> void {
++    auto it = script.find(viFrames);
++    if(it != script.end()) current = it->second;
++  }
++
++  auto loadScript(const string& path) -> void {
++    auto text = string::read(path);
++    for(auto& line : nall::split(text, "\n")) {
++      auto l = line.strip();
++      if(!l || l.beginsWith("#")) continue;
++      auto parts = nall::split(l, " ", 1L);
++      u64 frame = parts[0].natural();
++      InputState st;
++      if(parts.size() > 1) for(auto& tok : nall::split(parts[1], ",")) {
++        auto t = tok.strip();
++        if(t == "A") st.a = 1; else if(t == "B") st.b = 1; else if(t == "Z") st.z = 1;
++        else if(t == "Start") st.start = 1; else if(t == "Up") st.up = 1; else if(t == "Down") st.down = 1;
++        else if(t == "Left") st.left = 1; else if(t == "Right") st.right = 1; else if(t == "L") st.l = 1;
++        else if(t == "R") st.r = 1; else if(t == "CU") st.cu = 1; else if(t == "CD") st.cd = 1;
++        else if(t == "CL") st.cl = 1; else if(t == "CR") st.cr = 1;
++        else if(t.beginsWith("X=")) st.x = (s8)t.slice(2).integer();
++        else if(t.beginsWith("Y=")) st.y = (s8)t.slice(2).integer();
++      }
++      script[frame] = st;
++    }
++  }
++};
++
++Harness harness;
++
++}
++
++static string savePath, loadPath, dumpPath;
++static u64 silhouetteEvery = 0;
++static std::vector<u8> silhouette(320 * 240 * 3);
++static std::vector<std::pair<u32, u32>> pokes;
++static u64 saveFrame = 0, dumpFrame = 0;
++static std::vector<string> modelFiles;
++
++int main(int argc, char** argv) {
++  if(argc < 3) { print("usage: headless <rom> <vi-frames> [--watch ADDR[:fmt]]... [--input FILE] [--dump-every N] [--quiet]\n"); return 1; }
++  string romPath = argv[1];
++  u64 frames = string{argv[2]}.natural();
++  for(int i = 3; i < argc; i++) {
++    string arg = argv[i];
++    if(arg == "--watch" && i + 1 < argc) {
++      string spec = argv[++i];
++      auto p = nall::split(spec, ":");
++      Watch w; w.fmt = p.size() > 1 ? p[1] : string{"u32"};
++      if(p[0].beginsWith("p")) {  //pADDR+OFF : dereference pointer at ADDR then add OFF
++        string rest = p[0].slice(1);
++        auto q = nall::split(rest, "+");
++        w.deref = true; w.address = (u32)q[0].hex(); w.offset = q.size() > 1 ? (u32)q[1].hex() : 0;
++      } else w.address = (u32)p[0].hex();
++      harness.watches.push_back(w);
++    } else if(arg == "--input" && i + 1 < argc) {
++      harness.loadScript(argv[++i]);
++    } else if(arg == "--dump-every" && i + 1 < argc) {
++      harness.dumpEvery = string{argv[++i]}.natural();
++    } else if(arg == "--save" && i + 1 < argc) {
++      string spec = argv[++i];
++      auto p = nall::split(spec, "@");
++      savePath = p[0]; saveFrame = p.size() > 1 ? p[1].natural() : 0;
++    } else if(arg == "--load" && i + 1 < argc) {
++      loadPath = argv[++i];
++    } else if(arg == "--dumpram" && i + 1 < argc) {
++      string spec = argv[++i];
++      auto p = nall::split(spec, "@");
++      dumpPath = p[0]; dumpFrame = p.size() > 1 ? p[1].natural() : 0;
++    } else if(arg == "--poke" && i + 1 < argc) {
++      //--poke ADDR=VALUE32 : write a word into RDRAM after loading (code patch); caches/recompiler are invalidated
++      string spec = argv[++i];
++      auto p = nall::split(spec, "=");
++      pokes.push_back({(u32)p[0].hex(), (u32)p[1].hex()});
++    } else if(arg == "--silhouette" && i + 1 < argc) {
++      silhouetteEvery = string{argv[++i]}.natural();
++    } else if(arg == "--quiet") {
++      harness.quiet = true;
++    } else if(arg == "--model" && i + 1 < argc) {
++      modelFiles.push_back(argv[++i]);
++    }
++  }
++
++  ares::platform = &harness;
++
++  harness.game = mia::Medium::create("Nintendo 64");
++  if(harness.game->load(romPath) != successful) { print("failed to load rom\n"); return 1; }
++  harness.systemPak = mia::System::create("Nintendo 64");
++  if(harness.systemPak->load({}) != successful) { print("failed to load system\n"); return 1; }
++
++  string regionList = harness.game->pak->attribute("region");
++  string region = nall::split(regionList, ",").front().strip();
++  print("region: ", region, " id: ", harness.game->pak->attribute("id"), " cic: ", harness.game->pak->attribute("cic"), "\n");
++
++  ares::Nintendo64::option("Enable GPU acceleration", getenv("ARES_VULKAN") != nullptr);
++  ares::Nintendo64::option("Homebrew Mode", false);
++  ares::Nintendo64::option("Deterministic Entropy", true);
++  ares::Nintendo64::option("Recompiler", getenv("ARES_INTERPRETER") == nullptr);
++  ares::Nintendo64::option("Expansion Pak", true);
++
++  if(!ares::Nintendo64::load(harness.root, {"[Nintendo] Nintendo 64 (", region, ")"})) { print("core load failed\n"); return 1; }
++
++  if(auto port = harness.root->find<ares::Node::Port>("Cartridge Slot")) { port->allocate(); port->connect(); }
++  if(auto port = harness.root->find<ares::Node::Port>("Controller Port 1")) {
++    auto peripheral = port->allocate("Gamepad");
++    port->connect();
++    if(auto pakPort = peripheral->find<ares::Node::Port>("Pak")) {
++      if(harness.game->pak->attribute("port1/rpak").boolean() && !getenv("ARES_NO_PAK")) { pakPort->allocate("Rumble Pak"); pakPort->connect(); }
++    }
++  }
++
++  harness.root->power();
++  {
++    using namespace ares::Nintendo64;
++    if(auto v = getenv("T_VI")) rdp.timing.viFactor = atof(v);
++    if(auto v = getenv("T_CZ")) rdp.timing.contentionZ = atof(v);
++    if(auto v = getenv("T_CP")) rdp.timing.contentionPlain = atof(v);
++    if(auto v = getenv("T_SP")) rdp.timing.spanPenalty = atof(v);
++    if(auto v = getenv("T_CPUX")) rdp.timing.contendCpu = rdp.timing.contendCpuI = rdp.timing.contendCpuW = atof(v);
++    if(auto v = getenv("T_CPUXI")) rdp.timing.contendCpuI = atof(v);
++    if(auto v = getenv("T_CPUXW")) rdp.timing.contendCpuW = atof(v);
++    if(auto v = getenv("T_CPUXU")) rdp.timing.contendCpuU = atof(v);
++    if(auto v = getenv("T_UCW")) cpu.UncachedWriteCycles = atoi(v);
++    if(auto v = getenv("T_TURN")) cpu.BusTurnaround = atoi(v);
++    if(auto v = getenv("T_RCPW")) cpu.RcpWriteCycles = atoi(v);
++    if(auto v = getenv("T_STALL_U")) cpu.UncachedWriteStall = atoi(v);
++    if(auto v = getenv("T_DMAX")) rdp.timing.contendDma = atof(v);
++    if(auto v = getenv("T_STALL_I")) cpu.ICacheFillStall = atoi(v);
++    if(auto v = getenv("T_STALL_D")) cpu.DCacheFillStall = atoi(v);
++    if(auto v = getenv("T_STALL_W")) cpu.DCacheWriteBackStall = atoi(v);
++    if(auto v = getenv("T_FILL_I")) cpu.cpuFillI = atoi(v);
++    if(auto v = getenv("T_FILL_D")) cpu.cpuFillD = atoi(v);
++    if(auto v = getenv("T_FILL_W")) cpu.cpuFillW = atoi(v);
++    if(auto v = getenv("T_WB_SYNC")) cpu.wbSync = atoi(v);
++    if(auto v = getenv("T_EXC")) cpu.exceptionCost = atoi(v);
++    if(auto v = getenv("T_VIAA0")) rdp.timing.viFactorAA0 = atof(v);
++    if(auto v = getenv("T_VIAA3")) rdp.timing.viFactorAA3 = atof(v);
++    if(auto v = getenv("T_VINTSC")) rdp.timing.viNtscScale = atof(v);
++    if(auto v = getenv("T_VIXS")) rdp.timing.viContendScale = atof(v);
++    if(auto v = getenv("T_VISTALL_D")) cpu.viStallCycles = atoi(v);
++    if(auto v = getenv("T_VISTALL_I")) cpu.viStallI = atoi(v);
++    if(auto v = getenv("T_VISTALL_W")) cpu.viStallW = atoi(v);
++    if(auto v = getenv("T_FPU")) cpu.fpuHardware = atoi(v) != 0;
++    if(auto v = getenv("T_HIT")) cpu.dcacheHitCost = atoi(v);
++    if(auto v = getenv("T_CPUSLOW")) cpu.cpuSlowdown = atoi(v);
++    if(auto v = getenv("T_PCSAMPLE")) { cpu.pcSample = atoi(v); cpu.pcHist = new std::unordered_map<u32, u64>(); if(auto w = getenv("T_PCFROM")) cpu.pcSampleFrom = (u64)atof(w) * 1562500ull * 2; }
++    if(auto v = getenv("T_HAZARD")) cpu.hazardModel = atoi(v) != 0;
++    if(auto v = getenv("T_UCREAD")) cpu.uncachedReadCycles = atoi(v);
++    if(auto v = getenv("T_MMIO")) ares::Nintendo64::Memory::RcpReadCycles = atoi(v);
++    if(auto v = getenv("T_FIFO")) rdp.fifoModel = atoi(v);
++    if(auto v = getenv("T_CURQ")) rdp.curQuantum = atoi(v);
++    if(auto v = getenv("T_VIWHOLE")) rdp.viWhole = atoi(v);
++    if(auto v = getenv("T_RASTER")) rdp.rasterModel = atoi(v);
++    if(auto v = getenv("T_ATOMIC")) rdp.atomicCost = atof(v);
++    if(auto v = getenv("T_AA1")) rdp.aa1Span = atof(v);
++    if(auto v = getenv("T_TRIOV")) rdp.triOverhead = atof(v);
++    if(auto v = getenv("T_TRISP")) rdp.triSpanPenalty = atof(v);
++    if(auto v = getenv("T_SPWIDE")) rdp.spanWide = atof(v);
++    if(auto v = getenv("T_RSP")) rsp.rspSlowdown = atoi(v);
++    if(auto v = getenv("T_DMA_RATE")) rsp.dmaRate = atof(v);
++    if(auto v = getenv("T_DMAXB")) rsp.dmaContendBase = atof(v);
++    if(auto v = getenv("T_DMAVIX")) rsp.dmaContendVi = atoi(v) != 0;
++    if(auto v = getenv("T_DMA_LAT")) rsp.dmaLatency = atoi(v);
++    if(auto v = getenv("T_DMA_VI")) rsp.dmaViFactor = atof(v);
++    if(auto v = getenv("T_DMA_CPUX")) rsp.dmaCpuPenalty = atoi(v);
++    if(auto v = getenv("T_STALL_DMA")) rsp.dmaCpuStall = atoi(v);
++    if(auto v = getenv("T_ZPASS")) rdp.timing.zPassFraction = atof(v), rdp.timing.zPassAuto = false;
++  }
++  if(auto v = getenv("ARES_RDP_TIMING")) {
++    using namespace ares::Nintendo64;
++    if(atoi(v) == 0) { rdp.timing.enable = false; }
++  }
++  { //hidden RDRAM bits are normally owned by parallel-rdp; provide a stub so writes before the first frame work
++    using namespace ares::Nintendo64;
++    static std::vector<u8> hiddenStub(rdram.ram.size / 2 + 16);
++    rdram.hidden.data = hiddenStub.data();
++  }
++
++  if(silhouetteEvery) ares::Nintendo64::rdp.timing.debugFrame = silhouette.data();
++
++  if(!modelFiles.empty()) {
++    //feed dumped command lists (ARES_DUMP_LISTS format) through the timing model and print its prediction
++    using namespace ares::Nintendo64;
++    static const u8 commandLength[64] = {
++      1, 1, 1, 1, 1, 1, 1, 1, 4, 6,12,14,12,14,20,22,
++      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
++      1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
++      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
++    };
++    auto be32 = [](const u8* p) -> u32 { return p[0] << 24 | p[1] << 16 | p[2] << 8 | p[3]; };
++    for(auto& path : modelFiles) {
++      auto data = file::read(path);
++      if(data.size() < 64 || memcmp(data.data(), "RDPL", 4)) { print(path, ": not a list dump\n"); continue; }
++      u32 listBytes = be32(data.data() + 8), prefix = be32(data.data() + 56);
++      rdp.timingReset();
++      rdp.command.source = 0;
++      auto feed = [&](const u8* p, u32 bytes) {
++        u32 n = 0;
++        while(n + 8 <= bytes) {
++          u64 ops[22]; u32 code = p[n] & 0x3f; u32 length = commandLength[code];
++          if(n + length * 8 > bytes) break;
++          for(u32 k : range(length)) { u64 v = 0; for(u32 b : range(8)) v = v << 8 | p[n + k * 8 + b]; ops[k] = v; }
++          rdp.timingCommand(ops, length);
++          n += length * 8;
++        }
++      };
++      //twice: the depth pass rate comes from the previous frame's overdraw, so the second pass is the game's steady state
++      for(u32 pass : range(2)) {
++        feed(data.data() + 64, prefix * 8);
++        feed(data.data() + 64 + prefix * 8, listBytes);
++        while(rdp.timing.pending) rdp.timingStep(1u << 30);
++      }
++      auto& t = rdp.timing;
++      print(path, ": model ", t.lastCycles, " clk (incl. 93 list base), pixels ", t.lastPixels, " spans ", t.lastSpans, " prims ", t.lastPrims, " pipe ", t.lastPipe, " mem ", t.lastMem, " zpass ", (u32)(t.zPassFraction * 100), "%\n");
++      for(u32 c = 0; c < 4; c++) if(t.cycSpans[c]) print("    cycle", c, ": spans ", t.cycSpans[c], " pixels ", t.cycPixels[c], " pipeBound ", t.cycPipeBound[c], " cost ", t.cycCost[c], " pipeOnly ", t.cycPipeOnly[c], " memTable ", t.cycMemOnly[c], "\n");
++    }
++    return 0;
++  }
++
++  u64 start = 0;
++  if(loadPath) {
++    auto data = file::read(loadPath);
++    if(data.empty()) { print("failed to read state\n"); return 1; }
++    //first 8 bytes: frame counter
++    u64 f = 0; memcpy(&f, data.data(), 8);
++    serializer s(data.data() + 8, data.size() - 8);
++    if(!harness.root->unserialize(s)) { print("failed to load state\n"); return 1; }
++    start = f;
++    print("loaded state at frame ", f, "\n");
++  }
++  if(!pokes.empty()) {
++    using namespace ares::Nintendo64;
++    for(auto& [address, value] : pokes) {
++      u32 paddr = address & 0x7fffff;
++      cpu.writeDebug<Word>((s32)address, value);  //coherent with the data cache
++      cpu.recompiler.invalidateRange(paddr, 4);
++      cpu.icache.lines[address >> 5 & 511].tagKey = 0;  //drop a stale instruction cache line
++      print("poked ", hex(address, 8L), " = ", hex(value, 8L), "\n");
++    }
++  }
++
++  for(u64 f = start; f < frames; f++) {
++    harness.viFrames = f; ares::Nintendo64::vi.harnessFrames = f;
++    harness.applyScript();
++    if(savePath && f == saveFrame) {
++      auto s = harness.root->serialize(false);
++      std::vector<u8> data(8 + s.size());
++      memcpy(data.data(), &f, 8);
++      memcpy(data.data() + 8, s.data(), s.size());
++      file::write(savePath, data);
++      print("saved state at frame ", f, " (", s.size(), " bytes)\n");
++    }
++    if(dumpPath && f == dumpFrame) {
++      using namespace ares::Nintendo64;
++      std::vector<u8> data(rdram.ram.size);
++      for(u32 n = 0; n < rdram.ram.size; n++) data[n] = rdram.ram.read<Byte>(n, RBusDevice::VR4300_UNCACHED);
++      file::write(dumpPath, data);
++      print("dumped RDRAM at frame ", f, "\n");
++    }
++    harness.root->run();
++    if(silhouetteEvery && f % silhouetteEvery == 0) {
++      string name = {"sil-", f, ".ppm"};
++      FILE* fp = fopen(name.data(), "wb");
++      fprintf(fp, "P6\n320 240\n255\n"); fwrite(silhouette.data(), 1, silhouette.size(), fp); fclose(fp);
++    }
++    if(!harness.quiet && !harness.watches.empty()) {
++      string line = {f, ":"};
++      for(auto& w : harness.watches) line.append(" ", hex(w.address, 8L), "=", harness.readRam(w.address, w.fmt, w.deref, w.offset));
++      print(line, "\n");
++    }
++  }
++  if(ares::Nintendo64::cpu.pcHist) {  //HARNESS
++    auto& cpu = ares::Nintendo64::cpu;  //PC sampling profile (64-byte buckets), top 40
++    std::vector<std::pair<u64, u32>> v; u64 total = 0;
++    for(auto& [pc, n] : *cpu.pcHist) { v.push_back(std::make_pair((u64)n, (u32)pc)); total += n; }
++    std::sort(v.rbegin(), v.rend());
++    print("pcprofile: ", total, " samples\n");
++    for(u32 i = 0; i < v.size() && i < 40; i++) print("  ", hex(v[i].second, 8L), " ", v[i].first, " (", (u32)(v[i].first * 1000 / total) / 10.0, "%)\n");
++  }
++  harness.root->unload();
++  return 0;
++}
+diff --git a/mia/medium/nintendo-64.cpp b/mia/medium/nintendo-64.cpp
+index 982c745c..2beec404 100644
+--- a/mia/medium/nintendo-64.cpp
++++ b/mia/medium/nintendo-64.cpp
+@@ -393,7 +393,7 @@ auto Nintendo64::analyze(std::vector<u8>& data) -> string {
+   if(id == "NCW") {eeprom = 2_KiB; rpak = true;}                           //Cruis'n World
+   if(id == "NCZ") {eeprom = 2_KiB; rpak = true;}                           //Custom Robo V2
+   if(id == "ND6") {eeprom = 2_KiB; rpak = true;}                           //Densha de Go! 64
+-  if(id == "NDO") {eeprom = 2_KiB; rpak = true;}                           //Donkey Kong 64
++  if(id == "NDO") {eeprom = 2_KiB; rpak = true; if(getenv("ARES_DK64_SRAM")) {eeprom = 0; sram = 96_KiB;}}  //Donkey Kong 64 (HARNESS: dk64_tasklog writes SRAM; the EverDrive has no EEPROM then)
+   if(id == "ND2") {eeprom = 2_KiB; rpak = true;}                           //Doraemon 2: Nobita to Hikari no Shinden
+   if(id == "N3D") {eeprom = 2_KiB; rpak = true;}                           //Doraemon 3: Nobita no Machi SOS!
+   if(id == "NMX") {eeprom = 2_KiB; cpak = true; rpak = true;}              //Excitebike 64
+@@ -494,7 +494,7 @@ auto Nintendo64::analyze(std::vector<u8>& data) -> string {
+   if(id == "NBQ") {cpak = true; rpak = true;}                              //Battletanx - Global Assault
+   if(id == "NZO") {cpak = true; rpak = true;}                              //Battlezone - Rise of the Black Dogs
+   if(id == "NNS") {cpak = true; rpak = true;}                              //Beetle Adventure Racing
+-  if(id == "NB8") {cpak = true; rpak = true;}                              //Beetle Adventure Racing (J)
++  if(id == "NB8") {cpak = true; rpak = true; sram = 96_KiB;}               //Beetle Adventure Racing (J) HARNESS: bar_tasklog
+   if(id == "NBF") {cpak = true; rpak = true;}                              //Bio F.R.E.A.K.S.
+   if(id == "NBP") {cpak = true; rpak = true;}                              //Blues Brothers 2000
+   if(id == "NYW") {cpak = true;}                                           //Bokujou Monogatari 2

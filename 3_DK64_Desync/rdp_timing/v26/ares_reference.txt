@@ -1,0 +1,336 @@
+region: NTSC id: NED cic: CIC-NUS-7101
+[status] Vulkan Disabled: No RDP rendering support
+RDP TIMING v26  NTSC  8 MiB
+SERIES init DONE (526 bytes), NEXT: X (in-game lists with patched modes / triangles)
+NO SD CARD - NOT SAVED
+RDP TIMING v26
+
+X  bar_i2274.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+X  bar_i2274.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+X  bar_i2274.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+X  bar_i2274.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+X  bar_i2274.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+X  bar_i2274.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+SERIES X DONE (2116 bytes), NEXT: Y (synthetic triangles, one property at a time)
+RDP TIMING v26
+
+Y  wide_2cyc_tbz  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_2cyc_tbz  w64
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tbz  w96
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tbz  w128
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tbz  w192
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tbz  w256
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tbz  w318
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v26
+
+Y  wide_2cyc_tb  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_2cyc_tb  w64
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tb  w96
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tb  w128
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tb  w192
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tb  w256
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_2cyc_tb  w318
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v26
+
+Y  wide_2cyc_tz  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_2cyc_tz  w64
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tz  w96
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tz  w128
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tz  w192
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_2cyc_tz  w256
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_2cyc_tz  w318
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v26
+
+Y  wide_bar_om  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_bar_om  w64
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_bar_om  w96
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_bar_om  w128
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_bar_om  w192
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_bar_om  w256
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_bar_om  w318
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v26
+
+Y  wide_apex_tbz  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_apex_tbz  w64
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_apex_tbz  w96
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_apex_tbz  w128
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v26
+
+Y  wide_strip_tbz  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_strip_tbz  w64
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_strip_tbz  w96
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_strip_tbz  w128
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_strip_tbz  w192
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_strip_tbz  w256
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_strip_tbz  w318
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v26
+
+Y  wide_1cyc_tbz  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_1cyc_tbz  w64
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_1cyc_tbz  w96
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_1cyc_tbz  w128
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_1cyc_tbz  w192
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_1cyc_tbz  w256
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_1cyc_tbz  w318
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v26
+
+Y  wide_zfail_tbz  w32
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v26
+
+Y  wide_zfail_tbz  w64
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_zfail_tbz  w96
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_zfail_tbz  w128
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_zfail_tbz  w192
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_zfail_tbz  w256
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v26
+
+Y  wide_zfail_tbz  w318
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+VI WARNING: __vblank_interrupt outside of vblank period: 208
+SERIES Y DONE (7368 bytes), NEXT: end
+VI WARNING: __vblank_interrupt outside of vblank period: 208
+MEASURED, 7368 BYTES OF RESULTS
+NO SD CARD - NOT SAVED
+---- RESULTS ----
+# rdp_timing v26 - wide spans (64-320 px): the light BAR frames
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	8388608
+# runs_per_case	3
+# texture at 0x0E2BC0; dma buffer at 0x7D0000; heap top 0x0E5000; display buffer at 0x04C440; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+# console VI: ctrl 0x3302 width 640 v_sync 0x20D x_scale 0x400
+B0	167
+# X lines: list, variant, vi mode (vi_off), clock (smallest of 3), ticks, model (ares tables of the unpatched full list), VI_CTRL read back, VI_WIDTH, VI probe
+# v24 variants: z_far / z_near = the depth-clearing fill removed and the depth buffer preset farthest / nearest (every first draw passes / every test fails); om_no_atomic = ATOMIC_PRIM off; color_low = the drawn colour buffer moved to 0x0F5000; z_up1m = the depth buffer 1 MiB higher (BAR only); tri_only_zfar / znear = the same on tri_only
+# XI lines: list, info (placement in RDRAM)
+# variants: no_tri / tri_only as v22 (NOPs replace the class); om_* patch every Set_Other_Modes (no_zcmp: Z_COMPARE off = all pass; no_zupd: Z_UPDATE off; no_aa: AA_EN off; no_persp: TEX_PERSP off; no_lod: TEX_LOD/SHARPEN/DETAIL off; 1cyc: 2-cycle lists as 1-cycle; no_dither: dither off; point: point sampling; no_tlut: EN_TLUT off; no_cvg: ALPHA_CVG_SEL/CVG_X_ALPHA/CVG_DST/COLOR_ON_CVG/ALPHA_COMPARE off; no_imrd: IMAGE_READ off; wlike: v22 W's mode bits with the list's cycle type, blender mux, Z and IMAGE_READ)
+# z_near: the depth-clearing fill removed and the depth buffer preset to 0 (every depth test fails); tri_flat: all shade/texture/depth slopes of the 0F triangles zeroed; tri_noshade/notex/edgez: 0F -> 0B / 0D / 09 (dropped words become NOPs)
+XI	bar_i2274.bin	list 64512 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_i2274.bin	full	vi_off	509345	388686	571596	0	640	92314
+X	bar_i2274.bin	tri_only	vi_off	343495	262115	571596	0	640	92314
+X	bar_i2274.bin	no_tri	vi_off	222977	170142	571596	0	640	92314
+# Y lines: case, w, H, triangles, spans, clock (smallest of 3), ticks, clocks/span, clocks/triangle, VI probe. VI off, depth cleared far (all pass), 2cyc_tex_blend_z unless the case says otherwise
+# v24 cases: zfail = depth cleared nearest; no_zcmp / no_zupd / no_imrd = that mode bit off; fbzb_* = colour / depth buffers at those RDRAM addresses (adjacent = depth right after colour; bar = 0x200000 / 0x3DA800 as the game; bar_reloc / dk_reloc = as replayed in X); random_rows / random_cols = only the row / only the column random; 1cyc_atomic / 2cyc_atomic / dk_om_noatomic = ATOMIC_PRIM
+# Y cases: base = v22's W triangle (vertical edges at integer x, random position, 1/32 texel per pixel, constant shade/z); frac = edges at x+0.5; shear_half/two = all edges slanted 0.5/2 px per row (spans stay w wide); apex = real triangle, apex on top, base 2w (spans average w)
+#   aa = AA_EN; persp = TEX_PERSP; lod = TEX_LOD (tile 1 = tile 0); dither = rgb/alpha dither on; point = point sampling; cvg = ALPHA_CVG_SEL + CVG_DST full; bar_om = BAR's other modes 0x182c0f/0x0c182078; dk_om = DK64's 0x882c0f/0x00552078 (1-cycle)
+#   slopes = shade/texture (1 texel per pixel)/depth slopes nonzero; strip = triangles side by side along rows; same_place = every triangle at the same spot; state_every1/8 = Set_Other_Modes + Set_Combine before every / every 8th triangle; syncpipe_every1 = Sync_Pipe before every triangle; tile_every1 = Set_Tile + Set_Tile_Size + Sync_Tile before every triangle; load_every8 = Sync_Load + Load_Block (64 B) + Sync_Tile before every 8th
+#   ci4_tlut / rgba32_tex / i8_tex = texture format; op_0b/0d/09/08 = triangle command type (texture+z 14 words / shade+z 14 / z 6 / plain 4; the combiner reads the missing attribute from the previous one)
+Y	wide_2cyc_tbz	32	8	512	4096	786159	599940	191.93	1535.5	92314
+Y	wide_2cyc_tbz	64	8	512	4096	1183127	902889	288.85	2310.8	92315
+Y	wide_2cyc_tbz	96	8	512	4096	1590695	1213928	388.35	3106.8	92290
+Y	wide_2cyc_tbz	128	8	512	4096	1999575	1525968	488.18	3905.4	92290
+Y	wide_2cyc_tbz	192	8	512	4096	2816214	2149192	687.55	5500.4	92290
+Y	wide_2cyc_tbz	256	8	512	4096	3634316	2773533	887.28	7098.3	92290
+Y	wide_2cyc_tbz	318	8	512	4096	4246535	3240752	1036.75	8294.0	92290
+Y	wide_2cyc_tb	32	8	512	4096	491413	375002	119.97	959.8	92291
+Y	wide_2cyc_tb	64	8	512	4096	741433	565807	181.01	1448.1	92290
+Y	wide_2cyc_tb	96	8	512	4096	998143	761717	243.69	1949.5	92291
+Y	wide_2cyc_tb	128	8	512	4096	1256524	958902	306.77	2454.1	92291
+Y	wide_2cyc_tb	192	8	512	4096	1770473	1351127	432.24	3458.0	92290
+Y	wide_2cyc_tb	256	8	512	4096	2286475	1744918	558.22	4465.8	92291
+Y	wide_2cyc_tb	318	8	512	4096	2735920	2087915	667.95	5343.6	92290
+Y	wide_2cyc_tz	32	8	512	4096	619967	473109	151.36	1210.9	92291
+Y	wide_2cyc_tz	64	8	512	4096	937133	715157	228.79	1830.3	92291
+Y	wide_2cyc_tz	96	8	512	4096	1255764	958322	306.58	2452.7	92291
+Y	wide_2cyc_tz	128	8	512	4096	1573557	1200849	384.17	3073.4	92290
+Y	wide_2cyc_tz	192	8	512	4096	2210532	1686961	539.68	4317.4	92290
+Y	wide_2cyc_tz	256	8	512	4096	2848400	2173755	695.41	5563.3	92290
+Y	wide_2cyc_tz	318	8	512	4096	3336396	2546174	814.55	6516.4	92291
+Y	wide_bar_om	32	8	512	4096	786159	599940	191.93	1535.5	92291
+Y	wide_bar_om	64	8	512	4096	1183127	902889	288.85	2310.8	92291
+Y	wide_bar_om	96	8	512	4096	1590695	1213928	388.35	3106.8	92291
+Y	wide_bar_om	128	8	512	4096	1999575	1525968	488.18	3905.4	92291
+Y	wide_bar_om	192	8	512	4096	2816214	2149193	687.55	5500.4	92291
+Y	wide_bar_om	256	8	512	4096	3634316	2773533	887.28	7098.3	92290
+Y	wide_bar_om	318	8	512	4096	4246535	3240752	1036.75	8294.0	92290
+Y	wide_apex_tbz	32	8	512	4096	762562	581931	186.17	1489.4	92291
+Y	wide_apex_tbz	64	8	512	4096	1169009	892115	285.40	2283.2	92290
+Y	wide_apex_tbz	96	8	512	4096	1581632	1207011	386.14	3089.1	92290
+Y	wide_apex_tbz	128	8	512	4096	2000431	1526620	488.39	3907.1	92290
+Y	wide_strip_tbz	32	8	512	4096	796552	607872	194.47	1555.8	92291
+Y	wide_strip_tbz	64	8	512	4096	1129376	861868	275.73	2205.8	92291
+Y	wide_strip_tbz	96	8	512	4096	1538465	1174068	375.60	3004.8	92291
+Y	wide_strip_tbz	128	8	512	4096	1947534	1486253	475.47	3803.8	92291
+Y	wide_strip_tbz	192	8	512	4096	2765693	2110637	675.22	5401.7	92291
+Y	wide_strip_tbz	256	8	512	4096	3583853	2735021	874.96	6999.7	92290
+Y	wide_strip_tbz	318	8	512	4096	4246535	3240752	1036.75	8294.0	92290
+Y	wide_1cyc_tbz	32	8	512	4096	745408	568840	181.98	1455.9	92290
+Y	wide_1cyc_tbz	64	8	512	4096	1204923	919523	294.17	2353.4	92291
+Y	wide_1cyc_tbz	96	8	512	4096	1652487	1261084	403.44	3227.5	92290
+Y	wide_1cyc_tbz	128	8	512	4096	2100013	1602617	512.70	4101.6	92290
+Y	wide_1cyc_tbz	192	8	512	4096	2995711	2286177	731.37	5851.0	92291
+Y	wide_1cyc_tbz	256	8	512	4096	3893518	2971345	950.57	7604.5	92291
+Y	wide_1cyc_tbz	318	8	512	4096	4587170	3500711	1119.91	8959.3	92290
+Y	wide_zfail_tbz	32	8	512	4096	786159	599940	191.93	1535.5	92291
+Y	wide_zfail_tbz	64	8	512	4096	1183127	902889	288.85	2310.8	92291
+Y	wide_zfail_tbz	96	8	512	4096	1590695	1213928	388.35	3106.8	92291
+Y	wide_zfail_tbz	128	8	512	4096	1999575	1525968	488.18	3905.4	92291
+Y	wide_zfail_tbz	192	8	512	4096	2816214	2149193	687.55	5500.4	92291
+Y	wide_zfail_tbz	256	8	512	4096	3634316	2773533	887.28	7098.3	92290
+Y	wide_zfail_tbz	318	8	512	4096	4246535	3240752	1036.75	8294.0	92290
+---- END ----
+DONE

@@ -1,0 +1,2735 @@
+region: NTSC id: NED cic: CIC-NUS-7101
+[status] Vulkan Disabled: No RDP rendering support
+RDP TIMING v22  NTSC  8 MiB
+SERIES init DONE (790 bytes), NEXT: V (replay of the in-game intro lists with command classes removed), Q, W
+NO SD CARD - NOT SAVED
+RDP TIMING v22
+
+V  bar_i2274.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2274.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2274.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2274.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2274.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2274.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2274.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2274.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2274.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2274.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2274.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2274.bin  fetch_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2279.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2279.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2279.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2279.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2279.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2279.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2279.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2279.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2279.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2279.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2279.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2279.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2279.bin  fetch_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+V  bar_i2284.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2284.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2284.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2284.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2284.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2284.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2284.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2284.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2284.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2284.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+V  bar_i2284.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2284.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2284.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+V  bar_i2284.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2284.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2284.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2284.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2284.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2284.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2284.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2284.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2284.bin  fetch_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2314.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2314.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2314.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+V  bar_i2314.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2314.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2314.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2314.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2314.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2314.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2314.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2314.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2314.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2314.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2314.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2314.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2314.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+V  bar_i2314.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2314.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2314.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2314.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2314.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2314.bin  fetch_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2338.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2338.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2338.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2338.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+V  bar_i2338.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2338.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2338.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2338.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2338.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2338.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2338.bin  fetch_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2404.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2404.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2404.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2404.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2404.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2404.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2404.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2404.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2404.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2404.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2404.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2404.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2404.bin  fetch_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2410.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2410.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2410.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+V  bar_i2410.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2410.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2410.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2410.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2410.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2410.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2410.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_i2410.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_i2410.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_i2410.bin  fetch_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_2316.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_2316.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_2316.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_2316.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_2316.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_2316.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_2316.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+V  bar_2316.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_2316.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  bar_2316.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  bar_2316.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  bar_2316.bin  fetch_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  dk64_797.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  dk64_797.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  dk64_797.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  dk64_797.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  dk64_797.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  no_load  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  dk64_797.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  dk64_797.bin  no_rect  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  dk64_797.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  dk64_797.bin  state_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+V  dk64_797.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+V  dk64_797.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+V  dk64_797.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+V  dk64_797.bin  fetch_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+SERIES V DONE (11352 bytes), NEXT: Q (DPC_CURRENT steps)
+RDP TIMING v22
+
+Q  bar_2316.bin
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v22
+
+Q  bar_i2314.bin
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 412
+SERIES Q DONE (11847 bytes), NEXT: W (narrow triangles)
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w1 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w2 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w2 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w2 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w3 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w4 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w4 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w4 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w6 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w8 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w8 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w8 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w12 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w16 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w24 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w32 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w32 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w32 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w48 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w64 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w1 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w2 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w3 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w4 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w6 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w8 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w12 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w16 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w24 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w32 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w48 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w64 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w1 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w2 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w2 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w3 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w4 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w4 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w6 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w8 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w8 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w12 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w16 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w24 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w32 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w32 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w48 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w64 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w1 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w2 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w3 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w4 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w6 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w8 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w12 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w16 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w24 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w32 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w48 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w64 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w1 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w2 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w3 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w4 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w6 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w8 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w12 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w16 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w24 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w32 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w48 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend_z  w64 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_blend  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_z  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_z  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_z  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex_z  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+W  vi_off  2cyc_tex  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  2cyc_tex  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w1 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w2 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w2 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w2 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w3 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w4 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w4 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w4 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w6 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w8 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w8 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w8 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w12 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w16 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w24 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w32 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w32 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w32 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w48 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w64 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w1 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w2 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w3 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w4 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w6 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w8 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w12 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w16 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w24 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w32 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w48 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w64 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w1 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w2 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w2 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w3 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w4 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w4 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w6 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w8 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w8 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w12 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w16 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w24 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w32 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w32 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w48 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w64 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w1 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w2 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w3 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w4 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w6 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w8 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w12 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w16 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w24 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w32 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w48 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w64 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w1 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w2 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w3 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w4 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w6 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w8 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w12 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w16 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w24 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w32 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w48 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_blend_z  w64 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_z  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_z  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_z  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  vi_off  1cyc_tex_z  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w1 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w2 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w2 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w2 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w3 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w4 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w4 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w4 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w6 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w8 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w8 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w8 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w12 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w16 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w24 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w32 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w32 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w32 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w48 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w64 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w1 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w2 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w3 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w4 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w6 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w8 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w12 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w16 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w24 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w32 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w48 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w64 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w1 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w2 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w2 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w3 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w4 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w4 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w6 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w8 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w8 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w12 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w16 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w24 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w32 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w32 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w48 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w64 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w1 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w2 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w3 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w4 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w6 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w8 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w12 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w16 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w24 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w32 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w48 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w64 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w1 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w2 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w3 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w4 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w6 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w8 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w12 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w16 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w24 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w32 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w48 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend_z  w64 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_blend  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_z  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_z  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_z  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex_z  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  2cyc_tex  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w1 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w2 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w2 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w2 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w3 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w4 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w4 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w4 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w6 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w8 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w8 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w8 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w12 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w16 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w24 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w32 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w32 H1 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w32 H1 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w48 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w64 H1 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w1 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w2 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w3 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w4 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w6 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w8 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w12 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w16 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w24 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w32 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w48 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w64 H2 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w1 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w2 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w2 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w3 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w4 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w4 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w6 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w8 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w8 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w12 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w16 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w24 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w32 H3 fail
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w32 H3 half
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w48 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w64 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w1 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w2 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w3 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w4 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w6 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w8 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w12 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w16 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w24 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w32 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w48 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w64 H4 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w1 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w2 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w3 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w4 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w6 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w8 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w12 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w16 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w24 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w32 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w48 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_blend_z  w64 H16 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_z  w2 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_z  w4 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_z  w8 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+RDP TIMING v22
+
+W  bar_0x13012  1cyc_tex_z  w32 H3 pass
+VI WARNING: __vblank_interrupt outside of vblank period: 222
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+SERIES W DONE (39299 bytes), NEXT: end
+VI WARNING: __vblank_interrupt outside of vblank period: 208
+MEASURED, 39299 BYTES OF RESULTS
+NO SD CARD - NOT SAVED
+---- RESULTS ----
+# rdp_timing v22 - replay of in-game BAR intro lists with command classes removed (V), DPC_CURRENT steps (Q), narrow shade+texture+z triangles per span/triangle cost (W)
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	8388608
+# runs_per_case	3
+# VI on (320x240 16-bit console display) unless a line says otherwise
+# texture at 0x0E4380; dma buffer at 0x7D0000; heap top 0x0E6000; display buffer at 0x04DC00; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+# console VI: ctrl 0x3302 width 640 v_sync 0x20D x_scale 0x400
+B0	1447
+# series run: V (replay of the in-game intro lists with command classes removed), Q, W
+# V lines: list, variant, vi mode (game = the game's VI_CTRL with VI_WIDTH 320, vi_off), clock (smallest of 3), ticks (CPU wall time), model of the full list (ares tables only), VI_CTRL read back after the runs, VI_WIDTH, VI probe (ticks of 4096 dependent line fills with the RDP idle, right after the runs: about 93K with the VI off, 100K in the games' AA mode - tells whether the VI really fetched during the runs)
+# VI lines: list, info (placement in RDRAM)
+# variants: NOPs replace a class of commands (every word of the command): sync = Sync_Load/Pipe/Tile, load = Load_TLUT/Block/Tile, tri = 08-0F, rect = 24/25/36, state = the other Set_* (Sync_Full and the carried-over prefix always stay)
+VI	bar_i2274.bin	list 64512 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_i2274.bin	full	game	555869	417053	571596	3012	320	104615
+V	bar_i2274.bin	full	vi_off	518783	389251	571596	0	640	92291
+V	bar_i2274.bin	full	rom_aa3_0x3302	520155	390280	571596	3302	320	92291
+V	bar_i2274.bin	no_tri	game	249887	187481	571596	3012	320	104616
+V	bar_i2274.bin	no_tri	vi_off	222977	170141	571596	0	640	92291
+V	bar_i2274.bin	no_load	game	459803	344994	571596	3012	320	104616
+V	bar_i2274.bin	no_load	vi_off	417255	313068	571596	0	640	92291
+V	bar_i2274.bin	no_rect	game	489564	373589	571596	3012	320	104615
+V	bar_i2274.bin	no_rect	vi_off	451555	338806	571596	0	640	92290
+V	bar_i2274.bin	state_only	game	61923	46439	571596	3012	320	104616
+V	bar_i2274.bin	state_only	vi_off	59163	44369	571596	0	640	92290
+V	bar_i2274.bin	tri_only	game	384343	288372	571596	3012	320	104615
+V	bar_i2274.bin	tri_only	vi_off	350027	262623	571596	0	640	92290
+V	bar_i2274.bin	fetch_only	game	114059	85560	571596	3012	320	104616
+V	bar_i2274.bin	fetch_only	vi_off	104439	78342	571596	0	640	92290
+VI	bar_i2279.bin	list 72184 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_i2279.bin	full	game	579167	434561	577984	3012	320	104616
+V	bar_i2279.bin	full	vi_off	524271	393369	577984	0	640	92291
+V	bar_i2279.bin	full	rom_aa3_0x3302	527015	395428	577984	3302	320	92291
+V	bar_i2279.bin	no_tri	game	256747	192629	577984	3012	320	104615
+V	bar_i2279.bin	no_tri	vi_off	233407	175115	577984	0	640	92290
+V	bar_i2279.bin	no_load	game	462547	347054	577984	3012	320	104615
+V	bar_i2279.bin	no_load	vi_off	418627	314098	577984	0	640	92290
+V	bar_i2279.bin	no_rect	game	505079	378968	577984	3012	320	104615
+V	bar_i2279.bin	no_rect	vi_off	457043	342923	577984	0	640	92291
+V	bar_i2279.bin	state_only	game	64667	48498	577984	3012	320	104616
+V	bar_i2279.bin	state_only	vi_off	59767	45586	577984	0	640	92291
+V	bar_i2279.bin	tri_only	game	387087	290431	577984	3012	320	104615
+V	bar_i2279.bin	tri_only	vi_off	351399	263652	577984	0	640	92290
+V	bar_i2279.bin	fetch_only	game	113534	86619	577984	3012	320	104615
+V	bar_i2279.bin	fetch_only	vi_off	105811	79371	577984	0	640	92291
+VI	bar_i2284.bin	list 74304 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_i2284.bin	full	game	605235	454121	602895	3012	320	104616
+V	bar_i2284.bin	full	vi_off	547595	410870	602895	0	640	92291
+V	bar_i2284.bin	full	rom_aa3_0x3302	539119	411407	602895	3302	320	92291
+V	bar_i2284.bin	no_tri	game	262235	196747	602895	3012	320	104615
+V	bar_i2284.bin	no_tri	vi_off	238895	179233	602895	0	640	92290
+V	bar_i2284.bin	no_load	game	473565	361380	602895	3012	320	104615
+V	bar_i2284.bin	no_load	vi_off	437835	328511	602895	0	640	92290
+V	bar_i2284.bin	no_rect	game	529775	397499	602895	3012	320	104615
+V	bar_i2284.bin	no_rect	vi_off	480367	360425	602895	0	640	92290
+V	bar_i2284.bin	state_only	game	66039	49528	602895	3012	320	104616
+V	bar_i2284.bin	state_only	vi_off	61907	46427	602895	0	640	92291
+V	bar_i2284.bin	tri_only	game	407667	305873	602895	3012	320	104616
+V	bar_i2284.bin	tri_only	vi_off	363577	277441	602895	0	640	92291
+V	bar_i2284.bin	fetch_only	game	116803	87619	602895	3012	320	104616
+V	bar_i2284.bin	fetch_only	vi_off	107183	80401	602895	0	640	92291
+VI	bar_i2314.bin	list 170608 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_i2314.bin	full	game	1539180	1174612	1564545	3012	320	104615
+V	bar_i2314.bin	full	vi_off	1422931	1067692	1564545	0	640	92290
+V	bar_i2314.bin	full	rom_aa3_0x3302	1427047	1070780	1564545	3302	320	92291
+V	bar_i2314.bin	no_tri	game	305111	232822	1564545	3012	320	104616
+V	bar_i2314.bin	no_tri	vi_off	285543	214236	1564545	0	640	92290
+V	bar_i2314.bin	no_load	game	1427063	1070792	1564545	3012	320	104615
+V	bar_i2314.bin	no_load	vi_off	1298079	974007	1564545	0	640	92291
+V	bar_i2314.bin	no_rect	game	1491547	1119179	1564545	3012	320	104615
+V	bar_i2314.bin	no_rect	vi_off	1355703	1017246	1564545	0	640	92290
+V	bar_i2314.bin	state_only	game	94743	72279	1564545	3012	320	104615
+V	bar_i2314.bin	state_only	vi_off	93463	70106	1564545	0	640	92290
+V	bar_i2314.bin	tri_only	game	1351603	1014170	1564545	3012	320	104615
+V	bar_i2314.bin	tri_only	vi_off	1230851	923561	1564545	0	640	92291
+V	bar_i2314.bin	fetch_only	game	148359	111298	1564545	3012	320	104615
+V	bar_i2314.bin	fetch_only	vi_off	138739	104080	1564545	0	640	92290
+VI	bar_i2338.bin	list 156544 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_i2338.bin	full	game	1391874	1062193	1412307	3012	320	104616
+V	bar_i2338.bin	full	vi_off	1285731	964742	1412307	0	640	92290
+V	bar_i2338.bin	full	rom_aa3_0x3302	1289847	967830	1412307	3302	320	92291
+V	bar_i2338.bin	no_tri	game	318487	238956	1412307	3012	320	104616
+V	bar_i2338.bin	no_tri	vi_off	291031	218354	1412307	0	640	92291
+V	bar_i2338.bin	no_load	game	1266539	950340	1412307	3012	320	104616
+V	bar_i2338.bin	no_load	vi_off	1151275	863850	1412307	0	640	92291
+V	bar_i2338.bin	no_rect	game	1341999	1006963	1412307	3012	320	104616
+V	bar_i2338.bin	no_rect	vi_off	1218503	914296	1412307	0	640	92290
+V	bar_i2338.bin	state_only	game	93479	70118	1412307	3012	320	104616
+V	bar_i2338.bin	state_only	vi_off	90719	68047	1412307	0	640	92290
+V	bar_i2338.bin	tri_only	game	1191079	893718	1412307	3012	320	104616
+V	bar_i2338.bin	tri_only	vi_off	1084047	813405	1412307	0	640	92290
+V	bar_i2338.bin	fetch_only	game	144243	108209	1412307	3012	320	104616
+V	bar_i2338.bin	fetch_only	vi_off	134623	100991	1412307	0	640	92291
+VI	bar_i2404.bin	list 231488 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_i2404.bin	full	game	1402367	1052261	1400517	3012	320	104615
+V	bar_i2404.bin	full	vi_off	1251257	954881	1400517	0	640	92291
+V	bar_i2404.bin	full	rom_aa3_0x3302	1277499	958565	1400517	3302	320	92290
+V	bar_i2404.bin	no_tri	game	400807	300726	1400517	3012	320	104615
+V	bar_i2404.bin	no_tri	vi_off	362152	276354	1400517	0	640	92291
+V	bar_i2404.bin	no_load	game	1202055	901954	1400517	3012	320	104616
+V	bar_i2404.bin	no_load	vi_off	1093651	820611	1400517	0	640	92291
+V	bar_i2404.bin	no_rect	game	1326907	995638	1400517	3012	320	104616
+V	bar_i2404.bin	no_rect	vi_off	1206155	905031	1400517	0	640	92290
+V	bar_i2404.bin	state_only	game	125035	93796	1400517	3012	320	104616
+V	bar_i2404.bin	state_only	vi_off	120035	91580	1400517	0	640	92291
+V	bar_i2404.bin	tri_only	game	1126595	845331	1400517	3012	320	104616
+V	bar_i2404.bin	tri_only	vi_off	1026423	770166	1400517	0	640	92291
+V	bar_i2404.bin	fetch_only	game	167567	125711	1400517	3012	320	104616
+V	bar_i2404.bin	fetch_only	vi_off	157947	118493	1400517	0	640	92290
+VI	bar_i2410.bin	list 216944 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_i2410.bin	full	game	1368067	1026523	1368078	3012	320	104616
+V	bar_i2410.bin	full	vi_off	1221047	931827	1368078	0	640	92290
+V	bar_i2410.bin	full	rom_aa3_0x3302	1247315	935916	1368078	3302	320	92290
+V	bar_i2410.bin	no_tri	game	396691	297637	1368078	3012	320	104616
+V	bar_i2410.bin	no_tri	vi_off	357536	272831	1368078	0	640	92290
+V	bar_i2410.bin	no_load	game	1169127	877246	1368078	3012	320	104615
+V	bar_i2410.bin	no_load	vi_off	1063467	797962	1368078	0	640	92291
+V	bar_i2410.bin	no_rect	game	1293979	970930	1368078	3012	320	104616
+V	bar_i2410.bin	no_rect	vi_off	1175971	882381	1368078	0	640	92291
+V	bar_i2410.bin	state_only	game	120919	90708	1368078	3012	320	104615
+V	bar_i2410.bin	state_only	vi_off	115532	88144	1368078	0	640	92291
+V	bar_i2410.bin	tri_only	game	1093667	820624	1368078	3012	320	104615
+V	bar_i2410.bin	tri_only	vi_off	996239	747517	1368078	0	640	92290
+V	bar_i2410.bin	fetch_only	game	163451	122622	1368078	3012	320	104616
+V	bar_i2410.bin	fetch_only	vi_off	153831	115404	1368078	0	640	92291
+VI	bar_2316.bin	list 174952 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_2316.bin	full	game	1551915	1164476	1237577	3012	320	104616
+V	bar_2316.bin	full	vi_off	1386043	1057744	1237577	0	640	92291
+V	bar_2316.bin	full	rom_aa3_0x3302	1414699	1061514	1237577	3302	320	92291
+V	bar_2316.bin	no_tri	game	314371	235868	1237577	3012	320	104615
+V	bar_2316.bin	no_tri	vi_off	288287	216295	1237577	0	640	92291
+V	bar_2316.bin	no_load	game	1411971	1059468	1237577	3012	320	104615
+V	bar_2316.bin	no_load	vi_off	1284359	963712	1237577	0	640	92290
+V	bar_2316.bin	no_rect	game	1452274	1108289	1237577	3012	320	104616
+V	bar_2316.bin	no_rect	vi_off	1343355	1007981	1237577	0	640	92290
+V	bar_2316.bin	state_only	game	98967	74236	1237577	3012	320	104615
+V	bar_2316.bin	state_only	vi_off	93284	71165	1237577	0	640	92290
+V	bar_2316.bin	tri_only	game	1336511	1002845	1237577	3012	320	104616
+V	bar_2316.bin	tri_only	vi_off	1217131	913267	1237577	0	640	92290
+V	bar_2316.bin	fetch_only	game	149731	112328	1237577	3012	320	104615
+V	bar_2316.bin	fetch_only	vi_off	140111	105109	1237577	0	640	92291
+VI	dk64_797.bin	list 350424 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+V	dk64_797.bin	full	game	1250101	937980	1012163	3016	320	104615
+V	dk64_797.bin	full	vi_off	1128822	861443	1012163	0	640	92291
+V	dk64_797.bin	full	rom_aa3_0x3302	1152647	864880	1012163	3302	320	92290
+V	dk64_797.bin	no_tri	game	439223	329552	1012163	3016	320	104615
+V	dk64_797.bin	no_tri	vi_off	404843	306006	1012163	0	640	92291
+V	dk64_797.bin	no_load	game	1081319	811358	1012163	3016	320	104616
+V	dk64_797.bin	no_load	vi_off	985263	739281	1012163	0	640	92290
+V	dk64_797.bin	no_rect	game	1208915	907101	1012163	3016	320	104616
+V	dk64_797.bin	no_rect	vi_off	1099139	824729	1012163	0	640	92291
+V	dk64_797.bin	state_only	game	200495	150419	1012163	3016	320	104616
+V	dk64_797.bin	state_only	vi_off	194991	146289	1012163	0	640	92290
+V	dk64_797.bin	tri_only	game	1026439	770178	1012163	3016	320	104615
+V	dk64_797.bin	tri_only	vi_off	935871	702219	1012163	0	640	92291
+V	dk64_797.bin	fetch_only	game	277327	208071	1012163	3016	320	104615
+V	dk64_797.bin	fetch_only	vi_off	260847	195705	1012163	0	640	92291
+# Q lines: list, vi mode, reads of DPC_CURRENT during the list, changes seen, histogram of the step in bytes (<=8, 16, 32, 64, 128, 256, 512, 1024, more), largest step, list bytes, ticks
+Q	bar_2316.bin	vi_off	34267	21886	21884 0 2 0 0 0 0 0 0	32	175128	1067719
+Q	bar_2316.bin	bar_0x13012	37847	21888	21887 0 1 0 0 0 0 0 0	24	175128	1164293
+Q	bar_i2314.bin	vi_off	34331	21344	21342 1 1 0 0 0 0 0 0	24	170784	1065868
+Q	bar_i2314.bin	bar_0x13012	38356	21346	21345 0 1 0 0 0 0 0 0	24	170784	1174513
+# W lines: vi mode, mode, span width w, spans per triangle H, z case (pass / fail / half: pairs, second behind), triangles, spans, DPC_CLOCK (smallest of 3), ticks, clocks per span, clocks per triangle, VI probe
+# W: shade+texture+z triangles (22 words) with vertical edges, random positions in a 320x240 16-bit buffer, 1 texel/pixel; 4096 spans per run
+W	vi_off	2cyc_tex_blend_z	1	1	pass	4096	4096	308868	231714	75.41	75.4	92314
+W	vi_off	2cyc_tex_blend_z	2	1	pass	4096	4096	341703	256377	83.42	83.4	92315
+W	vi_off	2cyc_tex_blend_z	2	1	fail	4096	4096	341703	256377	83.42	83.4	92290
+W	vi_off	2cyc_tex_blend_z	2	1	half	4096	4096	341703	256377	83.42	83.4	92290
+W	vi_off	2cyc_tex_blend_z	3	1	pass	4096	4096	354051	265643	86.44	86.4	92291
+W	vi_off	2cyc_tex_blend_z	4	1	pass	4096	4096	367771	275938	89.79	89.8	92291
+W	vi_off	2cyc_tex_blend_z	4	1	fail	4096	4096	367771	275937	89.79	89.8	92290
+W	vi_off	2cyc_tex_blend_z	4	1	half	4096	4096	367771	275937	89.79	89.8	92290
+W	vi_off	2cyc_tex_blend_z	6	1	pass	4096	4096	422744	317163	103.21	103.2	92290
+W	vi_off	2cyc_tex_blend_z	8	1	pass	4096	4096	473415	355209	115.58	115.6	92290
+W	vi_off	2cyc_tex_blend_z	8	1	fail	4096	4096	473415	355209	115.58	115.6	92291
+W	vi_off	2cyc_tex_blend_z	8	1	half	4096	4096	473415	355209	115.58	115.6	92290
+W	vi_off	2cyc_tex_blend_z	12	1	pass	4096	4096	607871	456100	148.41	148.4	92290
+W	vi_off	2cyc_tex_blend_z	16	1	pass	4096	4096	703911	528165	171.85	171.9	92291
+W	vi_off	2cyc_tex_blend_z	24	1	pass	4096	4096	764279	573463	186.59	186.6	92290
+W	vi_off	2cyc_tex_blend_z	32	1	pass	4096	4096	838367	629056	204.68	204.7	92290
+W	vi_off	2cyc_tex_blend_z	32	1	fail	4096	4096	838367	629056	204.68	204.7	92290
+W	vi_off	2cyc_tex_blend_z	32	1	half	4096	4096	824274	629027	201.24	201.2	92291
+W	vi_off	2cyc_tex_blend_z	48	1	pass	4096	4096	950871	713475	232.15	232.1	92290
+W	vi_off	2cyc_tex_blend_z	64	1	pass	4096	4096	1074351	806130	262.29	262.3	92291
+W	vi_off	2cyc_tex_blend_z	1	2	pass	2048	4096	293776	220390	71.72	143.4	92291
+W	vi_off	2cyc_tex_blend_z	2	2	pass	2048	4096	360911	270790	88.11	176.2	92291
+W	vi_off	2cyc_tex_blend_z	3	2	pass	2048	4096	365614	278997	89.26	178.5	92291
+W	vi_off	2cyc_tex_blend_z	4	2	pass	2048	4096	386979	290350	94.48	189.0	92290
+W	vi_off	2cyc_tex_blend_z	6	2	pass	2048	4096	425395	319176	103.86	207.7	92290
+W	vi_off	2cyc_tex_blend_z	8	2	pass	2048	4096	462439	346973	112.90	225.8	92291
+W	vi_off	2cyc_tex_blend_z	12	2	pass	2048	4096	568083	426244	138.69	277.4	92290
+W	vi_off	2cyc_tex_blend_z	16	2	pass	2048	4096	619929	473080	151.35	302.7	92291
+W	vi_off	2cyc_tex_blend_z	24	2	pass	2048	4096	708027	531254	172.86	345.7	92291
+W	vi_off	2cyc_tex_blend_z	32	2	pass	2048	4096	798579	599201	194.97	389.9	92291
+W	vi_off	2cyc_tex_blend_z	48	2	pass	2048	4096	937151	703180	228.80	457.6	92290
+W	vi_off	2cyc_tex_blend_z	64	2	pass	2048	4096	1092187	819514	266.65	533.3	92291
+W	vi_off	2cyc_tex_blend_z	1	3	pass	1365	4095	294191	224464	71.84	215.5	92290
+W	vi_off	2cyc_tex_blend_z	2	3	pass	1365	4095	367771	275937	89.81	269.4	92290
+W	vi_off	2cyc_tex_blend_z	2	3	fail	1365	4095	367771	275937	89.81	269.4	92290
+W	vi_off	2cyc_tex_blend_z	2	3	half	1365	4095	366399	274908	89.47	268.4	92290
+W	vi_off	2cyc_tex_blend_z	3	3	pass	1365	4095	376003	282114	91.82	275.5	92290
+W	vi_off	2cyc_tex_blend_z	4	3	pass	1365	4095	392467	294469	95.84	287.5	92291
+W	vi_off	2cyc_tex_blend_z	4	3	fail	1365	4095	392467	294469	95.84	287.5	92291
+W	vi_off	2cyc_tex_blend_z	4	3	half	1365	4095	392467	294469	95.84	287.5	92291
+W	vi_off	2cyc_tex_blend_z	6	3	pass	1365	4095	426767	320206	104.22	312.6	92290
+W	vi_off	2cyc_tex_blend_z	8	3	pass	1365	4095	458323	343885	111.92	335.8	92291
+W	vi_off	2cyc_tex_blend_z	8	3	fail	1365	4095	458323	343884	111.92	335.8	92290
+W	vi_off	2cyc_tex_blend_z	8	3	half	1365	4095	450810	344015	110.09	330.3	92291
+W	vi_off	2cyc_tex_blend_z	12	3	pass	1365	4095	552991	414920	135.04	405.1	92291
+W	vi_off	2cyc_tex_blend_z	16	3	pass	1365	4095	607871	456100	148.44	445.3	92291
+W	vi_off	2cyc_tex_blend_z	24	3	pass	1365	4095	690191	517870	168.54	505.6	92291
+W	vi_off	2cyc_tex_blend_z	32	3	pass	1365	4095	784859	588905	191.66	575.0	92290
+W	vi_off	2cyc_tex_blend_z	32	3	fail	1365	4095	771227	588543	188.33	565.0	92290
+W	vi_off	2cyc_tex_blend_z	32	3	half	1365	4095	786231	589935	192.00	576.0	92290
+W	vi_off	2cyc_tex_blend_z	48	3	pass	1365	4095	931663	699062	227.51	682.5	92290
+W	vi_off	2cyc_tex_blend_z	64	3	pass	1365	4095	1097675	823631	268.05	804.2	92290
+W	vi_off	2cyc_tex_blend_z	1	4	pass	1024	4096	303380	227596	74.07	296.3	92290
+W	vi_off	2cyc_tex_blend_z	2	4	pass	1024	4096	364664	278272	89.03	356.1	92290
+W	vi_off	2cyc_tex_blend_z	3	4	pass	1024	4096	380119	285203	92.80	371.2	92291
+W	vi_off	2cyc_tex_blend_z	4	4	pass	1024	4096	395211	296527	96.49	385.9	92290
+W	vi_off	2cyc_tex_blend_z	6	4	pass	1024	4096	426767	320206	104.19	416.8	92291
+W	vi_off	2cyc_tex_blend_z	8	4	pass	1024	4096	458323	343885	111.90	447.6	92291
+W	vi_off	2cyc_tex_blend_z	12	4	pass	1024	4096	536995	409787	131.10	524.4	92291
+W	vi_off	2cyc_tex_blend_z	16	4	pass	1024	4096	594151	445805	145.06	580.2	92290
+W	vi_off	2cyc_tex_blend_z	24	4	pass	1024	4096	681959	511693	166.49	666.0	92291
+W	vi_off	2cyc_tex_blend_z	32	4	pass	1024	4096	779371	584787	190.28	761.1	92290
+W	vi_off	2cyc_tex_blend_z	48	4	pass	1024	4096	931663	699062	227.46	909.8	92290
+W	vi_off	2cyc_tex_blend_z	64	4	pass	1024	4096	1082884	826386	264.38	1057.5	92290
+W	vi_off	2cyc_tex_blend_z	1	16	pass	256	4096	308868	231715	75.41	1206.5	92291
+W	vi_off	2cyc_tex_blend_z	2	16	pass	256	4096	374631	281085	91.46	1463.4	92291
+W	vi_off	2cyc_tex_blend_z	3	16	pass	256	4096	384235	288292	93.81	1500.9	92291
+W	vi_off	2cyc_tex_blend_z	4	16	pass	256	4096	400699	300645	97.83	1565.2	92290
+W	vi_off	2cyc_tex_blend_z	6	16	pass	256	4096	425395	319177	103.86	1661.7	92291
+W	vi_off	2cyc_tex_blend_z	8	16	pass	256	4096	452835	339766	110.56	1768.9	92290
+W	vi_off	2cyc_tex_blend_z	12	16	pass	256	4096	532411	399477	129.98	2079.7	92290
+W	vi_off	2cyc_tex_blend_z	16	16	pass	256	4096	573571	430362	140.03	2240.5	92290
+W	vi_off	2cyc_tex_blend_z	24	16	pass	256	4096	668239	501398	163.14	2610.3	92290
+W	vi_off	2cyc_tex_blend_z	32	16	pass	256	4096	764279	573463	186.59	2985.5	92291
+W	vi_off	2cyc_tex_blend_z	48	16	pass	256	4096	930291	698033	227.12	3633.9	92291
+W	vi_off	2cyc_tex_blend_z	64	16	pass	256	4096	1108651	831867	270.67	4330.7	92290
+W	vi_off	2cyc_tex_blend	2	3	pass	1365	4095	252523	189460	61.67	185.0	92291
+W	vi_off	2cyc_tex_blend	4	3	pass	1365	4095	263499	197695	64.35	193.0	92290
+W	vi_off	2cyc_tex_blend	8	3	pass	1365	4095	300543	225492	73.39	220.2	92290
+W	vi_off	2cyc_tex_blend	32	3	pass	1365	4095	524179	393301	128.00	384.0	92291
+W	vi_off	2cyc_tex_z	2	3	pass	1365	4095	274568	205977	67.05	201.1	92290
+W	vi_off	2cyc_tex_z	4	3	pass	1365	4095	318379	238875	77.75	233.2	92290
+W	vi_off	2cyc_tex_z	8	3	pass	1365	4095	371887	279026	90.81	272.4	92291
+W	vi_off	2cyc_tex_z	32	3	pass	1365	4095	622963	467425	152.13	456.4	92291
+W	vi_off	2cyc_tex	2	3	pass	1365	4095	78279	58713	19.12	57.3	92290
+W	vi_off	2cyc_tex	4	3	pass	1365	4095	90627	67979	22.13	66.4	92291
+W	vi_off	2cyc_tex	8	3	pass	1365	4095	113951	85480	27.83	83.5	92290
+W	vi_off	2cyc_tex	32	3	pass	1365	4095	312891	234757	76.41	229.2	92290
+W	vi_off	1cyc_tex_blend_z	1	1	pass	4096	4096	292404	219361	71.39	71.4	92291
+W	vi_off	1cyc_tex_blend_z	2	1	pass	4096	4096	338959	254318	82.75	82.8	92291
+W	vi_off	1cyc_tex_blend_z	2	1	fail	4096	4096	338959	254318	82.75	82.8	92291
+W	vi_off	1cyc_tex_blend_z	2	1	half	4096	4096	338959	254318	82.75	82.8	92290
+W	vi_off	1cyc_tex_blend_z	3	1	pass	4096	4096	351307	263584	85.77	85.8	92291
+W	vi_off	1cyc_tex_blend_z	4	1	pass	4096	4096	362283	271820	88.45	88.4	92291
+W	vi_off	1cyc_tex_blend_z	4	1	fail	4096	4096	362283	271819	88.45	88.4	92290
+W	vi_off	1cyc_tex_blend_z	4	1	half	4096	4096	360911	270790	88.11	88.1	92291
+W	vi_off	1cyc_tex_blend_z	6	1	pass	4096	4096	395211	296528	96.49	96.5	92291
+W	vi_off	1cyc_tex_blend_z	8	1	pass	4096	4096	425395	319176	103.86	103.9	92290
+W	vi_off	1cyc_tex_blend_z	8	1	fail	4096	4096	425395	319176	103.86	103.9	92290
+W	vi_off	1cyc_tex_blend_z	8	1	half	4096	4096	425395	319177	103.86	103.9	92291
+W	vi_off	1cyc_tex_blend_z	12	1	pass	4096	4096	499483	374769	121.94	121.9	92290
+W	vi_off	1cyc_tex_blend_z	16	1	pass	4096	4096	563967	423156	137.69	137.7	92291
+W	vi_off	1cyc_tex_blend_z	24	1	pass	4096	4096	664123	498309	162.14	162.1	92290
+W	vi_off	1cyc_tex_blend_z	32	1	pass	4096	4096	717631	538460	175.20	175.2	92290
+W	vi_off	1cyc_tex_blend_z	32	1	fail	4096	4096	717631	538460	175.20	175.2	92291
+W	vi_off	1cyc_tex_blend_z	32	1	half	4096	4096	717631	538460	175.20	175.2	92291
+W	vi_off	1cyc_tex_blend_z	48	1	pass	4096	4096	900107	675383	219.75	219.8	92290
+W	vi_off	1cyc_tex_blend_z	64	1	pass	4096	4096	1029075	772157	251.24	251.2	92291
+W	vi_off	1cyc_tex_blend_z	1	2	pass	2048	4096	285813	218070	69.78	139.6	92290
+W	vi_off	1cyc_tex_blend_z	2	2	pass	2048	4096	360911	270790	88.11	176.2	92291
+W	vi_off	1cyc_tex_blend_z	3	2	pass	2048	4096	371887	279026	90.79	181.6	92290
+W	vi_off	1cyc_tex_blend_z	4	2	pass	2048	4096	382863	287262	93.47	186.9	92291
+W	vi_off	1cyc_tex_blend_z	6	2	pass	2048	4096	411675	308882	100.51	201.0	92291
+W	vi_off	1cyc_tex_blend_z	8	2	pass	2048	4096	439115	329472	107.21	214.4	92291
+W	vi_off	1cyc_tex_blend_z	12	2	pass	2048	4096	506343	379917	123.62	247.2	92290
+W	vi_off	1cyc_tex_blend_z	16	2	pass	2048	4096	557107	418009	136.01	272.0	92291
+W	vi_off	1cyc_tex_blend_z	24	2	pass	2048	4096	660007	495221	161.13	322.3	92291
+W	vi_off	1cyc_tex_blend_z	32	2	pass	2048	4096	714887	536401	174.53	349.1	92290
+W	vi_off	1cyc_tex_blend_z	48	2	pass	2048	4096	897363	673325	219.08	438.2	92291
+W	vi_off	1cyc_tex_blend_z	64	2	pass	2048	4096	1031819	774216	251.91	503.8	92291
+W	vi_off	1cyc_tex_blend_z	1	3	pass	1365	4095	297892	223478	72.75	218.2	92290
+W	vi_off	1cyc_tex_blend_z	2	3	pass	1365	4095	367771	275938	89.81	269.4	92291
+W	vi_off	1cyc_tex_blend_z	2	3	fail	1365	4095	367771	275937	89.81	269.4	92290
+W	vi_off	1cyc_tex_blend_z	2	3	half	1365	4095	367771	275938	89.81	269.4	92291
+W	vi_off	1cyc_tex_blend_z	3	3	pass	1365	4095	377375	283144	92.16	276.5	92290
+W	vi_off	1cyc_tex_blend_z	4	3	pass	1365	4095	389723	292410	95.17	285.5	92291
+W	vi_off	1cyc_tex_blend_z	4	3	fail	1365	4095	389723	292410	95.17	285.5	92291
+W	vi_off	1cyc_tex_blend_z	4	3	half	1365	4095	389723	292409	95.17	285.5	92290
+W	vi_off	1cyc_tex_blend_z	6	3	pass	1365	4095	417163	313000	101.87	305.6	92291
+W	vi_off	1cyc_tex_blend_z	8	3	pass	1365	4095	434794	331792	106.18	318.5	92291
+W	vi_off	1cyc_tex_blend_z	8	3	fail	1365	4095	443231	332560	108.24	324.7	92290
+W	vi_off	1cyc_tex_blend_z	8	3	half	1365	4095	443231	332560	108.24	324.7	92290
+W	vi_off	1cyc_tex_blend_z	12	3	pass	1365	4095	506343	379917	123.65	370.9	92291
+W	vi_off	1cyc_tex_blend_z	16	3	pass	1365	4095	555735	416979	135.71	407.1	92291
+W	vi_off	1cyc_tex_blend_z	24	3	pass	1365	4095	647935	494453	158.23	474.7	92291
+W	vi_off	1cyc_tex_blend_z	32	3	pass	1365	4095	714887	536401	174.58	523.7	92291
+W	vi_off	1cyc_tex_blend_z	32	3	fail	1365	4095	714887	536401	174.58	523.7	92290
+W	vi_off	1cyc_tex_blend_z	32	3	half	1365	4095	716259	537430	174.91	524.7	92290
+W	vi_off	1cyc_tex_blend_z	48	3	pass	1365	4095	895991	672295	218.80	656.4	92290
+W	vi_off	1cyc_tex_blend_z	64	3	pass	1365	4095	1013420	773374	247.48	742.4	92290
+W	vi_off	1cyc_tex_blend_z	1	4	pass	1024	4096	302008	226567	73.73	294.9	92291
+W	vi_off	1cyc_tex_blend_z	2	4	pass	1024	4096	373259	280055	91.13	364.5	92290
+W	vi_off	1cyc_tex_blend_z	3	4	pass	1024	4096	381491	286233	93.14	372.5	92291
+W	vi_off	1cyc_tex_blend_z	4	4	pass	1024	4096	392467	294469	95.82	383.3	92291
+W	vi_off	1cyc_tex_blend_z	6	4	pass	1024	4096	419907	315058	102.52	410.1	92290
+W	vi_off	1cyc_tex_blend_z	8	4	pass	1024	4096	445975	334619	108.88	435.5	92291
+W	vi_off	1cyc_tex_blend_z	12	4	pass	1024	4096	506343	379917	123.62	494.5	92290
+W	vi_off	1cyc_tex_blend_z	16	4	pass	1024	4096	554363	415950	135.34	541.4	92291
+W	vi_off	1cyc_tex_blend_z	24	4	pass	1024	4096	660007	495221	161.13	644.5	92291
+W	vi_off	1cyc_tex_blend_z	32	4	pass	1024	4096	714887	536401	174.53	698.1	92290
+W	vi_off	1cyc_tex_blend_z	48	4	pass	1024	4096	897363	673324	219.08	876.3	92290
+W	vi_off	1cyc_tex_blend_z	64	4	pass	1024	4096	1031819	774215	251.91	1007.6	92290
+W	vi_off	1cyc_tex_blend_z	1	16	pass	256	4096	308868	231715	75.41	1206.5	92291
+W	vi_off	1cyc_tex_blend_z	2	16	pass	256	4096	377375	283144	92.13	1474.1	92290
+W	vi_off	1cyc_tex_blend_z	3	16	pass	256	4096	388351	291380	94.81	1517.0	92290
+W	vi_off	1cyc_tex_blend_z	4	16	pass	256	4096	391986	299123	95.70	1531.2	92291
+W	vi_off	1cyc_tex_blend_z	6	16	pass	256	4096	424023	318147	103.52	1656.3	92290
+W	vi_off	1cyc_tex_blend_z	8	16	pass	256	4096	448719	336678	109.55	1752.8	92290
+W	vi_off	1cyc_tex_blend_z	12	16	pass	256	4096	510459	383005	124.62	1994.0	92290
+W	vi_off	1cyc_tex_blend_z	16	16	pass	256	4096	555735	416979	135.68	2170.8	92290
+W	vi_off	1cyc_tex_blend_z	24	16	pass	256	4096	653978	499063	159.66	2554.6	92290
+W	vi_off	1cyc_tex_blend_z	32	16	pass	256	4096	716259	537430	174.87	2797.9	92290
+W	vi_off	1cyc_tex_blend_z	48	16	pass	256	4096	900107	675383	219.75	3516.0	92290
+W	vi_off	1cyc_tex_blend_z	64	16	pass	256	4096	1031819	774216	251.91	4030.5	92291
+W	vi_off	1cyc_tex_z	2	3	pass	1365	4095	259476	194653	63.36	190.1	92291
+W	vi_off	1cyc_tex_z	4	3	pass	1365	4095	307247	234453	75.03	225.1	92291
+W	vi_off	1cyc_tex_z	8	3	pass	1365	4095	345819	259465	84.45	253.3	92290
+W	vi_off	1cyc_tex_z	32	3	pass	1365	4095	544759	408743	133.03	399.1	92291
+W	bar_0x13012	2cyc_tex_blend_z	1	1	pass	4096	4096	330836	248195	80.77	80.8	104588
+W	bar_0x13012	2cyc_tex_blend_z	2	1	pass	4096	4096	378747	284174	92.47	92.5	104588
+W	bar_0x13012	2cyc_tex_blend_z	2	1	fail	4096	4096	372169	284000	90.86	90.9	104588
+W	bar_0x13012	2cyc_tex_blend_z	2	1	half	4096	4096	378747	284174	92.47	92.5	104588
+W	bar_0x13012	2cyc_tex_blend_z	3	1	pass	4096	4096	392467	294468	95.82	95.8	104589
+W	bar_0x13012	2cyc_tex_blend_z	4	1	pass	4096	4096	408931	306823	99.84	99.8	104588
+W	bar_0x13012	2cyc_tex_blend_z	4	1	fail	4096	4096	408931	306822	99.84	99.8	104589
+W	bar_0x13012	2cyc_tex_blend_z	4	1	half	4096	4096	407668	305848	99.53	99.5	104589
+W	bar_0x13012	2cyc_tex_blend_z	6	1	pass	4096	4096	466555	350061	113.91	113.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	8	1	pass	4096	4096	518691	389182	126.63	126.6	104589
+W	bar_0x13012	2cyc_tex_blend_z	8	1	fail	4096	4096	518691	389182	126.63	126.6	104589
+W	bar_0x13012	2cyc_tex_blend_z	8	1	half	4096	4096	515807	389197	125.93	125.9	104588
+W	bar_0x13012	2cyc_tex_blend_z	12	1	pass	4096	4096	661379	496250	161.47	161.5	104589
+W	bar_0x13012	2cyc_tex_blend_z	16	1	pass	4096	4096	761535	571404	185.92	185.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	24	1	pass	4096	4096	832879	624938	203.34	203.3	104588
+W	bar_0x13012	2cyc_tex_blend_z	32	1	pass	4096	4096	920687	690826	224.78	224.8	104589
+W	bar_0x13012	2cyc_tex_blend_z	32	1	fail	4096	4096	904170	690000	220.74	220.7	104588
+W	bar_0x13012	2cyc_tex_blend_z	32	1	half	4096	4096	920687	690826	224.78	224.8	104588
+W	bar_0x13012	2cyc_tex_blend_z	48	1	pass	4096	4096	1052399	789658	256.93	256.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	64	1	pass	4096	4096	1196459	897755	292.10	292.1	104589
+W	bar_0x13012	2cyc_tex_blend_z	1	2	pass	2048	4096	317445	242207	77.50	155.0	104589
+W	bar_0x13012	2cyc_tex_blend_z	2	2	pass	2048	4096	397955	298586	97.16	194.3	104589
+W	bar_0x13012	2cyc_tex_blend_z	3	2	pass	2048	4096	410303	307852	100.17	200.3	104588
+W	bar_0x13012	2cyc_tex_blend_z	4	2	pass	2048	4096	426767	320206	104.19	208.4	104588
+W	bar_0x13012	2cyc_tex_blend_z	6	2	pass	2048	4096	467927	351091	114.24	228.5	104588
+W	bar_0x13012	2cyc_tex_blend_z	8	2	pass	2048	4096	499432	381120	121.93	243.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	12	2	pass	2048	4096	622963	467424	152.09	304.2	104589
+W	bar_0x13012	2cyc_tex_blend_z	16	2	pass	2048	4096	690191	517870	168.50	337.0	104588
+W	bar_0x13012	2cyc_tex_blend_z	24	2	pass	2048	4096	777999	583758	189.94	379.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	32	2	pass	2048	4096	879527	659941	214.73	429.5	104588
+W	bar_0x13012	2cyc_tex_blend_z	48	2	pass	2048	4096	1020260	778594	249.09	498.2	104589
+W	bar_0x13012	2cyc_tex_blend_z	64	2	pass	2048	4096	1214295	911139	296.46	592.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	1	3	pass	1365	4095	329464	247166	80.46	241.4	104589
+W	bar_0x13012	2cyc_tex_blend_z	2	3	pass	1365	4095	404815	303734	98.86	296.6	104588
+W	bar_0x13012	2cyc_tex_blend_z	2	3	fail	1365	4095	404815	303734	98.86	296.6	104589
+W	bar_0x13012	2cyc_tex_blend_z	2	3	half	1365	4095	403443	302704	98.52	295.6	104589
+W	bar_0x13012	2cyc_tex_blend_z	3	3	pass	1365	4095	414419	310940	101.20	303.6	104589
+W	bar_0x13012	2cyc_tex_blend_z	4	3	pass	1365	4095	433627	325354	105.89	317.7	104588
+W	bar_0x13012	2cyc_tex_blend_z	4	3	fail	1365	4095	433627	325353	105.89	317.7	104589
+W	bar_0x13012	2cyc_tex_blend_z	4	3	half	1365	4095	432255	324324	105.56	316.7	104588
+W	bar_0x13012	2cyc_tex_blend_z	6	3	pass	1365	4095	461469	352150	112.69	338.1	104588
+W	bar_0x13012	2cyc_tex_blend_z	8	3	pass	1365	4095	504971	378887	123.31	369.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	8	3	fail	1365	4095	504971	378887	123.31	369.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	8	3	half	1365	4095	504971	378888	123.31	369.9	104588
+W	bar_0x13012	2cyc_tex_blend_z	12	3	pass	1365	4095	607871	456100	148.44	445.3	104589
+W	bar_0x13012	2cyc_tex_blend_z	16	3	pass	1365	4095	654053	499121	159.72	479.2	104589
+W	bar_0x13012	2cyc_tex_blend_z	24	3	pass	1365	4095	758791	569345	185.30	555.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	32	3	pass	1365	4095	865807	649646	211.43	634.3	104588
+W	bar_0x13012	2cyc_tex_blend_z	32	3	fail	1365	4095	865807	649646	211.43	634.3	104588
+W	bar_0x13012	2cyc_tex_blend_z	32	3	half	1365	4095	868551	651705	212.10	636.3	104589
+W	bar_0x13012	2cyc_tex_blend_z	48	3	pass	1365	4095	1033191	775245	252.31	756.9	104588
+W	bar_0x13012	2cyc_tex_blend_z	64	3	pass	1365	4095	1219783	915257	297.87	893.6	104589
+W	bar_0x13012	2cyc_tex_blend_z	1	4	pass	1024	4096	333580	250255	81.44	325.8	104589
+W	bar_0x13012	2cyc_tex_blend_z	2	4	pass	1024	4096	408931	306823	99.84	399.3	104588
+W	bar_0x13012	2cyc_tex_blend_z	3	4	pass	1024	4096	418535	314029	102.18	408.7	104588
+W	bar_0x13012	2cyc_tex_blend_z	4	4	pass	1024	4096	434999	326383	106.20	424.8	104589
+W	bar_0x13012	2cyc_tex_blend_z	6	4	pass	1024	4096	469299	352120	114.57	458.3	104589
+W	bar_0x13012	2cyc_tex_blend_z	8	4	pass	1024	4096	503599	377858	122.95	491.8	104588
+W	bar_0x13012	2cyc_tex_blend_z	12	4	pass	1024	4096	601011	450952	146.73	586.9	104589
+W	bar_0x13012	2cyc_tex_blend_z	16	4	pass	1024	4096	653147	490074	159.46	637.8	104588
+W	bar_0x13012	2cyc_tex_blend_z	24	4	pass	1024	4096	737767	563009	180.12	720.5	104589
+W	bar_0x13012	2cyc_tex_blend_z	32	4	pass	1024	4096	845402	645151	206.40	825.6	104588
+W	bar_0x13012	2cyc_tex_blend_z	48	4	pass	1024	4096	1033191	775245	252.24	1009.0	104589
+W	bar_0x13012	2cyc_tex_blend_z	64	4	pass	1024	4096	1225271	919375	299.14	1196.6	104588
+W	bar_0x13012	2cyc_tex_blend_z	1	16	pass	256	4096	339068	254373	82.78	1324.5	104589
+W	bar_0x13012	2cyc_tex_blend_z	2	16	pass	256	4096	411675	308881	100.51	1608.1	104589
+W	bar_0x13012	2cyc_tex_blend_z	3	16	pass	256	4096	422651	317117	103.19	1651.0	104589
+W	bar_0x13012	2cyc_tex_blend_z	4	16	pass	256	4096	440487	330501	107.54	1720.7	104589
+W	bar_0x13012	2cyc_tex_blend_z	6	16	pass	256	4096	467927	351091	114.24	1827.8	104588
+W	bar_0x13012	2cyc_tex_blend_z	8	16	pass	256	4096	498111	373740	121.61	1945.7	104588
+W	bar_0x13012	2cyc_tex_blend_z	12	16	pass	256	4096	587291	440657	143.38	2294.1	104589
+W	bar_0x13012	2cyc_tex_blend_z	16	16	pass	256	4096	632567	474631	154.44	2471.0	104589
+W	bar_0x13012	2cyc_tex_blend_z	24	16	pass	256	4096	738211	553903	180.23	2883.6	104588
+W	bar_0x13012	2cyc_tex_blend_z	32	16	pass	256	4096	846599	635233	206.69	3307.0	104589
+W	bar_0x13012	2cyc_tex_blend_z	48	16	pass	256	4096	1031819	774215	251.91	4030.5	104589
+W	bar_0x13012	2cyc_tex_blend_z	64	16	pass	256	4096	1232131	924522	300.81	4813.0	104589
+W	bar_0x13012	2cyc_tex_blend	2	3	pass	1365	4095	274475	205931	67.03	201.1	104589
+W	bar_0x13012	2cyc_tex_blend	4	3	pass	1365	4095	286823	215197	70.04	210.1	104588
+W	bar_0x13012	2cyc_tex_blend	8	3	pass	1365	4095	326611	245053	79.76	239.3	104588
+W	bar_0x13012	2cyc_tex_blend	32	3	pass	1365	4095	562891	429550	137.46	412.4	104589
+W	bar_0x13012	2cyc_tex_z	2	3	pass	1365	4095	296536	222458	72.41	217.2	104588
+W	bar_0x13012	2cyc_tex_z	4	3	pass	1365	4095	345819	259465	84.45	253.3	104589
+W	bar_0x13012	2cyc_tex_z	8	3	pass	1365	4095	404815	303734	98.86	296.6	104589
+W	bar_0x13012	2cyc_tex_z	32	3	pass	1365	4095	684703	513752	167.20	501.6	104588
+W	bar_0x13012	2cyc_tex	2	3	pass	1365	4095	86511	64890	21.13	63.4	104588
+W	bar_0x13012	2cyc_tex	4	3	pass	1365	4095	100231	75185	24.48	73.4	104589
+W	bar_0x13012	2cyc_tex	8	3	pass	1365	4095	124927	93716	30.51	91.5	104588
+W	bar_0x13012	2cyc_tex	32	3	pass	1365	4095	345819	259466	84.45	253.3	104588
+W	bar_0x13012	1cyc_tex_blend_z	1	1	pass	4096	4096	323976	243048	79.10	79.1	104589
+W	bar_0x13012	1cyc_tex_blend_z	2	1	pass	4096	4096	369604	282042	90.24	90.2	104588
+W	bar_0x13012	1cyc_tex_blend_z	2	1	fail	4096	4096	376003	282115	91.80	91.8	104588
+W	bar_0x13012	1cyc_tex_blend_z	2	1	half	4096	4096	376003	282114	91.80	91.8	104589
+W	bar_0x13012	1cyc_tex_blend_z	3	1	pass	4096	4096	389723	292409	95.15	95.1	104589
+W	bar_0x13012	1cyc_tex_blend_z	4	1	pass	4096	4096	402071	301675	98.16	98.2	104588
+W	bar_0x13012	1cyc_tex_blend_z	4	1	fail	4096	4096	402071	301675	98.16	98.2	104588
+W	bar_0x13012	1cyc_tex_blend_z	4	1	half	4096	4096	402071	301675	98.16	98.2	104588
+W	bar_0x13012	1cyc_tex_blend_z	6	1	pass	4096	4096	439115	329471	107.21	107.2	104589
+W	bar_0x13012	1cyc_tex_blend_z	8	1	pass	4096	4096	472043	354180	115.24	115.2	104588
+W	bar_0x13012	1cyc_tex_blend_z	8	1	fail	4096	4096	472043	354180	115.24	115.2	104588
+W	bar_0x13012	1cyc_tex_blend_z	8	1	half	4096	4096	472043	354179	115.24	115.2	104589
+W	bar_0x13012	1cyc_tex_blend_z	12	1	pass	4096	4096	551619	413891	134.67	134.7	104588
+W	bar_0x13012	1cyc_tex_blend_z	16	1	pass	4096	4096	621591	466395	151.76	151.8	104589
+W	bar_0x13012	1cyc_tex_blend_z	24	1	pass	4096	4096	734095	550814	179.22	179.2	104589
+W	bar_0x13012	1cyc_tex_blend_z	32	1	pass	4096	4096	779473	594836	190.30	190.3	104588
+W	bar_0x13012	1cyc_tex_blend_z	32	1	fail	4096	4096	793091	595083	193.63	193.6	104588
+W	bar_0x13012	1cyc_tex_blend_z	32	1	half	4096	4096	793091	595082	193.63	193.6	104589
+W	bar_0x13012	1cyc_tex_blend_z	48	1	pass	4096	4096	997519	748478	243.53	243.5	104589
+W	bar_0x13012	1cyc_tex_blend_z	64	1	pass	4096	4096	1123087	857068	274.19	274.2	104588
+W	bar_0x13012	1cyc_tex_blend_z	1	2	pass	2048	4096	321232	240989	78.43	156.9	104589
+W	bar_0x13012	1cyc_tex_blend_z	2	2	pass	2048	4096	397955	298587	97.16	194.3	104588
+W	bar_0x13012	1cyc_tex_blend_z	3	2	pass	2048	4096	410303	307852	100.17	200.3	104589
+W	bar_0x13012	1cyc_tex_blend_z	4	2	pass	2048	4096	422651	317118	103.19	206.4	104588
+W	bar_0x13012	1cyc_tex_blend_z	6	2	pass	2048	4096	450825	340187	110.06	220.1	104588
+W	bar_0x13012	1cyc_tex_blend_z	8	2	pass	2048	4096	484391	363445	118.26	236.5	104588
+W	bar_0x13012	1cyc_tex_blend_z	12	2	pass	2048	4096	558479	419038	136.35	272.7	104588
+W	bar_0x13012	1cyc_tex_blend_z	16	2	pass	2048	4096	614731	461247	150.08	300.2	104589
+W	bar_0x13012	1cyc_tex_blend_z	24	2	pass	2048	4096	729979	547725	178.22	356.4	104589
+W	bar_0x13012	1cyc_tex_blend_z	32	2	pass	2048	4096	777762	593531	189.88	379.8	104588
+W	bar_0x13012	1cyc_tex_blend_z	48	2	pass	2048	4096	994775	746419	242.86	485.7	104589
+W	bar_0x13012	1cyc_tex_blend_z	64	2	pass	2048	4096	1144323	858634	279.38	558.8	104589
+W	bar_0x13012	1cyc_tex_blend_z	1	3	pass	1365	4095	326720	245107	79.79	239.4	104589
+W	bar_0x13012	1cyc_tex_blend_z	2	3	pass	1365	4095	406187	304763	99.19	297.6	104589
+W	bar_0x13012	1cyc_tex_blend_z	2	3	fail	1365	4095	398314	303951	97.27	291.8	104589
+W	bar_0x13012	1cyc_tex_blend_z	2	3	half	1365	4095	406187	304764	99.19	297.6	104588
+W	bar_0x13012	1cyc_tex_blend_z	3	3	pass	1365	4095	415791	311970	101.54	304.6	104588
+W	bar_0x13012	1cyc_tex_blend_z	4	3	pass	1365	4095	430883	323295	105.22	315.7	104588
+W	bar_0x13012	1cyc_tex_blend_z	4	3	fail	1365	4095	430883	323294	105.22	315.7	104589
+W	bar_0x13012	1cyc_tex_blend_z	4	3	half	1365	4095	421341	321525	102.89	308.7	104589
+W	bar_0x13012	1cyc_tex_blend_z	6	3	pass	1365	4095	461067	345943	112.59	337.8	104589
+W	bar_0x13012	1cyc_tex_blend_z	8	3	pass	1365	4095	488507	366533	119.29	357.9	104589
+W	bar_0x13012	1cyc_tex_blend_z	8	3	fail	1365	4095	488507	366533	119.29	357.9	104589
+W	bar_0x13012	1cyc_tex_blend_z	8	3	half	1365	4095	488507	366534	119.29	357.9	104588
+W	bar_0x13012	1cyc_tex_blend_z	12	3	pass	1365	4095	548033	418211	133.83	401.5	104588
+W	bar_0x13012	1cyc_tex_blend_z	16	3	pass	1365	4095	613359	460218	149.78	449.3	104589
+W	bar_0x13012	1cyc_tex_blend_z	24	3	pass	1365	4095	729979	547726	178.26	534.8	104588
+W	bar_0x13012	1cyc_tex_blend_z	32	3	pass	1365	4095	791719	594053	193.34	580.0	104589
+W	bar_0x13012	1cyc_tex_blend_z	32	3	fail	1365	4095	790456	593078	193.03	579.1	104589
+W	bar_0x13012	1cyc_tex_blend_z	32	3	half	1365	4095	778617	594184	190.14	570.4	104588
+W	bar_0x13012	1cyc_tex_blend_z	48	3	pass	1365	4095	993403	745389	242.59	727.8	104589
+W	bar_0x13012	1cyc_tex_blend_z	64	3	pass	1365	4095	1144323	858634	279.44	838.3	104589
+W	bar_0x13012	1cyc_tex_blend_z	1	4	pass	1024	4096	332208	249225	81.11	324.4	104588
+W	bar_0x13012	1cyc_tex_blend_z	2	4	pass	1024	4096	410303	307852	100.17	400.7	104588
+W	bar_0x13012	1cyc_tex_blend_z	3	4	pass	1024	4096	412867	315058	100.80	403.2	104589
+W	bar_0x13012	1cyc_tex_blend_z	4	4	pass	1024	4096	432255	324324	105.53	422.1	104589
+W	bar_0x13012	1cyc_tex_blend_z	6	4	pass	1024	4096	462439	346973	112.90	451.6	104588
+W	bar_0x13012	1cyc_tex_blend_z	8	4	pass	1024	4096	491251	368593	119.93	479.7	104588
+W	bar_0x13012	1cyc_tex_blend_z	12	4	pass	1024	4096	558479	419038	136.35	545.4	104588
+W	bar_0x13012	1cyc_tex_blend_z	16	4	pass	1024	4096	600607	458333	146.63	586.5	104588
+W	bar_0x13012	1cyc_tex_blend_z	24	4	pass	1024	4096	728607	546696	177.88	711.5	104589
+W	bar_0x13012	1cyc_tex_blend_z	32	4	pass	1024	4096	791719	594053	193.29	773.2	104589
+W	bar_0x13012	1cyc_tex_blend_z	48	4	pass	1024	4096	994775	746419	242.86	971.5	104588
+W	bar_0x13012	1cyc_tex_blend_z	64	4	pass	1024	4096	1145695	859664	279.71	1118.8	104589
+W	bar_0x13012	1cyc_tex_blend_z	1	16	pass	256	4096	339068	254373	82.78	1324.5	104589
+W	bar_0x13012	1cyc_tex_blend_z	2	16	pass	256	4096	414419	310941	101.18	1618.8	104588
+W	bar_0x13012	1cyc_tex_blend_z	3	16	pass	256	4096	426767	320206	104.19	1667.1	104588
+W	bar_0x13012	1cyc_tex_blend_z	4	16	pass	256	4096	439115	329471	107.21	1715.3	104589
+W	bar_0x13012	1cyc_tex_blend_z	6	16	pass	256	4096	466555	350061	113.91	1822.5	104589
+W	bar_0x13012	1cyc_tex_blend_z	8	16	pass	256	4096	485618	370579	118.56	1896.9	104589
+W	bar_0x13012	1cyc_tex_blend_z	12	16	pass	256	4096	562595	422126	137.35	2197.6	104589
+W	bar_0x13012	1cyc_tex_blend_z	16	16	pass	256	4096	613359	460218	149.75	2395.9	104588
+W	bar_0x13012	1cyc_tex_blend_z	24	16	pass	256	4096	736839	552873	179.89	2878.3	104588
+W	bar_0x13012	1cyc_tex_blend_z	32	16	pass	256	4096	793091	595083	193.63	3098.0	104588
+W	bar_0x13012	1cyc_tex_blend_z	48	16	pass	256	4096	980929	748580	239.48	3831.8	104588
+W	bar_0x13012	1cyc_tex_blend_z	64	16	pass	256	4096	1145695	859664	279.71	4475.4	104589
+W	bar_0x13012	1cyc_tex_z	2	3	pass	1365	4095	282816	212163	69.06	207.2	104589
+W	bar_0x13012	1cyc_tex_z	4	3	pass	1365	4095	341703	256377	83.44	250.3	104589
+W	bar_0x13012	1cyc_tex_z	8	3	pass	1365	4095	378747	284174	92.49	277.5	104588
+W	bar_0x13012	1cyc_tex_z	32	3	pass	1365	4095	601011	450952	146.77	440.3	104589
+---- END ----
+DONE

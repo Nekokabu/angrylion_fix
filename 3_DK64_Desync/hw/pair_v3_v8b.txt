@@ -1,0 +1,8 @@
+v8b           |     29      |  24 423  53 |  95  76  76  80  85  86  83  76  77  75  71  73  76  81  76  75  75  74  70  66  OK
+seg0: hw frames 225 VI 463 | ares frames 249 VI 467
+   blocks hw :  46  56  70  67  75  65  56  28
+   blocks ar :  45  53  62  65  69  59  53  47  14
+seg1: hw frames 306 VI 671 | ares frames 331 VI 707
+   blocks hw :  70  76  69  60  60  60  65  63  72  64  12
+   blocks ar :  72  80  70  60  60  60  63  60  60  60  60   2
+v8b: crash scene start 4612, shatter +None, text +None  (hardware +658-660 / +668)

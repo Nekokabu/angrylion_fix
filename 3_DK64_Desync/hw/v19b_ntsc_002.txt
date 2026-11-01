@@ -1,0 +1,333 @@
+# rsp_timing v19b - SP DMA / RSP register access beside a drawing RDP, a 320x240 VI mode and a cache-missing CPU; and the RDP beside a DMAing RSP
+# tv_type	NTSC
+# memory_size	8388608
+# runs_per_case	4
+# rdp loads: fill = 320x240 Fill_Rectangle repeated; tex = 32x32 RGBA16 Load_Tile + full-screen 1-cycle bilinear Texture_Rectangle; texzb = the same with blending (image read) and Z compare/update (prim depth)
+# cpu loads: idle = polling SP_STATUS / MI_INTR; chase = dependent random line fills over 64 KiB between polls (16 per poll)
+# console VI: ctrl 0x3302 width 640 v_sync 0x20D x_scale 0x400
+# S lines: rdp load, vi mode, cpu load, kernel, dma bytes, iterations, ticks (smallest of 4; COP0 46.875 MHz; start write to halt), RSP cycles per iteration (null kernel subtracted), chase loads during that run, flag (1 = the RDP list finished during a run: the RDP was not busy the whole time)
+S	idle	vi_off	idle	null	0	0	85	0	0	0
+S	idle	vi_off	idle	dma_in	8	4096	117970	38.37	0	0
+S	idle	vi_off	idle	dma_in	64	4096	135663	44.13	0	0
+S	idle	vi_off	idle	dma_in	512	4096	332262	108.13	0	0
+S	idle	vi_off	idle	dma_in	3584	1024	446109	580.76	0	0
+S	idle	vi_off	idle	dma_out	8	4096	96563	31.41	0	0
+S	idle	vi_off	idle	dma_out	64	4096	114939	37.39	0	0
+S	idle	vi_off	idle	dma_out	512	4096	304943	99.24	0	0
+S	idle	vi_off	idle	dma_out	3584	1024	422581	550.12	0	0
+S	idle	vi_off	idle	dma_in_overlap	8	4096	151369	49.25	0	0
+S	idle	vi_off	idle	dma_in_overlap	64	4096	151658	49.34	0	0
+S	idle	vi_off	idle	dma_in_overlap	512	4096	332259	108.13	0	0
+S	idle	vi_off	idle	dma_in_overlap	3584	1024	446093	580.74	0	0
+S	idle	vi_off	idle	mfc0_dp_current	0	32768	245838	10.00	0	0
+S	idle	vi_off	idle	fifo_wait_like	0	32768	442454	18.00	0	0
+S	idle	vi_off	idle	vertex_like	0	32768	909390	37.00	0	0
+S	idle	vi_off	chase	null	0	0	212	0	0	0
+S	idle	vi_off	chase	dma_in	8	4096	136580	44.39	4112	0
+S	idle	vi_off	chase	dma_in	64	4096	189096	61.49	7296	0
+S	idle	vi_off	chase	dma_in	512	4096	578171	188.14	18912	0
+S	idle	vi_off	chase	dma_in	3584	1024	866173	1127.55	26480	0
+S	idle	vi_off	chase	dma_out	8	4096	101065	32.83	3872	0
+S	idle	vi_off	chase	dma_out	64	4096	119069	38.69	3904	0
+S	idle	vi_off	chase	dma_out	512	4096	514307	167.35	15104	0
+S	idle	vi_off	chase	dma_out	3584	1024	863855	1124.54	25520	0
+S	idle	vi_off	chase	dma_in_overlap	8	4096	162745	52.91	5792	0
+S	idle	vi_off	chase	dma_in_overlap	64	4096	189142	61.50	7232	0
+S	idle	vi_off	chase	dma_in_overlap	512	4096	578718	188.32	18880	0
+S	idle	vi_off	chase	dma_in_overlap	3584	1024	865983	1127.31	26496	0
+S	idle	vi_off	chase	mfc0_dp_current	0	32768	246024	10.00	10112	0
+S	idle	vi_off	chase	fifo_wait_like	0	32768	442521	18.00	18192	0
+S	idle	vi_off	chase	vertex_like	0	32768	909511	37.00	37392	0
+S	idle	game_0x13012	idle	null	0	0	85	0	0	0
+S	idle	game_0x13012	idle	dma_in	8	4096	123047	40.03	0	0
+S	idle	game_0x13012	idle	dma_in	64	4096	148395	48.28	0	0
+S	idle	game_0x13012	idle	dma_in	512	4096	385716	125.53	0	0
+S	idle	game_0x13012	idle	dma_in	3584	1024	528714	688.32	0	0
+S	idle	game_0x13012	idle	dma_out	8	4096	104084	33.85	0	0
+S	idle	game_0x13012	idle	dma_out	64	4096	120927	39.34	0	0
+S	idle	game_0x13012	idle	dma_out	512	4096	350530	114.08	0	0
+S	idle	game_0x13012	idle	dma_out	3584	1024	504266	656.49	0	0
+S	idle	game_0x13012	idle	dma_in_overlap	8	4096	160047	52.07	0	0
+S	idle	game_0x13012	idle	dma_in_overlap	64	4096	160231	52.13	0	0
+S	idle	game_0x13012	idle	dma_in_overlap	512	4096	385523	125.47	0	0
+S	idle	game_0x13012	idle	dma_in_overlap	3584	1024	529124	688.85	0	0
+S	idle	game_0x13012	idle	mfc0_dp_current	0	32768	245837	10.00	0	0
+S	idle	game_0x13012	idle	fifo_wait_like	0	32768	442455	18.00	0	0
+S	idle	game_0x13012	idle	vertex_like	0	32768	909393	37.00	0	0
+S	idle	game_0x13012	chase	null	0	0	273	0	0	0
+S	idle	game_0x13012	chase	dma_in	8	4096	150912	49.04	4480	0
+S	idle	game_0x13012	chase	dma_in	64	4096	223308	72.60	7760	0
+S	idle	game_0x13012	chase	dma_in	512	4096	695029	226.16	20528	0
+S	idle	game_0x13012	chase	dma_in	3584	1024	1067339	1389.41	30592	0
+S	idle	game_0x13012	chase	dma_out	8	4096	117031	38.01	4128	0
+S	idle	game_0x13012	chase	dma_out	64	4096	143318	46.56	4816	0
+S	idle	game_0x13012	chase	dma_out	512	4096	627365	204.13	16976	0
+S	idle	game_0x13012	chase	dma_out	3584	1024	1061798	1382.19	28944	0
+S	idle	game_0x13012	chase	dma_in_overlap	8	4096	179180	58.24	5856	0
+S	idle	game_0x13012	chase	dma_in_overlap	64	4096	219207	71.27	7680	0
+S	idle	game_0x13012	chase	dma_in_overlap	512	4096	695147	226.20	20528	0
+S	idle	game_0x13012	chase	dma_in_overlap	3584	1024	1067764	1389.96	30336	0
+S	idle	game_0x13012	chase	mfc0_dp_current	0	32768	245949	10.00	9136	0
+S	idle	game_0x13012	chase	fifo_wait_like	0	32768	442807	18.01	16336	0
+S	idle	game_0x13012	chase	vertex_like	0	32768	909590	37.00	33856	0
+S	fill	vi_off	idle	null	0	0	89	0	0	0
+S	fill	vi_off	idle	dma_in	8	4096	132700	43.17	0	0
+S	fill	vi_off	idle	dma_in	64	4096	142982	46.51	0	0
+S	fill	vi_off	idle	dma_in	512	4096	344608	112.15	0	0
+S	fill	vi_off	idle	dma_in	3584	1024	450030	585.86	0	0
+S	fill	vi_off	idle	dma_out	8	4096	113717	36.99	0	0
+S	fill	vi_off	idle	dma_out	64	4096	124144	40.38	0	0
+S	fill	vi_off	idle	dma_out	512	4096	316534	103.01	0	0
+S	fill	vi_off	idle	dma_out	3584	1024	426086	554.68	0	0
+S	fill	vi_off	idle	dma_in_overlap	8	4096	151988	49.45	0	0
+S	fill	vi_off	idle	dma_in_overlap	64	4096	151655	49.34	0	0
+S	fill	vi_off	idle	dma_in_overlap	512	4096	344570	112.14	0	0
+S	fill	vi_off	idle	dma_in_overlap	3584	1024	449939	585.74	0	0
+S	fill	vi_off	idle	mfc0_dp_current	0	32768	245849	10.00	0	0
+S	fill	vi_off	idle	fifo_wait_like	0	32768	393300	16.00	0	0
+S	fill	vi_off	idle	vertex_like	0	32768	909389	37.00	0	0
+S	fill	vi_off	chase	null	0	0	210	0	16	0
+S	fill	vi_off	chase	dma_in	8	4096	147551	47.96	4112	0
+S	fill	vi_off	chase	dma_in	64	4096	190468	61.93	7472	0
+S	fill	vi_off	chase	dma_in	512	4096	581691	189.28	18768	0
+S	fill	vi_off	chase	dma_in	3584	1024	867182	1128.87	26688	0
+S	fill	vi_off	chase	dma_out	8	4096	120766	39.24	3888	0
+S	fill	vi_off	chase	dma_out	64	4096	143691	46.71	3984	0
+S	fill	vi_off	chase	dma_out	512	4096	567463	184.65	16096	0
+S	fill	vi_off	chase	dma_out	3584	1024	871040	1133.89	25552	0
+S	fill	vi_off	chase	dma_in_overlap	8	4096	166291	54.06	5472	0
+S	fill	vi_off	chase	dma_in_overlap	64	4096	190325	61.89	7232	0
+S	fill	vi_off	chase	dma_in_overlap	512	4096	581849	189.34	18864	0
+S	fill	vi_off	chase	dma_in_overlap	3584	1024	867268	1128.98	26576	0
+S	fill	vi_off	chase	mfc0_dp_current	0	32768	245900	10.00	10096	1
+S	fill	vi_off	chase	fifo_wait_like	0	32768	393380	16.00	16032	0
+S	fill	vi_off	chase	vertex_like	0	32768	909529	37.00	37072	0
+S	fill	game_0x13012	idle	null	0	0	87	0	0	0
+S	fill	game_0x13012	idle	dma_in	8	4096	144550	47.03	0	0
+S	fill	game_0x13012	idle	dma_in	64	4096	158200	51.47	0	0
+S	fill	game_0x13012	idle	dma_in	512	4096	398685	129.75	0	0
+S	fill	game_0x13012	idle	dma_in	3584	1024	533479	694.52	0	0
+S	fill	game_0x13012	idle	dma_out	8	4096	125273	40.75	0	0
+S	fill	game_0x13012	idle	dma_out	64	4096	130774	42.54	0	0
+S	fill	game_0x13012	idle	dma_out	512	4096	364459	118.61	0	0
+S	fill	game_0x13012	idle	dma_out	3584	1024	507979	661.32	0	0
+S	fill	game_0x13012	idle	dma_in_overlap	8	4096	167030	54.34	0	0
+S	fill	game_0x13012	idle	dma_in_overlap	64	4096	161832	52.65	0	0
+S	fill	game_0x13012	idle	dma_in_overlap	512	4096	398637	129.74	0	0
+S	fill	game_0x13012	idle	dma_in_overlap	3584	1024	533141	694.08	0	0
+S	fill	game_0x13012	idle	mfc0_dp_current	0	32768	245853	10.00	0	0
+S	fill	game_0x13012	idle	fifo_wait_like	0	32768	393309	16.00	0	0
+S	fill	game_0x13012	idle	vertex_like	0	32768	909390	37.00	0	0
+S	fill	game_0x13012	chase	null	0	0	261	0	0	0
+S	fill	game_0x13012	chase	dma_in	8	4096	163269	53.06	4416	0
+S	fill	game_0x13012	chase	dma_in	64	4096	220195	71.59	7632	0
+S	fill	game_0x13012	chase	dma_in	512	4096	696812	226.74	20400	0
+S	fill	game_0x13012	chase	dma_in	3584	1024	1072528	1396.18	30336	0
+S	fill	game_0x13012	chase	dma_out	8	4096	134174	43.59	4176	0
+S	fill	game_0x13012	chase	dma_out	64	4096	156845	50.97	4080	0
+S	fill	game_0x13012	chase	dma_out	512	4096	655869	213.41	17248	0
+S	fill	game_0x13012	chase	dma_out	3584	1024	1068978	1391.56	28976	0
+S	fill	game_0x13012	chase	dma_in_overlap	8	4096	179153	58.23	5328	0
+S	fill	game_0x13012	chase	dma_in_overlap	64	4096	219736	71.44	7664	0
+S	fill	game_0x13012	chase	dma_in_overlap	512	4096	696686	226.70	20384	0
+S	fill	game_0x13012	chase	dma_in_overlap	3584	1024	1067558	1389.71	30240	0
+S	fill	game_0x13012	chase	mfc0_dp_current	0	32768	245922	10.00	9216	0
+S	fill	game_0x13012	chase	fifo_wait_like	0	32768	393555	16.00	14272	0
+S	fill	game_0x13012	chase	vertex_like	0	32768	909464	37.00	33280	1
+S	tex	vi_off	idle	null	0	0	85	0	0	0
+S	tex	vi_off	idle	dma_in	8	4096	118556	38.56	0	0
+S	tex	vi_off	idle	dma_in	64	4096	146162	47.55	0	0
+S	tex	vi_off	idle	dma_in	512	4096	334040	108.71	0	0
+S	tex	vi_off	idle	dma_in	3584	1024	446967	581.88	0	0
+S	tex	vi_off	idle	dma_out	8	4096	106519	34.65	0	0
+S	tex	vi_off	idle	dma_out	64	4096	116207	37.80	0	0
+S	tex	vi_off	idle	dma_out	512	4096	307532	100.08	0	0
+S	tex	vi_off	idle	dma_out	3584	1024	422642	550.20	0	0
+S	tex	vi_off	idle	dma_in_overlap	8	4096	151328	49.23	0	0
+S	tex	vi_off	idle	dma_in_overlap	64	4096	152963	49.76	0	0
+S	tex	vi_off	idle	dma_in_overlap	512	4096	333937	108.68	0	0
+S	tex	vi_off	idle	dma_in_overlap	3584	1024	446955	581.86	0	0
+S	tex	vi_off	idle	mfc0_dp_current	0	32768	245840	10.00	0	0
+S	tex	vi_off	idle	fifo_wait_like	0	32768	393294	16.00	0	0
+S	tex	vi_off	idle	vertex_like	0	32768	909388	37.00	0	0
+S	tex	vi_off	chase	null	0	0	227	0	0	0
+S	tex	vi_off	chase	dma_in	8	4096	137262	44.61	4128	0
+S	tex	vi_off	chase	dma_in	64	4096	192075	62.45	7360	0
+S	tex	vi_off	chase	dma_in	512	4096	580503	188.89	18896	0
+S	tex	vi_off	chase	dma_in	3584	1024	866728	1128.26	26432	0
+S	tex	vi_off	chase	dma_out	8	4096	108541	35.26	3872	0
+S	tex	vi_off	chase	dma_out	64	4096	129957	42.23	3936	0
+S	tex	vi_off	chase	dma_out	512	4096	536251	174.49	15376	0
+S	tex	vi_off	chase	dma_out	3584	1024	868641	1130.75	25792	0
+S	tex	vi_off	chase	dma_in_overlap	8	4096	164945	53.62	5744	0
+S	tex	vi_off	chase	dma_in_overlap	64	4096	192088	62.45	7280	0
+S	tex	vi_off	chase	dma_in_overlap	512	4096	580351	188.84	18896	0
+S	tex	vi_off	chase	dma_in_overlap	3584	1024	866867	1128.44	26480	0
+S	tex	vi_off	chase	mfc0_dp_current	0	32768	245924	10.00	10016	0
+S	tex	vi_off	chase	fifo_wait_like	0	32768	393440	16.00	16032	0
+S	tex	vi_off	chase	vertex_like	0	32768	909615	37.00	37072	0
+S	tex	game_0x13012	idle	null	0	0	86	0	0	0
+S	tex	game_0x13012	idle	dma_in	8	4096	123636	40.22	0	0
+S	tex	game_0x13012	idle	dma_in	64	4096	157131	51.12	0	0
+S	tex	game_0x13012	idle	dma_in	512	4096	396319	128.98	0	0
+S	tex	game_0x13012	idle	dma_in	3584	1024	532743	693.56	0	0
+S	tex	game_0x13012	idle	dma_out	8	4096	120847	39.31	0	0
+S	tex	game_0x13012	idle	dma_out	64	4096	121450	39.51	0	0
+S	tex	game_0x13012	idle	dma_out	512	4096	354621	115.41	0	0
+S	tex	game_0x13012	idle	dma_out	3584	1024	505527	658.13	0	0
+S	tex	game_0x13012	idle	dma_in_overlap	8	4096	160241	52.13	0	0
+S	tex	game_0x13012	idle	dma_in_overlap	64	4096	161499	52.54	0	0
+S	tex	game_0x13012	idle	dma_in_overlap	512	4096	396679	129.10	0	0
+S	tex	game_0x13012	idle	dma_in_overlap	3584	1024	532565	693.33	0	0
+S	tex	game_0x13012	idle	mfc0_dp_current	0	32768	245840	10.00	0	0
+S	tex	game_0x13012	idle	fifo_wait_like	0	32768	393291	16.00	0	0
+S	tex	game_0x13012	idle	vertex_like	0	32768	909389	37.00	0	0
+S	tex	game_0x13012	chase	null	0	0	250	0	0	0
+S	tex	game_0x13012	chase	dma_in	8	4096	153698	49.95	4512	0
+S	tex	game_0x13012	chase	dma_in	64	4096	219052	71.22	7648	0
+S	tex	game_0x13012	chase	dma_in	512	4096	697152	226.86	20448	0
+S	tex	game_0x13012	chase	dma_in	3584	1024	1065208	1386.66	30496	0
+S	tex	game_0x13012	chase	dma_out	8	4096	117385	38.13	4000	0
+S	tex	game_0x13012	chase	dma_out	64	4096	163008	52.98	4560	0
+S	tex	game_0x13012	chase	dma_out	512	4096	643983	209.55	17152	0
+S	tex	game_0x13012	chase	dma_out	3584	1024	1071357	1394.67	29072	0
+S	tex	game_0x13012	chase	dma_in_overlap	8	4096	180847	58.79	5728	0
+S	tex	game_0x13012	chase	dma_in_overlap	64	4096	221650	72.07	7664	0
+S	tex	game_0x13012	chase	dma_in_overlap	512	4096	697470	226.96	20480	0
+S	tex	game_0x13012	chase	dma_in_overlap	3584	1024	1067698	1389.91	30256	0
+S	tex	game_0x13012	chase	mfc0_dp_current	0	32768	245948	10.00	9232	0
+S	tex	game_0x13012	chase	fifo_wait_like	0	32768	393465	16.00	14320	0
+S	tex	game_0x13012	chase	vertex_like	0	32768	909473	37.00	33488	0
+S	texzb	vi_off	idle	null	0	0	85	0	0	0
+S	texzb	vi_off	idle	dma_in	8	4096	128567	41.82	0	0
+S	texzb	vi_off	idle	dma_in	64	4096	151274	49.22	0	0
+S	texzb	vi_off	idle	dma_in	512	4096	352998	114.88	0	0
+S	texzb	vi_off	idle	dma_in	3584	1024	451406	587.66	0	0
+S	texzb	vi_off	idle	dma_out	8	4096	101789	33.11	0	0
+S	texzb	vi_off	idle	dma_out	64	4096	126368	41.11	0	0
+S	texzb	vi_off	idle	dma_out	512	4096	317148	103.21	0	0
+S	texzb	vi_off	idle	dma_out	3584	1024	425244	553.59	0	0
+S	texzb	vi_off	idle	dma_in_overlap	8	4096	152411	49.59	0	0
+S	texzb	vi_off	idle	dma_in_overlap	64	4096	161025	52.39	0	0
+S	texzb	vi_off	idle	dma_in_overlap	512	4096	352857	114.83	0	0
+S	texzb	vi_off	idle	dma_in_overlap	3584	1024	451316	587.54	0	0
+S	texzb	vi_off	idle	mfc0_dp_current	0	32768	245841	10.00	0	0
+S	texzb	vi_off	idle	fifo_wait_like	0	32768	393299	16.00	0	0
+S	texzb	vi_off	idle	vertex_like	0	32768	909390	37.00	0	0
+S	texzb	vi_off	chase	null	0	0	238	0	0	0
+S	texzb	vi_off	chase	dma_in	8	4096	172209	55.98	5408	0
+S	texzb	vi_off	chase	dma_in	64	4096	197043	64.06	7296	0
+S	texzb	vi_off	chase	dma_in	512	4096	586345	190.79	18864	0
+S	texzb	vi_off	chase	dma_in	3584	1024	868898	1131.07	26560	0
+S	texzb	vi_off	chase	dma_out	8	4096	137440	44.66	3920	0
+S	texzb	vi_off	chase	dma_out	64	4096	155349	50.49	4096	0
+S	texzb	vi_off	chase	dma_out	512	4096	564284	183.61	16208	0
+S	texzb	vi_off	chase	dma_out	3584	1024	876988	1141.60	25840	0
+S	texzb	vi_off	chase	dma_in_overlap	8	4096	174006	56.57	5600	0
+S	texzb	vi_off	chase	dma_in_overlap	64	4096	196900	64.02	7248	0
+S	texzb	vi_off	chase	dma_in_overlap	512	4096	586732	190.92	18880	0
+S	texzb	vi_off	chase	dma_in_overlap	3584	1024	869017	1131.22	26544	0
+S	texzb	vi_off	chase	mfc0_dp_current	0	32768	246006	10.00	9200	0
+S	texzb	vi_off	chase	fifo_wait_like	0	32768	393382	16.00	14704	0
+S	texzb	vi_off	chase	vertex_like	0	32768	909669	37.00	34000	0
+S	texzb	game_0x13012	idle	null	0	0	86	0	0	0
+S	texzb	game_0x13012	idle	dma_in	8	4096	126968	41.30	0	0
+S	texzb	game_0x13012	idle	dma_in	64	4096	160577	52.24	0	0
+S	texzb	game_0x13012	idle	dma_in	512	4096	428532	139.47	0	0
+S	texzb	game_0x13012	idle	dma_in	3584	1024	537131	699.28	0	0
+S	texzb	game_0x13012	idle	dma_out	8	4096	122551	39.86	0	0
+S	texzb	game_0x13012	idle	dma_out	64	4096	130612	42.49	0	0
+S	texzb	game_0x13012	idle	dma_out	512	4096	357407	116.32	0	0
+S	texzb	game_0x13012	idle	dma_out	3584	1024	506139	658.92	0	0
+S	texzb	game_0x13012	idle	dma_in_overlap	8	4096	164171	53.41	0	0
+S	texzb	game_0x13012	idle	dma_in_overlap	64	4096	169726	55.22	0	0
+S	texzb	game_0x13012	idle	dma_in_overlap	512	4096	429767	139.87	0	0
+S	texzb	game_0x13012	idle	dma_in_overlap	3584	1024	537526	699.79	0	0
+S	texzb	game_0x13012	idle	mfc0_dp_current	0	32768	245837	10.00	0	0
+S	texzb	game_0x13012	idle	fifo_wait_like	0	32768	393305	16.00	0	0
+S	texzb	game_0x13012	idle	vertex_like	0	32768	909388	37.00	0	0
+S	texzb	game_0x13012	chase	null	0	0	281	0	0	0
+S	texzb	game_0x13012	chase	dma_in	8	4096	226417	73.61	7584	0
+S	texzb	game_0x13012	chase	dma_in	64	4096	233080	75.78	7680	0
+S	texzb	game_0x13012	chase	dma_in	512	4096	700384	227.90	20288	0
+S	texzb	game_0x13012	chase	dma_in	3584	1024	1068904	1391.44	30176	0
+S	texzb	game_0x13012	chase	dma_out	8	4096	156214	50.76	4064	0
+S	texzb	game_0x13012	chase	dma_out	64	4096	183280	59.57	4496	0
+S	texzb	game_0x13012	chase	dma_out	512	4096	705167	229.46	19776	0
+S	texzb	game_0x13012	chase	dma_out	3584	1024	1080727	1406.83	29600	0
+S	texzb	game_0x13012	chase	dma_in_overlap	8	4096	226914	73.77	7520	0
+S	texzb	game_0x13012	chase	dma_in_overlap	64	4096	232163	75.48	7632	0
+S	texzb	game_0x13012	chase	dma_in_overlap	512	4096	701616	228.30	20320	0
+S	texzb	game_0x13012	chase	dma_in_overlap	3584	1024	1069593	1392.33	30224	0
+S	texzb	game_0x13012	chase	mfc0_dp_current	0	32768	245895	9.99	7584	0
+S	texzb	game_0x13012	chase	fifo_wait_like	0	32768	393416	16.00	12160	0
+S	texzb	game_0x13012	chase	vertex_like	0	32768	909485	37.00	28288	0
+# D lines: rdp list, vi mode, cpu load, rsp kernel, dma bytes, DPC_CLOCK of the list (smallest of 4), CPU ticks of the list for that run, RSP iterations completed during it, chase loads during it, rectangles in the list, flag (1 = the list needed more than 2 s with the RSP running and was finished with the RSP halted)
+D	fill	vi_off	idle	none	0	1768130	1326125	0	0	40	0
+D	fill	vi_off	idle	dma_in	8	2066871	1550132	48392	0	40	0
+D	fill	vi_off	idle	dma_in	64	2213366	1660004	48458	0	40	0
+D	fill	vi_off	idle	dma_in	512	5443267	4082376	48331	0	40	0
+D	fill	vi_off	idle	dma_in	3584	11823046	21449875	48919	0	40	0
+D	fill	vi_off	idle	dma_out	512	4992991	3744696	48458	0	40	0
+D	fill	vi_off	idle	dma_out	3584	10289676	20299795	48793	0	40	0
+D	fill	vi_off	idle	fifo_wait_like	0	1768250	1326167	104027	0	40	0
+D	fill	vi_off	idle	vertex_like	0	1768250	1326167	46537	0	40	0
+D	fill	vi_off	chase	none	0	2802804	2102135	0	85952	40	0
+D	fill	vi_off	chase	dma_in	8	4537875	3403393	96983	97072	40	0
+D	fill	vi_off	chase	dma_in	64	5512729	4134533	87525	155584	40	0
+D	fill	vi_off	chase	dma_in	512	400584	12883337	90810	414464	40	0
+D	fill	vi_off	chase	dma_in	3584	419527	12897544	181723	414752	40	0
+D	fill	vi_off	chase	dma_out	512	14901623	11176250	80327	318736	40	0
+D	fill	vi_off	chase	dma_out	3584	4908564	79178722	92916	2330160	40	0
+D	fill	vi_off	chase	fifo_wait_like	0	2803018	2102248	164897	85968	40	0
+D	fill	vi_off	chase	vertex_like	0	2802768	2102060	73762	85952	40	0
+D	fill	game_0x13012	idle	none	0	2015152	1511460	0	0	40	0
+D	fill	game_0x13012	idle	dma_in	8	2557709	1918264	53148	0	40	0
+D	fill	game_0x13012	idle	dma_in	64	2743767	2057724	51831	0	40	0
+D	fill	game_0x13012	idle	dma_in	512	7055611	5291659	53666	0	40	0
+D	fill	game_0x13012	idle	dma_in	3584	8511074	31548632	60425	0	40	0
+D	fill	game_0x13012	idle	dma_out	512	6964061	5222970	58158	0	40	0
+D	fill	game_0x13012	idle	dma_out	3584	6966853	5225160	116590	0	40	0
+D	fill	game_0x13012	idle	fifo_wait_like	0	2015042	1511261	118544	0	40	0
+D	fill	game_0x13012	idle	vertex_like	0	2015215	1511413	53038	0	40	0
+D	fill	game_0x13012	chase	none	0	3498421	2623848	0	96800	40	0
+D	fill	game_0x13012	chase	dma_in	8	6685691	5014252	123568	136432	40	0
+D	fill	game_0x13012	chase	dma_in	64	7057819	5293352	92662	178912	40	0
+D	fill	game_0x13012	chase	dma_in	512	11592410	21277208	248859	627296	40	0
+D	fill	game_0x13012	chase	dma_in	3584	8107910	94161336	88585	2658976	40	1
+D	fill	game_0x13012	chase	dma_out	512	10216914	20245630	125083	536128	40	0
+D	fill	game_0x13012	chase	dma_out	3584	8027155	94100827	88601	2542064	40	1
+D	fill	game_0x13012	chase	fifo_wait_like	0	3498841	2624154	205833	96800	40	0
+D	fill	game_0x13012	chase	vertex_like	0	3500140	2625088	92114	96896	40	0
+D	tex	vi_off	idle	none	0	1625050	1218815	0	0	20	0
+D	tex	vi_off	idle	dma_in	8	1625235	1218883	135576	0	20	0
+D	tex	vi_off	idle	dma_in	64	1759821	1319846	34936	0	20	0
+D	tex	vi_off	idle	dma_in	512	5309567	3982195	48348	0	20	0
+D	tex	vi_off	idle	dma_in	3584	5315249	3986456	96811	0	20	0
+D	tex	vi_off	idle	dma_out	512	4912709	3684551	49469	0	20	0
+D	tex	vi_off	idle	dma_out	3584	10163295	20204980	48858	0	20	0
+D	tex	vi_off	idle	fifo_wait_like	0	1625114	1218815	95607	0	20	0
+D	tex	vi_off	idle	vertex_like	0	1625086	1218794	42770	0	20	0
+D	tex	vi_off	chase	none	0	2763907	2072990	0	85968	20	0
+D	tex	vi_off	chase	dma_in	8	4391761	3293807	97242	97952	20	0
+D	tex	vi_off	chase	dma_in	64	5216567	3912411	83845	149200	20	0
+D	tex	vi_off	chase	dma_in	512	203586	12735547	89970	410304	20	0
+D	tex	vi_off	chase	dma_in	3584	206975	12738113	179900	410528	20	0
+D	tex	vi_off	chase	dma_out	512	14599651	73864166	261204	2262208	20	0
+D	tex	vi_off	chase	dma_out	3584	3857702	78390656	92347	2316128	20	0
+D	tex	vi_off	chase	fifo_wait_like	0	2766000	2074506	162723	86096	20	0
+D	tex	vi_off	chase	vertex_like	0	2765506	2074135	72783	86384	20	0
+D	tex	game_0x13012	idle	none	0	1788522	1341504	0	0	20	0
+D	tex	game_0x13012	idle	dma_in	8	2340238	1755155	52845	0	20	0
+D	tex	game_0x13012	idle	dma_in	64	2205974	1654460	40568	0	20	0
+D	tex	game_0x13012	idle	dma_in	512	6256559	4692342	48027	0	20	0
+D	tex	game_0x13012	idle	dma_in	3584	2202018	26816807	51444	0	20	0
+D	tex	game_0x13012	idle	dma_out	512	6927290	5195419	58987	0	20	0
+D	tex	game_0x13012	idle	dma_out	3584	8268852	31367074	63110	0	20	0
+D	tex	game_0x13012	idle	fifo_wait_like	0	1788858	1341623	105239	0	20	0
+D	tex	game_0x13012	idle	vertex_like	0	1788611	1341473	47075	0	20	0
+D	tex	game_0x13012	chase	none	0	3449384	2587071	0	97232	20	0
+D	tex	game_0x13012	chase	dma_in	8	6424947	4818721	120413	139792	20	0
+D	tex	game_0x13012	chase	dma_in	64	6797299	5097958	180273	176208	20	0
+D	tex	game_0x13012	chase	dma_in	512	10420677	20398342	119315	602272	20	0
+# RDP TIMEOUT in D tex game_0x13012 chase dma_in 3584 - the list did not finish even after the RSP was halted; stopping

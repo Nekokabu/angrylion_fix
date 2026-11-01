@@ -1,0 +1,22 @@
+== F16 (T_ZNARROW=16 T_ATOMIC=20 T_AA1=3.5)
+cF16          |     26      |  26 426  48 |  93  77  76  79  85  84  82  76  76  75  71  73  76  81  76  75  75  74  69  65  OK
+seg0: hw frames 225 VI 463 | ares frames 251 VI 466
+   blocks hw :  46  56  70  67  75  65  56  28
+   blocks ar :  45  53  62  63  68  59  52  48  16
+seg1: hw frames 306 VI 671 | ares frames 333 VI 708
+   blocks hw :  70  76  69  60  60  60  65  63  72  64  12
+   blocks ar :  71  79  69  60  60  60  63  60  60  60  60   6
+cF16: crash scene start 4609, shatter +641, text +667  (hardware +658-660 / +668)
+cF16          |     26      |  26 426  48 |  93  77  76  79  85  84  82  76  76  75  71  73  76  81  76  75  75  74  69  65  OK
+cF16 seg0: 249 frames / 465 VI, mean done 1.176 | seg1: 333 frames / 707 VI, mean done 1.435  (hw: seg0 230/465 mean done 1.37, seg1 324/706)
+== F8 (T_ZNARROW=8 T_ATOMIC=20 T_AA1=3.5)
+cF8           |     27      |  26 425  49 |  93  77  76  79  85  84  82  76  76  75  71  73  77  81  76  75  75  74  69  65  OK
+seg0: hw frames 225 VI 463 | ares frames 251 VI 466
+   blocks hw :  46  56  70  67  75  65  56  28
+   blocks ar :  45  53  62  63  68  58  53  48  16
+seg1: hw frames 306 VI 671 | ares frames 333 VI 708
+   blocks hw :  70  76  69  60  60  60  65  63  72  64  12
+   blocks ar :  71  79  69  60  60  60  63  60  60  60  60   6
+cF8: crash scene start 4609, shatter +641, text +667  (hardware +658-660 / +668)
+cF8           |     27      |  26 425  49 |  93  77  76  79  85  84  82  76  76  75  71  73  77  81  76  75  75  74  69  65  OK
+cF8 seg0: 250 frames / 464 VI, mean done 1.175 | seg1: 332 frames / 705 VI, mean done 1.439  (hw: seg0 230/465 mean done 1.37, seg1 324/706)

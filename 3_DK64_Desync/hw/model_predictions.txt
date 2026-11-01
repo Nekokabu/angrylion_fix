@@ -1,0 +1,14 @@
+# ares model predictions for the dumped lists (RDP clocks, CPU idle, VI off)
+# columns: file, tables only, tables + placement penalty 40/span, full model (contention 1.13/1.19, no VI)
+dk64/list_000795.bin	1008471	1365711	model 1509178 clk (incl. 93 list base), pixels 210035 spans 9871 prims 1904 pipe 96142 mem 1191037 zpass 100%
+dk64/list_000796.bin	1014882	1375442	model 1519724 clk (incl. 93 list base), pixels 209927 spans 9954 prims 1897 pipe 96035 mem 1201632 zpass 100%
+dk64/list_000797.bin	1012296	1370816	model 1514762 clk (incl. 93 list base), pixels 210018 spans 9903 prims 1891 pipe 96147 mem 1196437 zpass 100%
+dk64/list_001795.bin	1306077	1877957	model 2061979 clk (incl. 93 list base), pixels 195780 spans 15237 prims 1967 pipe 86137 mem 1715979 zpass 100%
+dk64/list_001796.bin	1282797	1847357	model 2028453 clk (incl. 93 list base), pixels 194004 spans 15054 prims 2059 pipe 83674 mem 1686209 zpass 100%
+dk64/list_001797.bin	1238707	1782987	model 1958497 clk (incl. 93 list base), pixels 191359 spans 14547 prims 2115 pipe 80293 mem 1620743 zpass 100%
+bar/list_002316.bin	1237601	1693840	model 1864986 clk (incl. 93 list base), pixels 270782 spans 12722 prims 899 pipe 291969 mem 1393816 zpass 94%
+bar/list_002317.bin	1250324	1715204	model 1887991 clk (incl. 93 list base), pixels 271284 spans 12938 prims 913 pipe 292973 mem 1415672 zpass 94%
+bar/list_002318.bin	1246999	1707279	model 1879682 clk (incl. 93 list base), pixels 271526 spans 12823 prims 901 pipe 293457 mem 1407257 zpass 94%
+bar/list_002556.bin	1284928	1677008	model 1859577 clk (incl. 93 list base), pixels 277579 spans 11857 prims 1015 pipe 376417 mem 1268661 zpass 98%
+bar/list_002557.bin	1294282	1689842	model 1873755 clk (incl. 93 list base), pixels 277285 spans 11947 prims 1027 pipe 375829 mem 1280211 zpass 98%
+bar/list_002558.bin	1305136	1707136	model 1892386 clk (incl. 93 list base), pixels 278643 spans 12109 prims 1029 pipe 378545 mem 1299663 zpass 98%

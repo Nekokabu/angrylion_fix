@@ -1,0 +1,375 @@
+# rdp_timing v7 - buffer placement, commands between primitives, loads, RDRAM contention
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	4194304
+# runs_per_case	3
+# VI on during A/B/BT/C/E/S (320x240 16-bit console display); D measures VI off and on
+
+list base (start + Sync_Full): 115 cycles
+
+== A: depth buffer placement (clock / clock at the default offset 0x4B000, same base) ==
+-- test S
+fb_base  offset        1cyc16_blend_zpass           1cyc16_zpass     2cyc16_blend_zpass           1cyc16_blend                 fill16
+0x000000      +800            2839 (1.310)           2058 (1.229)           2826 (1.349)           1279 (1.000)            403 (1.000)
+0x000000     +1000            2838 (1.310)           2058 (1.229)           2826 (1.349)           1279 (1.000)            403 (1.000)
+0x000000     +2000            2838 (1.310)           2058 (1.229)           2826 (1.349)           1279 (1.000)            403 (1.000)
+0x000000     +4000            2838 (1.310)           2058 (1.229)           2827 (1.349)           1279 (1.000)            403 (1.000)
+0x000000     +8000            2838 (1.310)           2058 (1.229)           2827 (1.349)           1279 (1.000)            403 (1.000)
+0x000000    +10000            2838 (1.310)           2058 (1.229)           2827 (1.349)           1279 (1.000)            403 (1.000)
+0x000000    +20000            2838 (1.310)           2059 (1.229)           2826 (1.349)           1279 (1.000)            403 (1.000)
+0x000000    +25800            2790 (1.287)           2058 (1.229)           2814 (1.343)           1279 (1.000)            403 (1.000)
+0x000000    +40000            2166 (1.000)           1674 (0.999)           2095 (1.000)           1279 (1.000)            403 (1.000)
+0x000000    +4b000            2167 (1.000)           1675 (1.000)           2095 (1.000)           1279 (1.000)            403 (1.000)
+0x000000    +80000            2166 (1.000)           1674 (0.999)           2094 (1.000)           1279 (1.000)            403 (1.000)
+0x000000   +100000            2166 (1.000)           1675 (1.000)           2095 (1.000)           1279 (1.000)            403 (1.000)
+0x000000   +180000            2166 (1.000)           1674 (0.999)           2094 (1.000)           1279 (1.000)            403 (1.000)
+0x000000   +1da800            2167 (1.000)           1675 (1.000)           2095 (1.000)           1279 (1.000)            403 (1.000)
+0x000000   +200000            2166 (1.000)           1674 (0.999)           2094 (1.000)           1279 (1.000)            403 (1.000)
+0x100000      +800            2839 (1.311)           2058 (1.229)           2827 (1.349)           1267 (1.000)            403 (1.000)
+0x100000     +1000            2851 (1.316)           2059 (1.230)           2827 (1.349)           1267 (1.000)            403 (1.000)
+0x100000     +2000            2839 (1.311)           2059 (1.230)           2827 (1.349)           1267 (1.000)            403 (1.000)
+0x100000     +4000            2839 (1.311)           2058 (1.229)           2827 (1.349)           1267 (1.000)            403 (1.000)
+0x100000     +8000            2839 (1.311)           2058 (1.229)           2827 (1.349)           1267 (1.000)            403 (1.000)
+0x100000    +10000            2839 (1.311)           2059 (1.230)           2827 (1.349)           1267 (1.000)            403 (1.000)
+0x100000    +20000            2839 (1.311)           2059 (1.230)           2827 (1.349)           1267 (1.000)            403 (1.000)
+0x100000    +25800            2839 (1.311)           2058 (1.229)           2827 (1.349)           1267 (1.000)            403 (1.000)
+0x100000    +40000            2166 (1.000)           1674 (1.000)           2094 (1.000)           1267 (1.000)            403 (1.000)
+0x100000    +4b000            2166 (1.000)           1674 (1.000)           2095 (1.000)           1267 (1.000)            403 (1.000)
+0x100000    +80000            2166 (1.000)           1674 (1.000)           2094 (1.000)           1267 (1.000)            403 (1.000)
+0x100000   +100000            2166 (1.000)           1674 (1.000)           2094 (1.000)           1267 (1.000)            403 (1.000)
+-- test L
+fb_base  offset        1cyc16_blend_zpass           1cyc16_zpass     2cyc16_blend_zpass           1cyc16_blend                 fill16
+0x000000    +25800           58878 (1.004)          44431 (1.004)          57463 (1.003)          31085 (0.999)           7795 (1.000)
+0x000000    +40000           58517 (0.998)          44226 (0.999)          57259 (0.999)          31085 (0.999)           7795 (1.000)
+0x000000    +4b000           58650 (1.000)          44262 (1.000)          57306 (1.000)          31109 (1.000)           7795 (1.000)
+0x000000    +80000           58651 (1.000)          44250 (1.000)          57185 (0.998)          31121 (1.000)           7795 (1.000)
+0x000000   +100000           58602 (0.999)          44250 (1.000)          57259 (0.999)          31097 (1.000)           7795 (1.000)
+0x000000   +180000           58639 (1.000)          44261 (1.000)          57319 (1.000)          31073 (0.999)           7795 (1.000)
+0x000000   +1da800           58554 (0.998)          44215 (0.999)          57234 (0.999)          31085 (0.999)           7795 (1.000)
+0x000000   +200000           58615 (0.999)          44178 (0.998)          57163 (0.998)          31073 (0.999)           7795 (1.000)
+0x100000    +25800           57210 (1.003)          43543 (1.004)          56191 (1.007)          31066 (0.999)           7795 (1.000)
+0x100000    +40000           56870 (0.997)          43382 (1.001)          55747 (0.999)          31066 (0.999)           7795 (1.000)
+0x100000    +4b000           57019 (1.000)          43351 (1.000)          55819 (1.000)          31090 (1.000)           7795 (1.000)
+0x100000    +80000           57147 (1.002)          43315 (0.999)          55890 (1.001)          31102 (1.000)           7795 (1.000)
+0x100000   +100000           56846 (0.997)          43371 (1.000)          55723 (0.998)          31066 (0.999)           7795 (1.000)
+-- test R
+fb_base  offset        1cyc16_blend_zpass           1cyc16_zpass     2cyc16_blend_zpass           1cyc16_blend                 fill16
+0x000000    +25800          240786 (1.004)         188258 (1.005)         228126 (1.004)         142013 (1.002)          37637 (0.999)
+0x000000    +40000          239635 (0.999)         187299 (1.000)         227215 (1.000)         142015 (1.002)          37637 (0.999)
+0x000000    +4b000          239802 (1.000)         187336 (1.000)         227250 (1.000)         141798 (1.000)          37661 (1.000)
+0x000000    +80000          239779 (1.000)         187301 (1.000)         227286 (1.000)         141893 (1.001)          37663 (1.000)
+0x000000   +100000          239574 (0.999)         187228 (0.999)         227215 (1.000)         142039 (1.002)          37649 (1.000)
+0x000000   +180000          239803 (1.000)         187073 (0.999)         227070 (0.999)         141966 (1.001)          37661 (1.000)
+0x000000   +1da800          239658 (0.999)         187433 (1.001)         227035 (0.999)         142085 (1.002)          37649 (1.000)
+0x000000   +200000          239766 (1.000)         187168 (0.999)         227215 (1.000)         141903 (1.001)          37649 (1.000)
+0x100000    +25800          236445 (1.002)         185754 (1.004)         224574 (1.007)         137995 (1.002)          37479 (1.001)
+0x100000    +40000          235710 (0.999)         185186 (1.001)         223167 (1.001)         137906 (1.001)          37467 (1.000)
+0x100000    +4b000          235987 (1.000)         185078 (1.000)         222915 (1.000)         137719 (1.000)          37455 (1.000)
+0x100000    +80000          235519 (0.998)         185139 (1.000)         222891 (1.000)         137851 (1.001)          37454 (1.000)
+0x100000   +100000          235602 (0.998)         185246 (1.001)         223035 (1.001)         138007 (1.002)          37442 (1.000)
+
+== B: extra cycles per command between primitives (26 primitives) ==
+command                             1cyc16/4        1cyc16/16        1cyc16/64   1cyc16_blend/4  1cyc16_blend/16  1cyc16_blend/64   1cyc16_tex_b/4  1cyc16_tex_b/16  1cyc16_tex_b/64         fill16/4        fill16/16        fill16/64
+none                                     0.0              0.0              0.0              0.0              0.0              0.0              0.0              0.0              0.0              0.0              0.0              0.0
+set_other_modes                          2.8              1.8              0.5              0.4              6.5              4.6              1.4              4.6             -4.1              0.9              1.0              1.4
+set_other_modes_alt                      2.8              0.5              0.9             -0.5              8.8              5.5              2.7              6.4              1.9              0.5              1.4              1.4
+set_combine                              2.8              2.3              0.9              0.4              6.4              0.9             -1.4              3.7              0.0              0.5              1.0              1.4
+set_prim_color                           0.9              0.9              1.8              2.3              6.5              6.0              0.5              7.3             -0.9              2.3              0.0              1.4
+set_env_color                            1.8              0.5              0.5             -1.8              4.1             -0.9             -3.2              3.2             -1.3              2.3              0.5              1.4
+set_blend_color                          1.4              0.5              0.5              2.3              6.9              8.8              0.9              6.0              1.4              2.3              0.5              1.4
+set_fog_color                            0.9              0.5              0.0             -0.4              4.6             -2.8              0.9              5.1             -5.5              2.3              0.0              1.4
+set_fill_color                           0.9              0.9              0.9              1.8              7.4              5.5              1.3              4.6              2.7              2.3              1.0              1.4
+set_prim_depth                           0.9              0.9              1.4             -1.0              5.1             -1.0              1.4              5.1             -2.3              2.8              0.0              1.4
+set_scissor                              0.9              0.9              0.9              1.4              7.8              2.3              0.9              5.0              0.9              2.3              0.5              1.4
+set_tile                                 2.8              0.0              0.9             -1.0              4.6              1.3              0.4              2.8             -0.9              2.3             -0.4              1.4
+set_tile_size                            0.9              0.0              1.4              0.9              7.8              5.0              0.9              8.3              3.3              2.3             -0.9              1.4
+set_texture_image                        0.9              2.3              0.0             -1.8              6.0             -0.0              0.4              3.2             -5.0              2.3             -0.9              1.4
+set_mask_image                           0.9              1.8              0.5              1.3              6.9             -0.9             -2.3             10.6             -0.9              2.8             -0.9              1.4
+set_color_image                          0.9              1.8              0.0              0.0              6.0              2.3              0.4              6.5             -2.8              2.3             -0.9              0.9
+set_convert                            373.7            403.7           1090.0            -90.5           -143.6           -467.6            -91.8           -145.9           -468.9                                                   
+set_key_r                              383.1            415.8           1133.5            -92.3           -144.5           -474.5            -92.3           -146.3           -477.2                                                   
+sync_pipe                              434.3            458.3           1175.9            -43.9            -97.4           -427.4            -40.2            -99.7           -431.5                                                   
+sync_tile                              415.4            441.7           1161.6            -61.0           -120.0           -440.3            -62.8           -118.2           -444.9                                                   
+sync_load                              407.1            433.8           1152.8            -65.6           -125.1           -450.5            -66.5           -122.3           -455.0                                                   
+sync_pipe+set_other_modes               51.2             50.3             50.8             16.2             36.8             24.3             13.3             39.2             22.1                                                   
+4x set_color                             8.3              6.5              7.8              4.6             15.7             11.5              0.5             13.4              7.4              7.4              5.1              4.6
+no_op                                    1.4              0.5              0.9             -1.0              4.6              1.8              1.3              2.3             -4.6              2.3              0.5              1.4
+
+== BT: the same with triangles (legs 16x8) ==
+1cyc16_blend_zpass:  none=+0.0  set_other_modes=+1.4  set_combine=+4.6  set_prim_color=+1.3  sync_pipe=+23.5  sync_pipe+set_other_modes=+20.3  4x set_color=+5.5
+1cyc16:  none=+0.0  set_other_modes=+1.4  set_combine=+2.3  set_prim_color=+1.4  sync_pipe=+48.9  sync_pipe+set_other_modes=+49.8  4x set_color=+6.9
+
+== C: load sequences between small primitives, cycles per repetition ==
+mode/prim/size/texels                        prim     load  load+prim    extra   nopipe   nosync     tile    syncs
+1cyc16_tex/rect/4/64                         70.1    151.8      229.1      7.2    -42.3             151.9     74.6
+1cyc16_tex/rect/4/1024                       70.1    949.1     1028.1      8.8    -40.2             194.6     74.6
+1cyc16_tex/rect/16/64                       468.9    150.9      624.9      5.1    -43.7             150.9     75.4
+1cyc16_tex/rect/16/1024                     468.9    949.7     1419.4      0.9    -48.9             188.6     74.6
+1cyc16_tex/tri/4/64                          73.8    152.2      229.5      3.4    -46.4             151.6     70.9
+1cyc16_tex/tri/4/1024                        73.9    949.1     1029.7      6.7    -44.3             190.1     70.8
+1cyc16_tex/tri/16/64                        336.9    150.9      495.4      7.7    -45.4             154.3     71.1
+1cyc16_tex/tri/16/1024                      336.8    949.7     1290.9      4.4    -47.1             185.2     72.9
+1cyc16_tex_blend_zpass/rect/4/64            318.3    154.5      452.2    -20.6    -69.0             133.5     38.3
+1cyc16_tex_blend_zpass/rect/4/1024          317.2    991.5     1277.2    -31.5    -78.8             147.9     39.8
+1cyc16_tex_blend_zpass/rect/16/64          1693.7    152.5     1834.4    -11.8    -65.9             141.4     66.0
+1cyc16_tex_blend_zpass/rect/16/1024        1695.4    986.6     2663.1    -18.9    -60.9             159.4     58.0
+1cyc16_tex_blend_zpass/tri/4/64             317.6    154.5      451.8    -20.2    -66.7             133.5     37.1
+1cyc16_tex_blend_zpass/tri/4/1024           318.4    990.8     1276.4    -32.8    -81.1             143.9     36.8
+1cyc16_tex_blend_zpass/tri/16/64           1363.7    152.5     1500.9    -15.4    -59.1             130.4     45.4
+1cyc16_tex_blend_zpass/tri/16/1024         1366.2    987.4     2327.9    -25.6    -71.9             140.7     38.6
+
+== S: extra cycles per primitive for a sync sequence after it (DPC_CLOCK; in brackets: CPU wall time x4/3) ==
+mode/w/h                            sync_pipe+set_other_mo                sync_pipe   sync_load+set_image+se       sync_tile+set_tile    f3dex2_texture_change
+1cyc16/4/1                             52.2 [   52.2]        49.8 [   49.8]       100.6 [  100.6]        34.2 [   34.2]       154.2 [  154.2]  
+1cyc16/4/8                             52.2 [   52.2]        48.9 [   48.9]       103.4 [  103.4]        33.7 [   33.7]       156.9 [  156.9]  
+1cyc16/4/40                            52.8 [   52.8]        52.8 [   52.8]       100.8 [  100.8]        36.0 [   36.0]       158.4 [  158.4]  
+1cyc16/16/1                            49.8 [   49.8]        49.8 [   49.8]       103.4 [  103.4]        34.2 [   34.2]       153.7 [  153.7]  
+1cyc16/16/8                            50.3 [   50.3]        51.7 [   51.6]       104.3 [  104.3]        35.1 [   35.0]       155.5 [  155.5]  
+1cyc16/16/40                           48.0 [   48.0]        48.0 [   48.0]        96.2 [   96.0]        33.6 [   33.6]       160.8 [  160.8]  
+1cyc16/64/1                            53.0 [   53.0]        51.2 [   51.2]       104.8 [  104.8]        36.5 [   36.4]       156.9 [  156.9]  
+1cyc16/64/8                            48.0 [   48.0]        51.2 [   51.2]       102.4 [  102.4]        35.1 [   35.1]       157.3 [  157.3]  
+1cyc16/64/40                           48.0 [   48.0]        40.8 [   40.8]        96.0 [   96.0]        33.6 [   33.6]       149.0 [  149.1]  
+1cyc16/320/1                           52.2 [   52.2]        50.8 [   50.8]       104.3 [  104.3]        35.1 [   35.1]       155.1 [  155.1]  
+1cyc16/320/8                           54.0 [   54.0]        51.2 [   51.2]       107.0 [  107.0]        34.2 [   34.2]       168.0 [  168.1]  
+1cyc16/320/40                          51.0 [   55.2]        53.2 [   57.3]        94.2 [   98.4]        34.2 [   38.4]       178.2 [  182.4]  
+1cyc16_blend_zpass/4/1                 30.5 [   30.5]        30.0 [   30.0]        88.2 [   88.2]        14.3 [   14.3]       139.5 [  139.4]  
+1cyc16_blend_zpass/4/8                 17.1 [   17.1]        19.4 [   19.4]        78.5 [   78.5]         6.9 [    6.9]       134.3 [  134.3]  
+1cyc16_blend_zpass/4/40                31.2 [   31.2]        28.8 [   28.8]        79.2 [   79.2]        12.2 [   12.0]       115.4 [  115.2]  
+1cyc16_blend_zpass/16/1                42.0 [   41.9]        41.5 [   41.5]        95.5 [   95.5]        23.5 [   23.5]       146.7 [  146.9]  
+1cyc16_blend_zpass/16/8                35.0 [   35.0]        39.7 [   39.6]        90.9 [   90.9]        25.8 [   25.8]       150.3 [  149.0]  
+1cyc16_blend_zpass/16/40               21.4 [   21.3]        29.2 [   28.5]        76.8 [   76.5]        33.6 [   33.3]       139.0 [  138.9]  
+1cyc16_blend_zpass/64/1                33.7 [   33.7]        28.7 [   28.6]        81.7 [   81.7]        16.2 [   16.2]       135.2 [  135.2]  
+1cyc16_blend_zpass/64/8                28.7 [   28.7]        33.2 [   33.2]        85.4 [   85.4]        12.5 [   12.5]       133.9 [  133.9]  
+1cyc16_blend_zpass/64/40               42.0 [   49.6]        25.2 [   32.5]        87.6 [   95.2]        41.8 [   49.3]       138.0 [  145.6]  
+1cyc16_blend_zpass/320/1               36.9 [   36.9]        40.2 [   40.2]       100.1 [  100.1]        29.0 [   29.1]       143.5 [  143.5]  
+1cyc16_blend_zpass/320/8               14.3 [   14.3]        20.3 [   20.3]        79.4 [   79.4]        25.0 [   24.9]       108.9 [  108.9]  
+1cyc16_blend_zpass/320/40             -17.0 [  -16.8]       100.8 [  101.1]         4.6 [    4.8]        -2.4 [   -2.1]        23.8 [   24.0]  
+1cyc16_tex/4/1                         52.2 [   52.2]        49.9 [   49.9]       101.1 [  101.1]        34.2 [   34.2]       155.6 [  155.6]  
+1cyc16_tex/4/8                         51.2 [   51.2]        50.3 [   50.4]       102.4 [  102.5]        33.7 [   33.7]       163.8 [  163.8]  
+1cyc16_tex/4/40                        50.6 [   50.7]        50.4 [   50.4]        98.4 [   98.4]        33.6 [   33.6]       149.0 [  148.8]  
+1cyc16_tex/16/1                        49.8 [   49.8]        49.8 [   49.8]       103.9 [  103.9]        33.7 [   33.7]       156.0 [  156.0]  
+1cyc16_tex/16/8                        51.2 [   51.2]        50.3 [   50.3]       104.7 [  104.8]        33.7 [   33.7]       159.2 [  159.2]  
+1cyc16_tex/16/40                       50.6 [   50.7]        48.0 [   48.0]        98.6 [   98.4]        31.2 [   31.2]       165.6 [  165.6]  
+1cyc16_tex/64/1                        48.9 [   48.9]        49.8 [   49.9]       102.9 [  102.9]        33.7 [   33.7]       159.2 [  159.3]  
+1cyc16_tex/64/8                        47.1 [   47.1]        46.2 [   46.2]       103.8 [  103.2]        34.2 [   34.2]       160.7 [  160.6]  
+1cyc16_tex/64/40                       50.6 [   50.7]        50.4 [   50.4]       100.8 [  100.8]        33.8 [   33.9]       158.4 [  158.4]  
+1cyc16_tex/320/1                       50.3 [   50.3]        48.5 [   48.5]       102.5 [  102.5]        33.3 [   33.3]       157.8 [  157.8]  
+1cyc16_tex/320/8                       51.5 [   51.5]        54.5 [   53.3]       105.4 [  105.5]        34.1 [   34.1]       175.6 [  175.7]  
+1cyc16_tex/320/40                      55.4 [   55.5]        53.0 [   53.1]        98.6 [   98.7]        41.0 [   41.1]       182.2 [  182.4]  
+1cyc16_tex_blend_zpass/4/1             35.1 [   35.1]        34.2 [   34.2]        93.2 [   93.3]        19.8 [   19.8]       153.3 [  153.3]  
+1cyc16_tex_blend_zpass/4/8             16.6 [   16.6]        16.1 [   16.2]        78.0 [   78.0]         5.1 [    5.1]       135.2 [  135.2]  
+1cyc16_tex_blend_zpass/4/40            28.6 [   28.5]        16.8 [   16.8]        69.6 [   69.6]         7.0 [    6.9]       129.6 [  129.6]  
+1cyc16_tex_blend_zpass/16/1            40.2 [   40.2]        38.7 [   38.7]        96.4 [   96.4]        21.2 [   21.2]       152.3 [  152.3]  
+1cyc16_tex_blend_zpass/16/8            36.0 [   36.1]        37.4 [   37.4]        92.1 [   89.9]        22.1 [   19.8]       150.9 [  150.9]  
+1cyc16_tex_blend_zpass/16/40           16.8 [   16.8]        32.0 [   31.2]       105.6 [  105.6]        33.8 [   33.9]       146.6 [  146.4]  
+1cyc16_tex_blend_zpass/64/1            30.4 [   30.5]        30.4 [   30.5]        85.3 [   85.4]        12.0 [   12.1]       147.2 [  147.3]  
+1cyc16_tex_blend_zpass/64/8            30.0 [   30.0]        32.8 [   32.8]        85.8 [   85.8]        12.5 [   11.1]       138.9 [  139.0]  
+1cyc16_tex_blend_zpass/64/40           19.2 [   19.2]        12.0 [   12.0]        77.0 [   76.8]        12.2 [   12.3]       168.0 [  168.0]  
+1cyc16_tex_blend_zpass/320/1           37.9 [   37.8]        36.0 [   36.0]        96.5 [   96.5]        21.3 [   21.3]       150.5 [  150.5]  
+1cyc16_tex_blend_zpass/320/8           13.4 [   13.4]        31.9 [   31.9]        77.6 [   77.6]        16.2 [   16.2]       141.8 [  141.3]  
+1cyc16_tex_blend_zpass/320/40         -48.0 [  -48.0]        76.4 [   69.1]        52.2 [   45.3]        29.0 [   29.1]        72.2 [   72.3]  
+fill16/4/1                                                                                                                                                    
+fill16/4/8                                                                                                                                                    
+fill16/4/40                                                                                                                                                   
+fill16/16/1                                                                                                                                                   
+fill16/16/8                                                                                                                                                   
+fill16/16/40                                                                                                                                                  
+fill16/64/1                                                                                                                                                   
+fill16/64/8                                                                                                                                                   
+fill16/64/40                                                                                                                                                  
+fill16/320/1                                                                                                                                                  
+fill16/320/8                                                                                                                                                  
+fill16/320/40                                                                                                                                                 
+
+== E: scattered / stacked ==
+1cyc16                       w=  4  stacked    8730  scattered 1.135  columns 1.084
+1cyc16                       w= 16  stacked   15666  scattered 0.975  columns 0.966
+1cyc16                       w= 64  stacked   39578  scattered 0.981  columns 0.978
+1cyc16_blend_zpass           w=  4  stacked   32047  scattered 1.435  columns 1.381
+1cyc16_blend_zpass           w= 16  stacked   44286  scattered 1.489  columns 1.477
+1cyc16_blend_zpass           w= 64  stacked  112627  scattered 1.233  columns 1.288
+1cyc16_tex_blend_zpass       w=  4  stacked   32239  scattered 1.427  columns 1.375
+1cyc16_tex_blend_zpass       w= 16  stacked   44335  scattered 1.490  columns 1.475
+1cyc16_tex_blend_zpass       w= 64  stacked  112662  scattered 1.233  columns 1.288
+
+== D: RDRAM contention (clock / quiet clock) ==
+-- span_1cyc16_blend_zpass_64x40x5  VI off  quiet 54869 cycles (0.88 ms)
+   uncached_read32          gap   0:    7.9 MB/s  1.98 Mtrans/s  ratio 1.194
+   uncached_read32          gap   8:    6.5 MB/s  1.62 Mtrans/s  ratio 1.162
+   uncached_read32          gap  32:    4.3 MB/s  1.07 Mtrans/s  ratio 1.100
+   uncached_read32          gap 128:    1.8 MB/s  0.45 Mtrans/s  ratio 1.053
+   uncached_write32         gap   0:   12.9 MB/s  3.23 Mtrans/s  ratio 1.128
+   uncached_write32         gap  32:    6.8 MB/s  1.69 Mtrans/s  ratio 1.076
+   cached_read(16B lines)   gap   0:   31.4 MB/s  1.96 Mtrans/s  ratio 1.194
+   cached_read(16B lines)   gap   8:   25.2 MB/s  1.58 Mtrans/s  ratio 1.155
+   cached_read(16B lines)   gap  32:   17.0 MB/s  1.06 Mtrans/s  ratio 1.101
+   cached_read(16B lines)   gap 128:    8.7 MB/s  0.54 Mtrans/s  ratio 1.011
+   cached_copy(16B lines)   gap   0:   21.0 MB/s  1.31 Mtrans/s  ratio 1.319
+   cached_copy(16B lines)   gap  32:   16.6 MB/s  1.04 Mtrans/s  ratio 1.213
+   sp_dma_4k                gap   0:  363.2 MB/s  0.09 Mtrans/s  ratio 9.004
+   sp_dma_4k                gap  32:  333.5 MB/s  0.08 Mtrans/s  ratio 5.470
+   sp_dma_4k                gap 128:  283.6 MB/s  0.07 Mtrans/s  ratio 3.290
+-- span_1cyc16_blend_zpass_64x40x5  VI on  quiet 58653 cycles (0.94 ms)
+   uncached_read32          gap   8:    6.2 MB/s  1.56 Mtrans/s  ratio 1.185
+   cached_read(16B lines)   gap   8:   24.6 MB/s  1.54 Mtrans/s  ratio 1.188
+   sp_dma_4k                gap   0:  347.0 MB/s  0.08 Mtrans/s  ratio 9.836
+-- span_1cyc16_blend_zpass_320x40x5  VI off  quiet 230341 cycles (3.69 ms)
+   uncached_read32          gap   0:    8.0 MB/s  2.01 Mtrans/s  ratio 1.223
+   uncached_read32          gap   8:    6.5 MB/s  1.64 Mtrans/s  ratio 1.182
+   uncached_read32          gap  32:    4.3 MB/s  1.07 Mtrans/s  ratio 1.107
+   uncached_read32          gap 128:    1.8 MB/s  0.45 Mtrans/s  ratio 1.046
+   uncached_write32         gap   0:   13.0 MB/s  3.25 Mtrans/s  ratio 1.106
+   uncached_write32         gap  32:    6.7 MB/s  1.68 Mtrans/s  ratio 1.050
+   cached_read(16B lines)   gap   0:   32.1 MB/s  2.00 Mtrans/s  ratio 1.223
+   cached_read(16B lines)   gap   8:   26.0 MB/s  1.63 Mtrans/s  ratio 1.182
+   cached_read(16B lines)   gap  32:   17.1 MB/s  1.07 Mtrans/s  ratio 1.106
+   cached_read(16B lines)   gap 128:    7.2 MB/s  0.45 Mtrans/s  ratio 1.045
+   cached_copy(16B lines)   gap   0:   20.9 MB/s  1.31 Mtrans/s  ratio 1.330
+   cached_copy(16B lines)   gap  32:   16.2 MB/s  1.01 Mtrans/s  ratio 1.232
+   sp_dma_4k                gap   0:  363.3 MB/s  0.09 Mtrans/s  ratio 9.337
+   sp_dma_4k                gap  32:  333.5 MB/s  0.08 Mtrans/s  ratio 5.459
+   sp_dma_4k                gap 128:  283.6 MB/s  0.07 Mtrans/s  ratio 3.265
+-- span_1cyc16_blend_zpass_320x40x5  VI on  quiet 245697 cycles (3.93 ms)
+   uncached_read32          gap   8:    6.3 MB/s  1.57 Mtrans/s  ratio 1.229
+   cached_read(16B lines)   gap   8:   25.1 MB/s  1.57 Mtrans/s  ratio 1.229
+   sp_dma_4k                gap   0:  346.0 MB/s  0.08 Mtrans/s  ratio 10.276
+-- span_1cyc16_blend_zpass_16x8x26  VI off  quiet 20836 cycles (0.33 ms)
+   uncached_read32          gap   0:    7.7 MB/s  1.92 Mtrans/s  ratio 1.187
+   uncached_read32          gap   8:    6.3 MB/s  1.57 Mtrans/s  ratio 1.143
+   uncached_read32          gap  32:    4.2 MB/s  1.04 Mtrans/s  ratio 1.105
+   uncached_read32          gap 128:    1.8 MB/s  0.45 Mtrans/s  ratio 1.070
+   uncached_write32         gap   0:   12.7 MB/s  3.17 Mtrans/s  ratio 1.121
+   uncached_write32         gap  32:    6.6 MB/s  1.66 Mtrans/s  ratio 1.069
+   cached_read(16B lines)   gap   0:   45.2 MB/s  2.83 Mtrans/s  ratio 1.155
+   cached_read(16B lines)   gap   8:   33.7 MB/s  2.11 Mtrans/s  ratio 1.104
+   cached_read(16B lines)   gap  32:   25.6 MB/s  1.60 Mtrans/s  ratio 1.051
+   cached_read(16B lines)   gap 128:    8.7 MB/s  0.54 Mtrans/s  ratio 1.014
+   cached_copy(16B lines)   gap   0:   21.5 MB/s  1.34 Mtrans/s  ratio 1.215
+   cached_copy(16B lines)   gap  32:   16.7 MB/s  1.04 Mtrans/s  ratio 1.152
+   sp_dma_4k                gap   0:  363.5 MB/s  0.09 Mtrans/s  ratio 8.248
+   sp_dma_4k                gap  32:  332.5 MB/s  0.08 Mtrans/s  ratio 5.395
+   sp_dma_4k                gap 128:  283.4 MB/s  0.07 Mtrans/s  ratio 3.251
+-- span_1cyc16_blend_zpass_16x8x26  VI on  quiet 22089 cycles (0.35 ms)
+   uncached_read32          gap   8:    6.1 MB/s  1.52 Mtrans/s  ratio 1.177
+   cached_read(16B lines)   gap   8:   33.0 MB/s  2.06 Mtrans/s  ratio 1.142
+   sp_dma_4k                gap   0:  344.1 MB/s  0.08 Mtrans/s  ratio 9.465
+-- span_1cyc16_64x40x5  VI off  quiet 15137 cycles (0.24 ms)
+   uncached_read32          gap   0:    8.6 MB/s  2.15 Mtrans/s  ratio 1.338
+   uncached_read32          gap   8:    7.0 MB/s  1.74 Mtrans/s  ratio 1.274
+   uncached_read32          gap  32:    4.4 MB/s  1.11 Mtrans/s  ratio 1.163
+   uncached_read32          gap 128:    1.8 MB/s  0.46 Mtrans/s  ratio 1.082
+   uncached_write32         gap   0:   13.9 MB/s  3.48 Mtrans/s  ratio 1.034
+   uncached_write32         gap  32:    6.8 MB/s  1.70 Mtrans/s  ratio 1.033
+   cached_read(16B lines)   gap   0:   52.2 MB/s  3.27 Mtrans/s  ratio 1.275
+   cached_read(16B lines)   gap   8:   40.9 MB/s  2.56 Mtrans/s  ratio 1.189
+   cached_read(16B lines)   gap  32:   28.2 MB/s  1.76 Mtrans/s  ratio 1.031
+   cached_read(16B lines)   gap 128:    8.7 MB/s  0.54 Mtrans/s  ratio 1.034
+   cached_copy(16B lines)   gap   0:   48.3 MB/s  3.02 Mtrans/s  ratio 1.203
+   cached_copy(16B lines)   gap  32:   17.0 MB/s  1.06 Mtrans/s  ratio 1.181
+   sp_dma_4k                gap   0:  365.2 MB/s  0.09 Mtrans/s  ratio 9.308
+   sp_dma_4k                gap  32:  332.1 MB/s  0.08 Mtrans/s  ratio 5.448
+   sp_dma_4k                gap 128:  283.3 MB/s  0.07 Mtrans/s  ratio 3.224
+-- span_1cyc16_64x40x5  VI on  quiet 15137 cycles (0.24 ms)
+   uncached_read32          gap   8:    6.9 MB/s  1.74 Mtrans/s  ratio 1.274
+   cached_read(16B lines)   gap   8:   42.7 MB/s  2.67 Mtrans/s  ratio 1.175
+   sp_dma_4k                gap   0:  352.8 MB/s  0.09 Mtrans/s  ratio 10.307
+-- span_1cyc16_320x40x5  VI off  quiet 66947 cycles (1.07 ms)
+   uncached_read32          gap   0:    8.7 MB/s  2.17 Mtrans/s  ratio 1.394
+   uncached_read32          gap   8:    6.9 MB/s  1.72 Mtrans/s  ratio 1.289
+   uncached_read32          gap  32:    4.5 MB/s  1.12 Mtrans/s  ratio 1.170
+   uncached_read32          gap 128:    1.8 MB/s  0.46 Mtrans/s  ratio 1.072
+   uncached_write32         gap   0:   13.9 MB/s  3.46 Mtrans/s  ratio 1.009
+   uncached_write32         gap  32:    6.8 MB/s  1.70 Mtrans/s  ratio 1.007
+   cached_read(16B lines)   gap   0:   31.6 MB/s  1.97 Mtrans/s  ratio 1.381
+   cached_read(16B lines)   gap   8:   26.5 MB/s  1.66 Mtrans/s  ratio 1.300
+   cached_read(16B lines)   gap  32:   17.7 MB/s  1.10 Mtrans/s  ratio 1.178
+   cached_read(16B lines)   gap 128:    8.5 MB/s  0.53 Mtrans/s  ratio 1.012
+   cached_copy(16B lines)   gap   0:   20.2 MB/s  1.26 Mtrans/s  ratio 1.218
+   cached_copy(16B lines)   gap  32:   16.1 MB/s  1.01 Mtrans/s  ratio 1.156
+   sp_dma_4k                gap   0:  363.8 MB/s  0.09 Mtrans/s  ratio 8.765
+   sp_dma_4k                gap  32:  333.5 MB/s  0.08 Mtrans/s  ratio 5.343
+   sp_dma_4k                gap 128:  283.2 MB/s  0.07 Mtrans/s  ratio 3.254
+-- span_1cyc16_320x40x5  VI on  quiet 67363 cycles (1.08 ms)
+   uncached_read32          gap   8:    6.8 MB/s  1.69 Mtrans/s  ratio 1.315
+   cached_read(16B lines)   gap   8:   22.8 MB/s  1.42 Mtrans/s  ratio 1.297
+   sp_dma_4k                gap   0:  348.0 MB/s  0.08 Mtrans/s  ratio 10.832
+-- span_2cyc16_blend_zpass_64x40x5  VI off  quiet 53571 cycles (0.86 ms)
+   uncached_read32          gap   0:    8.0 MB/s  1.99 Mtrans/s  ratio 1.220
+   uncached_read32          gap   8:    6.4 MB/s  1.61 Mtrans/s  ratio 1.190
+   uncached_read32          gap  32:    4.3 MB/s  1.06 Mtrans/s  ratio 1.115
+   uncached_read32          gap 128:    1.8 MB/s  0.45 Mtrans/s  ratio 1.042
+   uncached_write32         gap   0:   12.9 MB/s  3.23 Mtrans/s  ratio 1.155
+   uncached_write32         gap  32:    6.8 MB/s  1.69 Mtrans/s  ratio 1.092
+   cached_read(16B lines)   gap   0:   31.3 MB/s  1.95 Mtrans/s  ratio 1.213
+   cached_read(16B lines)   gap   8:   25.2 MB/s  1.58 Mtrans/s  ratio 1.179
+   cached_read(16B lines)   gap  32:   16.8 MB/s  1.05 Mtrans/s  ratio 1.108
+   cached_read(16B lines)   gap 128:    8.7 MB/s  0.54 Mtrans/s  ratio 1.018
+   cached_copy(16B lines)   gap   0:   28.1 MB/s  1.76 Mtrans/s  ratio 1.338
+   cached_copy(16B lines)   gap  32:   16.5 MB/s  1.03 Mtrans/s  ratio 1.232
+   sp_dma_4k                gap   0:  362.7 MB/s  0.09 Mtrans/s  ratio 8.789
+   sp_dma_4k                gap  32:  333.4 MB/s  0.08 Mtrans/s  ratio 5.446
+   sp_dma_4k                gap 128:  283.5 MB/s  0.07 Mtrans/s  ratio 3.321
+-- span_2cyc16_blend_zpass_64x40x5  VI on  quiet 57311 cycles (0.92 ms)
+   uncached_read32          gap   8:    6.2 MB/s  1.55 Mtrans/s  ratio 1.215
+   cached_read(16B lines)   gap   8:   24.3 MB/s  1.52 Mtrans/s  ratio 1.196
+   sp_dma_4k                gap   0:  346.8 MB/s  0.08 Mtrans/s  ratio 9.981
+-- fill16_320x240  VI off  quiet 44309 cycles (0.71 ms)
+   uncached_read32          gap   0:    8.7 MB/s  2.17 Mtrans/s  ratio 1.396
+   uncached_read32          gap   8:    6.8 MB/s  1.69 Mtrans/s  ratio 1.261
+   uncached_read32          gap  32:    4.5 MB/s  1.12 Mtrans/s  ratio 1.172
+   uncached_read32          gap 128:    1.8 MB/s  0.46 Mtrans/s  ratio 1.061
+   uncached_write32         gap   0:   11.2 MB/s  2.81 Mtrans/s  ratio 1.084
+   uncached_write32         gap  32:    6.6 MB/s  1.64 Mtrans/s  ratio 1.046
+   cached_read(16B lines)   gap   0:   33.9 MB/s  2.12 Mtrans/s  ratio 1.422
+   cached_read(16B lines)   gap   8:   26.6 MB/s  1.66 Mtrans/s  ratio 1.276
+   cached_read(16B lines)   gap  32:   18.4 MB/s  1.15 Mtrans/s  ratio 1.165
+   cached_read(16B lines)   gap 128:    8.5 MB/s  0.53 Mtrans/s  ratio 1.016
+   cached_copy(16B lines)   gap   0:   27.9 MB/s  1.74 Mtrans/s  ratio 1.464
+   cached_copy(16B lines)   gap  32:   17.2 MB/s  1.08 Mtrans/s  ratio 1.363
+   sp_dma_4k                gap   0:  364.0 MB/s  0.09 Mtrans/s  ratio 10.190
+   sp_dma_4k                gap  32:  334.0 MB/s  0.08 Mtrans/s  ratio 5.623
+   sp_dma_4k                gap 128:  283.4 MB/s  0.07 Mtrans/s  ratio 3.323
+-- fill16_320x240  VI on  quiet 44575 cycles (0.71 ms)
+   uncached_read32          gap   8:    6.7 MB/s  1.68 Mtrans/s  ratio 1.261
+   cached_read(16B lines)   gap   8:   21.3 MB/s  1.33 Mtrans/s  ratio 1.363
+   sp_dma_4k                gap   0:  349.7 MB/s  0.09 Mtrans/s  ratio 12.383
+-- copy16_64x40x5  VI off  quiet 8669 cycles (0.14 ms)
+   uncached_read32          gap   0:    8.4 MB/s  2.10 Mtrans/s  ratio 1.234
+   uncached_read32          gap   8:    6.7 MB/s  1.67 Mtrans/s  ratio 1.175
+   uncached_read32          gap  32:    4.4 MB/s  1.09 Mtrans/s  ratio 1.159
+   uncached_read32          gap 128:    1.8 MB/s  0.45 Mtrans/s  ratio 1.141
+   uncached_write32         gap   0:   11.1 MB/s  2.77 Mtrans/s  ratio 1.062
+   uncached_write32         gap  32:    6.6 MB/s  1.64 Mtrans/s  ratio 1.020
+   cached_read(16B lines)   gap   0:   61.7 MB/s  3.86 Mtrans/s  ratio 1.211
+   cached_read(16B lines)   gap   8:   58.8 MB/s  3.67 Mtrans/s  ratio 1.083
+   cached_read(16B lines)   gap  32:   28.3 MB/s  1.77 Mtrans/s  ratio 1.045
+   cached_read(16B lines)   gap 128:    8.6 MB/s  0.54 Mtrans/s  ratio 1.067
+   cached_copy(16B lines)   gap   0:   22.5 MB/s  1.40 Mtrans/s  ratio 1.397
+   cached_copy(16B lines)   gap  32:   17.1 MB/s  1.07 Mtrans/s  ratio 1.297
+   sp_dma_4k                gap   0:  363.8 MB/s  0.09 Mtrans/s  ratio 9.010
+   sp_dma_4k                gap  32:  333.1 MB/s  0.08 Mtrans/s  ratio 5.496
+   sp_dma_4k                gap 128:  282.9 MB/s  0.07 Mtrans/s  ratio 3.340
+-- copy16_64x40x5  VI on  quiet 8669 cycles (0.14 ms)
+   uncached_read32          gap   8:    6.7 MB/s  1.68 Mtrans/s  ratio 1.167
+   cached_read(16B lines)   gap   8:   40.8 MB/s  2.55 Mtrans/s  ratio 1.199
+   sp_dma_4k                gap   0:  359.3 MB/s  0.09 Mtrans/s  ratio 9.370
+-- load_block_2k_x64  VI off  quiet 57465 cycles (0.92 ms)
+   uncached_read32          gap   0:    6.7 MB/s  1.67 Mtrans/s  ratio 1.258
+   uncached_read32          gap   8:    5.7 MB/s  1.41 Mtrans/s  ratio 1.206
+   uncached_read32          gap  32:    3.9 MB/s  0.99 Mtrans/s  ratio 1.139
+   uncached_read32          gap 128:    1.7 MB/s  0.43 Mtrans/s  ratio 1.067
+   uncached_write32         gap   0:    7.7 MB/s  1.93 Mtrans/s  ratio 1.284
+   uncached_write32         gap  32:    6.1 MB/s  1.53 Mtrans/s  ratio 1.223
+   cached_read(16B lines)   gap   0:   26.5 MB/s  1.66 Mtrans/s  ratio 1.260
+   cached_read(16B lines)   gap   8:   22.5 MB/s  1.41 Mtrans/s  ratio 1.213
+   cached_read(16B lines)   gap  32:   15.6 MB/s  0.97 Mtrans/s  ratio 1.151
+   cached_read(16B lines)   gap 128:    8.7 MB/s  0.54 Mtrans/s  ratio 1.012
+   cached_copy(16B lines)   gap   0:   28.3 MB/s  1.77 Mtrans/s  ratio 1.467
+   cached_copy(16B lines)   gap  32:   17.9 MB/s  1.12 Mtrans/s  ratio 1.336
+   sp_dma_4k                gap   0:  366.3 MB/s  0.09 Mtrans/s  ratio 11.287
+   sp_dma_4k                gap  32:  333.2 MB/s  0.08 Mtrans/s  ratio 5.656
+   sp_dma_4k                gap 128:  283.7 MB/s  0.07 Mtrans/s  ratio 3.314
+-- load_block_2k_x64  VI on  quiet 57714 cycles (0.92 ms)
+   uncached_read32          gap   8:    5.6 MB/s  1.40 Mtrans/s  ratio 1.216
+   cached_read(16B lines)   gap   8:   21.6 MB/s  1.35 Mtrans/s  ratio 1.273
+   sp_dma_4k                gap   0:  348.4 MB/s  0.09 Mtrans/s  ratio 11.891

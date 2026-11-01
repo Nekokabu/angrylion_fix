@@ -1,0 +1,140 @@
+# rdp_timing v9 - replay of game display lists, the CPU under RDP load (2), SP DMA
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	8388608
+# runs_per_case	3
+# VI on (320x240 16-bit console display) unless a line says otherwise
+# texture at 0x0F0380; dma buffer at 0x7D0000; heap top 0x0F2000; display buffer at 0x059C00; replayed lists at 0x700000, their data moved up to at least 0x110000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+B0	125
+# series run: R, F and S (hold A at power-on for R only, B for F only, Z for S only)
+# R lines: list, condition, clock (smallest of 3), ticks (CPU wall time, COP0), cpu loop ticks (chase: 4096 dependent random line fills, repeated until the list ends; per fill in the last column), model (ares tables only)
+# RI lines: list, info (placement in RDRAM)
+RI	dk64_795.bin	list 352712 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+R	dk64_795.bin	vi_off	1196441	897303	0	0	1008338	0.0
+R	dk64_795.bin	vi_on	1238339	928724	0	0	1008338	0.0
+R	dk64_795.bin	vi_on+cpu_chase	1881116	1410811	1393702	53760	1008338	51.8
+RI	dk64_796.bin	list 351480 B, prefix 20, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+R	dk64_796.bin	vi_off	1196345	897253	0	0	1014749	0.0
+R	dk64_796.bin	vi_on	1237643	928201	0	0	1014749	0.0
+R	dk64_796.bin	vi_on+cpu_chase	1881658	1411217	1394110	53760	1014749	51.9
+RI	dk64_797.bin	list 350424 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+R	dk64_797.bin	vi_off	1193633	895220	0	0	1012163	0.0
+R	dk64_797.bin	vi_on	1235637	926697	0	0	1012163	0.0
+R	dk64_797.bin	vi_on+cpu_chase	1872290	1404191	1387079	53504	1012163	51.8
+RI	dk64_1795.bin	list 365920 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+R	dk64_1795.bin	vi_off	1547141	1160351	0	0	1305940	0.0
+R	dk64_1795.bin	vi_on	1603503	1202597	0	0	1305940	0.0
+R	dk64_1795.bin	vi_on+cpu_chase	2426468	1819825	1802720	69120	1305940	52.2
+RI	dk64_1796.bin	list 382112 B, prefix 22, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+R	dk64_1796.bin	vi_off	1534313	1150729	0	0	1282660	0.0
+R	dk64_1796.bin	vi_on	1590966	1193194	0	0	1282660	0.0
+R	dk64_1796.bin	vi_on+cpu_chase	2409548	1807134	1790030	68608	1282660	52.2
+RI	dk64_1797.bin	list 391968 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+R	dk64_1797.bin	vi_off	1484297	1113218	0	0	1238570	0.0
+R	dk64_1797.bin	vi_on	1537727	1153265	0	0	1238570	0.0
+R	dk64_1797.bin	vi_on+cpu_chase	2341532	1756123	1739004	66560	1238570	52.3
+RI	bar_2316.bin	list 174952 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2316.bin	vi_off	1400976	1050727	0	0	1237577	0.0
+R	bar_2316.bin	vi_on	1450913	1088180	0	0	1237577	0.0
+R	bar_2316.bin	vi_on+cpu_chase	2197484	1648087	1630982	64000	1237577	51.0
+RI	bar_2317.bin	list 177416 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2317.bin	vi_off	1432433	1074319	0	0	1250538	0.0
+R	bar_2317.bin	vi_on	1482893	1112165	0	0	1250538	0.0
+R	bar_2317.bin	vi_on+cpu_chase	2238012	1678482	1661378	65280	1250538	50.9
+RI	bar_2318.bin	list 175304 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2318.bin	vi_off	1435146	1076333	0	0	1247163	0.0
+R	bar_2318.bin	vi_on	1484705	1113523	0	0	1247163	0.0
+R	bar_2318.bin	vi_on+cpu_chase	2239038	1679253	1662138	65280	1247163	50.9
+RI	bar_2556.bin	list 197096 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2556.bin	vi_off	1348062	1011020	0	0	1285170	0.0
+R	bar_2556.bin	vi_on	1390457	1042837	0	0	1285170	0.0
+R	bar_2556.bin	vi_on+cpu_chase	2019104	1514301	1497197	59136	1285170	50.6
+RI	bar_2557.bin	list 199544 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2557.bin	vi_off	1360973	1020725	0	0	1293564	0.0
+R	bar_2557.bin	vi_on	1403162	1052341	0	0	1293564	0.0
+R	bar_2557.bin	vi_on+cpu_chase	2035918	1526887	1509603	59648	1293564	50.6
+RI	bar_2558.bin	list 199504 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2558.bin	vi_off	1365221	1023911	0	0	1306636	0.0
+R	bar_2558.bin	vi_on	1407415	1055531	0	0	1306636	0.0
+R	bar_2558.bin	vi_on+cpu_chase	2045170	1533851	1516747	59904	1306636	50.6
+R	none	cpu_chase_alone	0	0	1527395	65536	0	46.6
+# F lines: vi(on|off), rdp load, cpu test, ticks (COP0, 46.875 MHz; smallest of 3), rdp still busy at the end (1 = valid)
+# FL lines: rdp load, clock, ticks (the load list alone)
+F	off	idle	cached_read_256K(16K sequential line fills)	311032	1
+F	off	idle	cached_copy_128K(8K fills+8K writebacks)	484351	1
+F	off	idle	random_read_16K(independent random line fills, 512K)	465771	1
+F	off	idle	random_write_16K(random lines dirtied, 512K: fills+writebacks)	572235	1
+F	off	idle	pointer_chase_8K(dependent random line fills, 256K ring)	186292	1
+F	off	idle	mixed_16K(random load+store+alu+fpu per iteration, 512K)	1103405	1
+F	off	idle	icache_32K_code_x8(8K line fills)	212492	1
+F	off	idle	uncached_write32_x16K	147338	1
+F	on	idle	cached_read_256K(16K sequential line fills)	317972	1
+F	on	idle	cached_copy_128K(8K fills+8K writebacks)	499620	1
+F	on	idle	random_read_16K(independent random line fills, 512K)	473992	1
+F	on	idle	random_write_16K(random lines dirtied, 512K: fills+writebacks)	586245	1
+F	on	idle	pointer_chase_8K(dependent random line fills, 256K ring)	191354	1
+F	on	idle	mixed_16K(random load+store+alu+fpu per iteration, 512K)	1131193	1
+F	on	idle	icache_32K_code_x8(8K line fills)	224314	1
+F	on	idle	uncached_write32_x16K	153914	1
+FL	blend_zpass_320x40x90	2868846	2151605
+F	on	blend_zpass_320x40x90	cached_read_256K(16K sequential line fills)	432124	1
+F	on	blend_zpass_320x40x90	cached_copy_128K(8K fills+8K writebacks)	579919	1
+F	on	blend_zpass_320x40x90	random_read_16K(independent random line fills, 512K)	525722	1
+F	on	blend_zpass_320x40x90	random_write_16K(random lines dirtied, 512K: fills+writebacks)	799223	1
+F	on	blend_zpass_320x40x90	pointer_chase_8K(dependent random line fills, 256K ring)	220513	1
+F	on	blend_zpass_320x40x90	mixed_16K(random load+store+alu+fpu per iteration, 512K)	1356110	1
+F	on	blend_zpass_320x40x90	icache_32K_code_x8(8K line fills)	261070	1
+F	on	blend_zpass_320x40x90	uncached_write32_x16K	307230	1
+FL	2cyc_blend_zpass_320x40x70	2384729	1788544
+F	on	2cyc_blend_zpass_320x40x70	cached_read_256K(16K sequential line fills)	416142	1
+F	on	2cyc_blend_zpass_320x40x70	cached_copy_128K(8K fills+8K writebacks)	591043	1
+F	on	2cyc_blend_zpass_320x40x70	random_read_16K(independent random line fills, 512K)	533026	1
+F	on	2cyc_blend_zpass_320x40x70	random_write_16K(random lines dirtied, 512K: fills+writebacks)	809997	1
+F	on	2cyc_blend_zpass_320x40x70	pointer_chase_8K(dependent random line fills, 256K ring)	220240	1
+F	on	2cyc_blend_zpass_320x40x70	mixed_16K(random load+store+alu+fpu per iteration, 512K)	1361001	1
+F	on	2cyc_blend_zpass_320x40x70	icache_32K_code_x8(8K line fills)	262159	1
+F	on	2cyc_blend_zpass_320x40x70	uncached_write32_x16K	305538	1
+FL	texload_2k+rect32_x1200	2976605	2232451
+F	on	texload_2k+rect32_x1200	cached_read_256K(16K sequential line fills)	369036	1
+F	on	texload_2k+rect32_x1200	cached_copy_128K(8K fills+8K writebacks)	571331	1
+F	on	texload_2k+rect32_x1200	random_read_16K(independent random line fills, 512K)	519688	1
+F	on	texload_2k+rect32_x1200	random_write_16K(random lines dirtied, 512K: fills+writebacks)	711273	1
+F	on	texload_2k+rect32_x1200	pointer_chase_8K(dependent random line fills, 256K ring)	204662	1
+F	on	texload_2k+rect32_x1200	mixed_16K(random load+store+alu+fpu per iteration, 512K)	1282606	1
+F	on	texload_2k+rect32_x1200	icache_32K_code_x8(8K line fills)	253939	1
+F	on	texload_2k+rect32_x1200	uncached_write32_x16K	249159	1
+FL	plain_320x40x240	3338507	2503851
+F	on	plain_320x40x240	cached_read_256K(16K sequential line fills)	376472	1
+F	on	plain_320x40x240	cached_copy_128K(8K fills+8K writebacks)	599446	1
+F	on	plain_320x40x240	random_read_16K(independent random line fills, 512K)	531551	1
+F	on	plain_320x40x240	random_write_16K(random lines dirtied, 512K: fills+writebacks)	743465	1
+F	on	plain_320x40x240	pointer_chase_8K(dependent random line fills, 256K ring)	200458	1
+F	on	plain_320x40x240	mixed_16K(random load+store+alu+fpu per iteration, 512K)	1314010	1
+F	on	plain_320x40x240	icache_32K_code_x8(8K line fills)	249511	1
+F	on	plain_320x40x240	uncached_write32_x16K	281195	1
+# S lines: rdp load, direction (rdram->dmem | dmem->rdram), bytes per dma, dmas, ticks (smallest of 3), ticks per dma, rdp still busy at the end (1 = valid)
+S	idle	rdram->dmem	8	1024	46395	45.3	1
+S	idle	rdram->dmem	64	1024	46847	45.7	1
+S	idle	rdram->dmem	512	128	13625	106.4	1
+S	idle	rdram->dmem	4096	16	8682	542.6	1
+S	idle	dmem->rdram	8	1024	46186	45.1	1
+S	idle	dmem->rdram	64	1024	46248	45.2	1
+S	idle	dmem->rdram	512	128	11616	90.8	1
+S	idle	dmem->rdram	4096	16	8125	507.8	1
+S	blend_zpass_320x40x90	rdram->dmem	8	1024	49637	48.5	1
+S	blend_zpass_320x40x90	rdram->dmem	64	1024	56663	55.3	1
+S	blend_zpass_320x40x90	rdram->dmem	512	128	14017	109.5	1
+S	blend_zpass_320x40x90	rdram->dmem	4096	16	8573	535.8	1
+S	blend_zpass_320x40x90	dmem->rdram	8	1024	48072	46.9	1
+S	blend_zpass_320x40x90	dmem->rdram	64	1024	49769	48.6	1
+S	blend_zpass_320x40x90	dmem->rdram	512	128	12421	97.0	1
+S	blend_zpass_320x40x90	dmem->rdram	4096	16	8300	518.8	1
+S	plain_320x40x240	rdram->dmem	8	1024	49949	48.8	1
+S	plain_320x40x240	rdram->dmem	64	1024	57621	56.3	1
+S	plain_320x40x240	rdram->dmem	512	128	13955	109.0	1
+S	plain_320x40x240	rdram->dmem	4096	16	8737	546.1	1
+S	plain_320x40x240	dmem->rdram	8	1024	48307	47.2	1
+S	plain_320x40x240	dmem->rdram	64	1024	49570	48.4	1
+S	plain_320x40x240	dmem->rdram	512	128	11976	93.6	1
+S	plain_320x40x240	dmem->rdram	4096	16	8359	522.4	1

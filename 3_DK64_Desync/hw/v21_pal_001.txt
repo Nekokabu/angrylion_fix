@@ -1,0 +1,57 @@
+# cpu_timing v21 - RDRAM page/bank effects: line fills over 64K..4M regions (random / sequential / dirty victims), line pairs at distances, uncached reads, instruction fills
+# tv_type	PAL
+# memory_size	8388608
+# lines: C, condition, test, instructions per iteration (incl. loop), ticks (smallest of 4), CPU cycles per iteration (chase: per load; ifill: per executed instruction, 8 per 32-byte line)
+# big buffer at 0x00107000
+C	vi_on	ch_64k	3	380271	46.42
+C	vi_on	ch_256k	3	380323	46.41
+C	vi_on	ch_1m	3	362292	44.14
+C	vi_on	ch_4m	3	318794	38.94
+C	vi_on	ch_64k_dirty	4	592725	72.94
+C	vi_on	ch_256k_dirty	4	594624	72.95
+C	vi_on	ch_1m_dirty	4	591946	72.94
+C	vi_on	ch_4m_dirty	4	590558	72.95
+C	vi_on	seq_4m	3	319077	39.03
+C	vi_on	seq_4m_step32	3	319361	39.00
+C	vi_on	seq_4m_step128	3	324494	39.61
+C	vi_on	seq_4m_step2k	3	380240	46.41
+C	vi_on	seq_4m_dirty	4	590414	72.95
+C	vi_on	pair_8k	3	380204	46.41
+C	vi_on	pair_16k	3	380484	46.41
+C	vi_on	pair_64k	3	380251	46.41
+C	vi_on	pair_256k	3	380280	46.41
+C	vi_on	pair_1024k	3	318290	38.86
+C	vi_on	pair_2048k	3	319144	38.89
+C	vi_on	pair_4088k	3	318327	38.85
+C	vi_on	uc_same	3	293380	35.94
+C	vi_on	uc_rand_4m	3	294238	35.93
+C	vi_on	uc_rand_64k	3	358888	43.81
+C	vi_on	ifill_8k_x8	2048	8223	1.00
+C	vi_on	ifill_32k_x8	8192	218832	6.68
+C	vi_on	ifill_128k_x2	32768	218487	6.67
+C	vi_off	ch_64k	3	372549	45.48
+C	vi_off	ch_256k	3	372544	45.48
+C	vi_off	ch_1m	3	352348	43.01
+C	vi_off	ch_4m	3	311091	37.97
+C	vi_off	ch_64k_dirty	4	580221	71.42
+C	vi_off	ch_256k_dirty	4	580228	71.42
+C	vi_off	ch_1m_dirty	4	579598	71.42
+C	vi_off	ch_4m_dirty	4	578214	71.41
+C	vi_off	seq_4m	3	311091	37.97
+C	vi_off	seq_4m_step32	3	311570	38.03
+C	vi_off	seq_4m_step128	3	314584	38.41
+C	vi_off	seq_4m_step2k	3	372533	45.48
+C	vi_off	seq_4m_dirty	4	578167	71.42
+C	vi_off	pair_8k	3	372534	45.48
+C	vi_off	pair_16k	3	372533	45.48
+C	vi_off	pair_64k	3	372532	45.48
+C	vi_off	pair_256k	3	372533	45.48
+C	vi_off	pair_1024k	3	311066	37.97
+C	vi_off	pair_2048k	3	311066	37.97
+C	vi_off	pair_4088k	3	311066	37.97
+C	vi_off	uc_same	3	285761	34.88
+C	vi_off	uc_rand_4m	3	286388	34.96
+C	vi_off	uc_rand_64k	3	348593	42.55
+C	vi_off	ifill_8k_x8	2048	8223	1.00
+C	vi_off	ifill_32k_x8	8192	212295	6.48
+C	vi_off	ifill_128k_x2	32768	211960	6.47

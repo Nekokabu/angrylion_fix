@@ -1,0 +1,345 @@
+# rdp_timing v12 - replay of game display lists under the games' VI modes (AA always + divot + dedither: 3 lines fetched per output line)
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	8388608
+# runs_per_case	3
+# VI on (320x240 16-bit console display) unless a line says otherwise
+# texture at 0x0E6D80; dma buffer at 0x7D0000; heap top 0x0E9000; display buffer at 0x050600; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+B0	124
+# series run: R (replay of game lists under VI modes)
+# R lines: list, vi mode, load, clock (smallest of 3), ticks (CPU wall time), load loop ticks, load operations, model (ares tables only), ticks per operation
+# RI lines: list, info (placement in RDRAM)
+# VA lines: vi mode, load, ticks, operations, ticks per operation (RDP idle)
+VA	vi_off	cpu_chase(dependent fills)	188205	8192	22.97
+VA	vi_off	cpu_icache(32B fills)	213144	8192	26.02
+VA	vi_off	cpu_random_write(fill+writeback)	258431	8192	31.55
+VA	vi_off	cpu_mixed(load+store+alu+fpu)	469397	8192	57.30
+VA	vi_off	cpu_uncached_write32	73672	8192	8.99
+VA	vi_off	sp_dma_64B	574056	8192	70.08
+VA	vi_off	sp_dma_512B	875394	8192	106.86
+VA	aa3_replicate(rom)	cpu_chase(dependent fills)	189311	8192	23.11
+VA	aa3_replicate(rom)	cpu_icache(32B fills)	214233	8192	26.15
+VA	aa3_replicate(rom)	cpu_random_write(fill+writeback)	259692	8192	31.70
+VA	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	471849	8192	57.60
+VA	aa3_replicate(rom)	cpu_uncached_write32	73982	8192	9.03
+VA	aa3_replicate(rom)	sp_dma_64B	575323	8192	70.23
+VA	aa3_replicate(rom)	sp_dma_512B	876820	8192	107.03
+VA	aa2_resample	cpu_chase(dependent fills)	188855	8192	23.05
+VA	aa2_resample	cpu_icache(32B fills)	216352	8192	26.41
+VA	aa2_resample	cpu_random_write(fill+writeback)	260208	8192	31.76
+VA	aa2_resample	cpu_mixed(load+store+alu+fpu)	473523	8192	57.80
+VA	aa2_resample	cpu_uncached_write32	76045	8192	9.28
+VA	aa2_resample	sp_dma_64B	574704	8192	70.15
+VA	aa2_resample	sp_dma_512B	926753	8192	113.13
+VA	aa1_aa_if_needed+divot	cpu_chase(dependent fills)	197927	8192	24.16
+VA	aa1_aa_if_needed+divot	cpu_icache(32B fills)	240278	8192	29.33
+VA	aa1_aa_if_needed+divot	cpu_random_write(fill+writeback)	275779	8192	33.66
+VA	aa1_aa_if_needed+divot	cpu_mixed(load+store+alu+fpu)	494296	8192	60.34
+VA	aa1_aa_if_needed+divot	cpu_uncached_write32	87983	8192	10.74
+VA	aa1_aa_if_needed+divot	sp_dma_64B	580045	8192	70.81
+VA	aa1_aa_if_needed+divot	sp_dma_512B	994480	8192	121.40
+VA	aa0_aa_always+divot	cpu_chase(dependent fills)	202192	8192	24.68
+VA	aa0_aa_always+divot	cpu_icache(32B fills)	238350	8192	29.10
+VA	aa0_aa_always+divot	cpu_random_write(fill+writeback)	283481	8192	34.60
+VA	aa0_aa_always+divot	cpu_mixed(load+store+alu+fpu)	508839	8192	62.11
+VA	aa0_aa_always+divot	cpu_uncached_write32	79303	8192	9.68
+VA	aa0_aa_always+divot	sp_dma_64B	579782	8192	70.77
+VA	aa0_aa_always+divot	sp_dma_512B	994331	8192	121.38
+VA	bar_0x13012	cpu_chase(dependent fills)	201271	8192	24.57
+VA	bar_0x13012	cpu_icache(32B fills)	240169	8192	29.32
+VA	bar_0x13012	cpu_random_write(fill+writeback)	280640	8192	34.26
+VA	bar_0x13012	cpu_mixed(load+store+alu+fpu)	508335	8192	62.05
+VA	bar_0x13012	cpu_uncached_write32	86310	8192	10.54
+VA	bar_0x13012	sp_dma_64B	579702	8192	70.76
+VA	bar_0x13012	sp_dma_512B	1000678	8192	122.15
+VA	dk64_0x13016	cpu_chase(dependent fills)	200954	8192	24.53
+VA	dk64_0x13016	cpu_icache(32B fills)	238334	8192	29.09
+VA	dk64_0x13016	cpu_random_write(fill+writeback)	283103	8192	34.56
+VA	dk64_0x13016	cpu_mixed(load+store+alu+fpu)	507976	8192	62.01
+VA	dk64_0x13016	cpu_uncached_write32	74689	8192	9.12
+VA	dk64_0x13016	sp_dma_64B	579428	8192	70.73
+VA	dk64_0x13016	sp_dma_512B	994206	8192	121.36
+VA	hires_640x480i_0x13052	cpu_chase(dependent fills)	188166	8192	22.97
+VA	hires_640x480i_0x13052	cpu_icache(32B fills)	213083	8192	26.01
+VA	hires_640x480i_0x13052	cpu_random_write(fill+writeback)	258423	8192	31.55
+VA	hires_640x480i_0x13052	cpu_mixed(load+store+alu+fpu)	469542	8192	57.32
+VA	hires_640x480i_0x13052	cpu_uncached_write32	73657	8192	8.99
+VA	hires_640x480i_0x13052	sp_dma_64B	574083	8192	70.08
+VA	hires_640x480i_0x13052	sp_dma_512B	875390	8192	106.86
+RI	dk64_795.bin	list 352712 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+R	dk64_795.bin	vi_off	none	1196250	897183	0	0	1008338	0.00
+R	dk64_795.bin	aa3_replicate(rom)	none	1196082	897057	0	0	1008338	0.00
+R	dk64_795.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	1758123	1318571	1318436	52480	1008338	25.12
+R	dk64_795.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1446976	1085197	1084981	37888	1008338	28.64
+R	dk64_795.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	1682587	1261906	1261760	32256	1008338	39.12
+R	dk64_795.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	1678263	1258666	1258518	18688	1008338	67.34
+R	dk64_795.bin	aa3_replicate(rom)	cpu_uncached_write32	1472230	1104169	1104045	77568	1008338	14.23
+R	dk64_795.bin	aa3_replicate(rom)	sp_dma_64B	1355064	1016264	1016073	16364	1008338	62.09
+R	dk64_795.bin	aa3_replicate(rom)	sp_dma_512B	2050785	1538084	1537957	11569	1008338	132.94
+R	dk64_795.bin	aa2_resample	none	1196358	897264	0	0	1008338	0.00
+R	dk64_795.bin	aa1_aa_if_needed+divot	none	1196310	897228	0	0	1008338	0.00
+R	dk64_795.bin	aa0_aa_always+divot	none	1196310	897229	0	0	1008338	0.00
+R	dk64_795.bin	bar_0x13012	none	1196442	897327	0	0	1008338	0.00
+R	dk64_795.bin	bar_0x13012	cpu_chase(dependent fills)	1757789	1318320	1318185	52480	1008338	25.12
+R	dk64_795.bin	bar_0x13012	cpu_icache(32B fills)	1446628	1084936	1084691	37888	1008338	28.63
+R	dk64_795.bin	bar_0x13012	cpu_random_write(fill+writeback)	1682970	1262153	1261932	32256	1008338	39.12
+R	dk64_795.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	1678508	1258809	1258586	18688	1008338	67.35
+R	dk64_795.bin	bar_0x13012	cpu_uncached_write32	1472200	1104146	1104022	77568	1008338	14.23
+R	dk64_795.bin	bar_0x13012	sp_dma_64B	1354898	1016139	1015947	16343	1008338	62.16
+R	dk64_795.bin	bar_0x13012	sp_dma_512B	2051832	1538869	1538748	11575	1008338	132.94
+R	dk64_795.bin	dk64_0x13016	none	1196202	897147	0	0	1008338	0.00
+R	dk64_795.bin	hires_640x480i_0x13052	none	1196310	897228	0	0	1008338	0.00
+RI	dk64_796.bin	list 351480 B, prefix 20, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+R	dk64_796.bin	vi_off	none	1196514	897381	0	0	1014749	0.00
+R	dk64_796.bin	aa3_replicate(rom)	none	1196186	897105	0	0	1014749	0.00
+R	dk64_796.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	1757215	1317890	1317754	52480	1014749	25.11
+R	dk64_796.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1447574	1085646	1085429	37888	1014749	28.65
+R	dk64_796.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	1692947	1269675	1269529	32512	1014749	39.05
+R	dk64_796.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	1678159	1258588	1258440	18688	1014749	67.34
+R	dk64_796.bin	aa3_replicate(rom)	cpu_uncached_write32	1471994	1103991	1103868	77568	1014749	14.23
+R	dk64_796.bin	aa3_replicate(rom)	sp_dma_64B	1356118	1017084	1016962	16382	1014749	62.08
+R	dk64_796.bin	aa3_replicate(rom)	sp_dma_512B	2051270	1538419	1538227	11572	1014749	132.93
+R	dk64_796.bin	aa2_resample	none	1195938	896949	0	0	1014749	0.00
+R	dk64_796.bin	aa1_aa_if_needed+divot	none	1196238	897175	0	0	1014749	0.00
+R	dk64_796.bin	aa0_aa_always+divot	none	1196334	897246	0	0	1014749	0.00
+R	dk64_796.bin	bar_0x13012	none	1196718	897534	0	0	1014749	0.00
+R	dk64_796.bin	bar_0x13012	cpu_chase(dependent fills)	1757223	1317895	1317761	52480	1014749	25.11
+R	dk64_796.bin	bar_0x13012	cpu_icache(32B fills)	1447334	1085466	1085249	37888	1014749	28.64
+R	dk64_796.bin	bar_0x13012	cpu_random_write(fill+writeback)	1692278	1269174	1269028	32512	1014749	39.03
+R	dk64_796.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	1678055	1258510	1258362	18688	1014749	67.34
+R	dk64_796.bin	bar_0x13012	cpu_uncached_write32	1472046	1104030	1103907	77568	1014749	14.23
+R	dk64_796.bin	bar_0x13012	sp_dma_64B	1355892	1016915	1016793	16386	1014749	62.05
+R	dk64_796.bin	bar_0x13012	sp_dma_512B	2051634	1538722	1538599	11579	1014749	132.88
+R	dk64_796.bin	dk64_0x13016	none	1195950	896958	0	0	1014749	0.00
+R	dk64_796.bin	hires_640x480i_0x13052	none	1196490	897363	0	0	1014749	0.00
+RI	dk64_797.bin	list 350424 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+R	dk64_797.bin	vi_off	none	1193850	895384	0	0	1012163	0.00
+R	dk64_797.bin	aa3_replicate(rom)	none	1193874	895401	0	0	1012163	0.00
+R	dk64_797.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	1756841	1317610	1317474	52480	1012163	25.10
+R	dk64_797.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1446112	1084549	1084333	37888	1012163	28.62
+R	dk64_797.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	1681797	1261313	1261167	32256	1012163	39.10
+R	dk64_797.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	1676515	1257355	1257207	18688	1012163	67.27
+R	dk64_797.bin	aa3_replicate(rom)	cpu_uncached_write32	1470160	1102616	1102492	77568	1012163	14.21
+R	dk64_797.bin	aa3_replicate(rom)	sp_dma_64B	1351970	1013973	1013851	16298	1012163	62.21
+R	dk64_797.bin	aa3_replicate(rom)	sp_dma_512B	2047714	1535752	1535560	11549	1012163	132.96
+R	dk64_797.bin	aa2_resample	none	1193802	895348	0	0	1012163	0.00
+R	dk64_797.bin	aa1_aa_if_needed+divot	none	1193778	895330	0	0	1012163	0.00
+R	dk64_797.bin	aa0_aa_always+divot	none	1193910	895429	0	0	1012163	0.00
+R	dk64_797.bin	bar_0x13012	none	1193822	895333	0	0	1012163	0.00
+R	dk64_797.bin	bar_0x13012	cpu_chase(dependent fills)	1756679	1317488	1317353	52480	1012163	25.10
+R	dk64_797.bin	bar_0x13012	cpu_icache(32B fills)	1446300	1084691	1084473	37888	1012163	28.62
+R	dk64_797.bin	bar_0x13012	cpu_random_write(fill+writeback)	1681319	1260954	1260809	32256	1012163	39.09
+R	dk64_797.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	1676111	1257052	1256886	18688	1012163	67.26
+R	dk64_797.bin	bar_0x13012	cpu_uncached_write32	1470168	1102622	1102499	77568	1012163	14.21
+R	dk64_797.bin	bar_0x13012	sp_dma_64B	1352032	1014020	1013897	16329	1012163	62.09
+R	dk64_797.bin	bar_0x13012	sp_dma_512B	2046195	1534642	1534508	11542	1012163	132.95
+R	dk64_797.bin	dk64_0x13016	none	1193802	895348	0	0	1012163	0.00
+R	dk64_797.bin	hires_640x480i_0x13052	none	1193654	895206	0	0	1012163	0.00
+RI	dk64_1795.bin	list 365920 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+R	dk64_1795.bin	vi_off	none	1547022	1160262	0	0	1305940	0.00
+R	dk64_1795.bin	aa3_replicate(rom)	none	1546998	1160244	0	0	1305940	0.00
+R	dk64_1795.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	2275567	1706654	1706515	67584	1305940	25.25
+R	dk64_1795.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1909536	1432117	1431901	50176	1305940	28.54
+R	dk64_1795.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	2181668	1636216	1636066	41472	1305940	39.45
+R	dk64_1795.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	2159594	1619661	1619480	23808	1305940	68.02
+R	dk64_1795.bin	aa3_replicate(rom)	cpu_uncached_write32	1888418	1416309	1416186	98560	1305940	14.37
+R	dk64_1795.bin	aa3_replicate(rom)	sp_dma_64B	1750074	1312552	1312430	21241	1305940	61.79
+R	dk64_1795.bin	aa3_replicate(rom)	sp_dma_512B	2650230	1987668	1987531	14949	1305940	132.95
+R	dk64_1795.bin	aa2_resample	none	1546914	1160182	0	0	1305940	0.00
+R	dk64_1795.bin	aa1_aa_if_needed+divot	none	1547186	1160356	0	0	1305940	0.00
+R	dk64_1795.bin	aa0_aa_always+divot	none	1547190	1160388	0	0	1305940	0.00
+R	dk64_1795.bin	bar_0x13012	none	1546950	1160209	0	0	1305940	0.00
+R	dk64_1795.bin	bar_0x13012	cpu_chase(dependent fills)	2275841	1706860	1706721	67584	1305940	25.25
+R	dk64_1795.bin	bar_0x13012	cpu_icache(32B fills)	1909558	1432134	1431917	50176	1305940	28.54
+R	dk64_1795.bin	bar_0x13012	cpu_random_write(fill+writeback)	2181704	1636243	1636093	41472	1305940	39.45
+R	dk64_1795.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	2159366	1619489	1619345	23808	1305940	68.02
+R	dk64_1795.bin	bar_0x13012	cpu_uncached_write32	1888846	1416630	1416507	98560	1305940	14.37
+R	dk64_1795.bin	bar_0x13012	sp_dma_64B	1749912	1312430	1312308	21254	1305940	61.74
+R	dk64_1795.bin	bar_0x13012	sp_dma_512B	2648620	1986460	1986339	14944	1305940	132.92
+R	dk64_1795.bin	dk64_0x13016	none	1547282	1160427	0	0	1305940	0.00
+R	dk64_1795.bin	hires_640x480i_0x13052	none	1547130	1160343	0	0	1305940	0.00
+RI	dk64_1796.bin	list 382112 B, prefix 22, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+R	dk64_1796.bin	vi_off	none	1534490	1150834	0	0	1282660	0.00
+R	dk64_1796.bin	aa3_replicate(rom)	none	1534230	1150669	0	0	1282660	0.00
+R	dk64_1796.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	2256821	1692595	1692456	67072	1282660	25.23
+R	dk64_1796.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1873810	1405285	1405069	49152	1282660	28.59
+R	dk64_1796.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	2163960	1622935	1622785	41216	1282660	39.37
+R	dk64_1796.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	2154332	1615674	1615455	23808	1282660	67.85
+R	dk64_1796.bin	aa3_replicate(rom)	cpu_uncached_write32	1879076	1409273	1409028	98304	1282660	14.33
+R	dk64_1796.bin	aa3_replicate(rom)	sp_dma_64B	1736032	1302020	1301898	21038	1282660	61.88
+R	dk64_1796.bin	aa3_replicate(rom)	sp_dma_512B	2627875	1970902	1970728	14826	1282660	132.92
+R	dk64_1796.bin	aa2_resample	none	1534382	1150753	0	0	1282660	0.00
+R	dk64_1796.bin	aa1_aa_if_needed+divot	none	1534382	1150752	0	0	1282660	0.00
+R	dk64_1796.bin	aa0_aa_always+divot	none	1534482	1150857	0	0	1282660	0.00
+R	dk64_1796.bin	bar_0x13012	none	1534626	1150965	0	0	1282660	0.00
+R	dk64_1796.bin	bar_0x13012	cpu_chase(dependent fills)	2256693	1692499	1692329	67072	1282660	25.23
+R	dk64_1796.bin	bar_0x13012	cpu_icache(32B fills)	1873678	1405224	1405007	49152	1282660	28.58
+R	dk64_1796.bin	bar_0x13012	cpu_random_write(fill+writeback)	2164239	1623144	1622995	41216	1282660	39.38
+R	dk64_1796.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	2153934	1615415	1615271	23808	1282660	67.85
+R	dk64_1796.bin	bar_0x13012	cpu_uncached_write32	1878736	1409048	1408924	98304	1282660	14.33
+R	dk64_1796.bin	bar_0x13012	sp_dma_64B	1735974	1301976	1301854	21038	1282660	61.88
+R	dk64_1796.bin	bar_0x13012	sp_dma_512B	2627314	1970452	1970237	14822	1282660	132.93
+R	dk64_1796.bin	dk64_0x13016	none	1534310	1150698	0	0	1282660	0.00
+R	dk64_1796.bin	hires_640x480i_0x13052	none	1534506	1150875	0	0	1282660	0.00
+RI	dk64_1797.bin	list 391968 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+R	dk64_1797.bin	vi_off	none	1484262	1113193	0	0	1238570	0.00
+R	dk64_1797.bin	aa3_replicate(rom)	none	1484210	1113124	0	0	1238570	0.00
+R	dk64_1797.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	2190877	1643136	1643001	65024	1238570	25.27
+R	dk64_1797.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1834288	1375682	1375464	48128	1238570	28.58
+R	dk64_1797.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	2110014	1582476	1582326	40192	1238570	39.37
+R	dk64_1797.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	2087771	1565793	1565648	23040	1238570	67.95
+R	dk64_1797.bin	aa3_replicate(rom)	cpu_uncached_write32	1826500	1369870	1369747	95232	1238570	14.38
+R	dk64_1797.bin	aa3_replicate(rom)	sp_dma_64B	1683774	1262826	1262705	20360	1238570	62.02
+R	dk64_1797.bin	aa3_replicate(rom)	sp_dma_512B	2548212	1911125	1910911	14367	1238570	133.01
+R	dk64_1797.bin	aa2_resample	none	1484462	1113312	0	0	1238570	0.00
+R	dk64_1797.bin	aa1_aa_if_needed+divot	none	1484094	1113067	0	0	1238570	0.00
+R	dk64_1797.bin	aa0_aa_always+divot	none	1484424	1113314	0	0	1238570	0.00
+R	dk64_1797.bin	bar_0x13012	none	1483998	1112995	0	0	1238570	0.00
+R	dk64_1797.bin	bar_0x13012	cpu_chase(dependent fills)	2191090	1643258	1643049	65024	1238570	25.27
+R	dk64_1797.bin	bar_0x13012	cpu_icache(32B fills)	1834192	1375609	1375393	48128	1238570	28.58
+R	dk64_1797.bin	bar_0x13012	cpu_random_write(fill+writeback)	2109921	1582406	1582256	40192	1238570	39.37
+R	dk64_1797.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	2087547	1565625	1565479	23040	1238570	67.95
+R	dk64_1797.bin	bar_0x13012	cpu_uncached_write32	1826280	1369705	1369582	95232	1238570	14.38
+R	dk64_1797.bin	bar_0x13012	sp_dma_64B	1683344	1262504	1262382	20357	1238570	62.01
+R	dk64_1797.bin	bar_0x13012	sp_dma_512B	2550534	1912866	1912675	14384	1238570	132.97
+R	dk64_1797.bin	dk64_0x13016	none	1484234	1113141	0	0	1238570	0.00
+R	dk64_1797.bin	hires_640x480i_0x13052	none	1484334	1113246	0	0	1238570	0.00
+RI	bar_2316.bin	list 174952 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2316.bin	vi_off	none	1401158	1050835	0	0	1237577	0.00
+R	bar_2316.bin	aa3_replicate(rom)	none	1401186	1050885	0	0	1237577	0.00
+R	bar_2316.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	2067157	1550347	1550208	62976	1237577	24.62
+R	bar_2316.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1698360	1273736	1273518	45056	1237577	28.27
+R	bar_2316.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	1934744	1451023	1450873	37120	1237577	39.09
+R	bar_2316.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	1944682	1458476	1458329	21760	1237577	67.02
+R	bar_2316.bin	aa3_replicate(rom)	cpu_uncached_write32	1643356	1232513	1232390	86784	1237577	14.20
+R	bar_2316.bin	aa3_replicate(rom)	sp_dma_64B	1570742	1178053	1177931	19522	1237577	60.34
+R	bar_2316.bin	aa3_replicate(rom)	sp_dma_512B	2379626	1784715	1784593	13438	1237577	132.80
+R	bar_2316.bin	aa2_resample	none	1401122	1050807	0	0	1237577	0.00
+R	bar_2316.bin	aa1_aa_if_needed+divot	none	1401054	1050786	0	0	1237577	0.00
+R	bar_2316.bin	aa0_aa_always+divot	none	1401258	1050939	0	0	1237577	0.00
+R	bar_2316.bin	bar_0x13012	none	1401318	1050985	0	0	1237577	0.00
+R	bar_2316.bin	bar_0x13012	cpu_chase(dependent fills)	2067315	1550465	1550327	62976	1237577	24.62
+R	bar_2316.bin	bar_0x13012	cpu_icache(32B fills)	1698078	1273524	1273307	45056	1237577	28.26
+R	bar_2316.bin	bar_0x13012	cpu_random_write(fill+writeback)	1934838	1451054	1450829	37120	1237577	39.08
+R	bar_2316.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	1944066	1458014	1457867	21760	1237577	67.00
+R	bar_2316.bin	bar_0x13012	cpu_uncached_write32	1643356	1232513	1232390	86784	1237577	14.20
+R	bar_2316.bin	bar_0x13012	sp_dma_64B	1570350	1177728	1177536	19512	1237577	60.35
+R	bar_2316.bin	bar_0x13012	sp_dma_512B	2380954	1785711	1785574	13445	1237577	132.81
+R	bar_2316.bin	dk64_0x13016	none	1401278	1050924	0	0	1237577	0.00
+R	bar_2316.bin	hires_640x480i_0x13052	none	1401042	1050777	0	0	1237577	0.00
+RI	bar_2317.bin	list 177416 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2317.bin	vi_off	none	1432770	1074574	0	0	1250538	0.00
+R	bar_2317.bin	aa3_replicate(rom)	none	1432374	1074277	0	0	1250538	0.00
+R	bar_2317.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	2107741	1580785	1580646	64256	1250538	24.60
+R	bar_2317.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1736030	1301988	1301771	46080	1250538	28.25
+R	bar_2317.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	1980964	1485688	1485542	38144	1250538	38.95
+R	bar_2317.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	1966852	1475104	1474954	22016	1250538	66.99
+R	bar_2317.bin	aa3_replicate(rom)	cpu_uncached_write32	1680172	1260125	1260001	89344	1250538	14.10
+R	bar_2317.bin	aa3_replicate(rom)	sp_dma_64B	1603526	1202610	1202418	19944	1250538	60.29
+R	bar_2317.bin	aa3_replicate(rom)	sp_dma_512B	2418940	1814200	1814077	13658	1250538	132.82
+R	bar_2317.bin	aa2_resample	none	1432850	1074604	0	0	1250538	0.00
+R	bar_2317.bin	aa1_aa_if_needed+divot	none	1432734	1074547	0	0	1250538	0.00
+R	bar_2317.bin	aa0_aa_always+divot	none	1432844	1074598	0	0	1250538	0.00
+R	bar_2317.bin	bar_0x13012	none	1432757	1074564	0	0	1250538	0.00
+R	bar_2317.bin	bar_0x13012	cpu_chase(dependent fills)	2107875	1580886	1580747	64256	1250538	24.60
+R	bar_2317.bin	bar_0x13012	cpu_icache(32B fills)	1735826	1301835	1301576	46080	1250538	28.25
+R	bar_2317.bin	bar_0x13012	cpu_random_write(fill+writeback)	1981590	1486118	1485897	38144	1250538	38.95
+R	bar_2317.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	1966592	1474909	1474760	22016	1250538	66.99
+R	bar_2317.bin	bar_0x13012	cpu_uncached_write32	1680540	1260401	1260278	89344	1250538	14.11
+R	bar_2317.bin	bar_0x13012	sp_dma_64B	1603970	1202973	1202851	19955	1250538	60.28
+R	bar_2317.bin	bar_0x13012	sp_dma_512B	2419588	1814687	1814565	13668	1250538	132.76
+R	bar_2317.bin	dk64_0x13016	none	1432674	1074501	0	0	1250538	0.00
+R	bar_2317.bin	hires_640x480i_0x13052	none	1432794	1074591	0	0	1250538	0.00
+RI	bar_2318.bin	list 175304 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2318.bin	vi_off	none	1435170	1076374	0	0	1247163	0.00
+R	bar_2318.bin	aa3_replicate(rom)	none	1435250	1076404	0	0	1247163	0.00
+R	bar_2318.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	2100697	1575502	1575363	64000	1247163	24.62
+R	bar_2318.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1735072	1301270	1301052	46080	1247163	28.23
+R	bar_2318.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	1981066	1485764	1485619	38144	1247163	38.95
+R	bar_2318.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	1965675	1474192	1474043	22016	1247163	66.95
+R	bar_2318.bin	aa3_replicate(rom)	cpu_uncached_write32	1682038	1261524	1261401	89600	1247163	14.08
+R	bar_2318.bin	aa3_replicate(rom)	sp_dma_64B	1606388	1204757	1204566	19982	1247163	60.28
+R	bar_2318.bin	aa3_replicate(rom)	sp_dma_512B	2421004	1815749	1815626	13674	1247163	132.78
+R	bar_2318.bin	aa2_resample	none	1435514	1076602	0	0	1247163	0.00
+R	bar_2318.bin	aa1_aa_if_needed+divot	none	1435110	1076328	0	0	1247163	0.00
+R	bar_2318.bin	aa0_aa_always+divot	none	1435170	1076373	0	0	1247163	0.00
+R	bar_2318.bin	bar_0x13012	none	1435242	1076427	0	0	1247163	0.00
+R	bar_2318.bin	bar_0x13012	cpu_chase(dependent fills)	2100634	1575416	1575204	64000	1247163	24.61
+R	bar_2318.bin	bar_0x13012	cpu_icache(32B fills)	1735208	1301372	1301154	46080	1247163	28.24
+R	bar_2318.bin	bar_0x13012	cpu_random_write(fill+writeback)	1981266	1485914	1485769	38144	1247163	38.95
+R	bar_2318.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	1966816	1475077	1474928	22016	1247163	66.99
+R	bar_2318.bin	bar_0x13012	cpu_uncached_write32	1682160	1261616	1261492	89600	1247163	14.08
+R	bar_2318.bin	bar_0x13012	sp_dma_64B	1605472	1204069	1203878	19930	1247163	60.41
+R	bar_2318.bin	bar_0x13012	sp_dma_512B	2420016	1814978	1814786	13662	1247163	132.83
+R	bar_2318.bin	dk64_0x13016	none	1435310	1076448	0	0	1247163	0.00
+R	bar_2318.bin	hires_640x480i_0x13052	none	1434990	1076238	0	0	1247163	0.00
+RI	bar_2556.bin	list 197096 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2556.bin	vi_off	none	1348374	1011277	0	0	1285170	0.00
+R	bar_2556.bin	aa3_replicate(rom)	none	1348110	1011078	0	0	1285170	0.00
+R	bar_2556.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	1897043	1422762	1422623	58112	1285170	24.48
+R	bar_2556.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1598812	1199074	1198858	43008	1285170	27.88
+R	bar_2556.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	1785658	1339208	1339034	34816	1285170	38.46
+R	bar_2556.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	1785862	1339323	1339189	20224	1285170	66.22
+R	bar_2556.bin	aa3_replicate(rom)	cpu_uncached_write32	1574428	1180817	1180693	86272	1285170	13.69
+R	bar_2556.bin	aa3_replicate(rom)	sp_dma_64B	1488184	1116133	1116012	18575	1285170	60.08
+R	bar_2556.bin	aa3_replicate(rom)	sp_dma_512B	2233176	1674848	1674656	12615	1285170	132.75
+R	bar_2556.bin	aa2_resample	none	1348050	1011033	0	0	1285170	0.00
+R	bar_2556.bin	aa1_aa_if_needed+divot	none	1348082	1011028	0	0	1285170	0.00
+R	bar_2556.bin	aa0_aa_always+divot	none	1348026	1011015	0	0	1285170	0.00
+R	bar_2556.bin	bar_0x13012	none	1348238	1011145	0	0	1285170	0.00
+R	bar_2556.bin	bar_0x13012	cpu_chase(dependent fills)	1896983	1422716	1422577	58112	1285170	24.48
+R	bar_2556.bin	bar_0x13012	cpu_icache(32B fills)	1599144	1199323	1199083	43008	1285170	27.88
+R	bar_2556.bin	bar_0x13012	cpu_random_write(fill+writeback)	1785293	1338934	1338786	34816	1285170	38.45
+R	bar_2556.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	1786314	1339661	1339453	20224	1285170	66.23
+R	bar_2556.bin	bar_0x13012	cpu_uncached_write32	1571952	1178930	1178737	86016	1285170	13.70
+R	bar_2556.bin	bar_0x13012	sp_dma_64B	1488366	1116270	1116148	18575	1285170	60.09
+R	bar_2556.bin	bar_0x13012	sp_dma_512B	2232644	1674449	1674205	12611	1285170	132.76
+R	bar_2556.bin	dk64_0x13016	none	1348178	1011100	0	0	1285170	0.00
+R	bar_2556.bin	hires_640x480i_0x13052	none	1348314	1011231	0	0	1285170	0.00
+RI	bar_2557.bin	list 199544 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2557.bin	vi_off	none	1360914	1020681	0	0	1293564	0.00
+R	bar_2557.bin	aa3_replicate(rom)	none	1361022	1020762	0	0	1293564	0.00
+R	bar_2557.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	1914142	1435547	1435335	58624	1293564	24.48
+R	bar_2557.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1634602	1225917	1225700	44032	1293564	27.84
+R	bar_2557.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	1799505	1349593	1349445	35072	1293564	38.48
+R	bar_2557.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	1807435	1355553	1355415	20480	1293564	66.18
+R	bar_2557.bin	aa3_replicate(rom)	cpu_uncached_write32	1589626	1192215	1192092	87040	1293564	13.70
+R	bar_2557.bin	aa3_replicate(rom)	sp_dma_64B	1501524	1126109	1125917	18723	1293564	60.14
+R	bar_2557.bin	aa3_replicate(rom)	sp_dma_512B	2252574	1689396	1689183	12722	1293564	132.78
+R	bar_2557.bin	aa2_resample	none	1360710	1020528	0	0	1293564	0.00
+R	bar_2557.bin	aa1_aa_if_needed+divot	none	1360962	1020717	0	0	1293564	0.00
+R	bar_2557.bin	aa0_aa_always+divot	none	1360838	1020594	0	0	1293564	0.00
+R	bar_2557.bin	bar_0x13012	none	1360746	1020555	0	0	1293564	0.00
+R	bar_2557.bin	bar_0x13012	cpu_chase(dependent fills)	1914579	1435913	1435774	58624	1293564	24.49
+R	bar_2557.bin	bar_0x13012	cpu_icache(32B fills)	1634608	1225922	1225704	44032	1293564	27.84
+R	bar_2557.bin	bar_0x13012	cpu_random_write(fill+writeback)	1799512	1349599	1349449	35072	1293564	38.48
+R	bar_2557.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	1807671	1355730	1355591	20480	1293564	66.19
+R	bar_2557.bin	bar_0x13012	cpu_uncached_write32	1589894	1192417	1192293	87040	1293564	13.70
+R	bar_2557.bin	bar_0x13012	sp_dma_64B	1503202	1127367	1127175	18733	1293564	60.17
+R	bar_2557.bin	bar_0x13012	sp_dma_512B	2252114	1689052	1688855	12721	1293564	132.76
+R	bar_2557.bin	dk64_0x13016	none	1361010	1020753	0	0	1293564	0.00
+R	bar_2557.bin	hires_640x480i_0x13052	none	1360922	1020657	0	0	1293564	0.00
+RI	bar_2558.bin	list 199504 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+R	bar_2558.bin	vi_off	none	1365306	1023976	0	0	1306636	0.00
+R	bar_2558.bin	aa3_replicate(rom)	none	1365654	1024236	0	0	1306636	0.00
+R	bar_2558.bin	aa3_replicate(rom)	cpu_chase(dependent fills)	1922847	1442115	1441976	58880	1306636	24.49
+R	bar_2558.bin	aa3_replicate(rom)	cpu_icache(32B fills)	1635310	1226448	1226231	44032	1306636	27.85
+R	bar_2558.bin	aa3_replicate(rom)	cpu_random_write(fill+writeback)	1811830	1358838	1358688	35328	1306636	38.46
+R	bar_2558.bin	aa3_replicate(rom)	cpu_mixed(load+store+alu+fpu)	1809791	1357320	1357181	20480	1306636	66.27
+R	bar_2558.bin	aa3_replicate(rom)	cpu_uncached_write32	1595766	1196821	1196697	87296	1306636	13.71
+R	bar_2558.bin	aa3_replicate(rom)	sp_dma_64B	1506174	1129626	1129504	18734	1306636	60.29
+R	bar_2558.bin	aa3_replicate(rom)	sp_dma_512B	2263488	1697612	1697489	12784	1306636	132.78
+R	bar_2558.bin	aa2_resample	none	1365764	1024289	0	0	1306636	0.00
+R	bar_2558.bin	aa1_aa_if_needed+divot	none	1365570	1024173	0	0	1306636	0.00
+R	bar_2558.bin	aa0_aa_always+divot	none	1365474	1024101	0	0	1306636	0.00
+R	bar_2558.bin	bar_0x13012	none	1365258	1023939	0	0	1306636	0.00
+R	bar_2558.bin	bar_0x13012	cpu_chase(dependent fills)	1922697	1442002	1441863	58880	1306636	24.49
+R	bar_2558.bin	bar_0x13012	cpu_icache(32B fills)	1635126	1226310	1226070	44032	1306636	27.84
+R	bar_2558.bin	bar_0x13012	cpu_random_write(fill+writeback)	1811337	1358468	1358319	35328	1306636	38.45
+R	bar_2558.bin	bar_0x13012	cpu_mixed(load+store+alu+fpu)	1809229	1356899	1356760	20480	1306636	66.25
+R	bar_2558.bin	bar_0x13012	cpu_uncached_write32	1595476	1196603	1196479	87296	1306636	13.71
+R	bar_2558.bin	bar_0x13012	sp_dma_64B	1507244	1130429	1130306	18778	1306636	60.19
+R	bar_2558.bin	bar_0x13012	sp_dma_512B	2262672	1696970	1696777	12786	1306636	132.71
+R	bar_2558.bin	dk64_0x13016	none	1365678	1024254	0	0	1306636	0.00
+R	bar_2558.bin	hires_640x480i_0x13052	none	1365534	1024146	0	0	1306636	0.00

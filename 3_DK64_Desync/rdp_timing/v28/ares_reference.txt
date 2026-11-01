@@ -1,0 +1,251 @@
+region: NTSC id: NED cic: CIC-NUS-7101
+[status] Vulkan Disabled: No RDP rendering support
+RDP TIMING v28  NTSC  8 MiB
+SERIES init DONE (545 bytes), NEXT: X (in-game lists with patched modes / triangles)
+NO SD CARD - NOT SAVED
+RDP TIMING v28
+
+X  bar_i2274.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_i2274.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2274.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2274.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2274.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_i2274.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2274.bin  tri_wide_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2274.bin  tri_wide_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2274.bin  tri_mid_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2274.bin  tri_mid_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2274.bin  tri_narrow_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2274.bin  tri_narrow_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v28
+
+X  bar_i2314.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_i2314.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2314.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2314.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2314.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_i2314.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_i2314.bin  tri_wide_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2314.bin  tri_wide_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2314.bin  tri_mid_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2314.bin  tri_mid_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2314.bin  tri_narrow_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_i2314.bin  tri_narrow_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v28
+
+X  bar_2316.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_2316.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_2316.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_2316.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_2316.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_2316.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  bar_2316.bin  tri_wide_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_2316.bin  tri_wide_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_2316.bin  tri_mid_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_2316.bin  tri_mid_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_2316.bin  tri_narrow_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  bar_2316.bin  tri_narrow_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v28
+
+X  dk64_d6373.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  dk64_d6373.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  dk64_d6373.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  dk64_d6373.bin  tri_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  dk64_d6373.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  dk64_d6373.bin  no_tri  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  dk64_d6373.bin  tri_wide_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v28
+
+X  dk64_d6373.bin  tri_wide_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  dk64_d6373.bin  tri_mid_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  dk64_d6373.bin  tri_mid_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  dk64_d6373.bin  tri_narrow_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v28
+
+X  dk64_d6373.bin  tri_narrow_only  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+SERIES X DONE (4042 bytes), NEXT: end
+VI WARNING: __vblank_interrupt outside of vblank period: 208
+MEASURED, 4042 BYTES OF RESULTS
+NO SD CARD - NOT SAVED
+---- RESULTS ----
+# rdp_timing v28 - game lists with only the wide / mid / narrow triangles kept (X)
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	8388608
+# runs_per_case	3
+# texture at 0x0E17C0; dma buffer at 0x7D0000; heap top 0x0E4000; display buffer at 0x04B040; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+# console VI: ctrl 0x3302 width 640 v_sync 0x20D x_scale 0x400
+B0	167
+# X lines: list, variant, vi mode (vi_off), clock (smallest of 3), ticks, model (ares tables of the unpatched full list), VI_CTRL read back, VI_WIDTH, VI probe
+# v28 variants: tri_wide_only / tri_mid_only / tri_narrow_only = tri_only with only the triangles whose widest span is >= 64 / 16..63 / < 16 px kept (the others become NOPs)
+# v24 variants: z_far / z_near = the depth-clearing fill removed and the depth buffer preset farthest / nearest (every first draw passes / every test fails); om_no_atomic = ATOMIC_PRIM off; color_low = the drawn colour buffer moved to 0x0F5000; z_up1m = the depth buffer 1 MiB higher (BAR only); tri_only_zfar / znear = the same on tri_only
+# XI lines: list, info (placement in RDRAM)
+# variants: no_tri / tri_only as v22 (NOPs replace the class); om_* patch every Set_Other_Modes (no_zcmp: Z_COMPARE off = all pass; no_zupd: Z_UPDATE off; no_aa: AA_EN off; no_persp: TEX_PERSP off; no_lod: TEX_LOD/SHARPEN/DETAIL off; 1cyc: 2-cycle lists as 1-cycle; no_dither: dither off; point: point sampling; no_tlut: EN_TLUT off; no_cvg: ALPHA_CVG_SEL/CVG_X_ALPHA/CVG_DST/COLOR_ON_CVG/ALPHA_COMPARE off; no_imrd: IMAGE_READ off; wlike: v22 W's mode bits with the list's cycle type, blender mux, Z and IMAGE_READ)
+# z_near: the depth-clearing fill removed and the depth buffer preset to 0 (every depth test fails); tri_flat: all shade/texture/depth slopes of the 0F triangles zeroed; tri_noshade/notex/edgez: 0F -> 0B / 0D / 09 (dropped words become NOPs)
+XI	bar_i2274.bin	list 64512 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_i2274.bin	full	vi_off	509381	388694	571596	0	640	92314
+X	bar_i2274.bin	tri_only	vi_off	343512	262109	571596	0	640	92314
+X	bar_i2274.bin	no_tri	vi_off	222994	170136	571596	0	640	92314
+X	bar_i2274.bin	tri_wide_only	vi_off	188890	144109	571596	0	640	92315
+X	bar_i2274.bin	tri_mid_only	vi_off	156855	119662	571596	0	640	92315
+X	bar_i2274.bin	tri_narrow_only	vi_off	112072	85485	571596	0	640	92314
+XI	bar_i2314.bin	list 170608 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_i2314.bin	full	vi_off	1410266	1076212	1564545	0	640	92315
+X	bar_i2314.bin	tri_only	vi_off	1221976	932517	1564545	0	640	92315
+X	bar_i2314.bin	no_tri	vi_off	280146	213752	1564545	0	640	92314
+X	bar_i2314.bin	tri_wide_only	vi_off	272603	207996	1564545	0	640	92315
+X	bar_i2314.bin	tri_mid_only	vi_off	503434	384156	1564545	0	640	92315
+X	bar_i2314.bin	tri_narrow_only	vi_off	629670	480494	1564545	0	640	92315
+XI	bar_2316.bin	list 174952 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_2316.bin	full	vi_off	1399228	1067787	1237577	0	640	92314
+X	bar_2316.bin	tri_only	vi_off	1209265	922816	1237577	0	640	92314
+X	bar_2316.bin	no_tri	vi_off	283262	216130	1237577	0	640	92314
+X	bar_2316.bin	tri_wide_only	vi_off	298747	227948	1237577	0	640	92315
+X	bar_2316.bin	tri_mid_only	vi_off	439176	335117	1237577	0	640	92315
+X	bar_2316.bin	tri_narrow_only	vi_off	657942	502070	1237577	0	640	92314
+XI	dk64_d6373.bin	list 246984 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+X	dk64_d6373.bin	full	vi_off	2202053	1680471	2362529	0	640	92315
+X	dk64_d6373.bin	tri_only	vi_off	1817246	1386802	2362529	0	640	92315
+X	dk64_d6373.bin	no_tri	vi_off	576053	439575	2362529	0	640	92315
+X	dk64_d6373.bin	tri_wide_only	vi_off	611868	466907	2362529	0	640	92314
+X	dk64_d6373.bin	tri_mid_only	vi_off	501535	382706	2362529	0	640	92315
+X	dk64_d6373.bin	tri_narrow_only	vi_off	1086335	829001	2362529	0	640	92314
+---- END ----
+DONE

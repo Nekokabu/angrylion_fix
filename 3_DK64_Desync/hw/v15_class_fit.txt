@@ -1,0 +1,23 @@
+112 cases
+modes used (total ares clocks over cases): tri:2CYC16_BLEND_ZPASS=31.71M, tri:1CYC16_BLEND_ZPASS=10.89M, load=8.00M, rect:FILL16=6.31M, tri:1CYC16_BLEND=6.27M, tri:2CYC16_BLEND=4.93M, tri:1CYC16=2.99M, tri:1CYC16_ZPASS=2.92M, tri:2CYC16_ZPASS=2.47M, tri:2CYC16=1.90M, rect:2CYC16_BLEND=1.38M, rect:2CYC16=0.82M, rect:1CYC16_BLEND=0.74M, rect:1CYC16=0.45M
+per-mode scale factors (ridge lambda 1e+09):
+  tri:2CYC16_BLEND_ZPASS       x0.853   (weight 31.71M)
+  tri:1CYC16_BLEND_ZPASS       x1.042   (weight 10.89M)
+  load                         x1.008   (weight 8.00M)
+  rect:FILL16                  x0.957   (weight 6.31M)
+  tri:1CYC16_BLEND             x0.956   (weight 6.27M)
+  tri:2CYC16_BLEND             x1.477   (weight 4.93M)
+  tri:1CYC16                   x1.149   (weight 2.99M)
+  tri:1CYC16_ZPASS             x1.130   (weight 2.92M)
+  tri:2CYC16_ZPASS             x1.678   (weight 2.47M)
+  tri:2CYC16                   x0.246   (weight 1.90M)
+  rect:2CYC16_BLEND            x1.019   (weight 1.38M)
+  rect:2CYC16                  x1.004   (weight 0.82M)
+  rect:1CYC16_BLEND            x0.995   (weight 0.74M)
+  rect:1CYC16                  x0.973   (weight 0.45M)
+rms residual before 42626 after 6083 clocks
+bar full lists: hw/ares before 0.994 1.004 1.010 0.946 0.943 0.937 1.013 1.011 0.929 0.928 | after 0.994 1.004 1.009 1.011 1.007 1.001 1.011 1.010 0.995 0.995
+dk64 full lists: hw/ares before 1.039 1.015 1.024 1.027 | after 1.010 1.000 1.005 1.005
+mgc full lists: hw/ares before 1.027 1.000 | after 0.998 1.000
+
+# (the ridge fit above trades the collinear 2-cycle modes off against each other; the per-class table in the report is the no-fit comparison)

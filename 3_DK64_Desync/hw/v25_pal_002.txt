@@ -1,0 +1,92 @@
+# rdp_timing v25 - replay of Donkey Kong 64 attract-demo frames (X)
+# mi_version	0x02020102
+# tv_type	PAL
+# memory_size	8388608
+# runs_per_case	3
+# texture at 0x0E1640; dma buffer at 0x7D0000; heap top 0x0E3000; display buffer at 0x04AEC0; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+# console VI: ctrl 0x3302 width 640 v_sync 0x271 x_scale 0x400
+B0	124
+# X lines: list, variant, vi mode (vi_off), clock (smallest of 3), ticks, model (ares tables of the unpatched full list), VI_CTRL read back, VI_WIDTH, VI probe
+# v24 variants: z_far / z_near = the depth-clearing fill removed and the depth buffer preset farthest / nearest (every first draw passes / every test fails); om_no_atomic = ATOMIC_PRIM off; color_low = the drawn colour buffer moved to 0x0F5000; z_up1m = the depth buffer 1 MiB higher (BAR only); tri_only_zfar / znear = the same on tri_only
+# XI lines: list, info (placement in RDRAM)
+# variants: no_tri / tri_only as v22 (NOPs replace the class); om_* patch every Set_Other_Modes (no_zcmp: Z_COMPARE off = all pass; no_zupd: Z_UPDATE off; no_aa: AA_EN off; no_persp: TEX_PERSP off; no_lod: TEX_LOD/SHARPEN/DETAIL off; 1cyc: 2-cycle lists as 1-cycle; no_dither: dither off; point: point sampling; no_tlut: EN_TLUT off; no_cvg: ALPHA_CVG_SEL/CVG_X_ALPHA/CVG_DST/COLOR_ON_CVG/ALPHA_COMPARE off; no_imrd: IMAGE_READ off; wlike: v22 W's mode bits with the list's cycle type, blender mux, Z and IMAGE_READ)
+# z_near: the depth-clearing fill removed and the depth buffer preset to 0 (every depth test fails); tri_flat: all shade/texture/depth slopes of the 0F triangles zeroed; tri_noshade/notex/edgez: 0F -> 0B / 0D / 09 (dropped words become NOPs)
+XI	dk64_d6052.bin	list 188360 B, prefix 22, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+X	dk64_d6052.bin	full	vi_off	1823338	1367500	1980651	0	640	93034
+X	dk64_d6052.bin	full	game	2104786	1578586	1980651	3016	320	108563
+X	dk64_d6052.bin	no_tri	vi_off	409330	306993	1980651	0	640	92997
+X	dk64_d6052.bin	no_tri	game	461524	346139	1980651	3016	320	108550
+X	dk64_d6052.bin	tri_only	vi_off	1556422	1167312	1980651	0	640	93034
+X	dk64_d6052.bin	tri_only	game	1790312	1342697	1980651	3016	320	108588
+X	dk64_d6052.bin	no_load	vi_off	1567388	1175507	1980651	0	640	93034
+X	dk64_d6052.bin	no_rect	vi_off	1812346	1359256	1980651	0	640	93034
+X	dk64_d6052.bin	state_only	vi_off	142820	107081	1980651	0	640	93007
+X	dk64_d6052.bin	om_no_atomic	vi_off	1796446	1347331	1980651	0	640	93031
+X	dk64_d6052.bin	om_no_aa	vi_off	1814554	1360912	1980651	0	640	92992
+X	dk64_d6052.bin	z_near	vi_off	1611322	1208488	1980651	0	640	92973
+XI	dk64_d6110.bin	list 201760 B, prefix 22, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+X	dk64_d6110.bin	full	vi_off	1906030	1429518	2117194	0	640	93034
+X	dk64_d6110.bin	full	game	2205584	1654150	2117194	3016	320	108592
+X	dk64_d6110.bin	no_tri	vi_off	508402	381297	2117194	0	640	93017
+X	dk64_d6110.bin	no_tri	game	508630	381468	2117194	3016	320	93013
+X	dk64_d6110.bin	tri_only	vi_off	1555474	1166601	2117194	0	640	93034
+X	dk64_d6110.bin	tri_only	game	1555558	1166665	2117194	3016	320	93000
+X	dk64_d6110.bin	no_load	vi_off	1566022	1174512	2117194	0	640	93019
+X	dk64_d6110.bin	no_rect	vi_off	1894906	1421175	2117194	0	640	93006
+X	dk64_d6110.bin	state_only	vi_off	158278	118705	2117194	0	640	93029
+X	dk64_d6110.bin	om_no_atomic	vi_off	1876522	1407387	2117194	0	640	93029
+X	dk64_d6110.bin	om_no_aa	vi_off	1918594	1438941	2117194	0	640	92972
+X	dk64_d6110.bin	z_near	vi_off	1669592	1252160	2117194	0	640	92995
+XI	dk64_d6253.bin	list 155168 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+X	dk64_d6253.bin	full	vi_off	1859240	1394396	2166671	0	640	92972
+X	dk64_d6253.bin	full	game	1859386	1394535	2166671	3016	320	93027
+X	dk64_d6253.bin	no_tri	vi_off	518662	388992	2166671	0	640	93009
+X	dk64_d6253.bin	no_tri	game	518482	388857	2166671	3016	320	92994
+X	dk64_d6253.bin	tri_only	vi_off	1483942	1112952	2166671	0	640	93022
+X	dk64_d6253.bin	tri_only	game	1483822	1112862	2166671	3016	320	93005
+X	dk64_d6253.bin	no_load	vi_off	1495234	1121422	2166671	0	640	93004
+X	dk64_d6253.bin	no_rect	vi_off	1848694	1386516	2166671	0	640	93007
+X	dk64_d6253.bin	state_only	vi_off	143530	107643	2166671	0	640	93013
+X	dk64_d6253.bin	om_no_atomic	vi_off	1831280	1373425	2166671	0	640	93017
+X	dk64_d6253.bin	om_no_aa	vi_off	1848790	1386588	2166671	0	640	93026
+X	dk64_d6253.bin	z_near	vi_off	1558280	1168675	2166671	0	640	93034
+XI	dk64_d6373.bin	list 246984 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+X	dk64_d6373.bin	full	vi_off	2075170	1556373	2362529	0	640	92984
+X	dk64_d6373.bin	full	game	2075386	1556535	2362529	3016	320	93008
+X	dk64_d6373.bin	no_tri	vi_off	590110	442579	2362529	0	640	93037
+X	dk64_d6373.bin	no_tri	game	590026	442516	2362529	3016	320	93036
+X	dk64_d6373.bin	tri_only	vi_off	1666822	1250112	2362529	0	640	92995
+X	dk64_d6373.bin	tri_only	game	1666462	1249843	2362529	3016	320	92991
+X	dk64_d6373.bin	no_load	vi_off	1676986	1257736	2362529	0	640	93005
+X	dk64_d6373.bin	no_rect	vi_off	2064622	1548462	2362529	0	640	93021
+X	dk64_d6373.bin	state_only	vi_off	181690	136263	2362529	0	640	92998
+X	dk64_d6373.bin	om_no_atomic	vi_off	2037142	1527852	2362529	0	640	92993
+X	dk64_d6373.bin	om_no_aa	vi_off	2063240	1547396	2362529	0	640	93034
+X	dk64_d6373.bin	z_near	vi_off	1734478	1300854	2362529	0	640	93021
+XI	dk64_d6513.bin	list 181960 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+X	dk64_d6513.bin	full	vi_off	1569836	1177343	1655005	0	640	92998
+X	dk64_d6513.bin	full	game	1569910	1177428	1655005	3016	320	92996
+X	dk64_d6513.bin	no_tri	vi_off	504586	378435	1655005	0	640	93006
+X	dk64_d6513.bin	no_tri	game	504766	378570	1655005	3016	320	93037
+X	dk64_d6513.bin	tri_only	vi_off	1218622	913962	1655005	0	640	93025
+X	dk64_d6513.bin	tri_only	game	1218596	913912	1655005	3016	320	92998
+X	dk64_d6513.bin	no_load	vi_off	1240294	930217	1655005	0	640	93016
+X	dk64_d6513.bin	no_rect	vi_off	1548034	1161022	1655005	0	640	92996
+X	dk64_d6513.bin	state_only	vi_off	153416	115028	1655005	0	640	92997
+X	dk64_d6513.bin	om_no_atomic	vi_off	1540474	1155351	1655005	0	640	93040
+X	dk64_d6513.bin	om_no_aa	vi_off	1562170	1171623	1655005	0	640	93025
+X	dk64_d6513.bin	z_near	vi_off	1343566	1007671	1655005	0	640	93028
+XI	bar_2316.bin	list 174952 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_2316.bin	full	vi_off	1401202	1050897	1237577	0	640	93034
+X	bar_2316.bin	full	game	1401070	1050798	1237577	3012	320	93022
+X	bar_2316.bin	no_tri	vi_off	286210	214653	1237577	0	640	93010
+X	bar_2316.bin	no_tri	game	286198	214644	1237577	3012	320	93018
+X	bar_2316.bin	tri_only	vi_off	1205161	903845	1237577	0	640	93011
+X	bar_2316.bin	tri_only	game	1205276	903922	1237577	3012	320	92978
+X	bar_2316.bin	no_load	vi_off	1273076	954773	1237577	0	640	93017
+X	bar_2316.bin	no_rect	vi_off	1333306	999976	1237577	0	640	93023
+X	bar_2316.bin	state_only	vi_off	90958	68214	1237577	0	640	92992
+X	bar_2316.bin	om_no_atomic	vi_off	1401010	1050754	1237577	0	640	93022
+X	bar_2316.bin	om_no_aa	vi_off	1397746	1048305	1237577	0	640	93007
+X	bar_2316.bin	z_near	vi_off	1114150	835608	1237577	0	640	93006

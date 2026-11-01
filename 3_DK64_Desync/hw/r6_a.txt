@@ -1,0 +1,1207 @@
+# rdp_timing v7 - buffer placement, commands between primitives, loads, RDRAM contention
+# mi_version	0x02020102
+# tv_type	PAL
+# memory_size	4194304
+# runs_per_case	3
+# VI on during A/B/BT/C/E/S (320x240 16-bit console display); D measures VI off and on
+# arena at 0x0DA000 (2252800 bytes); default fb = arena, zb = arena + 0x4B000; texture at 0x390080; dma source at 0x380040; cached buffer at 0x300008 (524288 bytes)
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; depth rows cleared to 0xFFFC (all pass) before each run
+# the last column of A/B/BT/C/E/S lines is the CPU-measured wall time of the same list in COP0 ticks (46.875 MHz; x4/3 = RDP clocks); a clock of 0 means the list timed out
+B0	115
+# series run: all (hold A/B/Z/L/R/Start at power-on for S/B/E/C/D/A only)
+# A lines: fb offset in arena, zb offset from fb, mode, test, clock
+#   test S: colour image 64 px wide, 1 rect 64x8 at x 0 (touches 1 KiB; measured for every offset)
+#   test L: colour image 320 px wide, 5 rects 64x40 at x 0 (only when the buffers cannot overlap)
+#   test R: colour image 320 px wide, 5 rects 320x40 (full rows)
+A	0x000000	153600	1cyc16_blend_zpass	S	2790	2088
+A	0x000000	153600	1cyc16_blend_zpass	L	58758	44064
+A	0x000000	153600	1cyc16_blend_zpass	R	243412	182528
+A	0x000000	153600	1cyc16_zpass	S	2059	1539
+A	0x000000	153600	1cyc16_zpass	L	44359	33265
+A	0x000000	153600	1cyc16_zpass	R	194642	145962
+A	0x000000	153600	2cyc16_blend_zpass	S	2826	2115
+A	0x000000	153600	2cyc16_blend_zpass	L	57547	43156
+A	0x000000	153600	2cyc16_blend_zpass	R	231486	173583
+A	0x000000	153600	1cyc16_blend	S	1267	945
+A	0x000000	153600	1cyc16_blend	L	31027	23265
+A	0x000000	153600	1cyc16_blend	R	142773	107075
+A	0x000000	153600	fill16	S	403	297
+A	0x000000	153600	fill16	L	7795	5842
+A	0x000000	153600	fill16	R	36989	27710
+A	0x000000	307200	1cyc16_blend_zpass	S	2167	1620
+A	0x000000	307200	1cyc16_blend_zpass	L	58759	44053
+A	0x000000	307200	1cyc16_blend_zpass	R	243016	182231
+A	0x000000	307200	1cyc16_zpass	S	1674	1251
+A	0x000000	307200	1cyc16_zpass	L	44131	33094
+A	0x000000	307200	1cyc16_zpass	R	193409	145024
+A	0x000000	307200	2cyc16_blend_zpass	S	2095	1567
+A	0x000000	307200	2cyc16_blend_zpass	L	57306	42975
+A	0x000000	307200	2cyc16_blend_zpass	R	230897	173141
+A	0x000000	307200	1cyc16_blend	S	1279	955
+A	0x000000	307200	1cyc16_blend	L	31063	23272
+A	0x000000	307200	1cyc16_blend	R	142855	107137
+A	0x000000	307200	fill16	S	403	297
+A	0x000000	307200	fill16	L	7795	5842
+A	0x000000	307200	fill16	R	37001	27719
+A	0x025800	-153600	1cyc16_blend_zpass	S	2827	2115
+A	0x025800	-153600	1cyc16_blend_zpass	L	58890	44163
+A	0x025800	-153600	1cyc16_blend_zpass	R	242478	181854
+A	0x025800	-153600	1cyc16_zpass	S	2058	1539
+A	0x025800	-153600	1cyc16_zpass	L	44550	33408
+A	0x025800	-153600	1cyc16_zpass	R	195247	146430
+A	0x025800	-153600	2cyc16_blend_zpass	S	2826	2115
+A	0x025800	-153600	2cyc16_blend_zpass	L	57522	43137
+A	0x025800	-153600	2cyc16_blend_zpass	R	229627	172215
+A	0x025800	-153600	1cyc16_blend	S	1279	954
+A	0x025800	-153600	1cyc16_blend	L	31027	23266
+A	0x025800	-153600	1cyc16_blend	R	138690	104015
+A	0x025800	-153600	fill16	S	403	297
+A	0x025800	-153600	fill16	L	7795	5841
+A	0x025800	-153600	fill16	R	36977	27727
+A	0x000000	2048	1cyc16_blend_zpass	S	2827	2116
+A	0x000000	2048	1cyc16_zpass	S	2058	1539
+A	0x000000	2048	2cyc16_blend_zpass	S	2826	2115
+A	0x000000	2048	1cyc16_blend	S	1279	954
+A	0x000000	2048	fill16	S	403	297
+A	0x000000	4096	1cyc16_blend_zpass	S	2827	2116
+A	0x000000	4096	1cyc16_zpass	S	2058	1539
+A	0x000000	4096	2cyc16_blend_zpass	S	2826	2115
+A	0x000000	4096	1cyc16_blend	S	1267	946
+A	0x000000	4096	fill16	S	403	297
+A	0x000000	8192	1cyc16_blend_zpass	S	2827	2115
+A	0x000000	8192	1cyc16_zpass	S	2058	1539
+A	0x000000	8192	2cyc16_blend_zpass	S	2826	2115
+A	0x000000	8192	1cyc16_blend	S	1267	945
+A	0x000000	8192	fill16	S	403	297
+A	0x000000	16384	1cyc16_blend_zpass	S	2827	2116
+A	0x000000	16384	1cyc16_zpass	S	2058	1539
+A	0x000000	16384	2cyc16_blend_zpass	S	2826	2115
+A	0x000000	16384	1cyc16_blend	S	1267	946
+A	0x000000	16384	fill16	S	403	297
+A	0x000000	32768	1cyc16_blend_zpass	S	2827	2115
+A	0x000000	32768	1cyc16_zpass	S	2058	1539
+A	0x000000	32768	2cyc16_blend_zpass	S	2826	2115
+A	0x000000	32768	1cyc16_blend	S	1267	945
+A	0x000000	32768	fill16	S	403	297
+A	0x000000	65536	1cyc16_blend_zpass	S	2827	2116
+A	0x000000	65536	1cyc16_zpass	S	2058	1539
+A	0x000000	65536	2cyc16_blend_zpass	S	2826	2115
+A	0x000000	65536	1cyc16_blend	S	1267	946
+A	0x000000	65536	fill16	S	403	297
+A	0x000000	131072	1cyc16_blend_zpass	S	2827	2115
+A	0x000000	131072	1cyc16_zpass	S	2058	1539
+A	0x000000	131072	2cyc16_blend_zpass	S	2826	2115
+A	0x000000	131072	1cyc16_blend	S	1267	945
+A	0x000000	131072	fill16	S	403	297
+A	0x000000	262144	1cyc16_blend_zpass	S	2166	1620
+A	0x000000	262144	1cyc16_blend_zpass	L	58590	43938
+A	0x000000	262144	1cyc16_blend_zpass	R	242848	182104
+A	0x000000	262144	1cyc16_zpass	S	1674	1251
+A	0x000000	262144	1cyc16_zpass	L	44250	33183
+A	0x000000	262144	1cyc16_zpass	R	193747	145305
+A	0x000000	262144	2cyc16_blend_zpass	S	2094	1566
+A	0x000000	262144	2cyc16_blend_zpass	L	57270	42948
+A	0x000000	262144	2cyc16_blend_zpass	R	230369	172745
+A	0x000000	262144	1cyc16_blend	S	1267	945
+A	0x000000	262144	1cyc16_blend	L	30979	23229
+A	0x000000	262144	1cyc16_blend	R	142889	107134
+A	0x000000	262144	fill16	S	403	297
+A	0x000000	262144	fill16	L	7795	5841
+A	0x000000	262144	fill16	R	37049	27755
+A	0x000000	524288	1cyc16_blend_zpass	S	2166	1620
+A	0x000000	524288	1cyc16_blend_zpass	L	58686	44010
+A	0x000000	524288	1cyc16_blend_zpass	R	242825	182086
+A	0x000000	524288	1cyc16_zpass	S	1674	1251
+A	0x000000	524288	1cyc16_zpass	L	44083	33057
+A	0x000000	524288	1cyc16_zpass	R	193745	145277
+A	0x000000	524288	2cyc16_blend_zpass	S	2094	1566
+A	0x000000	524288	2cyc16_blend_zpass	L	57295	42966
+A	0x000000	524288	2cyc16_blend_zpass	R	230788	173060
+A	0x000000	524288	1cyc16_blend	S	1279	954
+A	0x000000	524288	1cyc16_blend	L	31063	23293
+A	0x000000	524288	1cyc16_blend	R	142911	107153
+A	0x000000	524288	fill16	S	403	297
+A	0x000000	524288	fill16	L	7795	5841
+A	0x000000	524288	fill16	R	37001	27718
+A	0x000000	1048576	1cyc16_blend_zpass	S	2166	1620
+A	0x000000	1048576	1cyc16_blend_zpass	L	58614	43956
+A	0x000000	1048576	1cyc16_blend_zpass	R	242836	182096
+A	0x000000	1048576	1cyc16_zpass	S	1674	1251
+A	0x000000	1048576	1cyc16_zpass	L	44262	33192
+A	0x000000	1048576	1cyc16_zpass	R	193723	145288
+A	0x000000	1048576	2cyc16_blend_zpass	S	2095	1567
+A	0x000000	1048576	2cyc16_blend_zpass	L	57268	42920
+A	0x000000	1048576	2cyc16_blend_zpass	R	230561	172888
+A	0x000000	1048576	1cyc16_blend	S	1267	946
+A	0x000000	1048576	1cyc16_blend	L	31039	23275
+A	0x000000	1048576	1cyc16_blend	R	142819	107110
+A	0x000000	1048576	fill16	S	403	297
+A	0x000000	1048576	fill16	L	7795	5841
+A	0x000000	1048576	fill16	R	37001	27719
+A	0x000000	1572864	1cyc16_blend_zpass	S	2167	1620
+A	0x000000	1572864	1cyc16_blend_zpass	L	58710	44028
+A	0x000000	1572864	1cyc16_blend_zpass	R	242753	182033
+A	0x000000	1572864	1cyc16_zpass	S	1675	1252
+A	0x000000	1572864	1cyc16_zpass	L	44081	33029
+A	0x000000	1572864	1cyc16_zpass	R	193831	145368
+A	0x000000	1572864	2cyc16_blend_zpass	S	2094	1566
+A	0x000000	1572864	2cyc16_blend_zpass	L	57319	42984
+A	0x000000	1572864	2cyc16_blend_zpass	R	230572	172897
+A	0x000000	1572864	1cyc16_blend	S	1267	946
+A	0x000000	1572864	1cyc16_blend	L	31015	23257
+A	0x000000	1572864	1cyc16_blend	R	142903	107173
+A	0x000000	1572864	fill16	S	403	297
+A	0x000000	1572864	fill16	L	7795	5841
+A	0x000000	1572864	fill16	R	37001	27719
+A	0x000000	1943552	1cyc16_blend_zpass	S	2166	1620
+A	0x000000	1943552	1cyc16_blend_zpass	L	58626	43965
+A	0x000000	1943552	1cyc16_blend_zpass	R	242728	182015
+A	0x000000	1943552	1cyc16_zpass	S	1674	1251
+A	0x000000	1943552	1cyc16_zpass	L	44238	33174
+A	0x000000	1943552	1cyc16_zpass	R	194023	145513
+A	0x000000	1943552	2cyc16_blend_zpass	S	2095	1567
+A	0x000000	1943552	2cyc16_blend_zpass	L	57270	42948
+A	0x000000	1943552	2cyc16_blend_zpass	R	230549	172880
+A	0x000000	1943552	1cyc16_blend	S	1267	945
+A	0x000000	1943552	1cyc16_blend	L	31015	23257
+A	0x000000	1943552	1cyc16_blend	R	143059	107290
+A	0x000000	1943552	fill16	S	403	297
+A	0x000000	1943552	fill16	L	7795	5841
+A	0x000000	1943552	fill16	R	37001	27719
+A	0x000000	2097152	1cyc16_blend_zpass	S	2167	1620
+A	0x000000	2097152	1cyc16_blend_zpass	L	58747	44055
+A	0x000000	2097152	1cyc16_blend_zpass	R	242957	182186
+A	0x000000	2097152	1cyc16_zpass	S	1674	1251
+A	0x000000	2097152	1cyc16_zpass	L	44143	33074
+A	0x000000	2097152	1cyc16_zpass	R	193385	145007
+A	0x000000	2097152	2cyc16_blend_zpass	S	2094	1566
+A	0x000000	2097152	2cyc16_blend_zpass	L	57343	43003
+A	0x000000	2097152	2cyc16_blend_zpass	R	230788	173059
+A	0x000000	2097152	1cyc16_blend	S	1279	954
+A	0x000000	2097152	1cyc16_blend	L	31063	23291
+A	0x000000	2097152	1cyc16_blend	R	142864	107116
+A	0x000000	2097152	fill16	S	403	297
+A	0x000000	2097152	fill16	L	7795	5841
+A	0x000000	2097152	fill16	R	37020	27710
+A	0x100000	153600	1cyc16_blend_zpass	S	2839	2124
+A	0x100000	153600	1cyc16_blend_zpass	L	57355	43012
+A	0x100000	153600	1cyc16_blend_zpass	R	238527	178864
+A	0x100000	153600	1cyc16_zpass	S	2058	1539
+A	0x100000	153600	1cyc16_zpass	L	43482	32607
+A	0x100000	153600	1cyc16_zpass	R	189486	142110
+A	0x100000	153600	2cyc16_blend_zpass	S	2815	2107
+A	0x100000	153600	2cyc16_blend_zpass	L	56082	42057
+A	0x100000	153600	2cyc16_blend_zpass	R	227139	170324
+A	0x100000	153600	1cyc16_blend	S	1267	945
+A	0x100000	153600	1cyc16_blend	L	30991	23239
+A	0x100000	153600	1cyc16_blend	R	138727	104040
+A	0x100000	153600	fill16	S	403	297
+A	0x100000	153600	fill16	L	7795	5841
+A	0x100000	153600	fill16	R	37006	27728
+A	0x100000	307200	1cyc16_blend_zpass	S	2167	1620
+A	0x100000	307200	1cyc16_blend_zpass	L	57210	42903
+A	0x100000	307200	1cyc16_blend_zpass	R	237399	178019
+A	0x100000	307200	1cyc16_zpass	S	1674	1251
+A	0x100000	307200	1cyc16_zpass	L	43290	32463
+A	0x100000	307200	1cyc16_zpass	R	188538	141399
+A	0x100000	307200	2cyc16_blend_zpass	S	2095	1566
+A	0x100000	307200	2cyc16_blend_zpass	L	55855	41886
+A	0x100000	307200	2cyc16_blend_zpass	R	225951	169433
+A	0x100000	307200	1cyc16_blend	S	1267	945
+A	0x100000	307200	1cyc16_blend	L	30979	23229
+A	0x100000	307200	1cyc16_blend	R	138463	103843
+A	0x100000	307200	fill16	S	403	297
+A	0x100000	307200	fill16	L	7795	5841
+A	0x100000	307200	fill16	R	37006	27728
+A	0x125800	-153600	1cyc16_blend_zpass	S	2839	2125
+A	0x125800	-153600	1cyc16_blend_zpass	L	57460	43091
+A	0x125800	-153600	1cyc16_blend_zpass	R	238513	178880
+A	0x125800	-153600	1cyc16_zpass	S	2058	1539
+A	0x125800	-153600	1cyc16_zpass	L	43507	32625
+A	0x125800	-153600	1cyc16_zpass	R	189523	142137
+A	0x125800	-153600	2cyc16_blend_zpass	S	2827	2115
+A	0x125800	-153600	2cyc16_blend_zpass	L	56069	42046
+A	0x125800	-153600	2cyc16_blend_zpass	R	227081	170306
+A	0x125800	-153600	1cyc16_blend	S	1267	945
+A	0x125800	-153600	1cyc16_blend	L	31015	23256
+A	0x125800	-153600	1cyc16_blend	R	138703	104023
+A	0x125800	-153600	fill16	S	403	297
+A	0x125800	-153600	fill16	L	7795	5841
+A	0x125800	-153600	fill16	R	36965	27718
+A	0x100000	2048	1cyc16_blend_zpass	S	2839	2125
+A	0x100000	2048	1cyc16_zpass	S	2058	1539
+A	0x100000	2048	2cyc16_blend_zpass	S	2839	2119
+A	0x100000	2048	1cyc16_blend	S	1267	945
+A	0x100000	2048	fill16	S	403	297
+A	0x100000	4096	1cyc16_blend_zpass	S	2839	2125
+A	0x100000	4096	1cyc16_zpass	S	2058	1539
+A	0x100000	4096	2cyc16_blend_zpass	S	2827	2115
+A	0x100000	4096	1cyc16_blend	S	1267	945
+A	0x100000	4096	fill16	S	403	297
+A	0x100000	8192	1cyc16_blend_zpass	S	2839	2125
+A	0x100000	8192	1cyc16_zpass	S	2058	1539
+A	0x100000	8192	2cyc16_blend_zpass	S	2827	2115
+A	0x100000	8192	1cyc16_blend	S	1267	945
+A	0x100000	8192	fill16	S	403	297
+A	0x100000	16384	1cyc16_blend_zpass	S	2839	2125
+A	0x100000	16384	1cyc16_zpass	S	2058	1539
+A	0x100000	16384	2cyc16_blend_zpass	S	2827	2115
+A	0x100000	16384	1cyc16_blend	S	1267	945
+A	0x100000	16384	fill16	S	403	297
+A	0x100000	32768	1cyc16_blend_zpass	S	2839	2125
+A	0x100000	32768	1cyc16_zpass	S	2058	1539
+A	0x100000	32768	2cyc16_blend_zpass	S	2827	2115
+A	0x100000	32768	1cyc16_blend	S	1267	945
+A	0x100000	32768	fill16	S	403	297
+A	0x100000	65536	1cyc16_blend_zpass	S	2839	2125
+A	0x100000	65536	1cyc16_zpass	S	2058	1539
+A	0x100000	65536	2cyc16_blend_zpass	S	2827	2115
+A	0x100000	65536	1cyc16_blend	S	1267	945
+A	0x100000	65536	fill16	S	403	297
+A	0x100000	131072	1cyc16_blend_zpass	S	2839	2125
+A	0x100000	131072	1cyc16_zpass	S	2058	1539
+A	0x100000	131072	2cyc16_blend_zpass	S	2827	2115
+A	0x100000	131072	1cyc16_blend	S	1267	945
+A	0x100000	131072	fill16	S	403	297
+A	0x100000	262144	1cyc16_blend_zpass	S	2166	1620
+A	0x100000	262144	1cyc16_blend_zpass	L	57126	42840
+A	0x100000	262144	1cyc16_blend_zpass	R	237365	177993
+A	0x100000	262144	1cyc16_zpass	S	1674	1251
+A	0x100000	262144	1cyc16_zpass	L	43326	32490
+A	0x100000	262144	1cyc16_zpass	R	188733	141544
+A	0x100000	262144	2cyc16_blend_zpass	S	2094	1566
+A	0x100000	262144	2cyc16_blend_zpass	L	55814	41831
+A	0x100000	262144	2cyc16_blend_zpass	R	225530	169117
+A	0x100000	262144	1cyc16_blend	S	1267	946
+A	0x100000	262144	1cyc16_blend	L	31063	23290
+A	0x100000	262144	1cyc16_blend	R	138722	104011
+A	0x100000	262144	fill16	S	403	297
+A	0x100000	262144	fill16	L	7795	5841
+A	0x100000	262144	fill16	R	37005	27727
+A	0x100000	524288	1cyc16_blend_zpass	S	2166	1620
+A	0x100000	524288	1cyc16_blend_zpass	L	57042	42777
+A	0x100000	524288	1cyc16_blend_zpass	R	237878	178378
+A	0x100000	524288	1cyc16_zpass	S	1674	1251
+A	0x100000	524288	1cyc16_zpass	L	43302	32472
+A	0x100000	524288	1cyc16_zpass	R	188526	141390
+A	0x100000	524288	2cyc16_blend_zpass	S	2094	1566
+A	0x100000	524288	2cyc16_blend_zpass	L	55854	41886
+A	0x100000	524288	2cyc16_blend_zpass	R	226154	169586
+A	0x100000	524288	1cyc16_blend	S	1267	945
+A	0x100000	524288	1cyc16_blend	L	31039	23275
+A	0x100000	524288	1cyc16_blend	R	138547	103905
+A	0x100000	524288	fill16	S	403	297
+A	0x100000	524288	fill16	L	7795	5841
+A	0x100000	524288	fill16	R	37017	27736
+A	0x100000	1048576	1cyc16_blend_zpass	S	2166	1620
+A	0x100000	1048576	1cyc16_blend_zpass	L	57067	42795
+A	0x100000	1048576	1cyc16_blend_zpass	R	237717	178258
+A	0x100000	1048576	1cyc16_zpass	S	1675	1251
+A	0x100000	1048576	1cyc16_zpass	L	43315	32481
+A	0x100000	1048576	1cyc16_zpass	R	188647	141480
+A	0x100000	1048576	2cyc16_blend_zpass	S	2095	1567
+A	0x100000	1048576	2cyc16_blend_zpass	L	55743	41776
+A	0x100000	1048576	2cyc16_blend_zpass	R	225535	169092
+A	0x100000	1048576	1cyc16_blend	S	1267	945
+A	0x100000	1048576	1cyc16_blend	L	31027	23265
+A	0x100000	1048576	1cyc16_blend	R	138631	103969
+A	0x100000	1048576	fill16	S	403	297
+A	0x100000	1048576	fill16	L	7795	5841
+A	0x100000	1048576	fill16	R	37006	27728
+# S lines: mode, w, h, sequence after every primitive, primitives, clock, ticks
+#   f3dex2_texture_change = Set_Texture_Image, Set_Tile 7, Sync_Load, Load_Block 8x8, Sync_Pipe, Set_Tile 0, Set_Tile_Size, Set_Other_Modes, Set_Combine
+S	1cyc16	4	1	none	26	738	549
+S	1cyc16	4	1	sync_pipe+set_other_modes	26	2094	1566
+S	1cyc16	4	1	sync_pipe	26	2034	1521
+S	1cyc16	4	1	sync_load+set_image+set_tile+load_block_128B	26	3354	2511
+S	1cyc16	4	1	sync_tile+set_tile	26	1626	1215
+S	1cyc16	4	1	f3dex2_texture_change	26	4747	3556
+S	1cyc16	4	8	none	26	3606	2700
+S	1cyc16	4	8	sync_pipe+set_other_modes	26	4926	3690
+S	1cyc16	4	8	sync_pipe	26	4891	3664
+S	1cyc16	4	8	sync_load+set_image+set_tile+load_block_128B	26	6259	4689
+S	1cyc16	4	8	sync_tile+set_tile	26	4518	3384
+S	1cyc16	4	8	f3dex2_texture_change	26	7651	5734
+S	1cyc16	4	40	none	5	3366	2520
+S	1cyc16	4	40	sync_pipe+set_other_modes	5	3618	2709
+S	1cyc16	4	40	sync_pipe	5	3606	2700
+S	1cyc16	4	40	sync_load+set_image+set_tile+load_block_128B	5	3858	2889
+S	1cyc16	4	40	sync_tile+set_tile	5	3534	2646
+S	1cyc16	4	40	f3dex2_texture_change	5	4146	3105
+S	1cyc16	16	1	none	26	1302	972
+S	1cyc16	16	1	sync_pipe+set_other_modes	26	2622	1962
+S	1cyc16	16	1	sync_pipe	26	2598	1944
+S	1cyc16	16	1	sync_load+set_image+set_tile+load_block_128B	26	4026	3015
+S	1cyc16	16	1	sync_tile+set_tile	26	2191	1639
+S	1cyc16	16	1	f3dex2_texture_change	26	5311	3979
+S	1cyc16	16	8	none	26	6403	4798
+S	1cyc16	16	8	sync_pipe+set_other_modes	26	7746	5805
+S	1cyc16	16	8	sync_pipe	26	7722	5787
+S	1cyc16	16	8	sync_load+set_image+set_tile+load_block_128B	26	9174	6876
+S	1cyc16	16	8	sync_tile+set_tile	26	7314	5481
+S	1cyc16	16	8	f3dex2_texture_change	26	10518	7884
+S	1cyc16	16	40	none	5	5826	4365
+S	1cyc16	16	40	sync_pipe+set_other_modes	5	6066	4545
+S	1cyc16	16	40	sync_pipe	5	6066	4545
+S	1cyc16	16	40	sync_load+set_image+set_tile+load_block_128B	5	6318	4734
+S	1cyc16	16	40	sync_tile+set_tile	5	5982	4482
+S	1cyc16	16	40	f3dex2_texture_change	5	6595	4942
+S	1cyc16	64	1	none	26	2455	1837
+S	1cyc16	64	1	sync_pipe+set_other_modes	26	3774	2826
+S	1cyc16	64	1	sync_pipe	26	3787	2836
+S	1cyc16	64	1	sync_load+set_image+set_tile+load_block_128B	26	5190	3885
+S	1cyc16	64	1	sync_tile+set_tile	26	3366	2520
+S	1cyc16	64	1	f3dex2_texture_change	26	6510	4878
+S	1cyc16	64	8	none	26	16111	12079
+S	1cyc16	64	8	sync_pipe+set_other_modes	26	17430	13068
+S	1cyc16	64	8	sync_pipe	26	17442	13077
+S	1cyc16	64	8	sync_load+set_image+set_tile+load_block_128B	26	18775	14077
+S	1cyc16	64	8	sync_tile+set_tile	26	16999	12744
+S	1cyc16	64	8	f3dex2_texture_change	26	20167	15120
+S	1cyc16	64	40	none	5	15162	11367
+S	1cyc16	64	40	sync_pipe+set_other_modes	5	15390	11538
+S	1cyc16	64	40	sync_pipe	5	15414	11556
+S	1cyc16	64	40	sync_load+set_image+set_tile+load_block_128B	5	15666	11745
+S	1cyc16	64	40	sync_tile+set_tile	5	15318	11484
+S	1cyc16	64	40	f3dex2_texture_change	5	15895	11917
+S	1cyc16	320	1	none	26	9198	6894
+S	1cyc16	320	1	sync_pipe+set_other_modes	26	10507	7875
+S	1cyc16	320	1	sync_pipe	26	10435	7822
+S	1cyc16	320	1	sync_load+set_image+set_tile+load_block_128B	26	11910	8928
+S	1cyc16	320	1	sync_tile+set_tile	26	10099	7569
+S	1cyc16	320	1	f3dex2_texture_change	26	13266	9945
+S	1cyc16	320	8	none	26	69987	52458
+S	1cyc16	320	8	sync_pipe+set_other_modes	26	71319	53457
+S	1cyc16	320	8	sync_pipe	26	71294	53439
+S	1cyc16	320	8	sync_load+set_image+set_tile+load_block_128B	26	72686	54482
+S	1cyc16	320	8	sync_tile+set_tile	26	70947	53178
+S	1cyc16	320	8	f3dex2_texture_change	26	74128	55564
+S	1cyc16	320	40	none	5	66963	50190
+S	1cyc16	320	40	sync_pipe+set_other_modes	5	67239	50397
+S	1cyc16	320	40	sync_pipe	5	67238	50396
+S	1cyc16	320	40	sync_load+set_image+set_tile+load_block_128B	5	67455	50559
+S	1cyc16	320	40	sync_tile+set_tile	5	67155	50334
+S	1cyc16	320	40	f3dex2_texture_change	5	67743	50775
+S	1cyc16_blend_zpass	4	1	none	26	2227	1665
+S	1cyc16_blend_zpass	4	1	sync_pipe+set_other_modes	26	3030	2268
+S	1cyc16_blend_zpass	4	1	sync_pipe	26	3042	2277
+S	1cyc16_blend_zpass	4	1	sync_load+set_image+set_tile+load_block_128B	26	4567	3420
+S	1cyc16_blend_zpass	4	1	sync_tile+set_tile	26	2658	1989
+S	1cyc16_blend_zpass	4	1	f3dex2_texture_change	26	5837	4376
+S	1cyc16_blend_zpass	4	8	none	26	16866	12645
+S	1cyc16_blend_zpass	4	8	sync_pipe+set_other_modes	26	17430	13068
+S	1cyc16_blend_zpass	4	8	sync_pipe	26	17311	12979
+S	1cyc16_blend_zpass	4	8	sync_load+set_image+set_tile+load_block_128B	26	19003	14247
+S	1cyc16_blend_zpass	4	8	sync_tile+set_tile	26	16999	12745
+S	1cyc16_blend_zpass	4	8	f3dex2_texture_change	26	20358	15264
+S	1cyc16_blend_zpass	4	40	none	5	16482	12357
+S	1cyc16_blend_zpass	4	40	sync_pipe+set_other_modes	5	16542	12403
+S	1cyc16_blend_zpass	4	40	sync_pipe	5	16578	12429
+S	1cyc16_blend_zpass	4	40	sync_load+set_image+set_tile+load_block_128B	5	16831	12618
+S	1cyc16_blend_zpass	4	40	sync_tile+set_tile	5	16495	12367
+S	1cyc16_blend_zpass	4	40	f3dex2_texture_change	5	17119	12835
+S	1cyc16_blend_zpass	16	1	none	26	3078	2304
+S	1cyc16_blend_zpass	16	1	sync_pipe+set_other_modes	26	4062	3042
+S	1cyc16_blend_zpass	16	1	sync_pipe	26	4062	3042
+S	1cyc16_blend_zpass	16	1	sync_load+set_image+set_tile+load_block_128B	26	5454	4086
+S	1cyc16_blend_zpass	16	1	sync_tile+set_tile	26	3594	2691
+S	1cyc16_blend_zpass	16	1	f3dex2_texture_change	26	6930	5193
+S	1cyc16_blend_zpass	16	8	none	26	22098	16569
+S	1cyc16_blend_zpass	16	8	sync_pipe+set_other_modes	26	22971	17198
+S	1cyc16_blend_zpass	16	8	sync_pipe	26	22831	17119
+S	1cyc16_blend_zpass	16	8	sync_load+set_image+set_tile+load_block_128B	26	24426	18296
+S	1cyc16_blend_zpass	16	8	sync_tile+set_tile	26	22614	16956
+S	1cyc16_blend_zpass	16	8	f3dex2_texture_change	26	25837	19345
+S	1cyc16_blend_zpass	16	40	none	5	21258	15939
+S	1cyc16_blend_zpass	16	40	sync_pipe+set_other_modes	5	21438	16074
+S	1cyc16_blend_zpass	16	40	sync_pipe	5	21475	16101
+S	1cyc16_blend_zpass	16	40	sync_load+set_image+set_tile+load_block_128B	5	21823	16363
+S	1cyc16_blend_zpass	16	40	sync_tile+set_tile	5	21426	16065
+S	1cyc16_blend_zpass	16	40	f3dex2_texture_change	5	22075	16552
+S	1cyc16_blend_zpass	64	1	none	26	7578	5679
+S	1cyc16_blend_zpass	64	1	sync_pipe+set_other_modes	26	8418	6309
+S	1cyc16_blend_zpass	64	1	sync_pipe	26	8407	6301
+S	1cyc16_blend_zpass	64	1	sync_load+set_image+set_tile+load_block_128B	26	9751	7308
+S	1cyc16_blend_zpass	64	1	sync_tile+set_tile	26	7950	5958
+S	1cyc16_blend_zpass	64	1	f3dex2_texture_change	26	11178	8379
+S	1cyc16_blend_zpass	64	8	none	26	60991	45739
+S	1cyc16_blend_zpass	64	8	sync_pipe+set_other_modes	26	61807	46351
+S	1cyc16_blend_zpass	64	8	sync_pipe	26	61842	46377
+S	1cyc16_blend_zpass	64	8	sync_load+set_image+set_tile+load_block_128B	26	63198	47394
+S	1cyc16_blend_zpass	64	8	sync_tile+set_tile	26	61338	45999
+S	1cyc16_blend_zpass	64	8	f3dex2_texture_change	26	64231	48158
+S	1cyc16_blend_zpass	64	40	none	5	58843	44128
+S	1cyc16_blend_zpass	64	40	sync_pipe+set_other_modes	5	58795	44092
+S	1cyc16_blend_zpass	64	40	sync_pipe	5	58890	44163
+S	1cyc16_blend_zpass	64	40	sync_load+set_image+set_tile+load_block_128B	5	59082	44307
+S	1cyc16_blend_zpass	64	40	sync_tile+set_tile	5	58831	44118
+S	1cyc16_blend_zpass	64	40	f3dex2_texture_change	5	59346	44505
+S	1cyc16_blend_zpass	320	1	none	26	31903	23923
+S	1cyc16_blend_zpass	320	1	sync_pipe+set_other_modes	26	32730	24543
+S	1cyc16_blend_zpass	320	1	sync_pipe	26	32706	24525
+S	1cyc16_blend_zpass	320	1	sync_load+set_image+set_tile+load_block_128B	26	34170	25623
+S	1cyc16_blend_zpass	320	1	sync_tile+set_tile	26	32203	24148
+S	1cyc16_blend_zpass	320	1	f3dex2_texture_change	26	35635	26721
+S	1cyc16_blend_zpass	320	8	none	26	250459	187840
+S	1cyc16_blend_zpass	320	8	sync_pipe+set_other_modes	26	251154	188361
+S	1cyc16_blend_zpass	320	8	sync_pipe	26	251095	188316
+S	1cyc16_blend_zpass	320	8	sync_load+set_image+set_tile+load_block_128B	26	252690	189513
+S	1cyc16_blend_zpass	320	8	sync_tile+set_tile	26	250531	187893
+S	1cyc16_blend_zpass	320	8	f3dex2_texture_change	26	254718	191034
+S	1cyc16_blend_zpass	320	40	none	5	239467	179595
+S	1cyc16_blend_zpass	320	40	sync_pipe+set_other_modes	5	239406	179550
+S	1cyc16_blend_zpass	320	40	sync_pipe	5	239669	179748
+S	1cyc16_blend_zpass	320	40	sync_load+set_image+set_tile+load_block_128B	5	239478	179604
+S	1cyc16_blend_zpass	320	40	sync_tile+set_tile	5	239682	179757
+S	1cyc16_blend_zpass	320	40	f3dex2_texture_change	5	240019	180010
+S	fill16	4	1	none	26	714	531
+S	fill16	4	8	none	26	2922	2187
+S	fill16	4	40	none	5	2707	2025
+S	fill16	16	1	none	26	714	531
+S	fill16	16	8	none	26	3690	2763
+S	fill16	16	40	none	5	3546	2655
+S	fill16	64	1	none	26	1146	855
+S	fill16	64	8	none	26	8143	6102
+S	fill16	64	40	none	5	7794	5841
+S	fill16	320	1	none	26	4938	3699
+S	fill16	320	8	none	26	38478	28854
+S	fill16	320	40	none	5	36978	27729
+S	1cyc16_tex	4	1	none	26	738	549
+S	1cyc16_tex	4	1	sync_pipe+set_other_modes	26	2094	1566
+S	1cyc16_tex	4	1	sync_pipe	26	2035	1521
+S	1cyc16_tex	4	1	sync_load+set_image+set_tile+load_block_128B	26	3366	2520
+S	1cyc16_tex	4	1	sync_tile+set_tile	26	1626	1215
+S	1cyc16_tex	4	1	f3dex2_texture_change	26	4795	3591
+S	1cyc16_tex	4	8	none	26	3630	2718
+S	1cyc16_tex	4	8	sync_pipe+set_other_modes	26	4903	3673
+S	1cyc16_tex	4	8	sync_pipe	26	4914	3681
+S	1cyc16_tex	4	8	sync_load+set_image+set_tile+load_block_128B	26	6247	4680
+S	1cyc16_tex	4	8	sync_tile+set_tile	26	4482	3357
+S	1cyc16_tex	4	8	f3dex2_texture_change	26	7830	5868
+S	1cyc16_tex	4	40	none	5	3366	2520
+S	1cyc16_tex	4	40	sync_pipe+set_other_modes	5	3618	2709
+S	1cyc16_tex	4	40	sync_pipe	5	3583	2682
+S	1cyc16_tex	4	40	sync_load+set_image+set_tile+load_block_128B	5	3858	2889
+S	1cyc16_tex	4	40	sync_tile+set_tile	5	3534	2646
+S	1cyc16_tex	4	40	f3dex2_texture_change	5	4158	3114
+S	1cyc16_tex	16	1	none	26	1302	972
+S	1cyc16_tex	16	1	sync_pipe+set_other_modes	26	2622	1962
+S	1cyc16_tex	16	1	sync_pipe	26	2598	1944
+S	1cyc16_tex	16	1	sync_load+set_image+set_tile+load_block_128B	26	4003	2998
+S	1cyc16_tex	16	1	sync_tile+set_tile	26	2191	1638
+S	1cyc16_tex	16	1	f3dex2_texture_change	26	5358	4014
+S	1cyc16_tex	16	8	none	26	6427	4816
+S	1cyc16_tex	16	8	sync_pipe+set_other_modes	26	7711	5778
+S	1cyc16_tex	16	8	sync_pipe	26	7711	5779
+S	1cyc16_tex	16	8	sync_load+set_image+set_tile+load_block_128B	26	9126	6840
+S	1cyc16_tex	16	8	sync_tile+set_tile	26	7303	5472
+S	1cyc16_tex	16	8	f3dex2_texture_change	26	10554	7911
+S	1cyc16_tex	16	40	none	5	5814	4356
+S	1cyc16_tex	16	40	sync_pipe+set_other_modes	5	6030	4518
+S	1cyc16_tex	16	40	sync_pipe	5	6066	4545
+S	1cyc16_tex	16	40	sync_load+set_image+set_tile+load_block_128B	5	6306	4725
+S	1cyc16_tex	16	40	sync_tile+set_tile	5	5994	4491
+S	1cyc16_tex	16	40	f3dex2_texture_change	5	6654	4986
+S	1cyc16_tex	64	1	none	26	2479	1855
+S	1cyc16_tex	64	1	sync_pipe+set_other_modes	26	3750	2808
+S	1cyc16_tex	64	1	sync_pipe	26	3774	2826
+S	1cyc16_tex	64	1	sync_load+set_image+set_tile+load_block_128B	26	5106	3825
+S	1cyc16_tex	64	1	sync_tile+set_tile	26	3390	2538
+S	1cyc16_tex	64	1	f3dex2_texture_change	26	6667	4995
+S	1cyc16_tex	64	8	none	26	16111	12079
+S	1cyc16_tex	64	8	sync_pipe+set_other_modes	26	17418	13059
+S	1cyc16_tex	64	8	sync_pipe	26	17430	13068
+S	1cyc16_tex	64	8	sync_load+set_image+set_tile+load_block_128B	26	18750	14058
+S	1cyc16_tex	64	8	sync_tile+set_tile	26	16962	12717
+S	1cyc16_tex	64	8	f3dex2_texture_change	26	20274	15201
+S	1cyc16_tex	64	40	none	5	15162	11367
+S	1cyc16_tex	64	40	sync_pipe+set_other_modes	5	15415	11557
+S	1cyc16_tex	64	40	sync_pipe	5	15402	11547
+S	1cyc16_tex	64	40	sync_load+set_image+set_tile+load_block_128B	5	15655	11737
+S	1cyc16_tex	64	40	sync_tile+set_tile	5	15342	11502
+S	1cyc16_tex	64	40	f3dex2_texture_change	5	15894	11916
+S	1cyc16_tex	320	1	none	26	9210	6903
+S	1cyc16_tex	320	1	sync_pipe+set_other_modes	26	10459	7840
+S	1cyc16_tex	320	1	sync_pipe	26	10519	7885
+S	1cyc16_tex	320	1	sync_load+set_image+set_tile+load_block_128B	26	11850	8883
+S	1cyc16_tex	320	1	sync_tile+set_tile	26	10075	7552
+S	1cyc16_tex	320	1	f3dex2_texture_change	26	13350	10008
+S	1cyc16_tex	320	8	none	26	70058	52511
+S	1cyc16_tex	320	8	sync_pipe+set_other_modes	26	71258	53412
+S	1cyc16_tex	320	8	sync_pipe	26	71295	53439
+S	1cyc16_tex	320	8	sync_load+set_image+set_tile+load_block_128B	26	72687	54483
+S	1cyc16_tex	320	8	sync_tile+set_tile	26	70877	53126
+S	1cyc16_tex	320	8	f3dex2_texture_change	26	74236	55645
+S	1cyc16_tex	320	40	none	5	66962	50189
+S	1cyc16_tex	320	40	sync_pipe+set_other_modes	5	67251	50406
+S	1cyc16_tex	320	40	sync_pipe	5	67227	50388
+S	1cyc16_tex	320	40	sync_load+set_image+set_tile+load_block_128B	5	67479	50577
+S	1cyc16_tex	320	40	sync_tile+set_tile	5	67143	50325
+S	1cyc16_tex	320	40	f3dex2_texture_change	5	67767	50794
+S	1cyc16_tex_blend_zpass	4	1	none	26	2227	1666
+S	1cyc16_tex_blend_zpass	4	1	sync_pipe+set_other_modes	26	3019	2260
+S	1cyc16_tex_blend_zpass	4	1	sync_pipe	26	3090	2313
+S	1cyc16_tex_blend_zpass	4	1	sync_load+set_image+set_tile+load_block_128B	26	4483	3358
+S	1cyc16_tex_blend_zpass	4	1	sync_tile+set_tile	26	2683	2008
+S	1cyc16_tex_blend_zpass	4	1	f3dex2_texture_change	26	6126	4590
+S	1cyc16_tex_blend_zpass	4	8	none	26	16891	12664
+S	1cyc16_tex_blend_zpass	4	8	sync_pipe+set_other_modes	26	17359	13014
+S	1cyc16_tex_blend_zpass	4	8	sync_pipe	26	17347	13006
+S	1cyc16_tex_blend_zpass	4	8	sync_load+set_image+set_tile+load_block_128B	26	19002	14247
+S	1cyc16_tex_blend_zpass	4	8	sync_tile+set_tile	26	17047	12780
+S	1cyc16_tex_blend_zpass	4	8	f3dex2_texture_change	26	20574	15426
+S	1cyc16_tex_blend_zpass	4	40	none	5	16470	12348
+S	1cyc16_tex_blend_zpass	4	40	sync_pipe+set_other_modes	5	16555	12412
+S	1cyc16_tex_blend_zpass	4	40	sync_pipe	5	16567	12421
+S	1cyc16_tex_blend_zpass	4	40	sync_load+set_image+set_tile+load_block_128B	5	16854	12636
+S	1cyc16_tex_blend_zpass	4	40	sync_tile+set_tile	5	16470	12348
+S	1cyc16_tex_blend_zpass	4	40	f3dex2_texture_change	5	17095	12816
+S	1cyc16_tex_blend_zpass	16	1	none	26	3055	2286
+S	1cyc16_tex_blend_zpass	16	1	sync_pipe+set_other_modes	26	4098	3069
+S	1cyc16_tex_blend_zpass	16	1	sync_pipe	26	4050	3033
+S	1cyc16_tex_blend_zpass	16	1	sync_load+set_image+set_tile+load_block_128B	26	5550	4158
+S	1cyc16_tex_blend_zpass	16	1	sync_tile+set_tile	26	3630	2718
+S	1cyc16_tex_blend_zpass	16	1	f3dex2_texture_change	26	7099	5320
+S	1cyc16_tex_blend_zpass	16	8	none	26	22194	16640
+S	1cyc16_tex_blend_zpass	16	8	sync_pipe+set_other_modes	26	22903	17172
+S	1cyc16_tex_blend_zpass	16	8	sync_pipe	26	22758	17064
+S	1cyc16_tex_blend_zpass	16	8	sync_load+set_image+set_tile+load_block_128B	26	24463	18343
+S	1cyc16_tex_blend_zpass	16	8	sync_tile+set_tile	26	22579	16930
+S	1cyc16_tex_blend_zpass	16	8	f3dex2_texture_change	26	25855	19387
+S	1cyc16_tex_blend_zpass	16	40	none	5	21283	15957
+S	1cyc16_tex_blend_zpass	16	40	sync_pipe+set_other_modes	5	21581	16182
+S	1cyc16_tex_blend_zpass	16	40	sync_pipe	5	21582	16182
+S	1cyc16_tex_blend_zpass	16	40	sync_load+set_image+set_tile+load_block_128B	5	21810	16353
+S	1cyc16_tex_blend_zpass	16	40	sync_tile+set_tile	5	21463	16092
+S	1cyc16_tex_blend_zpass	16	40	f3dex2_texture_change	5	22087	16560
+S	1cyc16_tex_blend_zpass	64	1	none	26	7579	5680
+S	1cyc16_tex_blend_zpass	64	1	sync_pipe+set_other_modes	26	8407	6300
+S	1cyc16_tex_blend_zpass	64	1	sync_pipe	26	8407	6300
+S	1cyc16_tex_blend_zpass	64	1	sync_load+set_image+set_tile+load_block_128B	26	9822	7362
+S	1cyc16_tex_blend_zpass	64	1	sync_tile+set_tile	26	7998	5994
+S	1cyc16_tex_blend_zpass	64	1	f3dex2_texture_change	26	11358	8514
+S	1cyc16_tex_blend_zpass	64	8	none	26	61038	45774
+S	1cyc16_tex_blend_zpass	64	8	sync_pipe+set_other_modes	26	61794	46341
+S	1cyc16_tex_blend_zpass	64	8	sync_pipe	26	61746	46305
+S	1cyc16_tex_blend_zpass	64	8	sync_load+set_image+set_tile+load_block_128B	26	63258	47439
+S	1cyc16_tex_blend_zpass	64	8	sync_tile+set_tile	26	61422	46062
+S	1cyc16_tex_blend_zpass	64	8	f3dex2_texture_change	26	64458	48339
+S	1cyc16_tex_blend_zpass	64	40	none	5	58782	44082
+S	1cyc16_tex_blend_zpass	64	40	sync_pipe+set_other_modes	5	58831	44118
+S	1cyc16_tex_blend_zpass	64	40	sync_pipe	5	59030	44226
+S	1cyc16_tex_blend_zpass	64	40	sync_load+set_image+set_tile+load_block_128B	5	58867	44145
+S	1cyc16_tex_blend_zpass	64	40	sync_tile+set_tile	5	58962	44199
+S	1cyc16_tex_blend_zpass	64	40	f3dex2_texture_change	5	59358	44514
+S	1cyc16_tex_blend_zpass	320	1	none	26	31807	23850
+S	1cyc16_tex_blend_zpass	320	1	sync_pipe+set_other_modes	26	32730	24543
+S	1cyc16_tex_blend_zpass	320	1	sync_pipe	26	32658	24489
+S	1cyc16_tex_blend_zpass	320	1	sync_load+set_image+set_tile+load_block_128B	26	34278	25704
+S	1cyc16_tex_blend_zpass	320	1	sync_tile+set_tile	26	32214	24156
+S	1cyc16_tex_blend_zpass	320	1	f3dex2_texture_change	26	35815	26856
+S	1cyc16_tex_blend_zpass	320	8	none	26	250255	187686
+S	1cyc16_tex_blend_zpass	320	8	sync_pipe+set_other_modes	26	251238	188424
+S	1cyc16_tex_blend_zpass	320	8	sync_pipe	26	251394	188541
+S	1cyc16_tex_blend_zpass	320	8	sync_load+set_image+set_tile+load_block_128B	26	252702	189522
+S	1cyc16_tex_blend_zpass	320	8	sync_tile+set_tile	26	250531	187893
+S	1cyc16_tex_blend_zpass	320	8	f3dex2_texture_change	26	254911	191179
+S	1cyc16_tex_blend_zpass	320	40	none	5	239431	179568
+S	1cyc16_tex_blend_zpass	320	40	sync_pipe+set_other_modes	5	239442	179578
+S	1cyc16_tex_blend_zpass	320	40	sync_pipe	5	239526	179640
+S	1cyc16_tex_blend_zpass	320	40	sync_load+set_image+set_tile+load_block_128B	5	239887	179910
+S	1cyc16_tex_blend_zpass	320	40	sync_tile+set_tile	5	239622	179712
+S	1cyc16_tex_blend_zpass	320	40	f3dex2_texture_change	5	240007	180000
+# B lines: mode, w, command between primitives, clock for 26 rectangles w x 8 (one free row between)
+#   the command is issued once after every rectangle (26 times); compare with 'none'
+B	1cyc16_blend_zpass	4	none	16807	12600
+B	1cyc16_blend_zpass	4	set_other_modes	16855	12637
+B	1cyc16_blend_zpass	4	set_other_modes_alt	16879	12655
+B	1cyc16_blend_zpass	4	set_combine	16855	12636
+B	1cyc16_blend_zpass	4	set_prim_color	16878	12654
+B	1cyc16_blend_zpass	4	set_env_color	16819	12610
+B	1cyc16_blend_zpass	4	set_blend_color	16842	12627
+B	1cyc16_blend_zpass	4	set_fog_color	16783	12582
+B	1cyc16_blend_zpass	4	set_fill_color	16854	12636
+B	1cyc16_blend_zpass	4	set_prim_depth	16820	12609
+B	1cyc16_blend_zpass	4	set_scissor	16843	12628
+B	1cyc16_blend_zpass	4	set_tile	16854	12636
+B	1cyc16_blend_zpass	4	set_tile_size	16854	12636
+B	1cyc16_blend_zpass	4	set_texture_image	16867	12646
+B	1cyc16_blend_zpass	4	set_mask_image	16879	12654
+B	1cyc16_blend_zpass	4	set_color_image	16879	12654
+B	1cyc16_blend_zpass	4	set_convert	14491	10864
+B	1cyc16_blend_zpass	4	set_key_r	14490	10863
+B	1cyc16_blend_zpass	4	sync_pipe	15846	11880
+B	1cyc16_blend_zpass	4	sync_tile	15390	11538
+B	1cyc16_blend_zpass	4	sync_load	15187	11386
+B	1cyc16_blend_zpass	4	sync_pipe+set_other_modes	17347	13005
+B	1cyc16_blend_zpass	4	4x set_color	16962	12718
+B	1cyc16_blend_zpass	4	no_op	16831	12618
+B	1cyc16_blend_zpass	16	none	22014	16506
+B	1cyc16_blend_zpass	16	set_other_modes	22182	16632
+B	1cyc16_blend_zpass	16	set_other_modes_alt	22182	16632
+B	1cyc16_blend_zpass	16	set_combine	22171	16624
+B	1cyc16_blend_zpass	16	set_prim_color	22147	16606
+B	1cyc16_blend_zpass	16	set_env_color	22087	16560
+B	1cyc16_blend_zpass	16	set_blend_color	22134	16596
+B	1cyc16_blend_zpass	16	set_fog_color	22218	16659
+B	1cyc16_blend_zpass	16	set_fill_color	22230	16669
+B	1cyc16_blend_zpass	16	set_prim_depth	22098	16569
+B	1cyc16_blend_zpass	16	set_scissor	22218	16659
+B	1cyc16_blend_zpass	16	set_tile	22087	16561
+B	1cyc16_blend_zpass	16	set_tile_size	22242	16677
+B	1cyc16_blend_zpass	16	set_texture_image	22086	16560
+B	1cyc16_blend_zpass	16	set_mask_image	22147	16605
+B	1cyc16_blend_zpass	16	set_color_image	22158	16614
+B	1cyc16_blend_zpass	16	set_convert	18234	13671
+B	1cyc16_blend_zpass	16	set_key_r	18222	13662
+B	1cyc16_blend_zpass	16	sync_pipe	19266	14445
+B	1cyc16_blend_zpass	16	sync_tile	18954	14192
+B	1cyc16_blend_zpass	16	sync_load	18787	14086
+B	1cyc16_blend_zpass	16	sync_pipe+set_other_modes	22854	17136
+B	1cyc16_blend_zpass	16	4x set_color	22482	16857
+B	1cyc16_blend_zpass	16	no_op	22099	16570
+B	1cyc16_blend_zpass	64	none	61002	45747
+B	1cyc16_blend_zpass	64	set_other_modes	60883	45658
+B	1cyc16_blend_zpass	64	set_other_modes_alt	61015	45757
+B	1cyc16_blend_zpass	64	set_combine	60846	45630
+B	1cyc16_blend_zpass	64	set_prim_color	61014	45756
+B	1cyc16_blend_zpass	64	set_env_color	60907	45676
+B	1cyc16_blend_zpass	64	set_blend_color	61027	45765
+B	1cyc16_blend_zpass	64	set_fog_color	60978	45729
+B	1cyc16_blend_zpass	64	set_fill_color	61038	45774
+B	1cyc16_blend_zpass	64	set_prim_depth	60919	45684
+B	1cyc16_blend_zpass	64	set_scissor	61051	45783
+B	1cyc16_blend_zpass	64	set_tile	60967	45721
+B	1cyc16_blend_zpass	64	set_tile_size	60990	45738
+B	1cyc16_blend_zpass	64	set_texture_image	60978	45729
+B	1cyc16_blend_zpass	64	set_mask_image	60979	45730
+B	1cyc16_blend_zpass	64	set_color_image	60859	45640
+B	1cyc16_blend_zpass	64	set_convert	48487	36360
+B	1cyc16_blend_zpass	64	set_key_r	48439	36325
+B	1cyc16_blend_zpass	64	sync_pipe	49663	37243
+B	1cyc16_blend_zpass	64	sync_tile	49243	36927
+B	1cyc16_blend_zpass	64	sync_load	49123	36838
+B	1cyc16_blend_zpass	64	sync_pipe+set_other_modes	61373	45998
+B	1cyc16_blend_zpass	64	4x set_color	61123	45837
+B	1cyc16_blend_zpass	64	no_op	60931	45694
+B	1cyc16	4	none	3618	2709
+B	1cyc16	4	set_other_modes	3678	2754
+B	1cyc16	4	set_other_modes_alt	3679	2754
+B	1cyc16	4	set_combine	3678	2754
+B	1cyc16	4	set_prim_color	3654	2736
+B	1cyc16	4	set_env_color	3666	2745
+B	1cyc16	4	set_blend_color	3631	2718
+B	1cyc16	4	set_fog_color	3630	2718
+B	1cyc16	4	set_fill_color	3630	2718
+B	1cyc16	4	set_prim_depth	3631	2719
+B	1cyc16	4	set_scissor	3630	2718
+B	1cyc16	4	set_tile	3654	2736
+B	1cyc16	4	set_tile_size	3630	2718
+B	1cyc16	4	set_texture_image	3630	2718
+B	1cyc16	4	set_mask_image	3630	2718
+B	1cyc16	4	set_color_image	3630	2718
+B	1cyc16	4	set_convert	13322	9959
+B	1cyc16	4	set_key_r	13578	10179
+B	1cyc16	4	sync_pipe	14851	11134
+B	1cyc16	4	sync_tile	14430	10818
+B	1cyc16	4	sync_load	14167	10620
+B	1cyc16	4	sync_pipe+set_other_modes	4974	3726
+B	1cyc16	4	4x set_color	3822	2862
+B	1cyc16	4	no_op	3666	2745
+B	1cyc16	16	none	6415	4807
+B	1cyc16	16	set_other_modes	6463	4839
+B	1cyc16	16	set_other_modes_alt	6451	4833
+B	1cyc16	16	set_combine	6451	4833
+B	1cyc16	16	set_prim_color	6427	4815
+B	1cyc16	16	set_env_color	6415	4807
+B	1cyc16	16	set_blend_color	6427	4815
+B	1cyc16	16	set_fog_color	6427	4816
+B	1cyc16	16	set_fill_color	6463	4842
+B	1cyc16	16	set_prim_depth	6415	4807
+B	1cyc16	16	set_scissor	6403	4797
+B	1cyc16	16	set_tile	6427	4815
+B	1cyc16	16	set_tile_size	6415	4806
+B	1cyc16	16	set_texture_image	6427	4815
+B	1cyc16	16	set_mask_image	6427	4815
+B	1cyc16	16	set_color_image	6415	4806
+B	1cyc16	16	set_convert	16898	12642
+B	1cyc16	16	set_key_r	17215	12907
+B	1cyc16	16	sync_pipe	18319	13735
+B	1cyc16	16	sync_tile	17899	13419
+B	1cyc16	16	sync_load	17683	13258
+B	1cyc16	16	sync_pipe+set_other_modes	7759	5814
+B	1cyc16	16	4x set_color	6583	4933
+B	1cyc16	16	no_op	6427	4815
+B	1cyc16	64	none	16111	12078
+B	1cyc16	64	set_other_modes	16111	12078
+B	1cyc16	64	set_other_modes_alt	16111	12079
+B	1cyc16	64	set_combine	16111	12079
+B	1cyc16	64	set_prim_color	16111	12078
+B	1cyc16	64	set_env_color	16111	12078
+B	1cyc16	64	set_blend_color	16099	12069
+B	1cyc16	64	set_fog_color	16099	12069
+B	1cyc16	64	set_fill_color	16099	12069
+B	1cyc16	64	set_prim_depth	16111	12079
+B	1cyc16	64	set_scissor	16111	12078
+B	1cyc16	64	set_tile	16111	12079
+B	1cyc16	64	set_tile_size	16111	12078
+B	1cyc16	64	set_texture_image	16099	12070
+B	1cyc16	64	set_mask_image	16099	12070
+B	1cyc16	64	set_color_image	16099	12069
+B	1cyc16	64	set_convert	44450	33305
+B	1cyc16	64	set_key_r	45569	34145
+B	1cyc16	64	sync_pipe	46709	35000
+B	1cyc16	64	sync_tile	46301	34694
+B	1cyc16	64	sync_load	46077	34526
+B	1cyc16	64	sync_pipe+set_other_modes	17443	13078
+B	1cyc16	64	4x set_color	16291	12214
+B	1cyc16	64	no_op	16123	12087
+B	1cyc16_tex_blend_zpass	4	none	16879	12655
+B	1cyc16_tex_blend_zpass	4	set_other_modes	16878	12654
+B	1cyc16_tex_blend_zpass	4	set_other_modes_alt	16914	12681
+B	1cyc16_tex_blend_zpass	4	set_combine	16866	12645
+B	1cyc16_tex_blend_zpass	4	set_prim_color	16951	12708
+B	1cyc16_tex_blend_zpass	4	set_env_color	16939	12700
+B	1cyc16_tex_blend_zpass	4	set_blend_color	16927	12691
+B	1cyc16_tex_blend_zpass	4	set_fog_color	16854	12636
+B	1cyc16_tex_blend_zpass	4	set_fill_color	16927	12690
+B	1cyc16_tex_blend_zpass	4	set_prim_depth	16866	12645
+B	1cyc16_tex_blend_zpass	4	set_scissor	16927	12690
+B	1cyc16_tex_blend_zpass	4	set_tile	16890	12663
+B	1cyc16_tex_blend_zpass	4	set_tile_size	16927	12691
+B	1cyc16_tex_blend_zpass	4	set_texture_image	16939	12699
+B	1cyc16_tex_blend_zpass	4	set_mask_image	16904	12673
+B	1cyc16_tex_blend_zpass	4	set_color_image	16902	12672
+B	1cyc16_tex_blend_zpass	4	set_convert	14563	10917
+B	1cyc16_tex_blend_zpass	4	set_key_r	14539	10900
+B	1cyc16_tex_blend_zpass	4	sync_pipe	15859	11889
+B	1cyc16_tex_blend_zpass	4	sync_tile	15379	11529
+B	1cyc16_tex_blend_zpass	4	sync_load	15151	11359
+B	1cyc16_tex_blend_zpass	4	sync_pipe+set_other_modes	17275	12951
+B	1cyc16_tex_blend_zpass	4	4x set_color	16987	12736
+B	1cyc16_tex_blend_zpass	4	no_op	16938	12699
+B	1cyc16_tex_blend_zpass	16	none	22098	16569
+B	1cyc16_tex_blend_zpass	16	set_other_modes	22293	16714
+B	1cyc16_tex_blend_zpass	16	set_other_modes_alt	22219	16659
+B	1cyc16_tex_blend_zpass	16	set_combine	22314	16730
+B	1cyc16_tex_blend_zpass	16	set_prim_color	22242	16677
+B	1cyc16_tex_blend_zpass	16	set_env_color	22135	16597
+B	1cyc16_tex_blend_zpass	16	set_blend_color	22219	16660
+B	1cyc16_tex_blend_zpass	16	set_fog_color	22288	16684
+B	1cyc16_tex_blend_zpass	16	set_fill_color	22195	16642
+B	1cyc16_tex_blend_zpass	16	set_prim_depth	22111	16579
+B	1cyc16_tex_blend_zpass	16	set_scissor	22291	16714
+B	1cyc16_tex_blend_zpass	16	set_tile	22218	16659
+B	1cyc16_tex_blend_zpass	16	set_tile_size	22290	16713
+B	1cyc16_tex_blend_zpass	16	set_texture_image	22134	16596
+B	1cyc16_tex_blend_zpass	16	set_mask_image	22219	16660
+B	1cyc16_tex_blend_zpass	16	set_color_image	22219	16659
+B	1cyc16_tex_blend_zpass	16	set_convert	18294	13716
+B	1cyc16_tex_blend_zpass	16	set_key_r	18234	13671
+B	1cyc16_tex_blend_zpass	16	sync_pipe	19278	14454
+B	1cyc16_tex_blend_zpass	16	sync_tile	18907	14175
+B	1cyc16_tex_blend_zpass	16	sync_load	18787	14085
+B	1cyc16_tex_blend_zpass	16	sync_pipe+set_other_modes	22842	17127
+B	1cyc16_tex_blend_zpass	16	4x set_color	22506	16875
+B	1cyc16_tex_blend_zpass	16	no_op	22194	16641
+B	1cyc16_tex_blend_zpass	64	none	60956	45712
+B	1cyc16_tex_blend_zpass	64	set_other_modes	60967	45720
+B	1cyc16_tex_blend_zpass	64	set_other_modes_alt	61146	45855
+B	1cyc16_tex_blend_zpass	64	set_combine	61027	45766
+B	1cyc16_tex_blend_zpass	64	set_prim_color	61168	45845
+B	1cyc16_tex_blend_zpass	64	set_env_color	60882	45657
+B	1cyc16_tex_blend_zpass	64	set_blend_color	61146	45855
+B	1cyc16_tex_blend_zpass	64	set_fog_color	60930	45693
+B	1cyc16_tex_blend_zpass	64	set_fill_color	61098	45819
+B	1cyc16_tex_blend_zpass	64	set_prim_depth	60907	45675
+B	1cyc16_tex_blend_zpass	64	set_scissor	61099	45819
+B	1cyc16_tex_blend_zpass	64	set_tile	60967	45720
+B	1cyc16_tex_blend_zpass	64	set_tile_size	61074	45801
+B	1cyc16_tex_blend_zpass	64	set_texture_image	61015	45757
+B	1cyc16_tex_blend_zpass	64	set_mask_image	61038	45774
+B	1cyc16_tex_blend_zpass	64	set_color_image	61014	45756
+B	1cyc16_tex_blend_zpass	64	set_convert	48595	36441
+B	1cyc16_tex_blend_zpass	64	set_key_r	48499	36370
+B	1cyc16_tex_blend_zpass	64	sync_pipe	49698	37269
+B	1cyc16_tex_blend_zpass	64	sync_tile	49206	36900
+B	1cyc16_tex_blend_zpass	64	sync_load	49123	36837
+B	1cyc16_tex_blend_zpass	64	sync_pipe+set_other_modes	61421	46034
+B	1cyc16_tex_blend_zpass	64	4x set_color	61147	45856
+B	1cyc16_tex_blend_zpass	64	no_op	60967	45720
+B	fill16	4	none	2922	2187
+B	fill16	4	set_other_modes	2970	2223
+B	fill16	4	set_other_modes_alt	2934	2196
+B	fill16	4	set_combine	2934	2196
+B	fill16	4	set_prim_color	2982	2232
+B	fill16	4	set_env_color	2982	2232
+B	fill16	4	set_blend_color	2982	2232
+B	fill16	4	set_fog_color	2982	2232
+B	fill16	4	set_fill_color	2982	2232
+B	fill16	4	set_prim_depth	2982	2232
+B	fill16	4	set_scissor	2982	2232
+B	fill16	4	set_tile	2982	2232
+B	fill16	4	set_tile_size	2982	2232
+B	fill16	4	set_texture_image	2982	2232
+B	fill16	4	set_mask_image	2982	2232
+B	fill16	4	set_color_image	2982	2232
+B	fill16	4	4x set_color	3114	2331
+B	fill16	4	no_op	2982	2232
+B	fill16	16	none	3642	2727
+B	fill16	16	set_other_modes	3715	2781
+B	fill16	16	set_other_modes_alt	3715	2781
+B	fill16	16	set_combine	3715	2782
+B	fill16	16	set_prim_color	3691	2764
+B	fill16	16	set_env_color	3715	2781
+B	fill16	16	set_blend_color	3715	2781
+B	fill16	16	set_fog_color	3691	2764
+B	fill16	16	set_fill_color	3691	2763
+B	fill16	16	set_prim_depth	3691	2763
+B	fill16	16	set_scissor	3691	2763
+B	fill16	16	set_tile	3715	2781
+B	fill16	16	set_tile_size	3691	2764
+B	fill16	16	set_texture_image	3715	2781
+B	fill16	16	set_mask_image	3667	2745
+B	fill16	16	set_color_image	3666	2745
+B	fill16	16	4x set_color	3823	2862
+B	fill16	16	no_op	3715	2781
+B	fill16	64	none	8131	6093
+B	fill16	64	set_other_modes	8167	6120
+B	fill16	64	set_other_modes_alt	8167	6120
+B	fill16	64	set_combine	8167	6120
+B	fill16	64	set_prim_color	8167	6120
+B	fill16	64	set_env_color	8167	6120
+B	fill16	64	set_blend_color	8167	6120
+B	fill16	64	set_fog_color	8167	6120
+B	fill16	64	set_fill_color	8167	6120
+B	fill16	64	set_prim_depth	8155	6112
+B	fill16	64	set_scissor	8167	6120
+B	fill16	64	set_tile	8167	6120
+B	fill16	64	set_tile_size	8167	6120
+B	fill16	64	set_texture_image	8167	6120
+B	fill16	64	set_mask_image	8167	6120
+B	fill16	64	set_color_image	8167	6120
+B	fill16	64	4x set_color	8251	6183
+B	fill16	64	no_op	8167	6120
+# BT lines: mode, command between primitives, clock for 26 triangles (legs 16x8)
+BT	1cyc16_blend_zpass	none	17934	13446
+BT	1cyc16_blend_zpass	set_other_modes	17911	13429
+BT	1cyc16_blend_zpass	set_combine	17959	13464
+BT	1cyc16_blend_zpass	set_prim_color	17899	13420
+BT	1cyc16_blend_zpass	sync_pipe	18390	13788
+BT	1cyc16_blend_zpass	sync_pipe+set_other_modes	18427	13815
+BT	1cyc16_blend_zpass	4x set_color	18031	13519
+BT	1cyc16	none	4867	3645
+BT	1cyc16	set_other_modes	4915	3681
+BT	1cyc16	set_combine	4915	3681
+BT	1cyc16	set_prim_color	4915	3681
+BT	1cyc16	sync_pipe	6199	4645
+BT	1cyc16	sync_pipe+set_other_modes	6163	4617
+BT	1cyc16	4x set_color	5035	3772
+# E lines: mode, w, layout(stacked|scattered|columns), clock for 64 rectangles w x 8
+#   scattered: pseudo-random positions over the 320x240 image; columns: same rows, x advancing by w
+E	1cyc16_blend_zpass	4	stacked	32227	24165
+E	1cyc16_blend_zpass	4	scattered	45906	34425
+E	1cyc16_blend_zpass	4	columns	44226	33165
+E	1cyc16_blend_zpass	16	stacked	44370	33273
+E	1cyc16_blend_zpass	16	scattered	65933	49418
+E	1cyc16_blend_zpass	16	columns	65166	48870
+E	1cyc16_blend_zpass	64	stacked	116838	87624
+E	1cyc16_blend_zpass	64	scattered	144067	108046
+E	1cyc16_blend_zpass	64	columns	149981	112454
+E	1cyc16	4	stacked	8730	6543
+E	1cyc16	4	scattered	9895	7417
+E	1cyc16	4	columns	9450	7083
+E	1cyc16	16	stacked	15642	11727
+E	1cyc16	16	scattered	15294	11466
+E	1cyc16	16	columns	15090	11313
+E	1cyc16	64	stacked	39510	29628
+E	1cyc16	64	scattered	38778	29079
+E	1cyc16	64	columns	38682	29007
+E	1cyc16_tex_blend_zpass	4	stacked	32226	24165
+E	1cyc16_tex_blend_zpass	4	scattered	46002	34497
+E	1cyc16_tex_blend_zpass	4	columns	44371	33263
+E	1cyc16_tex_blend_zpass	16	stacked	44582	33406
+E	1cyc16_tex_blend_zpass	16	scattered	65887	49410
+E	1cyc16_tex_blend_zpass	16	columns	65383	49033
+E	1cyc16_tex_blend_zpass	64	stacked	116813	87575
+E	1cyc16_tex_blend_zpass	64	scattered	144307	108226
+E	1cyc16_tex_blend_zpass	64	columns	149886	112410
+# C lines: mode, prim(rect|tri), prim size, load texels, pattern, repetitions, clock
+C	1cyc16_tex	rect	4	64	prim_only	32	2358	1764
+C	1cyc16_tex	rect	4	64	load_only	32	4975	3726
+C	1cyc16_tex	rect	4	64	load+prim	32	7446	5580
+C	1cyc16_tex	rect	4	64	load(no sync_pipe)+prim	32	5874	4401
+C	1cyc16_tex	rect	4	64	load_tile+prim	32	12126	9090
+C	1cyc16_tex	rect	4	64	sync_load+sync_pipe+prim	32	4746	3555
+C	1cyc16_tex	rect	16	64	prim_only	14	6643	4977
+C	1cyc16_tex	rect	16	64	load_only	14	2227	1665
+C	1cyc16_tex	rect	16	64	load+prim	14	8851	6634
+C	1cyc16_tex	rect	16	64	load(no sync_pipe)+prim	14	8119	6085
+C	1cyc16_tex	rect	16	64	load_tile+prim	14	10903	8173
+C	1cyc16_tex	rect	16	64	sync_load+sync_pipe+prim	14	7699	5769
+C	1cyc16_tex	rect	4	1024	prim_only	32	2359	1765
+C	1cyc16_tex	rect	4	1024	load_only	32	30450	22833
+C	1cyc16_tex	rect	4	1024	load+prim	32	32946	24703
+C	1cyc16_tex	rect	4	1024	load(no sync_pipe)+prim	32	31398	23544
+C	1cyc16_tex	rect	4	1024	load_tile+prim	32	38874	29149
+C	1cyc16_tex	rect	4	1024	sync_load+sync_pipe+prim	32	4747	3555
+C	1cyc16_tex	rect	16	1024	prim_only	14	6655	4986
+C	1cyc16_tex	rect	16	1024	load_only	14	13411	10053
+C	1cyc16_tex	rect	16	1024	load+prim	14	19987	14986
+C	1cyc16_tex	rect	16	1024	load(no sync_pipe)+prim	14	19315	14482
+C	1cyc16_tex	rect	16	1024	load_tile+prim	14	22615	16957
+C	1cyc16_tex	rect	16	1024	sync_load+sync_pipe+prim	14	7735	5797
+C	1cyc16_tex	tri	4	64	prim_only	32	2478	1854
+C	1cyc16_tex	tri	4	64	load_only	32	4975	3727
+C	1cyc16_tex	tri	4	64	load+prim	32	7458	5589
+C	1cyc16_tex	tri	4	64	load(no sync_pipe)+prim	32	5874	4401
+C	1cyc16_tex	tri	4	64	load_tile+prim	32	12138	9099
+C	1cyc16_tex	tri	4	64	sync_load+sync_pipe+prim	32	4771	3574
+C	1cyc16_tex	tri	16	64	prim_only	14	4830	3618
+C	1cyc16_tex	tri	16	64	load_only	14	2227	1665
+C	1cyc16_tex	tri	16	64	load+prim	14	7087	5310
+C	1cyc16_tex	tri	16	64	load(no sync_pipe)+prim	14	6331	4744
+C	1cyc16_tex	tri	16	64	load_tile+prim	14	9079	6805
+C	1cyc16_tex	tri	16	64	sync_load+sync_pipe+prim	14	5839	4375
+C	1cyc16_tex	tri	4	1024	prim_only	32	2478	1854
+C	1cyc16_tex	tri	4	1024	load_only	32	30486	22860
+C	1cyc16_tex	tri	4	1024	load+prim	32	32898	24669
+C	1cyc16_tex	tri	4	1024	load(no sync_pipe)+prim	32	31326	23490
+C	1cyc16_tex	tri	4	1024	load_tile+prim	32	38886	29140
+C	1cyc16_tex	tri	4	1024	sync_load+sync_pipe+prim	32	4746	3555
+C	1cyc16_tex	tri	16	1024	prim_only	14	4830	3618
+C	1cyc16_tex	tri	16	1024	load_only	14	13411	10054
+C	1cyc16_tex	tri	16	1024	load+prim	14	18175	13626
+C	1cyc16_tex	tri	16	1024	load(no sync_pipe)+prim	14	17467	13095
+C	1cyc16_tex	tri	16	1024	load_tile+prim	14	20791	15589
+C	1cyc16_tex	tri	16	1024	sync_load+sync_pipe+prim	14	5839	4374
+C	1cyc16_tex_blend_zpass	rect	4	64	prim_only	32	10326	7740
+C	1cyc16_tex_blend_zpass	rect	4	64	load_only	32	5058	3789
+C	1cyc16_tex_blend_zpass	rect	4	64	load+prim	32	14635	10971
+C	1cyc16_tex_blend_zpass	rect	4	64	load(no sync_pipe)+prim	32	12991	9739
+C	1cyc16_tex_blend_zpass	rect	4	64	load_tile+prim	32	19566	14670
+C	1cyc16_tex_blend_zpass	rect	4	64	sync_load+sync_pipe+prim	32	11707	8775
+C	1cyc16_tex_blend_zpass	rect	16	64	prim_only	14	23863	17893
+C	1cyc16_tex_blend_zpass	rect	16	64	load_only	14	2250	1683
+C	1cyc16_tex_blend_zpass	rect	16	64	load+prim	14	25855	19387
+C	1cyc16_tex_blend_zpass	rect	16	64	load(no sync_pipe)+prim	14	25160	18861
+C	1cyc16_tex_blend_zpass	rect	16	64	load_tile+prim	14	28075	21051
+C	1cyc16_tex_blend_zpass	rect	16	64	sync_load+sync_pipe+prim	14	24774	18573
+C	1cyc16_tex_blend_zpass	rect	4	1024	prim_only	32	10339	7750
+C	1cyc16_tex_blend_zpass	rect	4	1024	load_only	32	31314	23481
+C	1cyc16_tex_blend_zpass	rect	4	1024	load+prim	32	40935	30669
+C	1cyc16_tex_blend_zpass	rect	4	1024	load(no sync_pipe)+prim	32	39354	29511
+C	1cyc16_tex_blend_zpass	rect	4	1024	load_tile+prim	32	46579	34929
+C	1cyc16_tex_blend_zpass	rect	4	1024	sync_load+sync_pipe+prim	32	11598	8694
+C	1cyc16_tex_blend_zpass	rect	16	1024	prim_only	14	23827	17866
+C	1cyc16_tex_blend_zpass	rect	16	1024	load_only	14	13746	10305
+C	1cyc16_tex_blend_zpass	rect	16	1024	load+prim	14	37448	28077
+C	1cyc16_tex_blend_zpass	rect	16	1024	load(no sync_pipe)+prim	14	36691	27513
+C	1cyc16_tex_blend_zpass	rect	16	1024	load_tile+prim	14	39835	29871
+C	1cyc16_tex_blend_zpass	rect	16	1024	sync_load+sync_pipe+prim	14	24745	18527
+C	1cyc16_tex_blend_zpass	tri	4	64	prim_only	32	10315	7731
+C	1cyc16_tex_blend_zpass	tri	4	64	load_only	32	5046	3780
+C	1cyc16_tex_blend_zpass	tri	4	64	load+prim	32	14658	10989
+C	1cyc16_tex_blend_zpass	tri	4	64	load(no sync_pipe)+prim	32	13051	9784
+C	1cyc16_tex_blend_zpass	tri	4	64	load_tile+prim	32	19602	14697
+C	1cyc16_tex_blend_zpass	tri	4	64	sync_load+sync_pipe+prim	32	11599	8690
+C	1cyc16_tex_blend_zpass	tri	16	64	prim_only	14	19219	14409
+C	1cyc16_tex_blend_zpass	tri	16	64	load_only	14	2239	1674
+C	1cyc16_tex_blend_zpass	tri	16	64	load+prim	14	21115	15831
+C	1cyc16_tex_blend_zpass	tri	16	64	load(no sync_pipe)+prim	14	20394	15291
+C	1cyc16_tex_blend_zpass	tri	16	64	load_tile+prim	14	23286	17448
+C	1cyc16_tex_blend_zpass	tri	16	64	sync_load+sync_pipe+prim	14	19818	14859
+C	1cyc16_tex_blend_zpass	tri	4	1024	prim_only	32	10362	7767
+C	1cyc16_tex_blend_zpass	tri	4	1024	load_only	32	31315	23481
+C	1cyc16_tex_blend_zpass	tri	4	1024	load+prim	32	40831	30619
+C	1cyc16_tex_blend_zpass	tri	4	1024	load(no sync_pipe)+prim	32	39379	29530
+C	1cyc16_tex_blend_zpass	tri	4	1024	load_tile+prim	32	46459	34840
+C	1cyc16_tex_blend_zpass	tri	4	1024	sync_load+sync_pipe+prim	32	11671	8748
+C	1cyc16_tex_blend_zpass	tri	16	1024	prim_only	14	19134	14346
+C	1cyc16_tex_blend_zpass	tri	16	1024	load_only	14	13758	10314
+C	1cyc16_tex_blend_zpass	tri	16	1024	load+prim	14	32623	24462
+C	1cyc16_tex_blend_zpass	tri	16	1024	load(no sync_pipe)+prim	14	31915	23931
+C	1cyc16_tex_blend_zpass	tri	16	1024	load_tile+prim	14	35011	26254
+C	1cyc16_tex_blend_zpass	tri	16	1024	sync_load+sync_pipe+prim	14	19819	14860
+# D lines: vi(on|off), list, generator, gap, clock, generator bytes, generator accesses, MB/s (bytes / (clock / 62.5 MHz))
+#   generator runs on the CPU while the RDP executes the list; 'none' is the reference
+D	off	span_1cyc16_blend_zpass_64x40x5	none	0	54913	0	0	0.0
+D	off	span_1cyc16_blend_zpass_64x40x5	uncached_read32	0	65400	8320	2080	8.0
+D	off	span_1cyc16_blend_zpass_64x40x5	uncached_read32	8	63926	6624	1656	6.5
+D	off	span_1cyc16_blend_zpass_64x40x5	uncached_read32	32	60365	4128	1032	4.3
+D	off	span_1cyc16_blend_zpass_64x40x5	uncached_read32	128	57717	1664	416	1.8
+D	off	span_1cyc16_blend_zpass_64x40x5	uncached_write32	0	61859	12800	3200	12.9
+D	off	span_1cyc16_blend_zpass_64x40x5	uncached_write32	32	58980	6400	1600	6.8
+D	off	span_1cyc16_blend_zpass_64x40x5	cached_read(16B lines)	0	65534	32896	2056	31.4
+D	off	span_1cyc16_blend_zpass_64x40x5	cached_read(16B lines)	8	63454	25856	1616	25.5
+D	off	span_1cyc16_blend_zpass_64x40x5	cached_read(16B lines)	32	60432	16384	1024	16.9
+D	off	span_1cyc16_blend_zpass_64x40x5	cached_read(16B lines)	128	55427	7680	480	8.7
+D	off	span_1cyc16_blend_zpass_64x40x5	cached_copy(16B lines)	0	72080	32256	2016	28.0
+D	off	span_1cyc16_blend_zpass_64x40x5	cached_copy(16B lines)	32	66378	17664	1104	16.6
+D	off	span_1cyc16_blend_zpass_64x40x5	sp_dma_4k	0	491394	2854912	697	363.1
+D	off	span_1cyc16_blend_zpass_64x40x5	sp_dma_4k	32	299692	1601536	391	334.0
+D	off	span_1cyc16_blend_zpass_64x40x5	sp_dma_4k	128	180521	819200	200	283.6
+D	on	span_1cyc16_blend_zpass_64x40x5	none	0	58807	0	0	0.0
+D	on	span_1cyc16_blend_zpass_64x40x5	uncached_read32	8	69653	6912	1728	6.2
+D	on	span_1cyc16_blend_zpass_64x40x5	cached_read(16B lines)	8	68284	26624	1664	24.4
+D	on	span_1cyc16_blend_zpass_64x40x5	sp_dma_4k	0	581802	3235840	790	347.6
+D	off	span_1cyc16_blend_zpass_320x40x5	none	0	230364	0	0	0.0
+D	off	span_1cyc16_blend_zpass_320x40x5	uncached_read32	0	281604	36256	9064	8.0
+D	off	span_1cyc16_blend_zpass_320x40x5	uncached_read32	8	272383	28480	7120	6.5
+D	off	span_1cyc16_blend_zpass_320x40x5	uncached_read32	32	255205	17504	4376	4.3
+D	off	span_1cyc16_blend_zpass_320x40x5	uncached_read32	128	240985	6976	1744	1.8
+D	off	span_1cyc16_blend_zpass_320x40x5	uncached_write32	0	254814	53056	13264	13.0
+D	off	span_1cyc16_blend_zpass_320x40x5	uncached_write32	32	242041	26048	6512	6.7
+D	off	span_1cyc16_blend_zpass_320x40x5	cached_read(16B lines)	0	281434	144512	9032	32.1
+D	off	span_1cyc16_blend_zpass_320x40x5	cached_read(16B lines)	8	272176	113280	7080	26.0
+D	off	span_1cyc16_blend_zpass_320x40x5	cached_read(16B lines)	32	254572	69632	4352	17.1
+D	off	span_1cyc16_blend_zpass_320x40x5	cached_read(16B lines)	128	240676	27776	1736	7.2
+D	off	span_1cyc16_blend_zpass_320x40x5	cached_copy(16B lines)	0	306326	102400	6400	20.9
+D	off	span_1cyc16_blend_zpass_320x40x5	cached_copy(16B lines)	32	283996	73728	4608	16.2
+D	off	span_1cyc16_blend_zpass_320x40x5	sp_dma_4k	0	2135439	12402688	3028	363.0
+D	off	span_1cyc16_blend_zpass_320x40x5	sp_dma_4k	32	1255817	6696960	1635	333.3
+D	off	span_1cyc16_blend_zpass_320x40x5	sp_dma_4k	128	751143	3407872	832	283.6
+D	on	span_1cyc16_blend_zpass_320x40x5	none	0	238966	0	0	0.0
+D	on	span_1cyc16_blend_zpass_320x40x5	uncached_read32	8	293953	29984	7496	6.4
+D	on	span_1cyc16_blend_zpass_320x40x5	cached_read(16B lines)	8	292353	118784	7424	25.4
+D	on	span_1cyc16_blend_zpass_320x40x5	sp_dma_4k	0	2485760	13717504	3349	344.9
+D	off	span_1cyc16_blend_zpass_16x8x26	none	0	20879	0	0	0.0
+D	off	span_1cyc16_blend_zpass_16x8x26	uncached_read32	0	24620	3040	760	7.7
+D	off	span_1cyc16_blend_zpass_16x8x26	uncached_read32	8	23770	2400	600	6.3
+D	off	span_1cyc16_blend_zpass_16x8x26	uncached_read32	32	22887	1536	384	4.2
+D	off	span_1cyc16_blend_zpass_16x8x26	uncached_read32	128	22440	640	160	1.8
+D	off	span_1cyc16_blend_zpass_16x8x26	uncached_write32	0	23364	4736	1184	12.7
+D	off	span_1cyc16_blend_zpass_16x8x26	uncached_write32	32	22202	2336	584	6.6
+D	off	span_1cyc16_blend_zpass_16x8x26	cached_read(16B lines)	0	23992	17280	1080	45.0
+D	off	span_1cyc16_blend_zpass_16x8x26	cached_read(16B lines)	8	23072	12416	776	33.6
+D	off	span_1cyc16_blend_zpass_16x8x26	cached_read(16B lines)	32	21904	8960	560	25.6
+D	off	span_1cyc16_blend_zpass_16x8x26	cached_read(16B lines)	128	21101	2944	184	8.7
+D	off	span_1cyc16_blend_zpass_16x8x26	cached_copy(16B lines)	0	25260	8704	544	21.5
+D	off	span_1cyc16_blend_zpass_16x8x26	cached_copy(16B lines)	32	24035	6400	400	16.6
+D	off	span_1cyc16_blend_zpass_16x8x26	sp_dma_4k	0	172497	1003520	245	363.6
+D	off	span_1cyc16_blend_zpass_16x8x26	sp_dma_4k	32	112428	598016	146	332.4
+D	off	span_1cyc16_blend_zpass_16x8x26	sp_dma_4k	128	67734	307200	75	283.5
+D	on	span_1cyc16_blend_zpass_16x8x26	none	0	22089	0	0	0.0
+D	on	span_1cyc16_blend_zpass_16x8x26	uncached_read32	8	25877	2528	632	6.1
+D	on	span_1cyc16_blend_zpass_16x8x26	cached_read(16B lines)	8	25115	13312	832	33.1
+D	on	span_1cyc16_blend_zpass_16x8x26	sp_dma_4k	0	191178	1085440	265	354.9
+D	off	span_1cyc16_64x40x5	none	0	15181	0	0	0.0
+D	off	span_1cyc16_64x40x5	uncached_read32	0	20265	2784	696	8.6
+D	off	span_1cyc16_64x40x5	uncached_read32	8	19307	2144	536	6.9
+D	off	span_1cyc16_64x40x5	uncached_read32	32	17481	1248	312	4.5
+D	off	span_1cyc16_64x40x5	uncached_read32	128	16439	480	120	1.8
+D	off	span_1cyc16_64x40x5	uncached_write32	0	15625	3488	872	14.0
+D	off	span_1cyc16_64x40x5	uncached_write32	32	15577	1696	424	6.8
+D	off	span_1cyc16_64x40x5	cached_read(16B lines)	0	19564	16384	1024	52.3
+D	off	span_1cyc16_64x40x5	cached_read(16B lines)	8	17952	11648	728	40.6
+D	off	span_1cyc16_64x40x5	cached_read(16B lines)	32	15593	7040	440	28.2
+D	off	span_1cyc16_64x40x5	cached_read(16B lines)	128	15646	2176	136	8.7
+D	off	span_1cyc16_64x40x5	cached_copy(16B lines)	0	17929	6400	400	22.3
+D	off	span_1cyc16_64x40x5	cached_copy(16B lines)	32	17839	4864	304	17.0
+D	off	span_1cyc16_64x40x5	sp_dma_4k	0	140984	823296	201	365.0
+D	off	span_1cyc16_64x40x5	sp_dma_4k	32	82049	438272	107	333.8
+D	off	span_1cyc16_64x40x5	sp_dma_4k	128	48821	221184	54	283.2
+D	on	span_1cyc16_64x40x5	none	0	15203	0	0	0.0
+D	on	span_1cyc16_64x40x5	uncached_read32	8	19309	2144	536	6.9
+D	on	span_1cyc16_64x40x5	cached_read(16B lines)	8	17806	12160	760	42.7
+D	on	span_1cyc16_64x40x5	sp_dma_4k	0	151919	864256	211	355.6
+D	off	span_1cyc16_320x40x5	none	0	66903	0	0	0.0
+D	off	span_1cyc16_320x40x5	uncached_read32	0	93203	12896	3224	8.6
+D	off	span_1cyc16_320x40x5	uncached_read32	8	86281	9504	2376	6.9
+D	off	span_1cyc16_320x40x5	uncached_read32	32	78409	5632	1408	4.5
+D	off	span_1cyc16_320x40x5	uncached_read32	128	71905	2112	528	1.8
+D	off	span_1cyc16_320x40x5	uncached_write32	0	67571	14944	3736	13.8
+D	off	span_1cyc16_320x40x5	uncached_write32	32	67363	7328	1832	6.8
+D	off	span_1cyc16_320x40x5	cached_read(16B lines)	0	92613	46848	2928	31.6
+D	off	span_1cyc16_320x40x5	cached_read(16B lines)	8	86874	36864	2304	26.5
+D	off	span_1cyc16_320x40x5	cached_read(16B lines)	32	79174	21888	1368	17.3
+D	off	span_1cyc16_320x40x5	cached_read(16B lines)	128	67746	9216	576	8.5
+D	off	span_1cyc16_320x40x5	cached_copy(16B lines)	0	81438	26368	1648	20.2
+D	off	span_1cyc16_320x40x5	cached_copy(16B lines)	32	77323	19968	1248	16.1
+D	off	span_1cyc16_320x40x5	sp_dma_4k	0	578226	3358720	820	363.0
+D	off	span_1cyc16_320x40x5	sp_dma_4k	32	357328	1908736	466	333.9
+D	off	span_1cyc16_320x40x5	sp_dma_4k	128	217577	987136	241	283.6
+D	on	span_1cyc16_320x40x5	none	0	67102	0	0	0.0
+D	on	span_1cyc16_320x40x5	uncached_read32	8	86517	9472	2368	6.8
+D	on	span_1cyc16_320x40x5	cached_read(16B lines)	8	85301	31360	1960	23.0
+D	on	span_1cyc16_320x40x5	sp_dma_4k	0	720101	4009984	979	348.0
+D	off	span_2cyc16_blend_zpass_64x40x5	none	0	53528	0	0	0.0
+D	off	span_2cyc16_blend_zpass_64x40x5	uncached_read32	0	65375	8320	2080	8.0
+D	off	span_2cyc16_blend_zpass_64x40x5	uncached_read32	8	63523	6560	1640	6.5
+D	off	span_2cyc16_blend_zpass_64x40x5	uncached_read32	32	59749	4064	1016	4.3
+D	off	span_2cyc16_blend_zpass_64x40x5	uncached_read32	128	55680	1600	400	1.8
+D	off	span_2cyc16_blend_zpass_64x40x5	uncached_write32	0	61845	12800	3200	12.9
+D	off	span_2cyc16_blend_zpass_64x40x5	uncached_write32	32	58387	6304	1576	6.7
+D	off	span_2cyc16_blend_zpass_64x40x5	cached_read(16B lines)	0	65097	32640	2040	31.3
+D	off	span_2cyc16_blend_zpass_64x40x5	cached_read(16B lines)	8	63442	25600	1600	25.2
+D	off	span_2cyc16_blend_zpass_64x40x5	cached_read(16B lines)	32	59186	15872	992	16.8
+D	off	span_2cyc16_blend_zpass_64x40x5	cached_read(16B lines)	128	54495	7552	472	8.7
+D	off	span_2cyc16_blend_zpass_64x40x5	cached_copy(16B lines)	0	71528	32256	2016	28.2
+D	off	span_2cyc16_blend_zpass_64x40x5	cached_copy(16B lines)	32	66052	17408	1088	16.5
+D	off	span_2cyc16_blend_zpass_64x40x5	sp_dma_4k	0	476034	2764800	675	363.0
+D	off	span_2cyc16_blend_zpass_64x40x5	sp_dma_4k	32	291044	1552384	379	333.4
+D	off	span_2cyc16_blend_zpass_64x40x5	sp_dma_4k	128	176977	802816	196	283.5
+D	on	span_2cyc16_blend_zpass_64x40x5	none	0	57290	0	0	0.0
+D	on	span_2cyc16_blend_zpass_64x40x5	uncached_read32	8	69871	6944	1736	6.2
+D	on	span_2cyc16_blend_zpass_64x40x5	cached_read(16B lines)	8	67816	26240	1640	24.2
+D	on	span_2cyc16_blend_zpass_64x40x5	sp_dma_4k	0	568433	3153920	770	346.8
+D	off	fill16_320x240	none	0	44331	0	0	0.0
+D	off	fill16_320x240	uncached_read32	0	61947	8576	2144	8.7
+D	off	fill16_320x240	uncached_read32	8	56037	6048	1512	6.7
+D	off	fill16_320x240	uncached_read32	32	51733	3712	928	4.5
+D	off	fill16_320x240	uncached_read32	128	47091	1376	344	1.8
+D	off	fill16_320x240	uncached_write32	0	47943	8608	2152	11.2
+D	off	fill16_320x240	uncached_write32	32	46403	4832	1208	6.5
+D	off	fill16_320x240	cached_read(16B lines)	0	62966	34176	2136	33.9
+D	off	fill16_320x240	cached_read(16B lines)	8	56640	24064	1504	26.6
+D	off	fill16_320x240	cached_read(16B lines)	32	51462	15232	952	18.5
+D	off	fill16_320x240	cached_read(16B lines)	128	45051	6144	384	8.5
+D	off	fill16_320x240	cached_copy(16B lines)	0	64726	28928	1808	27.9
+D	off	fill16_320x240	cached_copy(16B lines)	32	60374	16640	1040	17.2
+D	off	fill16_320x240	sp_dma_4k	0	449246	2617344	639	364.1
+D	off	fill16_320x240	sp_dma_4k	32	248820	1331200	325	334.4
+D	off	fill16_320x240	sp_dma_4k	128	147231	667648	163	283.4
+D	on	fill16_320x240	none	0	44597	0	0	0.0
+D	on	fill16_320x240	uncached_read32	8	56164	6016	1504	6.7
+D	on	fill16_320x240	cached_read(16B lines)	8	59712	24576	1536	25.7
+D	on	fill16_320x240	sp_dma_4k	0	550539	3084288	753	350.1
+D	off	copy16_64x40x5	none	0	8669	0	0	0.0
+D	off	copy16_64x40x5	uncached_read32	0	10700	1440	360	8.4
+D	off	copy16_64x40x5	uncached_read32	8	10165	1088	272	6.7
+D	off	copy16_64x40x5	uncached_read32	32	10047	704	176	4.4
+D	off	copy16_64x40x5	uncached_read32	128	9905	288	72	1.8
+D	off	copy16_64x40x5	uncached_write32	0	9177	1632	408	11.1
+D	off	copy16_64x40x5	uncached_write32	32	8887	928	232	6.5
+D	off	copy16_64x40x5	cached_read(16B lines)	0	10480	10368	648	61.8
+D	off	copy16_64x40x5	cached_read(16B lines)	8	9382	8832	552	58.8
+D	off	copy16_64x40x5	cached_read(16B lines)	32	9057	4096	256	28.3
+D	off	copy16_64x40x5	cached_read(16B lines)	128	9253	1280	80	8.6
+D	off	copy16_64x40x5	cached_copy(16B lines)	0	12101	4352	272	22.5
+D	off	copy16_64x40x5	cached_copy(16B lines)	32	11247	3072	192	17.1
+D	off	copy16_64x40x5	sp_dma_4k	0	78400	458752	112	365.7
+D	off	copy16_64x40x5	sp_dma_4k	32	47660	253952	62	333.0
+D	off	copy16_64x40x5	sp_dma_4k	128	28949	131072	32	283.0
+D	on	copy16_64x40x5	none	0	8669	0	0	0.0
+D	on	copy16_64x40x5	uncached_read32	8	10157	1088	272	6.7
+D	on	copy16_64x40x5	cached_read(16B lines)	8	10439	6784	424	40.6
+D	on	copy16_64x40x5	sp_dma_4k	0	76288	442368	108	362.4
+D	off	load_block_2k_x64	none	0	57443	0	0	0.0
+D	off	load_block_2k_x64	uncached_read32	0	72219	7712	1928	6.7
+D	off	load_block_2k_x64	uncached_read32	8	69571	6304	1576	5.7
+D	off	load_block_2k_x64	uncached_read32	32	65453	4128	1032	3.9
+D	off	load_block_2k_x64	uncached_read32	128	61183	1696	424	1.7
+D	off	load_block_2k_x64	uncached_write32	0	73715	9056	2264	7.7
+D	off	load_block_2k_x64	uncached_write32	32	70367	6848	1712	6.1
+D	off	load_block_2k_x64	cached_read(16B lines)	0	72417	30720	1920	26.5
+D	off	load_block_2k_x64	cached_read(16B lines)	8	69740	25088	1568	22.5
+D	off	load_block_2k_x64	cached_read(16B lines)	32	66140	16512	1032	15.6
+D	off	load_block_2k_x64	cached_read(16B lines)	128	58167	8064	504	8.7
+D	off	load_block_2k_x64	cached_copy(16B lines)	0	84910	38400	2400	28.3
+D	off	load_block_2k_x64	cached_copy(16B lines)	32	76873	22016	1376	17.9
+D	off	load_block_2k_x64	sp_dma_4k	0	651050	3817472	932	366.5
+D	off	load_block_2k_x64	sp_dma_4k	32	324761	1732608	423	333.4
+D	off	load_block_2k_x64	sp_dma_4k	128	189772	860160	210	283.3
+D	on	load_block_2k_x64	none	0	57758	0	0	0.0
+D	on	load_block_2k_x64	uncached_read32	8	69908	6304	1576	5.6
+D	on	load_block_2k_x64	cached_read(16B lines)	8	72914	25344	1584	21.7
+D	on	load_block_2k_x64	sp_dma_4k	0	684459	3833856	936	350.1

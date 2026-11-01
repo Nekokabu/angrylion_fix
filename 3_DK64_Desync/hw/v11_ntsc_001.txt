@@ -1,0 +1,38 @@
+# cpu_timing v11 - VR4300 instruction timing (everything cached, interrupts off)
+# tv_type	NTSC
+# memory_size	8388608
+# lines: test, instructions per iteration (loop overhead of 3 included separately: addiu, bne, nop), ticks for 4096 iterations (smallest of 4), CPU cycles per iteration
+C	alu_dep	11	22564	11.02
+C	load_use	11	30755	15.02
+C	load_nouse	11	22563	11.02
+C	load_chain	7	20516	10.02
+C	store_load	9	26660	13.02
+C	stores	11	36900	18.02
+C	mult	9	34852	17.02
+C	mult_indep	13	43044	21.02
+C	div	7	88099	43.02
+C	dmult	6	26660	13.02
+C	branch_taken	12	24611	12.02
+C	branch_nottaken	12	24609	12.02
+C	branch_likely	12	24608	12.02
+C	jal_jr	9	20515	10.02
+C	call_frame	18	40996	20.02
+C	fadd_dep	7	32804	16.02
+C	fadd_indep	7	30755	15.02
+C	fmul_dep	7	28708	14.02
+C	fmul_indep	7	22563	11.02
+C	fmul_alu_mix	13	30756	15.02
+C	fmul_d_dep	7	28708	14.02
+C	fdiv_s	5	69668	34.02
+C	fsqrt_s	5	127011	62.02
+C	fcvt	7	53284	26.02
+C	mtc1_mfc1	8	16419	8.02
+C	lwc1_swc1	10	43043	21.02
+C	fcmp_branch	13	28707	14.02
+C	normalize3	19	210979	103.02
+C	matvec	17	75812	37.02
+C	fixed_mul	15	53283	26.02
+C	ld_sd_64	10	26660	13.02
+C	lb_lh_mix	12	26659	13.02
+C	mfc0_count	7	18467	9.02
+C	alu_dep_x64_interrupts_on	11	1447235	11.04

@@ -1,0 +1,47 @@
+== A ()
+seg0: hw frames 225 VI 463 | ares frames 251 VI 466
+   blocks hw :  46  56  70  67  75  65  56  28
+   blocks ar :  45  53  62  63  68  58  53  48  16
+seg1: hw frames 306 VI 671 | ares frames 333 VI 708
+   blocks hw :  70  76  69  60  60  60  65  63  72  64  12
+   blocks ar :  70  80  69  60  60  60  63  60  60  60  60   6
+cA: crash scene start 4609, shatter +641, text +667  (hardware +658-660 / +668)
+cA seg0: 250 frames / 465 VI, mean done 1.175 | seg1: 333 frames / 707 VI, mean done 1.433  (hw: seg0 230/465 mean done 1.37, seg1 324/706)
+== B (T_ZPASS=1)
+seg0: hw frames 225 VI 463 | ares frames 250 VI 466
+   blocks hw :  46  56  70  67  75  65  56  28
+   blocks ar :  45  53  62  64  68  59  53  47  15
+seg1: hw frames 306 VI 671 | ares frames 332 VI 708
+   blocks hw :  70  76  69  60  60  60  65  63  72  64  12
+   blocks ar :  71  79  70  60  60  60  64  60  60  60  60   4
+cB: crash scene start 4609, shatter +641, text +667  (hardware +658-660 / +668)
+cB seg0: 250 frames / 465 VI, mean done 1.177 | seg1: 331 frames / 705 VI, mean done 1.451  (hw: seg0 230/465 mean done 1.37, seg1 324/706)
+== C (T_ZPASS=1 T_ATOMIC=20 T_AA1=3.5)
+seg0: hw frames 225 VI 463 | ares frames 250 VI 466
+   blocks hw :  46  56  70  67  75  65  56  28
+   blocks ar :  45  53  62  64  68  59  53  47  15
+seg1: hw frames 306 VI 671 | ares frames 332 VI 708
+   blocks hw :  70  76  69  60  60  60  65  63  72  64  12
+   blocks ar :  71  79  70  60  60  60  64  60  60  60  60   4
+cC: crash scene start 4609, shatter +641, text +667  (hardware +658-660 / +668)
+cC seg0: 250 frames / 465 VI, mean done 1.177 | seg1: 331 frames / 705 VI, mean done 1.451  (hw: seg0 230/465 mean done 1.37, seg1 324/706)
+== D (T_ZPASS=1 T_ATOMIC=20 T_AA1=3.5 T_RASTER=1)
+seg0: hw frames 225 VI 463 | ares frames 229 VI 467
+   blocks hw :  46  56  70  67  75  65  56  28
+   blocks ar :  46  56  71  68  76  65  55  30
+seg1: hw frames 306 VI 671 | ares frames 301 VI 707
+   blocks hw :  70  76  69  60  60  60  65  63  72  64  12
+   blocks ar :  81  88  77  60  60  60  69  71  74  65   2
+cD: crash scene start 4611, shatter +647, text +667  (hardware +658-660 / +668)
+cD seg0: 226 frames / 464 VI, mean done 1.300 | seg1: 301 frames / 706 VI, mean done 1.547  (hw: seg0 230/465 mean done 1.37, seg1 324/706)
+== E (T_ZPASS=1 T_ATOMIC=20 T_AA1=3.5 T_RASTER=1 T_TRIOV=45 T_TRISP=3 T_SPWIDE=0.8)
+seg0: hw frames 225 VI 463 | ares frames 250 VI 467
+   blocks hw :  46  56  70  67  75  65  56  28
+   blocks ar :  44  52  61  65  72  58  53  47  15
+seg1: hw frames 306 VI 671 | ares frames 332 VI 709
+   blocks hw :  70  76  69  60  60  60  65  63  72  64  12
+   blocks ar :  73  80  69  60  60  60  63  60  60  60  60   4
+cE: crash scene start 4611, shatter +638, text +666  (hardware +658-660 / +668)
+cE seg0: 248 frames / 464 VI, mean done 1.156 | seg1: 331 frames / 705 VI, mean done 1.443  (hw: seg0 230/465 mean done 1.37, seg1 324/706)
+
+[exited with code 0]

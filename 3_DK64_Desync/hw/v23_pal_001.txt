@@ -1,0 +1,193 @@
+# rdp_timing v23 - in-game lists with mode bits / triangle commands patched (X), synthetic triangles one property at a time (Y)
+# mi_version	0x02020102
+# tv_type	PAL
+# memory_size	8388608
+# runs_per_case	3
+# texture at 0x0E3280; dma buffer at 0x7D0000; heap top 0x0E5000; display buffer at 0x04CB00; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+# console VI: ctrl 0x3302 width 640 v_sync 0x271 x_scale 0x400
+B0	113
+# X lines: list, variant, vi mode (vi_off, game = the game's VI_CTRL with VI_WIDTH 320), clock (smallest of 3), ticks, model (ares tables of the unpatched full list), VI_CTRL read back, VI_WIDTH, VI probe
+# XI lines: list, info (placement in RDRAM)
+# variants: no_tri / tri_only as v22 (NOPs replace the class); om_* patch every Set_Other_Modes (no_zcmp: Z_COMPARE off = all pass; no_zupd: Z_UPDATE off; no_aa: AA_EN off; no_persp: TEX_PERSP off; no_lod: TEX_LOD/SHARPEN/DETAIL off; 1cyc: 2-cycle lists as 1-cycle; no_dither: dither off; point: point sampling; no_tlut: EN_TLUT off; no_cvg: ALPHA_CVG_SEL/CVG_X_ALPHA/CVG_DST/COLOR_ON_CVG/ALPHA_COMPARE off; no_imrd: IMAGE_READ off; wlike: v22 W's mode bits with the list's cycle type, blender mux, Z and IMAGE_READ)
+# z_near: the depth-clearing fill removed and the depth buffer preset to 0 (every depth test fails); tri_flat: all shade/texture/depth slopes of the 0F triangles zeroed; tri_noshade/notex/edgez: 0F -> 0B / 0D / 09 (dropped words become NOPs)
+XI	bar_i2274.bin	list 64512 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_i2274.bin	full	vi_off	536790	402566	571596	0	640	93026
+X	bar_i2274.bin	full	game	620719	465534	571596	3012	320	104223
+X	bar_i2274.bin	no_tri	vi_off	226590	169916	571596	0	640	92998
+X	bar_i2274.bin	tri_only	vi_off	365339	273999	571596	0	640	92991
+X	bar_i2274.bin	tri_only	game	365231	273918	571596	3012	320	92993
+X	bar_i2274.bin	om_no_zcmp	vi_off	457679	343254	571596	0	640	92968
+X	bar_i2274.bin	om_no_zupd	vi_off	496679	372504	571596	0	640	93012
+X	bar_i2274.bin	z_near	vi_off	536771	402573	571596	0	640	92973
+X	bar_i2274.bin	om_no_aa	vi_off	536219	402159	571596	0	640	93035
+X	bar_i2274.bin	om_no_persp	vi_off	536747	402555	571596	0	640	93009
+X	bar_i2274.bin	om_no_lod	vi_off	536675	402501	571596	0	640	92976
+X	bar_i2274.bin	om_1cyc	vi_off	529607	397200	571596	0	640	93015
+X	bar_i2274.bin	om_no_dither	vi_off	536687	402510	571596	0	640	93007
+X	bar_i2274.bin	om_point	vi_off	536771	402573	571596	0	640	92973
+X	bar_i2274.bin	om_no_tlut	vi_off	536747	402555	571596	0	640	93008
+X	bar_i2274.bin	om_no_cvg	vi_off	540239	405174	571596	0	640	93023
+X	bar_i2274.bin	om_no_imrd	vi_off	468707	351525	571596	0	640	93000
+X	bar_i2274.bin	om_wlike	vi_off	534515	400881	571596	0	640	93012
+X	bar_i2274.bin	tri_flat	vi_off	536094	402044	571596	0	640	93014
+X	bar_i2274.bin	tri_noshade	vi_off	537707	403275	571596	0	640	93012
+X	bar_i2274.bin	tri_notex	vi_off	537791	403338	571596	0	640	93012
+X	bar_i2274.bin	tri_edgez	vi_off	538379	403779	571596	0	640	93012
+XI	bar_i2314.bin	list 170608 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_i2314.bin	full	vi_off	1384410	1038281	1564545	0	640	93016
+X	bar_i2314.bin	full	game	1384019	1038009	1564545	3012	320	92976
+X	bar_i2314.bin	no_tri	vi_off	283211	212403	1564545	0	640	92997
+X	bar_i2314.bin	tri_only	vi_off	1189895	892416	1564545	0	640	92998
+X	bar_i2314.bin	tri_only	game	1189895	892416	1564545	3012	320	92992
+X	bar_i2314.bin	om_no_zcmp	vi_off	1117127	837840	1564545	0	640	92989
+X	bar_i2314.bin	om_no_zupd	vi_off	1301555	976161	1564545	0	640	93017
+X	bar_i2314.bin	z_near	vi_off	1384415	1038306	1564545	0	640	93025
+X	bar_i2314.bin	om_no_aa	vi_off	1391118	1043312	1564545	0	640	93014
+X	bar_i2314.bin	om_no_persp	vi_off	1384343	1038252	1564545	0	640	93015
+X	bar_i2314.bin	om_no_lod	vi_off	1384343	1038252	1564545	0	640	93026
+X	bar_i2314.bin	om_1cyc	vi_off	1365371	1024023	1564545	0	640	93033
+X	bar_i2314.bin	om_no_dither	vi_off	1384235	1038171	1564545	0	640	93018
+X	bar_i2314.bin	om_point	vi_off	1384223	1038162	1564545	0	640	93026
+X	bar_i2314.bin	om_no_tlut	vi_off	1384199	1038144	1564545	0	640	93012
+X	bar_i2314.bin	om_no_cvg	vi_off	1416462	1062320	1564545	0	640	93014
+X	bar_i2314.bin	om_no_imrd	vi_off	1065234	798899	1564545	0	640	93014
+X	bar_i2314.bin	om_wlike	vi_off	1389047	1041780	1564545	0	640	93029
+X	bar_i2314.bin	tri_flat	vi_off	1375775	1031826	1564545	0	640	93029
+X	bar_i2314.bin	tri_noshade	vi_off	1387343	1040502	1564545	0	640	92991
+X	bar_i2314.bin	tri_notex	vi_off	1387626	1040693	1564545	0	640	92990
+X	bar_i2314.bin	tri_edgez	vi_off	1388663	1041492	1564545	0	640	92976
+XI	bar_i2404.bin	list 231488 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_i2404.bin	full	vi_off	1223579	917679	1400517	0	640	93036
+X	bar_i2404.bin	full	game	1223435	917571	1400517	3012	320	92987
+X	bar_i2404.bin	no_tri	vi_off	362579	271929	1400517	0	640	93014
+X	bar_i2404.bin	tri_only	vi_off	974231	730668	1400517	0	640	93018
+X	bar_i2404.bin	tri_only	game	974082	730535	1400517	3012	320	92989
+X	bar_i2404.bin	om_no_zcmp	vi_off	1050570	787901	1400517	0	640	93033
+X	bar_i2404.bin	om_no_zupd	vi_off	1192818	894587	1400517	0	640	92998
+X	bar_i2404.bin	z_near	vi_off	1223471	917598	1400517	0	640	93015
+X	bar_i2404.bin	om_no_aa	vi_off	1215779	911829	1400517	0	640	93018
+X	bar_i2404.bin	om_no_persp	vi_off	1223327	917490	1400517	0	640	92999
+X	bar_i2404.bin	om_no_lod	vi_off	1223711	917778	1400517	0	640	92998
+X	bar_i2404.bin	om_1cyc	vi_off	1189427	892065	1400517	0	640	93024
+X	bar_i2404.bin	om_no_dither	vi_off	1223231	917418	1400517	0	640	93023
+X	bar_i2404.bin	om_point	vi_off	1223471	917598	1400517	0	640	93023
+X	bar_i2404.bin	om_no_tlut	vi_off	1223459	917589	1400517	0	640	92999
+X	bar_i2404.bin	om_no_cvg	vi_off	1229781	922331	1400517	0	640	92998
+X	bar_i2404.bin	om_no_imrd	vi_off	987467	740595	1400517	0	640	93022
+X	bar_i2404.bin	om_wlike	vi_off	1207859	905889	1400517	0	640	93006
+X	bar_i2404.bin	tri_flat	vi_off	1218779	914079	1400517	0	640	93033
+X	bar_i2404.bin	tri_noshade	vi_off	1228463	921342	1400517	0	640	93017
+X	bar_i2404.bin	tri_notex	vi_off	1228926	921668	1400517	0	640	93018
+X	bar_i2404.bin	tri_edgez	vi_off	1233407	925050	1400517	0	640	93017
+XI	bar_2316.bin	list 174952 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+X	bar_2316.bin	full	vi_off	1401090	1050791	1237577	0	640	93023
+X	bar_2316.bin	full	game	1401035	1050771	1237577	3012	320	93033
+X	bar_2316.bin	no_tri	vi_off	286211	214653	1237577	0	640	92998
+X	bar_2316.bin	tri_only	vi_off	1205291	903963	1237577	0	640	93018
+X	bar_2316.bin	tri_only	game	1205207	903900	1237577	3012	320	93030
+X	bar_2316.bin	om_no_zcmp	vi_off	1138055	853536	1237577	0	640	93015
+X	bar_2316.bin	om_no_zupd	vi_off	1318890	989141	1237577	0	640	93015
+X	bar_2316.bin	z_near	vi_off	1401294	1050944	1237577	0	640	93022
+X	bar_2316.bin	om_no_aa	vi_off	1397778	1048307	1237577	0	640	93017
+X	bar_2316.bin	om_no_persp	vi_off	1401306	1050953	1237577	0	640	93020
+X	bar_2316.bin	om_no_lod	vi_off	1401083	1050807	1237577	0	640	93024
+X	bar_2316.bin	om_1cyc	vi_off	1375307	1031475	1237577	0	640	93022
+X	bar_2316.bin	om_no_dither	vi_off	1400963	1050717	1237577	0	640	93000
+X	bar_2316.bin	om_point	vi_off	1400975	1050726	1237577	0	640	93000
+X	bar_2316.bin	om_no_tlut	vi_off	1401186	1050863	1237577	0	640	92991
+X	bar_2316.bin	om_no_cvg	vi_off	1424423	1068312	1237577	0	640	92997
+X	bar_2316.bin	om_no_imrd	vi_off	1083371	812523	1237577	0	640	93009
+X	bar_2316.bin	om_wlike	vi_off	1395359	1046514	1237577	0	640	92976
+X	bar_2316.bin	tri_flat	vi_off	1392155	1044111	1237577	0	640	93021
+X	bar_2316.bin	tri_noshade	vi_off	1403855	1052886	1237577	0	640	92986
+X	bar_2316.bin	tri_notex	vi_off	1404023	1053012	1237577	0	640	92991
+X	bar_2316.bin	tri_edgez	vi_off	1405223	1053912	1237577	0	640	93011
+XI	dk64_797.bin	list 350424 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+X	dk64_797.bin	full	vi_off	1193550	895136	1012163	0	640	92990
+X	dk64_797.bin	full	game	1193658	895217	1012163	3016	320	92996
+X	dk64_797.bin	no_tri	vi_off	410670	307976	1012163	0	640	93014
+X	dk64_797.bin	tri_only	vi_off	968613	726455	1012163	0	640	93017
+X	dk64_797.bin	tri_only	game	968819	726609	1012163	3016	320	92986
+X	dk64_797.bin	om_no_zcmp	vi_off	960491	720363	1012163	0	640	93000
+X	dk64_797.bin	om_no_zupd	vi_off	1123679	842754	1012163	0	640	93018
+X	dk64_797.bin	z_near	vi_off	1193639	895224	1012163	0	640	93005
+X	dk64_797.bin	om_no_aa	vi_off	1156163	867117	1012163	0	640	93003
+X	dk64_797.bin	om_no_persp	vi_off	1193615	895206	1012163	0	640	92997
+X	dk64_797.bin	om_no_lod	vi_off	1193603	895197	1012163	0	640	93018
+X	dk64_797.bin	om_1cyc	vi_off	1193879	895404	1012163	0	640	93016
+X	dk64_797.bin	om_no_dither	vi_off	1193617	895208	1012163	0	640	92998
+X	dk64_797.bin	om_point	vi_off	1193723	895287	1012163	0	640	93015
+X	dk64_797.bin	om_no_tlut	vi_off	1193605	895198	1012163	0	640	92998
+X	dk64_797.bin	om_no_cvg	vi_off	1193459	895089	1012163	0	640	93003
+X	dk64_797.bin	om_no_imrd	vi_off	962831	722118	1012163	0	640	93016
+X	dk64_797.bin	om_wlike	vi_off	1104359	828264	1012163	0	640	93015
+X	dk64_797.bin	tri_flat	vi_off	1174441	880826	1012163	0	640	93017
+X	dk64_797.bin	tri_noshade	vi_off	1198667	898995	1012163	0	640	93018
+X	dk64_797.bin	tri_notex	vi_off	1198434	898799	1012163	0	640	93003
+X	dk64_797.bin	tri_edgez	vi_off	1202226	901643	1012163	0	640	93022
+# Y lines: case, w, H, triangles, spans, clock (smallest of 3), ticks, clocks/span, clocks/triangle, VI probe. VI off, depth cleared far (all pass), 2cyc_tex_blend_z unless the case says otherwise
+# Y cases: base = v22's W triangle (vertical edges at integer x, random position, 1/32 texel per pixel, constant shade/z); frac = edges at x+0.5; shear_half/two = all edges slanted 0.5/2 px per row (spans stay w wide); apex = real triangle, apex on top, base 2w (spans average w)
+#   aa = AA_EN; persp = TEX_PERSP; lod = TEX_LOD (tile 1 = tile 0); dither = rgb/alpha dither on; point = point sampling; cvg = ALPHA_CVG_SEL + CVG_DST full; bar_om = BAR's other modes 0x182c0f/0x0c182078; dk_om = DK64's 0x882c0f/0x00552078 (1-cycle)
+#   slopes = shade/texture (1 texel per pixel)/depth slopes nonzero; strip = triangles side by side along rows; same_place = every triangle at the same spot; state_every1/8 = Set_Other_Modes + Set_Combine before every / every 8th triangle; syncpipe_every1 = Sync_Pipe before every triangle; tile_every1 = Set_Tile + Set_Tile_Size + Sync_Tile before every triangle; load_every8 = Sync_Load + Load_Block (64 B) + Sync_Tile before every 8th
+#   ci4_tlut / rgba32_tex / i8_tex = texture format; op_0b/0d/09/08 = triangle command type (texture+z 14 words / shade+z 14 / z 6 / plain 4; the combiner reads the missing attribute from the previous one)
+Y	base	4	8	512	4096	368129	276093	89.88	719.0	93000
+Y	base	12	8	512	4096	478470	358847	116.81	934.5	92989
+Y	base	32	8	512	4096	694577	520929	169.57	1356.6	92987
+Y	frac	4	8	512	4096	368057	276038	89.86	718.9	92988
+Y	frac	12	8	512	4096	477941	358451	116.68	933.5	92997
+Y	frac	32	8	512	4096	694901	521172	169.65	1357.2	93016
+Y	shear_half	4	8	512	4096	363269	272447	88.69	709.5	93023
+Y	shear_half	12	8	512	4096	483846	362880	118.13	945.0	93005
+Y	shear_half	32	8	512	4096	697254	522935	170.23	1361.8	93023
+Y	shear_two	4	8	512	4096	380999	285718	93.02	744.1	93000
+Y	shear_two	12	8	512	4096	487254	365436	118.96	951.7	93017
+Y	shear_two	32	8	512	4096	700290	525212	170.97	1367.8	93016
+Y	apex	4	8	512	4096	354317	265734	86.50	692.0	92988
+Y	apex	12	8	512	4096	461454	346085	112.66	901.3	93033
+Y	apex	32	8	512	4096	684161	513116	167.03	1336.3	93023
+Y	aa	4	8	512	4096	368129	276093	89.88	719.0	93016
+Y	aa	12	8	512	4096	478553	358910	116.83	934.7	93017
+Y	aa	32	8	512	4096	694554	520911	169.57	1356.6	92991
+Y	aa_apex	4	8	512	4096	370913	278181	90.55	724.4	93006
+Y	aa_apex	12	8	512	4096	475410	356553	116.07	928.5	93029
+Y	aa_apex	32	8	512	4096	690414	517806	168.56	1348.5	93018
+Y	persp	4	8	512	4096	368118	276084	89.87	719.0	93018
+Y	persp	12	8	512	4096	478397	358794	116.80	934.4	93033
+Y	persp	32	8	512	4096	694665	520969	169.60	1356.8	93016
+Y	lod	4	8	512	4096	368106	276075	89.87	719.0	92998
+Y	lod	12	8	512	4096	478398	358794	116.80	934.4	93024
+Y	lod	32	8	512	4096	694410	520803	169.53	1356.3	93013
+Y	dither	4	8	512	4096	368190	276138	89.89	719.1	93000
+Y	dither	12	8	512	4096	478458	358839	116.81	934.5	93018
+Y	dither	32	8	512	4096	694542	520902	169.57	1356.5	93012
+Y	point	4	8	512	4096	368141	276102	89.88	719.0	93035
+Y	point	12	8	512	4096	478493	358866	116.82	934.6	93018
+Y	point	32	8	512	4096	694577	520929	169.57	1356.6	92987
+Y	cvg	4	8	512	4096	368105	276075	89.87	719.0	93024
+Y	cvg	12	8	512	4096	478433	358821	116.80	934.4	93022
+Y	cvg	32	8	512	4096	694377	520752	169.53	1356.2	92986
+Y	bar_om	4	8	512	4096	368142	276102	89.88	719.0	93016
+Y	bar_om	12	8	512	4096	478470	358847	116.81	934.5	93012
+Y	bar_om	32	8	512	4096	694506	520875	169.56	1356.5	93025
+Y	bar_om_apex	4	8	512	4096	374142	280602	91.34	730.7	92989
+Y	bar_om_apex	12	8	512	4096	480365	360269	117.28	938.2	93009
+Y	bar_om_apex	32	8	512	4096	707465	530594	172.72	1381.8	93000
+Y	bar_om_lod	4	8	512	4096	368141	276102	89.88	719.0	93009
+Y	bar_om_lod	12	8	512	4096	478518	358884	116.83	934.6	92988
+Y	bar_om_lod	32	8	512	4096	694314	520730	169.51	1356.1	92997
+Y	slopes	4	8	512	4096	368177	276128	89.89	719.1	92986
+Y	slopes	12	8	512	4096	478566	358920	116.84	934.7	93011
+Y	slopes	32	8	512	4096	694461	520816	169.55	1356.4	93000
+Y	strip	4	8	512	4096	350393	262791	85.55	684.4	92987
+Y	strip	12	8	512	4096	469170	351872	114.54	916.3	92973
+Y	strip	32	8	512	4096	684008	512976	166.99	1336.0	92997
+Y	same_place	4	8	512	4096	207785	155835	50.73	405.8	93022
+Y	same_place	12	8	512	4096	292913	219680	71.51	572.1	93017
+Y	same_place	32	8	512	4096	478493	358866	116.82	934.6	93018
+Y	state_every1	4	8	512	4096	369954	277461	90.32	722.6	93004
+Y	state_every1	12	8	512	4096	480414	360305	117.29	938.3	93033
+Y	state_every1	32	8	512	4096	694878	521154	169.65	1357.2	93014
+Y	state_every8	4	8	512	4096	368358	276264	89.93	719.4	92989
+Y	state_every8	12	8	512	4096	478918	359157	116.92	935.4	92999
+Y	state_every8	32	8	512	4096	694506	520874	169.56	1356.5	93013

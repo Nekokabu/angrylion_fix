@@ -1,0 +1,188 @@
+# rdp_timing v8 - primitive placement vs height, the CPU under RDP load
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	4194304
+# runs_per_case	3
+# VI on (320x240 16-bit console display) unless a line says otherwise
+# arena at 0x0E8800 (2252800 bytes); default fb = arena, zb = arena + 0x4B000; texture at 0x39E880; dma source at 0x38E840; cached buffer at 0x30E808 (524288 bytes)
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; depth rows cleared to 0xFFFC (all pass) before each run
+# the last column of G/GT/FL lines is the CPU-measured wall time of the same list in COP0 ticks (46.875 MHz; x4/3 = RDP clocks); a clock of 0 means the list timed out
+B0	115
+# series run: G and F (hold A at power-on for G only, B for F only, Z for D)
+# G lines: mode, w, h, layout, primitives, clock, ticks   (rectangles)
+#   stacked: x 0, y advancing by h+1 (wrapping); scattered: pseudo-random positions; columns: side by side on the same rows
+G	1cyc16_blend_zpass	16	1	stacked	64	7339	5499
+G	1cyc16_blend_zpass	16	1	scattered	64	9799	7344
+G	1cyc16_blend_zpass	16	1	columns	64	7158	5364
+G	1cyc16_blend_zpass	16	2	stacked	64	13447	10080
+G	1cyc16_blend_zpass	16	2	scattered	64	18126	13590
+G	1cyc16_blend_zpass	16	2	columns	64	13915	10432
+G	1cyc16_blend_zpass	16	4	stacked	64	25242	18927
+G	1cyc16_blend_zpass	16	4	scattered	64	35706	26775
+G	1cyc16_blend_zpass	16	4	columns	64	30055	22536
+G	1cyc16_blend_zpass	16	8	stacked	64	44311	33228
+G	1cyc16_blend_zpass	16	8	scattered	64	67867	50896
+G	1cyc16_blend_zpass	16	8	columns	64	60942	45670
+G	1cyc16_blend_zpass	16	16	stacked	64	83443	62577
+G	1cyc16_blend_zpass	16	16	scattered	64	140191	105138
+G	1cyc16_blend_zpass	16	16	columns	64	120758	90529
+G	1cyc16_blend_zpass	16	32	stacked	64	161694	121266
+G	1cyc16_blend_zpass	16	32	scattered	64	271530	203644
+G	1cyc16_blend_zpass	16	32	columns	64	236059	177040
+G	1cyc16_blend_zpass	64	1	stacked	64	18655	13987
+G	1cyc16_blend_zpass	64	1	scattered	64	21787	16336
+G	1cyc16_blend_zpass	64	1	columns	64	17515	13132
+G	1cyc16_blend_zpass	64	4	stacked	64	71826	53865
+G	1cyc16_blend_zpass	64	4	scattered	64	80650	60453
+G	1cyc16_blend_zpass	64	4	columns	64	75330	56493
+G	1cyc16_blend_zpass	64	16	stacked	64	223158	167364
+G	1cyc16_blend_zpass	64	16	scattered	64	287743	215803
+G	1cyc16_blend_zpass	64	16	columns	64	315282	236457
+G	1cyc16	16	1	stacked	64	3043	2278
+G	1cyc16	16	1	scattered	64	2803	2097
+G	1cyc16	16	1	columns	64	2947	2205
+G	1cyc16	16	2	stacked	64	5010	3753
+G	1cyc16	16	2	scattered	64	4662	3492
+G	1cyc16	16	2	columns	64	4927	3691
+G	1cyc16	16	4	stacked	64	8718	6534
+G	1cyc16	16	4	scattered	64	8610	6454
+G	1cyc16	16	4	columns	64	8911	6679
+G	1cyc16	16	8	stacked	64	16278	12204
+G	1cyc16	16	8	scattered	64	16255	12186
+G	1cyc16	16	8	columns	64	16615	12457
+G	1cyc16	16	16	stacked	64	31291	23464
+G	1cyc16	16	16	scattered	64	31651	23733
+G	1cyc16	16	16	columns	64	31770	23823
+G	1cyc16	16	32	stacked	64	61686	46260
+G	1cyc16	16	32	scattered	64	62251	46683
+G	1cyc16	16	32	columns	64	62779	47080
+G	1cyc16	64	1	stacked	64	6246	4680
+G	1cyc16	64	1	scattered	64	5874	4401
+G	1cyc16	64	1	columns	64	6163	4617
+G	1cyc16	64	4	stacked	64	21295	15967
+G	1cyc16	64	4	scattered	64	21055	15787
+G	1cyc16	64	4	columns	64	21283	15958
+G	1cyc16	64	16	stacked	64	82134	61596
+G	1cyc16	64	16	scattered	64	81558	61164
+G	1cyc16	64	16	columns	64	82231	61668
+G	fill16	16	1	stacked	64	1627	1216
+G	fill16	16	1	scattered	64	2047	1531
+G	fill16	16	1	columns	64	1638	1224
+G	fill16	16	2	stacked	64	2514	1881
+G	fill16	16	2	scattered	64	3391	2538
+G	fill16	16	2	columns	64	2311	1728
+G	fill16	16	4	stacked	64	4843	3628
+G	fill16	16	4	scattered	64	6475	4852
+G	fill16	16	4	columns	64	4986	3735
+G	fill16	16	8	stacked	64	9511	7128
+G	fill16	16	8	scattered	64	12607	9450
+G	fill16	16	8	columns	64	9751	7308
+G	fill16	16	16	stacked	64	18822	14112
+G	fill16	16	16	scattered	64	24786	18585
+G	fill16	16	16	columns	64	19111	14329
+G	fill16	16	32	stacked	64	37459	28089
+G	fill16	16	32	scattered	64	49230	36918
+G	fill16	16	32	columns	64	37746	28305
+G	fill16	64	1	stacked	64	2898	2169
+G	fill16	64	1	scattered	64	3774	2826
+G	fill16	64	1	columns	64	2719	2035
+G	fill16	64	4	stacked	64	10746	8055
+G	fill16	64	4	scattered	64	13722	10287
+G	fill16	64	4	columns	64	10879	8155
+G	fill16	64	16	stacked	64	42247	31680
+G	fill16	64	16	scattered	64	53454	40086
+G	fill16	64	16	columns	64	42307	31726
+G	1cyc16_tex_blend_zpass	16	1	stacked	64	7338	5499
+G	1cyc16_tex_blend_zpass	16	1	scattered	64	9967	7471
+G	1cyc16_tex_blend_zpass	16	1	columns	64	7219	5409
+G	1cyc16_tex_blend_zpass	16	2	stacked	64	13530	10143
+G	1cyc16_tex_blend_zpass	16	2	scattered	64	18234	13671
+G	1cyc16_tex_blend_zpass	16	2	columns	64	13914	10431
+G	1cyc16_tex_blend_zpass	16	4	stacked	64	25243	18927
+G	1cyc16_tex_blend_zpass	16	4	scattered	64	35946	26955
+G	1cyc16_tex_blend_zpass	16	4	columns	64	30042	22527
+G	1cyc16_tex_blend_zpass	16	8	stacked	64	44418	33309
+G	1cyc16_tex_blend_zpass	16	8	scattered	64	68166	51120
+G	1cyc16_tex_blend_zpass	16	8	columns	64	60882	45657
+G	1cyc16_tex_blend_zpass	16	16	stacked	64	83310	62478
+G	1cyc16_tex_blend_zpass	16	16	scattered	64	140551	105409
+G	1cyc16_tex_blend_zpass	16	16	columns	64	120648	90449
+G	1cyc16_tex_blend_zpass	16	32	stacked	64	162056	121507
+G	1cyc16_tex_blend_zpass	16	32	scattered	64	271458	203589
+G	1cyc16_tex_blend_zpass	16	32	columns	64	236082	177057
+G	1cyc16_tex_blend_zpass	64	1	stacked	64	18666	13963
+G	1cyc16_tex_blend_zpass	64	1	scattered	64	21882	16407
+G	1cyc16_tex_blend_zpass	64	1	columns	64	17551	13159
+G	1cyc16_tex_blend_zpass	64	4	stacked	64	72067	54045
+G	1cyc16_tex_blend_zpass	64	4	scattered	64	80124	60056
+G	1cyc16_tex_blend_zpass	64	4	columns	64	75619	56710
+G	1cyc16_tex_blend_zpass	64	16	stacked	64	222798	167094
+G	1cyc16_tex_blend_zpass	64	16	scattered	64	287335	215496
+G	1cyc16_tex_blend_zpass	64	16	columns	64	315787	236836
+# GT lines: mode, legs, layout, primitives, clock, ticks   (triangles)
+GT	1cyc16_blend_zpass	8	stacked	64	33127	24840
+GT	1cyc16_blend_zpass	8	scattered	64	46219	34660
+GT	1cyc16_blend_zpass	8	strip	64	39583	29682
+GT	1cyc16_blend_zpass	16	stacked	64	61446	46080
+GT	1cyc16_blend_zpass	16	scattered	64	111955	83961
+GT	1cyc16_blend_zpass	16	strip	64	88327	66240
+GT	1cyc16	8	stacked	64	10123	7587
+GT	1cyc16	8	scattered	64	11491	8613
+GT	1cyc16	8	strip	64	10459	7837
+GT	1cyc16	16	stacked	64	22758	17064
+GT	1cyc16	16	scattered	64	26118	19584
+GT	1cyc16	16	strip	64	22974	17226
+GT	1cyc16_tex_blend_zpass	8	stacked	64	33570	25173
+GT	1cyc16_tex_blend_zpass	8	scattered	64	46327	34741
+GT	1cyc16_tex_blend_zpass	8	strip	64	40290	30213
+GT	1cyc16_tex_blend_zpass	16	stacked	64	62803	47097
+GT	1cyc16_tex_blend_zpass	16	scattered	64	110574	82926
+GT	1cyc16_tex_blend_zpass	16	strip	64	89142	66853
+# F lines: vi(on|off), rdp load, cpu test, ticks (COP0, 46.875 MHz; smallest of 3), rdp still busy at the end (1 = valid)
+#   the rdp load is a long list started just before the cpu test; its own clock is reported in FL lines
+F	off	idle	cached_read_256K(16K line fills)	311054	1
+F	off	idle	cached_copy_128K(8K fills+8K writebacks)	484278	1
+F	off	idle	uncached_read32_x16K	330462	1
+F	off	idle	uncached_write32_x16K	147284	1
+F	off	idle	icache_32K_code_x8(8K line fills)	212366	1
+F	off	idle	alu_loop_100K(no memory)	350019	1
+F	off	idle	pointer_chase_16K(dependent line fills, 256K ring)	372594	1
+F	on	idle	cached_read_256K(16K line fills)	318026	1
+F	on	idle	cached_copy_128K(8K fills+8K writebacks)	499609	1
+F	on	idle	uncached_read32_x16K	338034	1
+F	on	idle	uncached_write32_x16K	156465	1
+F	on	idle	icache_32K_code_x8(8K line fills)	221184	1
+F	on	idle	alu_loop_100K(no memory)	350019	1
+F	on	idle	pointer_chase_16K(dependent line fills, 256K ring)	381671	1
+FL	blend_zpass_320x40x30	995515	746632
+F	on	blend_zpass_320x40x30	cached_read_256K(16K line fills)	349208	1
+F	on	blend_zpass_320x40x30	cached_copy_128K(8K fills+8K writebacks)	557521	1
+F	on	blend_zpass_320x40x30	uncached_read32_x16K	367808	1
+F	on	blend_zpass_320x40x30	uncached_write32_x16K	244417	1
+F	on	blend_zpass_320x40x30	icache_32K_code_x8(8K line fills)	261992	1
+F	on	blend_zpass_320x40x30	alu_loop_100K(no memory)	350019	1
+F	on	blend_zpass_320x40x30	pointer_chase_16K(dependent line fills, 256K ring)	383215	0
+FL	blend_zpass_16x8x1600	961663	721243
+F	on	blend_zpass_16x8x1600	cached_read_256K(16K line fills)	355864	1
+F	on	blend_zpass_16x8x1600	cached_copy_128K(8K fills+8K writebacks)	561141	1
+F	on	blend_zpass_16x8x1600	uncached_read32_x16K	368230	1
+F	on	blend_zpass_16x8x1600	uncached_write32_x16K	221455	1
+F	on	blend_zpass_16x8x1600	icache_32K_code_x8(8K line fills)	257620	1
+F	on	blend_zpass_16x8x1600	alu_loop_100K(no memory)	350019	1
+F	on	blend_zpass_16x8x1600	pointer_chase_16K(dependent line fills, 256K ring)	382717	0
+FL	plain_320x40x90	1256443	942328
+F	on	plain_320x40x90	cached_read_256K(16K line fills)	325426	1
+F	on	plain_320x40x90	cached_copy_128K(8K fills+8K writebacks)	608995	1
+F	on	plain_320x40x90	uncached_read32_x16K	342957	1
+F	on	plain_320x40x90	uncached_write32_x16K	206750	1
+F	on	plain_320x40x90	icache_32K_code_x8(8K line fills)	270348	1
+F	on	plain_320x40x90	alu_loop_100K(no memory)	350019	1
+F	on	plain_320x40x90	pointer_chase_16K(dependent line fills, 256K ring)	381624	0
+FL	fill_320x240x40	1875594	1406691
+F	on	fill_320x240x40	cached_read_256K(16K line fills)	334248	1
+F	on	fill_320x240x40	cached_copy_128K(8K fills+8K writebacks)	567479	1
+F	on	fill_320x240x40	uncached_read32_x16K	348568	1
+F	on	fill_320x240x40	uncached_write32_x16K	262871	1
+F	on	fill_320x240x40	icache_32K_code_x8(8K line fills)	270686	1
+F	on	fill_320x240x40	alu_loop_100K(no memory)	350019	1
+F	on	fill_320x240x40	pointer_chase_16K(dependent line fills, 256K ring)	395905	0

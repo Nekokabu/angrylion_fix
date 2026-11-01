@@ -1,0 +1,76 @@
+# rsp_timing v19c (D series only unless A is held at power-on) - SP DMA / RSP register access beside a drawing RDP, a 320x240 VI mode and a cache-missing CPU; and the RDP beside a DMAing RSP
+# tv_type	PAL
+# memory_size	8388608
+# runs_per_case	4
+# rdp loads: fill = 320x240 Fill_Rectangle repeated; tex = 32x32 RGBA16 Load_Tile + full-screen 1-cycle bilinear Texture_Rectangle; texzb = the same with blending (image read) and Z compare/update (prim depth)
+# cpu loads: idle = polling SP_STATUS / MI_INTR; chase = dependent random line fills over 64 KiB between polls (16 per poll)
+# console VI: ctrl 0x3302 width 640 v_sync 0x271 x_scale 0x400
+# D lines: rdp list, vi mode, cpu load, rsp kernel, dma bytes, DPC_CLOCK of the list (smallest of 4), CPU ticks of the list for that run, RSP iterations completed during it, chase loads during it, rectangles in the list, flag (1 = the list needed more than 8 s with the RSP running and was finished with the RSP halted)
+D	fill	vi_off	idle	none	0	1768214	1326188	0	0	40	0
+D	fill	vi_off	idle	dma_in	8	2065554	1549147	96469	0	40	0
+D	fill	vi_off	idle	dma_in	64	2207684	1655797	48170	0	40	0
+D	fill	vi_off	idle	dma_in	512	5440605	4080381	48452	0	40	0
+D	fill	vi_off	idle	dma_in	3584	5442532	4081883	96939	0	40	0
+D	fill	vi_off	idle	dma_out	512	5048514	3786338	98449	0	40	0
+D	fill	vi_off	idle	dma_out	3584	10438924	20411776	48428	0	40	0
+D	fill	vi_off	idle	fifo_wait_like	0	1768194	1326125	104023	0	40	0
+D	fill	vi_off	idle	vertex_like	0	1768194	1326125	46536	0	40	0
+D	fill	vi_off	chase	none	0	2803582	2102702	0	85792	40	0
+D	fill	vi_off	chase	dma_in	8	4533608	3400199	96599	97216	40	0
+D	fill	vi_off	chase	dma_in	64	5524083	4143031	87581	156512	40	0
+D	fill	vi_off	chase	dma_in	512	218724	12746925	89876	408720	40	0
+D	fill	vi_off	chase	dma_in	3584	62604	75544165	88939	2313440	40	0
+D	fill	vi_off	chase	dma_out	512	14931897	11198924	80566	319696	40	0
+D	fill	vi_off	chase	dma_out	3584	4210808	78655379	92233	2315920	40	0
+D	fill	vi_off	chase	fifo_wait_like	0	2804070	2103021	164958	85984	40	0
+D	fill	vi_off	chase	vertex_like	0	2803777	2102819	73789	85952	40	0
+D	fill	game_0x13012	idle	none	0	2125326	1594023	0	0	40	0
+D	fill	game_0x13012	idle	dma_in	8	2739935	2054929	53920	0	40	0
+D	fill	game_0x13012	idle	dma_in	64	2943888	2207896	56131	0	40	0
+D	fill	game_0x13012	idle	dma_in	512	7368988	5526694	51993	0	40	0
+D	fill	game_0x13012	idle	dma_in	3584	10132866	32764890	58368	0	40	0
+D	fill	game_0x13012	idle	dma_out	512	7151498	5363543	55172	0	40	0
+D	fill	game_0x13012	idle	dma_out	3584	6927231	30360787	111844	0	40	0
+D	fill	game_0x13012	idle	fifo_wait_like	0	2125362	1594001	125033	0	40	0
+D	fill	game_0x13012	idle	vertex_like	0	2125446	1594064	55937	0	40	0
+D	fill	game_0x13012	chase	none	0	3621025	2715787	0	92688	40	0
+D	fill	game_0x13012	chase	dma_in	8	6758765	5069041	116135	128432	40	0
+D	fill	game_0x13012	chase	dma_in	64	8492820	6369593	110651	207312	40	0
+D	fill	game_0x13012	chase	dma_in	512	12775178	22164166	251945	592656	40	0
+D	fill	game_0x13012	chase	dma_in	3584	9381538	132865055	120700	3440848	40	0
+D	fill	game_0x13012	chase	dma_out	512	9492057	132947768	242235	3442976	40	0
+D	fill	game_0x13012	chase	dma_out	3584	3011877	140670448	123957	3630848	40	0
+D	fill	game_0x13012	chase	fifo_wait_like	0	3620639	2715448	212993	92816	40	0
+D	fill	game_0x13012	chase	vertex_like	0	3620601	2715481	95286	92672	40	0
+D	tex	vi_off	idle	none	0	1624546	1218436	0	0	20	0
+D	tex	vi_off	idle	dma_in	8	1934151	1450592	48932	0	20	0
+D	tex	vi_off	idle	dma_in	64	1759543	1319635	34851	0	20	0
+D	tex	vi_off	idle	dma_in	512	5324205	3993105	48542	0	20	0
+D	tex	vi_off	idle	dma_in	3584	5321906	3991424	97065	0	20	0
+D	tex	vi_off	idle	dma_out	512	4866368	3649813	48900	0	20	0
+D	tex	vi_off	idle	dma_out	3584	10927704	20778280	49627	0	20	0
+D	tex	vi_off	idle	fifo_wait_like	0	1624638	1218458	95579	0	20	0
+D	tex	vi_off	idle	vertex_like	0	1624498	1218353	42754	0	20	0
+D	tex	vi_off	chase	none	0	2766523	2074908	0	86048	20	0
+D	tex	vi_off	chase	dma_in	8	4378358	3283762	97115	97696	20	0
+D	tex	vi_off	chase	dma_in	64	5215831	3911842	167208	149248	20	0
+D	tex	vi_off	chase	dma_in	512	377438	12865961	91130	413728	20	0
+D	tex	vi_off	chase	dma_in	3584	401508	12883988	182648	414368	20	0
+D	tex	vi_off	chase	dma_out	512	10683043	70926679	250799	2172208	20	0
+D	tex	vi_off	chase	dma_out	3584	5922408	79939077	94204	2360368	20	0
+D	tex	vi_off	chase	fifo_wait_like	0	2768219	2076150	162850	86160	20	0
+D	tex	vi_off	chase	vertex_like	0	2768115	2076071	72850	86448	20	0
+D	tex	game_0x13012	idle	none	0	1895421	1421708	0	0	20	0
+D	tex	game_0x13012	idle	dma_in	8	2471386	1853519	50635	0	20	0
+D	tex	game_0x13012	idle	dma_in	64	2439078	1829287	90697	0	20	0
+D	tex	game_0x13012	idle	dma_in	512	6706848	5030084	48193	0	20	0
+D	tex	game_0x13012	idle	dma_in	3584	1730687	26463446	47082	0	20	0
+D	tex	game_0x13012	idle	dma_out	512	1676186	26422425	94090	0	20	0
+D	tex	game_0x13012	idle	dma_out	3584	8765167	31739206	59145	0	20	0
+D	tex	game_0x13012	idle	fifo_wait_like	0	1893745	1420311	111410	0	20	0
+D	tex	game_0x13012	idle	vertex_like	0	1893774	1420343	49842	0	20	0
+D	tex	game_0x13012	chase	none	0	3533100	2649873	0	91968	20	0
+D	tex	game_0x13012	chase	dma_in	8	6598053	4948504	120891	128240	20	0
+D	tex	game_0x13012	chase	dma_in	64	6655599	4991706	242405	128944	20	0
+D	tex	game_0x13012	chase	dma_in	512	11631101	21306121	120971	572352	20	0
+# RDP TIMEOUT in D tex game_0x13012 chase dma_in 3584 - the list did not finish even after the RSP was halted; stopping

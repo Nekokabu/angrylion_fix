@@ -1,0 +1,1844 @@
+region: NTSC id: NED cic: CIC-NUS-7101
+[status] Vulkan Disabled: No RDP rendering support
+RDP TIMING v15  NTSC  8 MiB
+SERIES init DONE (717 bytes), NEXT: V (replay of game lists with command classes removed)
+NO SD CARD - NOT SAVED
+RDP TIMING v15
+
+V  dk64_795.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_795.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_795.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_795.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  dk64_795.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_795.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_795.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_795.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_795.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_795.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_795.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_795.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_795.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_795.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_795.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_795.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_795.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_795.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_795.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_795.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_796.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_796.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_796.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_796.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_796.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_796.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_796.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_796.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_796.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_796.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_796.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_796.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_796.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_796.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_796.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_796.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_796.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_796.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_796.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_796.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_797.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_797.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_797.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_797.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_797.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_797.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  dk64_797.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  dk64_797.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_797.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_797.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_797.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_797.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_797.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_797.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_797.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_797.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_797.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_797.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_797.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_797.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1795.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1795.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1795.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1795.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  dk64_1795.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  dk64_1795.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1795.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  dk64_1795.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1795.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1795.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1795.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1795.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_1795.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1795.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_1795.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1795.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_1795.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1795.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_1795.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1795.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1796.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1796.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1796.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1796.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1796.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1796.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1796.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  dk64_1796.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1796.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1796.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1796.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1796.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_1796.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1796.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1796.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1796.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_1796.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1796.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1796.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1796.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1797.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1797.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1797.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1797.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1797.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1797.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  dk64_1797.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  dk64_1797.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1797.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1797.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1797.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1797.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1797.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1797.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  dk64_1797.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1797.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_1797.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  dk64_1797.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  dk64_1797.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  dk64_1797.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2316.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2316.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2316.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2316.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2316.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2316.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_2316.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2316.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2316.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2316.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2316.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2316.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2316.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2316.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2316.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2316.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2316.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2316.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2316.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2316.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2317.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2317.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2317.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2317.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2317.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2317.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2317.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2317.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2317.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2317.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2317.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2317.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2317.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2317.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2317.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2317.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2317.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2317.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2317.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2317.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2318.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2318.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2318.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2318.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2318.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2318.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_2318.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2318.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2318.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2318.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2318.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2318.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2318.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2318.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2318.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2318.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2318.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2318.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2318.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2318.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2556.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2556.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2556.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2556.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2556.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2556.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_2556.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_2556.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2556.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2556.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2556.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2556.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2556.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2556.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2556.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2556.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2556.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2556.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2556.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2556.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2557.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2557.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2557.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_2557.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2557.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2557.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_2557.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2557.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2557.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2557.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2557.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2557.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2557.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2557.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2557.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2557.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2557.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2557.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2557.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2557.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2558.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2558.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2558.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2558.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2558.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2558.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_2558.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2558.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2558.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2558.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2558.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2558.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_2558.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2558.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2558.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2558.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2558.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_2558.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_2558.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_2558.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_t2500.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2500.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2500.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2500.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2500.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2500.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2500.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2500.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_t2500.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2500.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_t2500.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2500.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_t2500.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2500.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_t2500.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2500.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_t2500.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2500.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_t2500.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2500.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_t2501.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2501.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2501.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2501.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2501.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2501.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2501.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_t2501.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_t2501.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2501.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_t2501.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2501.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_t2501.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2501.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_t2501.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2501.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_t2501.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2501.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_t2501.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_t2501.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_c2520.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_c2520.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2520.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2520.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_c2520.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2520.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2520.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2520.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2520.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_c2520.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_c2520.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2520.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2520.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_c2520.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2520.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2520.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2520.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_c2520.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2520.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2520.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_c2521.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2521.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2521.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_c2521.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2521.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2521.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  bar_c2521.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2521.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2521.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_c2521.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2521.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_c2521.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  bar_c2521.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  bar_c2521.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2521.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_c2521.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2521.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_c2521.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  bar_c2521.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  bar_c2521.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  mgc_1250.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_1250.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_1250.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_1250.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_1250.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_1250.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  mgc_1250.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_1250.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  mgc_1250.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_1250.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  mgc_1250.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_1250.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  mgc_1250.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_1250.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  mgc_1250.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_1250.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  mgc_1250.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_1250.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  mgc_1250.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_1250.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  mgc_2900.bin  full
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_2900.bin  full  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_2900.bin  full  vi_off
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_2900.bin  full  rom_aa3_0x3302
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_2900.bin  full  bar_0x13012
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  mgc_2900.bin  full  dk64_0x13016
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_2900.bin  full  hires_0x13052
+VI WARNING: __vblank_interrupt outside of vblank period: 220
+RDP TIMING v15
+
+V  mgc_2900.bin  full  mgc_0x3242_w1280
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  mgc_2900.bin  no_tri
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_2900.bin  no_tri  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  mgc_2900.bin  no_load
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_2900.bin  no_load  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 212
+RDP TIMING v15
+
+V  mgc_2900.bin  no_rect
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_2900.bin  no_rect  game
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  mgc_2900.bin  state_only
+VI WARNING: __vblank_interrupt outside of vblank period: 216
+RDP TIMING v15
+
+V  mgc_2900.bin  state_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  mgc_2900.bin  tri_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_2900.bin  tri_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+RDP TIMING v15
+
+V  mgc_2900.bin  fetch_only
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+RDP TIMING v15
+
+V  mgc_2900.bin  fetch_only  game
+VI WARNING: __vblank_interrupt outside of vblank period: 218
+VI WARNING: __vblank_interrupt outside of vblank period: 210
+SERIES V DONE (15498 bytes), NEXT: next
+VI WARNING: __vblank_interrupt outside of vblank period: 208
+MEASURED, 15498 BYTES OF RESULTS
+NO SD CARD - NOT SAVED
+---- RESULTS ----
+# rdp_timing v15 - replay of game display lists with classes of commands replaced by NOPs, under the games' VI modes
+# mi_version	0x02020102
+# tv_type	NTSC
+# memory_size	8388608
+# runs_per_case	3
+# VI on (320x240 16-bit console display) unless a line says otherwise
+# texture at 0x0E0E40; dma buffer at 0x7D0000; heap top 0x0E3000; display buffer at 0x04A6C0; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+# console VI: ctrl 0x3302 width 640 v_sync 0x20D x_scale 0x400
+B0	236
+# series run: V (replay of game lists with command classes removed)
+# V lines: list, variant, vi mode (game = the game's VI_CTRL, vi_off), clock (smallest of 3), ticks (CPU wall time), model of the full list (ares tables only)
+# VI lines: list, info (placement in RDRAM)
+# variants: NOPs replace a class of commands (every word of the command): sync = Sync_Load/Pipe/Tile, load = Load_TLUT/Block/Tile, tri = 08-0F, rect = 24/25/36, state = the other Set_* (Sync_Full and the carried-over prefix always stay)
+VI	dk64_795.bin	list 352712 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+V	dk64_795.bin	full	game	1067347	814473	1008338
+V	dk64_795.bin	full	vi_off	1144414	858703	1008338
+V	dk64_795.bin	full	rom_aa3_0x3302	1144414	858703	1008338
+V	dk64_795.bin	full	bar_0x13012	1144430	858715	1008338
+V	dk64_795.bin	full	dk64_0x13016	1124599	858222	1008338
+V	dk64_795.bin	full	hires_0x13052	1144430	858715	1008338
+V	dk64_795.bin	full	mgc_0x3242_w1280	1173226	880322	1008338
+V	dk64_795.bin	no_tri	game	409038	306903	1008338
+V	dk64_795.bin	no_load	game	981162	736205	1008338
+V	dk64_795.bin	no_rect	game	1095038	821653	1008338
+V	dk64_795.bin	state_only	game	196378	147330	1008338
+V	dk64_795.bin	tri_only	game	931770	699143	1008338
+V	dk64_795.bin	fetch_only	game	260862	195717	1008338
+VI	dk64_796.bin	list 351480 B, prefix 20, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+V	dk64_796.bin	full	game	1151340	863846	1014749
+V	dk64_796.bin	full	vi_off	1132107	863952	1014749
+V	dk64_796.bin	full	rom_aa3_0x3302	1152646	864880	1014749
+V	dk64_796.bin	full	bar_0x13012	1151340	863846	1014749
+V	dk64_796.bin	full	dk64_0x13016	1151340	863846	1014749
+V	dk64_796.bin	full	hires_0x13052	1132124	863964	1014749
+V	dk64_796.bin	full	mgc_0x3242_w1280	1181458	886499	1014749
+V	dk64_796.bin	no_tri	game	409038	306903	1014749
+V	dk64_796.bin	no_load	game	988022	741352	1014749
+V	dk64_796.bin	no_rect	game	1101898	826800	1014749
+V	dk64_796.bin	state_only	game	196378	147331	1014749
+V	dk64_796.bin	tri_only	game	938630	704290	1014749
+V	dk64_796.bin	fetch_only	game	255862	195238	1014749
+VI	dk64_797.bin	list 350424 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+V	dk64_797.bin	full	game	1148546	861803	1012163
+V	dk64_797.bin	full	vi_off	1148530	861792	1012163
+V	dk64_797.bin	full	rom_aa3_0x3302	1128839	861458	1012163
+V	dk64_797.bin	full	bar_0x13012	1148546	861803	1012163
+V	dk64_797.bin	full	dk64_0x13016	1148546	861803	1012163
+V	dk64_797.bin	full	hires_0x13052	1148546	861803	1012163
+V	dk64_797.bin	full	mgc_0x3242_w1280	1178714	884441	1012163
+V	dk64_797.bin	no_tri	game	409038	306903	1012163
+V	dk64_797.bin	no_load	game	985278	739293	1012163
+V	dk64_797.bin	no_rect	game	1099154	824742	1012163
+V	dk64_797.bin	state_only	game	195006	146301	1012163
+V	dk64_797.bin	tri_only	game	935886	702231	1012163
+V	dk64_797.bin	fetch_only	game	260862	195717	1012163
+VI	dk64_1795.bin	list 365920 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+V	dk64_1795.bin	full	game	1523102	1142857	1305940
+V	dk64_1795.bin	full	vi_off	1523086	1142845	1305940
+V	dk64_1795.bin	full	rom_aa3_0x3302	1523086	1142845	1305940
+V	dk64_1795.bin	full	bar_0x13012	1496372	1141944	1305940
+V	dk64_1795.bin	full	dk64_0x13016	1523102	1142857	1305940
+V	dk64_1795.bin	full	hires_0x13052	1523102	1142857	1305940
+V	dk64_1795.bin	full	mgc_0x3242_w1280	1561502	1171671	1305940
+V	dk64_1795.bin	no_tri	game	443338	332641	1305940
+V	dk64_1795.bin	no_load	game	1328278	996668	1305940
+V	dk64_1795.bin	no_rect	game	1472338	1104766	1305940
+V	dk64_1795.bin	state_only	game	199122	149389	1305940
+V	dk64_1795.bin	tri_only	game	1278886	959606	1305940
+V	dk64_1795.bin	fetch_only	game	264978	198805	1305940
+VI	dk64_1796.bin	list 382112 B, prefix 22, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+V	dk64_1796.bin	full	game	1497034	1123297	1282660
+V	dk64_1796.bin	full	vi_off	1497018	1123284	1282660
+V	dk64_1796.bin	full	rom_aa3_0x3302	1497018	1123285	1282660
+V	dk64_1796.bin	full	bar_0x13012	1487105	1122369	1282660
+V	dk64_1796.bin	full	dk64_0x13016	1497034	1123296	1282660
+V	dk64_1796.bin	full	hires_0x13052	1497034	1123297	1282660
+V	dk64_1796.bin	full	mgc_0x3242_w1280	1534062	1151081	1282660
+V	dk64_1796.bin	no_tri	game	447504	335713	1282660
+V	dk64_1796.bin	no_load	game	1302210	977107	1282660
+V	dk64_1796.bin	no_rect	game	1446270	1085205	1282660
+V	dk64_1796.bin	state_only	game	204610	153507	1282660
+V	dk64_1796.bin	tri_only	game	1252818	940046	1282660
+V	dk64_1796.bin	fetch_only	game	270466	202923	1282660
+VI	dk64_1797.bin	list 391968 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+V	dk64_1797.bin	full	game	1444898	1084175	1238570
+V	dk64_1797.bin	full	vi_off	1444882	1084163	1238570
+V	dk64_1797.bin	full	rom_aa3_0x3302	1444882	1084163	1238570
+V	dk64_1797.bin	full	bar_0x13012	1444898	1084176	1238570
+V	dk64_1797.bin	full	dk64_0x13016	1444898	1084176	1238570
+V	dk64_1797.bin	full	hires_0x13052	1444898	1084176	1238570
+V	dk64_1797.bin	full	mgc_0x3242_w1280	1481926	1111960	1238570
+V	dk64_1797.bin	no_tri	game	451570	338817	1238570
+V	dk64_1797.bin	no_load	game	1251446	939016	1238570
+V	dk64_1797.bin	no_rect	game	1395506	1047113	1238570
+V	dk64_1797.bin	state_only	game	207404	155550	1238570
+V	dk64_1797.bin	tri_only	game	1180820	901128	1238570
+V	dk64_1797.bin	fetch_only	game	274582	206012	1238570
+VI	bar_2316.bin	list 174952 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_2316.bin	full	game	1386059	1057756	1237577
+V	bar_2316.bin	full	vi_off	1410582	1058426	1237577
+V	bar_2316.bin	full	rom_aa3_0x3302	1410582	1058426	1237577
+V	bar_2316.bin	full	bar_0x13012	1410598	1058438	1237577
+V	bar_2316.bin	full	dk64_0x13016	1386059	1057756	1237577
+V	bar_2316.bin	full	hires_0x13052	1410598	1058438	1237577
+V	bar_2316.bin	full	mgc_0x3242_w1280	1446254	1085193	1237577
+V	bar_2316.bin	no_tri	game	288302	216307	1237577
+V	bar_2316.bin	no_load	game	1284374	963724	1237577
+V	bar_2316.bin	no_rect	game	1343370	1007992	1237577
+V	bar_2316.bin	state_only	game	94850	71148	1237577
+V	bar_2316.bin	tri_only	game	1217146	913279	1237577
+V	bar_2316.bin	fetch_only	game	140126	105121	1237577
+VI	bar_2317.bin	list 177416 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_2317.bin	full	game	1425690	1069762	1250538
+V	bar_2317.bin	full	vi_off	1425674	1069751	1250538
+V	bar_2317.bin	full	rom_aa3_0x3302	1401755	1069736	1250538
+V	bar_2317.bin	full	bar_0x13012	1425690	1069762	1250538
+V	bar_2317.bin	full	dk64_0x13016	1425690	1069763	1250538
+V	bar_2317.bin	full	hires_0x13052	1425690	1069762	1250538
+V	bar_2317.bin	full	mgc_0x3242_w1280	1437969	1097373	1250538
+V	bar_2317.bin	no_tri	game	289674	217337	1250538
+V	bar_2317.bin	no_load	game	1299466	975048	1250538
+V	bar_2317.bin	no_rect	game	1359834	1020346	1250538
+V	bar_2317.bin	state_only	game	96222	72177	1250538
+V	bar_2317.bin	tri_only	game	1233610	925633	1250538
+V	bar_2317.bin	fetch_only	game	141498	106151	1250538
+VI	bar_2318.bin	list 175304 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_2318.bin	full	game	1396793	1065949	1247163
+V	bar_2318.bin	full	vi_off	1421558	1066662	1247163
+V	bar_2318.bin	full	rom_aa3_0x3302	1421558	1066662	1247163
+V	bar_2318.bin	full	bar_0x13012	1421574	1066674	1247163
+V	bar_2318.bin	full	dk64_0x13016	1396793	1065949	1247163
+V	bar_2318.bin	full	hires_0x13052	1421574	1066674	1247163
+V	bar_2318.bin	full	mgc_0x3242_w1280	1457283	1093421	1247163
+V	bar_2318.bin	no_tri	game	283374	216235	1247163
+V	bar_2318.bin	no_load	game	1295350	971960	1247163
+V	bar_2318.bin	no_rect	game	1354346	1016228	1247163
+V	bar_2318.bin	state_only	game	96222	72177	1247163
+V	bar_2318.bin	tri_only	game	1228122	921515	1247163
+V	bar_2318.bin	fetch_only	game	140126	105121	1247163
+VI	bar_2556.bin	list 197096 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_2556.bin	full	game	1424368	1068717	1285170
+V	bar_2556.bin	full	vi_off	1433906	1075927	1285170
+V	bar_2556.bin	full	rom_aa3_0x3302	1409127	1075362	1285170
+V	bar_2556.bin	full	bar_0x13012	1433922	1075939	1285170
+V	bar_2556.bin	full	dk64_0x13016	1433922	1075940	1285170
+V	bar_2556.bin	full	hires_0x13052	1433922	1075939	1285170
+V	bar_2556.bin	full	mgc_0x3242_w1280	1446253	1103695	1285170
+V	bar_2556.bin	no_tri	game	391202	293520	1285170
+V	bar_2556.bin	no_load	game	1278526	960490	1285170
+V	bar_2556.bin	no_rect	game	1300838	976078	1285170
+V	bar_2556.bin	state_only	game	105826	79383	1285170
+V	bar_2556.bin	tri_only	game	1147174	860774	1285170
+V	bar_2556.bin	fetch_only	game	146986	110268	1285170
+VI	bar_2557.bin	list 199544 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_2557.bin	full	game	1419150	1082955	1293564
+V	bar_2557.bin	full	vi_off	1444882	1084163	1293564
+V	bar_2557.bin	full	rom_aa3_0x3302	1444882	1084164	1293564
+V	bar_2557.bin	full	bar_0x13012	1444898	1084175	1293564
+V	bar_2557.bin	full	dk64_0x13016	1419632	1083378	1293564
+V	bar_2557.bin	full	hires_0x13052	1444898	1084175	1293564
+V	bar_2557.bin	full	mgc_0x3242_w1280	1481926	1111960	1293564
+V	bar_2557.bin	no_tri	game	387704	295854	1293564
+V	bar_2557.bin	no_load	game	1288490	966813	1293564
+V	bar_2557.bin	no_rect	game	1288911	983618	1293564
+V	bar_2557.bin	state_only	game	105826	79384	1293564
+V	bar_2557.bin	tri_only	game	1155406	866951	1293564
+V	bar_2557.bin	fetch_only	game	148358	111298	1293564
+VI	bar_2558.bin	list 199504 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_2558.bin	full	game	1457246	1093441	1306636
+V	bar_2558.bin	full	vi_off	1448855	1093255	1306636
+V	bar_2558.bin	full	rom_aa3_0x3302	1457230	1093429	1306636
+V	bar_2558.bin	full	bar_0x13012	1457246	1093441	1306636
+V	bar_2558.bin	full	dk64_0x13016	1457246	1093441	1306636
+V	bar_2558.bin	full	hires_0x13052	1432666	1093325	1306636
+V	bar_2558.bin	full	mgc_0x3242_w1280	1495646	1122255	1306636
+V	bar_2558.bin	no_tri	game	391202	293520	1306636
+V	bar_2558.bin	no_load	game	1282489	978717	1306636
+V	bar_2558.bin	no_rect	game	1324162	993579	1306636
+V	bar_2558.bin	state_only	game	103692	79108	1306636
+V	bar_2558.bin	tri_only	game	1171870	879305	1306636
+V	bar_2558.bin	fetch_only	game	148358	111298	1306636
+VI	bar_t2500.bin	list 71696 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_t2500.bin	full	game	542172	406748	636568
+V	bar_t2500.bin	full	vi_off	543478	407782	636568
+V	bar_t2500.bin	full	rom_aa3_0x3302	543478	407782	636568
+V	bar_t2500.bin	full	bar_0x13012	543494	407794	636568
+V	bar_t2500.bin	full	dk64_0x13016	533680	407258	636568
+V	bar_t2500.bin	full	hires_0x13052	543494	407794	636568
+V	bar_t2500.bin	full	mgc_0x3242_w1280	558570	419107	636568
+V	bar_t2500.bin	no_tri	game	244398	183363	636568
+V	bar_t2500.bin	no_load	game	452942	339847	636568
+V	bar_t2500.bin	no_rect	game	450198	337788	636568
+V	bar_t2500.bin	state_only	game	59592	45454	636568
+V	bar_t2500.bin	tri_only	game	359646	269841	636568
+V	bar_t2500.bin	fetch_only	game	105826	79384	636568
+VI	bar_t2501.bin	list 71696 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_t2501.bin	full	game	533794	407345	636696
+V	bar_t2501.bin	full	vi_off	543478	407782	636696
+V	bar_t2501.bin	full	rom_aa3_0x3302	543478	407782	636696
+V	bar_t2501.bin	full	bar_0x13012	543494	407794	636696
+V	bar_t2501.bin	full	dk64_0x13016	543494	407794	636696
+V	bar_t2501.bin	full	hires_0x13052	543494	407794	636696
+V	bar_t2501.bin	full	mgc_0x3242_w1280	558570	419106	636696
+V	bar_t2501.bin	no_tri	game	244398	183363	636696
+V	bar_t2501.bin	no_load	game	454314	340877	636696
+V	bar_t2501.bin	no_rect	game	450198	337788	636696
+V	bar_t2501.bin	state_only	game	60550	45410	636696
+V	bar_t2501.bin	tri_only	game	359646	269841	636696
+V	bar_t2501.bin	fetch_only	game	105826	79383	636696
+VI	bar_c2520.bin	list 191000 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_c2520.bin	full	game	1373347	1048056	1633633
+V	bar_c2520.bin	full	vi_off	1396862	1048131	1633633
+V	bar_c2520.bin	full	rom_aa3_0x3302	1396862	1048131	1633633
+V	bar_c2520.bin	full	bar_0x13012	1396878	1048143	1633633
+V	bar_c2520.bin	full	dk64_0x13016	1373347	1048056	1633633
+V	bar_c2520.bin	full	hires_0x13052	1396878	1048143	1633633
+V	bar_c2520.bin	full	mgc_0x3242_w1280	1433906	1075927	1633633
+V	bar_c2520.bin	no_tri	game	382193	291649	1633633
+V	bar_c2520.bin	no_load	game	1244586	933869	1633633
+V	bar_c2520.bin	no_rect	game	1263794	948281	1633633
+V	bar_c2520.bin	state_only	game	103082	77325	1633633
+V	bar_c2520.bin	tri_only	game	1111502	834007	1633633
+V	bar_c2520.bin	fetch_only	game	145614	109239	1633633
+VI	bar_c2521.bin	list 190648 B, prefix 22, z 3DA800+153600, regions 0E4498-400000, offset +100000
+V	bar_c2521.bin	full	game	1409226	1057408	1648632
+V	bar_c2521.bin	full	vi_off	1409210	1057397	1648632
+V	bar_c2521.bin	full	rom_aa3_0x3302	1385339	1057208	1648632
+V	bar_c2521.bin	full	bar_0x13012	1409226	1057409	1648632
+V	bar_c2521.bin	full	dk64_0x13016	1409226	1057408	1648632
+V	bar_c2521.bin	full	hires_0x13052	1409226	1057409	1648632
+V	bar_c2521.bin	full	mgc_0x3242_w1280	1421857	1085077	1648632
+V	bar_c2521.bin	no_tri	game	389830	292490	1648632
+V	bar_c2521.bin	no_load	game	1251415	942322	1648632
+V	bar_c2521.bin	no_rect	game	1276142	957547	1648632
+V	bar_c2521.bin	state_only	game	103082	77324	1648632
+V	bar_c2521.bin	tri_only	game	1123850	843273	1648632
+V	bar_c2521.bin	fetch_only	game	145614	109239	1648632
+VI	mgc_1250.bin	list 229768 B, prefix 10, z 46A000+524800, regions 188510-680200, offset +000000
+V	mgc_1250.bin	full	game	1591686	1194320	1562632
+V	mgc_1250.bin	full	vi_off	1550526	1163435	1562632
+V	mgc_1250.bin	full	rom_aa3_0x3302	1525642	1162696	1562632
+V	mgc_1250.bin	full	bar_0x13012	1550542	1163447	1562632
+V	mgc_1250.bin	full	dk64_0x13016	1550542	1163447	1562632
+V	mgc_1250.bin	full	hires_0x13052	1523675	1162780	1562632
+V	mgc_1250.bin	full	mgc_0x3242_w1280	1591686	1194320	1562632
+V	mgc_1250.bin	no_tri	game	700256	534381	1562632
+V	mgc_1250.bin	no_load	game	1119718	840172	1562632
+V	mgc_1250.bin	no_rect	game	1591686	1194320	1562632
+V	mgc_1250.bin	state_only	game	240266	180262	1562632
+V	mgc_1250.bin	tri_only	game	1119718	840172	1562632
+V	mgc_1250.bin	fetch_only	game	296089	225938	1562632
+VI	mgc_2900.bin	list 281824 B, prefix 10, z 46A000+524800, regions 1891D0-680200, offset +000000
+V	mgc_2900.bin	full	game	1346098	1010040	1334831
+V	mgc_2900.bin	full	vi_off	1290150	984563	1334831
+V	mgc_2900.bin	full	rom_aa3_0x3302	1313170	985331	1334831
+V	mgc_2900.bin	full	bar_0x13012	1313186	985343	1334831
+V	mgc_2900.bin	full	dk64_0x13016	1290165	984575	1334831
+V	mgc_2900.bin	full	hires_0x13052	1313186	985343	1334831
+V	mgc_2900.bin	full	mgc_0x3242_w1280	1346098	1010040	1334831
+V	mgc_2900.bin	no_tri	game	343166	257475	1334831
+V	mgc_2900.bin	no_load	game	1232222	924591	1334831
+V	mgc_2900.bin	no_rect	game	1346098	1010039	1334831
+V	mgc_2900.bin	state_only	game	224933	171635	1334831
+V	mgc_2900.bin	tri_only	game	1232222	924591	1334831
+V	mgc_2900.bin	fetch_only	game	318470	238944	1334831
+---- END ----
+DONE

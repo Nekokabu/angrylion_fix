@@ -1,0 +1,110 @@
+# rdp_timing v15 - replay of game display lists with classes of commands replaced by NOPs, under the games' VI modes
+# mi_version	0x02020102
+# tv_type	PAL
+# memory_size	8388608
+# runs_per_case	3
+# VI on (320x240 16-bit console display) unless a line says otherwise
+# texture at 0x0E0BC0; dma buffer at 0x7D0000; heap top 0x0E3000; display buffer at 0x04A440; replayed lists at 0x700000, their data moved up to at least 0x100000
+# values: smallest DPC_CLOCK of 3 runs, including the list start and Sync_Full; ticks are COP0 count (46.875 MHz, x2 = CPU cycles, x4/3 = RDP clocks)
+# console VI: ctrl 0x3302 width 640 v_sync 0x271 x_scale 0x400
+B0	124
+# series run: V (replay of game lists with command classes removed)
+# V lines: list, variant, vi mode (game = the game's VI_CTRL, vi_off), clock (smallest of 3), ticks (CPU wall time), model of the full list (ares tables only)
+# VI lines: list, info (placement in RDRAM)
+# variants: NOPs replace a class of commands (every word of the command): sync = Sync_Load/Pipe/Tile, load = Load_TLUT/Block/Tile, tri = 08-0F, rect = 24/25/36, state = the other Set_* (Sync_Full and the carried-over prefix always stay)
+VI	dk64_795.bin	list 352712 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+V	dk64_795.bin	full	game	1785851	1339384	1008338
+V	dk64_795.bin	full	vi_off	1196266	897196	1008338
+V	dk64_795.bin	full	rom_aa3_0x3302	1239460	929591	1008338
+V	dk64_795.bin	full	bar_0x13012	1787254	1340439	1008338
+V	dk64_795.bin	full	dk64_0x13016	1786688	1340015	1008338
+V	dk64_795.bin	full	hires_0x13052	1789822	1342363	1008338
+V	dk64_795.bin	full	mgc_0x3242_w1280	1373179	1029878	1008338
+V	dk64_795.bin	no_sync	game	1759880	1319906	1008338
+V	dk64_795.bin	no_load	game	1559623	1169663	1008338
+V	dk64_795.bin	no_load_sync	game	1526135	1144571	1008338
+V	dk64_795.bin	no_rect	game	1266225	949640	1008338
+V	dk64_795.bin	no_tri	game	572867	429647	1008338
+V	dk64_795.bin	tri_only	game	980001	734996	1008338
+V	dk64_795.bin	state_only	game	180907	135626	1008338
+V	dk64_795.bin	fetch_only	game	157737	118274	1008338
+VI	dk64_796.bin	list 351480 B, prefix 20, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+V	dk64_796.bin	full	game	1786640	1339979	1014749
+V	dk64_796.bin	full	vi_off	1196506	897376	1014749
+V	dk64_796.bin	full	rom_aa3_0x3302	1238774	929077	1014749
+V	dk64_796.bin	full	bar_0x13012	1789125	1341839	1014749
+V	dk64_796.bin	full	dk64_0x13016	1786244	1339679	1014749
+V	dk64_796.bin	full	hires_0x13052	1787756	1340814	1014749
+V	dk64_796.bin	full	mgc_0x3242_w1280	1376004	1031999	1014749
+V	dk64_796.bin	no_sync	game	1760288	1320213	1014749
+V	dk64_796.bin	no_load	game	1559089	1169267	1014749
+V	dk64_796.bin	no_load_sync	game	1527941	1145912	1014749
+V	dk64_796.bin	no_rect	game	1266777	950054	1014749
+V	dk64_796.bin	no_tri	game	572164	429120	1014749
+V	dk64_796.bin	tri_only	game	980590	735439	1014749
+V	dk64_796.bin	state_only	game	179819	134834	1014749
+V	dk64_796.bin	fetch_only	game	157147	117815	1014749
+VI	dk64_797.bin	list 350424 B, prefix 20, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+V	dk64_797.bin	full	game	1781605	1336199	1012163
+V	dk64_797.bin	full	vi_off	1193614	895207	1012163
+V	dk64_797.bin	full	rom_aa3_0x3302	1236177	927104	1012163
+V	dk64_797.bin	full	bar_0x13012	1785116	1338833	1012163
+V	dk64_797.bin	full	dk64_0x13016	1783115	1337334	1012163
+V	dk64_797.bin	full	hires_0x13052	1786304	1339724	1012163
+V	dk64_797.bin	full	mgc_0x3242_w1280	1370008	1027502	1012163
+V	dk64_797.bin	no_sync	game	1760998	1320744	1012163
+V	dk64_797.bin	no_load	game	1553217	1164884	1012163
+V	dk64_797.bin	no_load_sync	game	1520321	1140188	1012163
+V	dk64_797.bin	no_rect	game	1265985	949460	1012163
+V	dk64_797.bin	no_tri	game	570406	427801	1012163
+V	dk64_797.bin	tri_only	game	979263	734445	1012163
+V	dk64_797.bin	state_only	game	178775	134051	1012163
+V	dk64_797.bin	fetch_only	game	156604	117401	1012163
+VI	dk64_1795.bin	list 365920 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+V	dk64_1795.bin	full	game	2352478	1764354	1305940
+V	dk64_1795.bin	full	vi_off	1546805	1160078	1305940
+V	dk64_1795.bin	full	rom_aa3_0x3302	1604230	1203169	1305940
+V	dk64_1795.bin	full	bar_0x13012	2355308	1766478	1305940
+V	dk64_1795.bin	full	dk64_0x13016	2352274	1764201	1305940
+V	dk64_1795.bin	full	hires_0x13052	2362424	1771816	1305940
+V	dk64_1795.bin	full	mgc_0x3242_w1280	1772404	1329299	1305940
+V	dk64_1795.bin	no_sync	game	2314589	1735937	1305940
+V	dk64_1795.bin	no_load	game	2050512	1537879	1305940
+V	dk64_1795.bin	no_load_sync	game	2015353	1511510	1305940
+V	dk64_1795.bin	no_rect	game	1637211	1227875	1305940
+V	dk64_1795.bin	no_tri	game	622365	466770	1305940
+V	dk64_1795.bin	tri_only	game	1301398	976045	1305940
+V	dk64_1795.bin	state_only	game	185089	138785	1305940
+V	dk64_1795.bin	fetch_only	game	164745	123530	1305940
+VI	dk64_1796.bin	list 382112 B, prefix 22, z 5D2E00+153600, regions 042A40-5F8600, offset +100000
+V	dk64_1796.bin	full	game	2328802	1746598	1282660
+V	dk64_1796.bin	full	vi_off	1534457	1150817	1282660
+V	dk64_1796.bin	full	rom_aa3_0x3302	1591378	1193530	1282660
+V	dk64_1796.bin	full	bar_0x13012	2329124	1746840	1282660
+V	dk64_1796.bin	full	dk64_0x13016	2331297	1748469	1282660
+V	dk64_1796.bin	full	hires_0x13052	2331358	1748514	1282660
+V	dk64_1796.bin	full	mgc_0x3242_w1280	1750122	1312586	1282660
+V	dk64_1796.bin	no_sync	game	2289205	1716897	1282660
+V	dk64_1796.bin	no_load	game	2024384	1518285	1282660
+V	dk64_1796.bin	no_load_sync	game	1991794	1493841	1282660
+V	dk64_1796.bin	no_rect	game	1631641	1223690	1282660
+V	dk64_1796.bin	no_tri	game	631160	473366	1282660
+V	dk64_1796.bin	tri_only	game	1293517	970088	1282660
+V	dk64_1796.bin	state_only	game	192357	144212	1282660
+V	dk64_1796.bin	fetch_only	game	172511	129326	1282660
+VI	dk64_1797.bin	list 391968 B, prefix 22, z 5D2E00+153600, regions 01D240-5F8600, offset +100000
+V	dk64_1797.bin	full	game	2253327	1689992	1238570
+V	dk64_1797.bin	full	vi_off	1484110	1113079	1238570
+V	dk64_1797.bin	full	rom_aa3_0x3302	1538758	1154065	1238570
+V	dk64_1797.bin	full	bar_0x13012	2254979	1691231	1238570
+V	dk64_1797.bin	full	dk64_0x13016	2252903	1689672	1238570
+V	dk64_1797.bin	full	hires_0x13052	2257208	1692904	1238570
+V	dk64_1797.bin	full	mgc_0x3242_w1280	1703694	1277767	1238570
+V	dk64_1797.bin	no_sync	game	2221665	1666246	1238570
+V	dk64_1797.bin	no_load	game	1943170	1457374	1238570
+V	dk64_1797.bin	no_load_sync	game	1918355	1438761	1238570
+V	dk64_1797.bin	no_rect	game	1574089	1180508	1238570
+V	dk64_1797.bin	no_tri	game	635826	476867	1238570
+V	dk64_1797.bin	tri_only	game	1252029	938993	1238570
+V	dk64_1797.bin	state_only	game	197214	147866	1238570
+V	dk64_1797.bin	fetch_only	game	177203	132854	1238570
